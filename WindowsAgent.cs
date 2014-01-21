@@ -6,11 +6,20 @@ using System.Text;
 using System.Configuration;
 using System.Diagnostics;
 
+using Bend.Util;
+
 public class Agent
 {
     public static int Main(String[] args)
     {
         ConnectToController("localhost");
+
+        int port = 8081;
+        Bend.Util.MyHttpServer controller = new Bend.Util.MyHttpServer(port);
+
+        controller.connect();
+
+        HttpProcessor processor = new HttpProcessor(, controller); 
 
         return 0;
     }
@@ -19,74 +28,6 @@ public class Agent
     {
         try
         {
-            var uri = new Uri("http://localhost");
-            uri = uri.SetPort(8081);
-
-            IPHostEntry hostInfo1 = Dns.GetHostEntry("127.0.0.1");
-            IPAddress ip = hostInfo1.AddressList[2];
-
-
-            HttpListener listener = new HttpListener();
-            listener.Prefixes.Add(uri.ToString());
-            listener.Start();
-            Console.WriteLine("Listening...");
-            // Note: The GetContext method blocks while waiting for a request. 
-            HttpListenerContext context = listener.GetContext();
-            HttpListenerRequest req = context.Request;
-            // Obtain a response object.
-            HttpListenerResponse res = context.Response;
-            // Construct a response. 
-            string resString = "HTTP/1.1 200 OK\r\n";
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(resString);
-            // Get a response stream and write the response to it.
-            res.ContentLength64 = buffer.Length;
-            System.IO.Stream output = res.OutputStream;
-            output.Write(buffer,0,buffer.Length);
-            // You must close the output stream.
-            output.Close();
-            listener.Stop();
-  
-
-
-            //UriExtensions.SetAllowUnsafeHeaderParsing20();
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-
-            // Set some reasonable limits on resources used by this request
-            //request.MaximumAutomaticRedirections = 4;
-            //request.MaximumResponseHeadersLength = 4;
-            request.ServicePoint.Expect100Continue = false;
-            ServicePointManager.MaxServicePointIdleTime = 2000;
-            // Set credentials to use for this request.
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.ProtocolVersion = HttpVersion.Version11;
-
-            //System.IO.Stream req = request.GetRequestStream();
-
-            string responseString = "HTTP/1.1 200 OK\r\n";
-            //byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-
-            // Get a response stream and write the response to it.
-            //response.ContentLength64 = buffer.Length;
-
-            // Retrieve request info headers - HERE I GET THE EXCEPTION 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            Console.WriteLine("Content length is {0}", response.ContentLength);
-            Console.WriteLine("Content type is {0}", response.ContentType);
-
-            // Get the stream associated with the response.
-            Stream receiveStream = response.GetResponseStream();
-
-            // Pipes the stream to a higher level stream reader with the required encoding format. 
-            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-
-            Console.WriteLine("Response stream received.");
-            Console.WriteLine(readStream.ReadToEnd());
-            response.Close();
-            readStream.Close();
-
-
             //Set up variables and String to post to the server.
             Encoding ASCII = Encoding.ASCII;
             string Post = "Agent version 0 running on " + server + "\n";
@@ -151,6 +92,27 @@ public class Agent
                 }
             }
 
+            
+
+            /*
+
+            //Stream inputStream = new BufferedStream(socket.GetStream());
+
+            //// we probably shouldn't be using a streamwriter for all output from handlers either
+            //StreamWriter outputStream = new StreamWriter(new BufferedStream(socket.GetStream()));
+
+            //String request = streamReadLine(inputStream);
+            //string[] tokens = request.Split(' ');
+            //if (tokens.Length != 3)
+            //{
+            //    throw new Exception("invalid http request line");
+            //}
+            //http_method = tokens[0].ToUpper();
+            //http_url = tokens[1];
+            //http_protocol_versionstring = tokens[2];
+
+            //Console.WriteLine("starting: " + request);
+
             // Send the data to the host.
             sock.Send(BytePost, BytePost.Length, 0);
 
@@ -178,7 +140,7 @@ public class Agent
 
             SpawnProcess(binFolder, processName, jobName, arguments, dataFolder, outputFolder);
 
-            /*
+          
              
             */
 

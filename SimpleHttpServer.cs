@@ -58,22 +58,36 @@ namespace Bend.Util {
 
             // we probably shouldn't be using a streamwriter for all output from handlers either
             outputStream = new StreamWriter(new BufferedStream(socket.GetStream()));
-            try {
-                parseRequest();
-                readHeaders();
-                if (http_method.Equals("GET")) {
-                    handleGETRequest();
-                } else if (http_method.Equals("POST")) {
-                    handlePOSTRequest();
-                }
-            } catch (Exception e) {
-                Console.WriteLine("Exception: " + e.ToString());
-                writeFailure();
+
+            String request = streamReadLine(inputStream);
+            string[] tokens = request.Split(' ');
+            if (tokens.Length != 3)
+            {
+                throw new Exception("invalid http request line");
             }
-            outputStream.Flush();
-            // bs.Flush(); // flush any remaining output
-            inputStream = null; outputStream = null; // bs = null;            
-            socket.Close();             
+            http_method = tokens[0].ToUpper();
+            http_url = tokens[1];
+            http_protocol_versionstring = tokens[2];
+
+            Console.WriteLine("starting: " + request);
+
+
+            //try {
+            //    parseRequest();
+            //    readHeaders();
+            //    if (http_method.Equals("GET")) {
+            //        handleGETRequest();
+            //    } else if (http_method.Equals("POST")) {
+            //        handlePOSTRequest();
+            //    }
+            //} catch (Exception e) {
+            //    Console.WriteLine("Exception: " + e.ToString());
+            //    writeFailure();
+            //}
+            //outputStream.Flush();
+            //// bs.Flush(); // flush any remaining output
+            //inputStream = null; outputStream = null; // bs = null;            
+            //socket.Close();             
         }
 
         public void parseRequest() {
@@ -172,7 +186,7 @@ namespace Bend.Util {
             outputStream.WriteLine("Connection: close");
             outputStream.WriteLine("");
         }
-    }
+    }    
 
     public abstract class HttpServer {
 
@@ -185,9 +199,52 @@ namespace Bend.Util {
             this.port = port;
         }
 
-        public void listen() {
-            IPHostEntry hostInfo1 = Dns.GetHostEntry("127.0.0.1");  //TODO: make this an argument
+        public void connect()
+        {
+            IPHostEntry hostInfo1 = Dns.GetHostEntry("127.0.0.1");
             IPAddress ip = hostInfo1.AddressList[2];
+
+            // Creates the Socket to send data over a TCP connection.
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            string connectedIP = null;
+            IPEndPoint hostEndPoint = new IPEndPoint(ip, 8081);
+
+            //Connects to this.Host and this.PORT
+            sock.Connect(hostEndPoint);
+
+            if (!sock.Connected)
+            {
+                // Connection failed, try next IPaddress.
+                Console.WriteLine("Unable to connect to host " + ip.ToString());
+                sock = null;
+            }
+            else
+            {
+                Console.WriteLine("Connected to host " + ip.ToString());
+                connectedIP = ip.ToString();
+                //break;
+            }
+ 
+
+            // Send the data to the host.
+            //sock.Send(BytePost, BytePost.Length, 0);
+
+            // Receive the content and loop until all the data is received.
+            //Int32 bytes = sock.Receive(RecvBytes, RecvBytes.Length, 0);
+            //strRetData = strRetData + ASCII.GetString(RecvBytes, 0, bytes);
+
+            //while (bytes > 0)
+            //{
+            //    bytes = sock.Receive(RecvBytes, RecvBytes.Length, 0);
+            //    strRetData = strRetData + ASCII.GetString(RecvBytes, 0, bytes);
+            //}
+
+            //Console.WriteLine("Received from " + connectedIP.ToString() + ": " + strRetData);
+        }
+
+        public void listen() {
+            //IPHostEntry hostInfo1 = Dns.GetHostEntry("127.0.0.1");  //TODO: make this an argument
+            //IPAddress ip = hostInfo1.AddressList[2];
 
             // Create a listener.
             HttpListener listener = new HttpListener();
@@ -269,20 +326,20 @@ namespace Bend.Util {
         }
     }
 
-    public class TestMain {
-        public static int Main(String[] args) {
-            HttpServer httpServer;
-            if (args.GetLength(0) > 0) {
-                httpServer = new MyHttpServer(Convert.ToInt16(args[0]));
-            } else {
-                httpServer = new MyHttpServer(8081);
-            }
-            Thread thread = new Thread(new ThreadStart(httpServer.listen));
-            thread.Start();
-            return 0;
-        }
-
-    }
+    //public class TestMain 
+    //{
+    //    public static int Main(String[] args) {
+    //        HttpServer httpServer;
+    //        if (args.GetLength(0) > 0) {
+    //            httpServer = new MyHttpServer(Convert.ToInt16(args[0]));
+    //        } else {
+    //            httpServer = new MyHttpServer(8081);
+    //        }
+    //        //Thread thread = new Thread(new ThreadStart(httpServer.listen));
+    //        //thread.Start();
+    //        return 0;
+    //    }
+    //}
 
 }
 
