@@ -177,7 +177,8 @@ namespace Bend.Util {
     public abstract class HttpServer {
 
         protected int port;
-        TcpListener listener;
+        //TcpListener listener;
+        HttpListener listener;
         bool is_active = true;
        
         public HttpServer(int port) {
@@ -188,14 +189,22 @@ namespace Bend.Util {
             IPHostEntry hostInfo1 = Dns.GetHostEntry("127.0.0.1");  //TODO: make this an argument
             IPAddress ip = hostInfo1.AddressList[2];
 
-            listener = new TcpListener(ip, port);
-            listener.Start();
+            // Create a listener.
+            HttpListener listener = new HttpListener();
+            // Add the prefixes.
+ 
+            listener.Prefixes.Add("http://127.0.0.1:8081/");
+            listener.Start();  //ERROR HERE: "The process cannot access the file because it is being used by another process"
+            Console.WriteLine("Listening...");
+
+            //listener = new TcpListener(ip, port);
+
             while (is_active) {                
-                TcpClient s = listener.AcceptTcpClient();
-                HttpProcessor processor = new HttpProcessor(s, this);
-                Thread thread = new Thread(new ThreadStart(processor.process));
-                thread.Start();
-                Thread.Sleep(1);
+                //TcpClient s = listener.AcceptTcpClient();
+                //HttpProcessor processor = new HttpProcessor(s, this);
+                //Thread thread = new Thread(new ThreadStart(processor.process));
+                //thread.Start();
+                //Thread.Sleep(1);
             }
         }
 
