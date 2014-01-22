@@ -11,18 +11,14 @@ using Palette;
 
 public class Agent
 {
+    const int dataArraySize = 100;
+    const int streamBufferSize = 1000;
+    const int numberOfLoops = 10000;
+
     public static int Main(String[] args)
     {
-        //MyWebServer webserv = new MyWebServer();
 
         ConnectToController("localhost");
-
-        //int port = 8081;
-        //Bend.Util.MyHttpServer controller = new Bend.Util.MyHttpServer(port);
-
-        //controller.connect();
-
-        //HttpProcessor processor = new HttpProcessor(, controller); 
 
         return 0;
     }
@@ -40,9 +36,6 @@ public class Agent
             int iStartPos = 0;
             String sRequest;
 
-            // Define those variables to be evaluated in the next for loop and 
-            // then used to connect to the server. These variables are defined
-            // outside the for loop to make them accessible there after.
             Socket sock = null;
             IPEndPoint hostEndPoint;
             IPAddress localAddr = IPAddress.Parse("127.0.0.1");
@@ -66,9 +59,9 @@ public class Agent
 
             if (!sock.Connected)
             {
-                // Connection failed, try next IPaddress.
                 Console.WriteLine("Unable to connect to host " + localAddr.ToString());
-                sock = null;                        
+                sock = null;  
+                throw new SocketException();    
             }
             else
             {
@@ -77,21 +70,78 @@ public class Agent
                 //break;
             }
 
-            //Console.WriteLine("starting: " + request);  
-
-            // Send the data to the host.
-            sock.Send(BytePost, BytePost.Length, 0);
+            //int byteCount;
+            //byte[] bytes = new byte[1];
+            //byteCount = sock.Receive(bytes, SocketFlags.None);
+            //if (byteCount > 0) Console.WriteLine(Encoding.UTF8.GetString(bytes));
 
             // Receive the content and loop until all the data is received.
             Int32 bytes = sock.Receive(RecvBytes, RecvBytes.Length, 0);
             strRetData = strRetData + ASCII.GetString(RecvBytes, 0, bytes);
 
-            //Use this only if we need to handle longer messages than 1024 bytes
-            //while (bytes > 0)
+            while (bytes > 0)
+            {
+                bytes = sock.Receive(RecvBytes, RecvBytes.Length, 0);
+                strRetData = strRetData + ASCII.GetString(RecvBytes, 0, bytes);
+            }
+
+            //do
             //{
             //    bytes = sock.Receive(RecvBytes, RecvBytes.Length, 0);
             //    strRetData = strRetData + ASCII.GetString(RecvBytes, 0, bytes);
             //}
+            //while (bytes == RecvBytes.Length);
+
+            Console.WriteLine("Received from " + connectedIP.ToString() + ": " + strRetData);
+
+            //Console.WriteLine("starting: " + request);  
+
+            // Send the data to the host.
+            //sock.Send(BytePost, BytePost.Length, 0);
+
+            // Receive the content.
+            //Int32 bytes = sock.Receive(RecvBytes, 1, 0);
+            //strRetData = strRetData + ASCII.GetString(RecvBytes, BytePost.Length, bytes);
+
+
+            Stream netStream = new NetworkStream(sock, true);
+            BufferedStream bufStream = new BufferedStream(netStream, streamBufferSize);
+            
+            if (bufStream.CanRead)
+            {
+                int bytesReceived = 0;
+                byte[] receivedData = new byte[dataArraySize];
+
+                // Receive data using the BufferedStream.
+                Console.WriteLine("Receiving data using BufferedStream.");
+                bytesReceived = 0;
+
+                int numBytesToRead = receivedData.Length;
+
+                while (numBytesToRead > 0)
+                {
+                    // Read may return anything from 0 to numBytesToRead. 
+                    int n = bufStream.Read(receivedData, 0, receivedData.Length);
+                    // The end of the file is reached. 
+                    if (n == 0)
+                        break;
+                    bytesReceived += n;
+                    numBytesToRead -= n;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Cannot read with BufferedStream.");
+            }
+
+            // When bufStream is closed, netStream is in turn 
+            // closed, which in turn shuts down the connection 
+            // and closes clientSocket.
+            Console.WriteLine("\nShutting down the connection.");
+            bufStream.Close();
+
+          
+   
 
             Console.WriteLine("Received from " + connectedIP.ToString() + ": " + strRetData);
 

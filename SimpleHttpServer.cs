@@ -192,7 +192,6 @@ namespace Bend.Util {
 
         protected int port;
         //TcpListener listener;
-        HttpListener listener;
         bool is_active = true;
        
         public HttpServer(int port) {
