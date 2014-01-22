@@ -47,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpServer.cs" />
+    <Compile Include="HttpRequest.cs" />
+    <Compile Include="HttpProcessor.cs" />
     <Compile Include="SimpleHttpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsAgent.cs">

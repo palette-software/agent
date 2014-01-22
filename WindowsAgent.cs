@@ -6,8 +6,6 @@ using System.Text;
 using System.Configuration;
 using System.Diagnostics;
 
-using Bend.Util;
-using Palette;
 
 public class Agent
 {
@@ -17,8 +15,11 @@ public class Agent
 
     public static int Main(String[] args)
     {
-
-        ConnectToController("localhost");
+        HttpProcessor processor = new HttpProcessor();
+        processor.connect();
+        processor.run();
+        // currently never reached.
+        processor.close();
 
         return 0;
     }
