@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Web;
 
 public class HttpProcessor
 {
@@ -9,20 +10,20 @@ public class HttpProcessor
     protected int port = 8888;
     protected NetworkStream stream = null;
 
+    public HttpProcessor()
+    {
+    }
+
 	public HttpProcessor(string host, int port)
 	{
         this.host = host;
         this.port = port;
 	}
 
-    public HttpProcessor()
-    {
-    }
-
-    public void connect()
+    public void Connect()
     {
         IPAddress addr;
-        GetResolvedConnecionIPAddress(host, out addr);  // FIXME: check return status
+        GetResolvedConnectionIPAddress(host, out addr);  // FIXME: check return status
         
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -33,7 +34,7 @@ public class HttpProcessor
         stream = new NetworkStream(socket, true);
     }
 
-    public void close()
+    public void Close()
     {
         if (stream != null)
         {
@@ -42,32 +43,68 @@ public class HttpProcessor
         }
     }
 
-    public void run()
+    public void Run()
     {
         using (StreamReader reader = new StreamReader(stream))
         {
             HttpRequest req;
-            while ((req = getRequest(reader)) != null)
+            while ((req = GetRequest(reader)) != null)
             {
                 // FIXME: add a switch statement for GET/POST/PUT etc.
                 Console.WriteLine(req.ToString());
+
+                switch (req.method)
+                {
+                    case "GET":
+                        //do this
+                        break;
+                    case "POST":
+                    //do that
+                        break;
+                    case "PUT":
+                        //do something else
+                        break;
+                }
+
+                int statusCd = SendResponse(req, stream);
             }
             // FIXME: add try for closed sockets.
         }
-
     }
 
-    protected HttpRequest getRequest(StreamReader reader)
+    protected HttpRequest GetRequest(StreamReader reader)
     {
         HttpRequest req = new HttpRequest();
-        parseRequestLine(req, reader.ReadLine());
-        readHeaders(req, reader);
+        ParseRequestLine(req, reader.ReadLine());
+        ReadHeaders(req, reader);
 
         // FIXME: handle closed sockets and/or bad requests.
         return req;
     }
 
-    private void parseRequestLine(HttpRequest req, string line)
+    protected int SendResponse(HttpRequest req, NetworkStream stream)
+    {
+        using (System.IO.TextWriter writer = new StreamWriter(stream))
+        {
+            HttpResponse resp = new HttpResponse(writer);
+
+            string body = "Version 0.0";
+
+            try
+            {
+                resp.Write(body);
+
+                resp.Flush();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }        
+        return 0;
+    }
+
+    private void ParseRequestLine(HttpRequest req, string line)
     {
         string[] tokens = line.Split(' ');
         if (tokens.Length != 3)
@@ -79,7 +116,7 @@ public class HttpProcessor
         req.protocol_version = tokens[2];
     }
 
-    private void readHeaders(HttpRequest req, StreamReader reader)
+    private void ReadHeaders(HttpRequest req, StreamReader reader)
     {
         String line;
         while ((line = reader.ReadLine()) != null)
@@ -107,7 +144,7 @@ public class HttpProcessor
     }
 
     // http://www.codeproject.com/Tips/440861/Resolving-a-hostname-in-Csharp-and-retrieving-IP-v
-    public static bool GetResolvedConnecionIPAddress(string serverNameOrURL,
+    public static bool GetResolvedConnectionIPAddress(string serverNameOrURL,
                    out IPAddress resolvedIPAddress)
     {
         bool isResolved = false;
