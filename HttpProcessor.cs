@@ -9,6 +9,7 @@ public class HttpProcessor
     protected string host = "localhost";
     protected int port = 8888;
     protected NetworkStream stream = null;
+    protected string ipaddress = null;
 
     public HttpProcessor()
     {
@@ -24,14 +25,30 @@ public class HttpProcessor
     {
         IPAddress addr;
         GetResolvedConnectionIPAddress(host, out addr);  // FIXME: check return status
-        
-        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        IPEndPoint remoteEP = new IPEndPoint(addr, port);
-        socket.Connect(remoteEP);
-        // FIXME: check for connected.  If not, throw exception ? //
+        this.ipaddress = addr.ToString();
 
-        stream = new NetworkStream(socket, true);
+        try
+        {
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            IPEndPoint remoteEP = new IPEndPoint(addr, port);
+            socket.Connect(remoteEP);         
+
+            stream = new NetworkStream(socket, true);
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("SocketException caught!");
+            Console.WriteLine("Source : " + e.Source);
+            Console.WriteLine("Message : " + e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Exception caught!");
+            Console.WriteLine("Source : " + e.Source);
+            Console.WriteLine("Message : " + e.Message);
+        }
     }
 
     public void Close()
@@ -45,29 +62,41 @@ public class HttpProcessor
 
     public void Run()
     {
-        using (StreamReader reader = new StreamReader(stream))
-        {
+        //cannot put two different types in same using statement but you can nest them
+        using (StreamReader reader = new StreamReader(stream))         
+        {            
             HttpRequest req;
+            
             while ((req = GetRequest(reader)) != null)
             {
                 // FIXME: add a switch statement for GET/POST/PUT etc.
                 Console.WriteLine(req.ToString());
 
-                switch (req.method)
+                using (System.IO.TextWriter writer = new StreamWriter(stream))
                 {
-                    case "GET":
-                        //do this
-                        break;
-                    case "POST":
-                    //do that
-                        break;
-                    case "PUT":
-                        //do something else
-                        break;
-                }
+                    HttpResponse res = new HttpResponse(writer);
 
-                int statusCd = SendResponse(req, stream);
-            }
+                    switch (req.url)
+                    {
+                        case "/auth":
+                            AuthReply reply = new AuthReply(@"/auth", "paul", "guessme", "00.00", 
+                                this.ipaddress, this.host, this.port.ToString());
+                            reply.SerializeToJSON();
+                            res.Write(reply.ToString());
+                            break;
+                        case "/status":
+
+                            break;
+                        default:
+                            //response should send HTTP not found error (404 error)
+                            res.StatusCode = 404;          
+                            break;
+                    }
+
+                    res.Flush();
+                }
+            }            
+
             // FIXME: add try for closed sockets.
         }
     }
@@ -80,28 +109,6 @@ public class HttpProcessor
 
         // FIXME: handle closed sockets and/or bad requests.
         return req;
-    }
-
-    protected int SendResponse(HttpRequest req, NetworkStream stream)
-    {
-        using (System.IO.TextWriter writer = new StreamWriter(stream))
-        {
-            HttpResponse resp = new HttpResponse(writer);
-
-            string body = "Version 0.0";
-
-            try
-            {
-                resp.Write(body);
-
-                resp.Flush();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }        
-        return 0;
     }
 
     private void ParseRequestLine(HttpRequest req, string line)
