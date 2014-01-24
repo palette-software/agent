@@ -6,8 +6,11 @@ using System.Web;
 
 public class HttpProcessor
 {
-    protected string host = "localhost";
-    protected int port = 8888;
+    public const string HOST = "localhost";
+    public const int PORT = 8888;
+
+    protected string host = HOST;
+    protected int port = PORT;
     protected NetworkStream stream = null;
     protected string ipaddress = null;
 
@@ -42,12 +45,14 @@ public class HttpProcessor
             Console.WriteLine("SocketException caught!");
             Console.WriteLine("Source : " + e.Source);
             Console.WriteLine("Message : " + e.Message);
+            throw e;
         }
         catch (Exception e)
         {
             Console.WriteLine("Exception caught!");
             Console.WriteLine("Source : " + e.Source);
             Console.WriteLine("Message : " + e.Message);
+            throw e;
         }
     }
 

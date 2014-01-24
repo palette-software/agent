@@ -5,25 +5,41 @@ using fastJSON;
 
 class PaletteHandler : HttpHandler
 {
-    override public HttpResponse handle(HttpRequest req)
+    protected string uuid = null;
+
+    public PaletteHandler(string uuid)
+    {
+        this.uuid = uuid;
+    }
+
+    protected HttpResponse handleAuth(HttpRequest req)
     {
         HttpResponse res = req.Response;
+        req.ContentType = "application/json";
 
-        switch (req.Url)
+        Dictionary<string, string> d = new Dictionary<string, string>();
+        d["version"] = Agent.VERSION;
+        d["uuid"] = uuid;
+
+        res.Write(fastJSON.JSON.Instance.ToJSON(d));
+        return res;
+    }
+
+    protected HttpResponse handleStatus(HttpRequest req)
+    {
+        return req.Response;
+    }
+
+    override public HttpResponse handle(HttpRequest req)
+    {
+        switch (req.URI)
         {
             case "/auth":
-                res.ContentType = "application/json";
-
-                Dictionary<string, string> d = new Dictionary<string, string>();
-                string json = fastJSON.JSON.Instance.ToJSON(d);
-                res.Write(json);
-                break;
+                return handleAuth(req);
             case "/status":
-                break;
+                return handleStatus(req);
             default:
                 throw new HttpNotFound();
         }
-
-        return res;
     }
 }
