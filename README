@@ -1,0 +1,15 @@
+The JSON handling done using the 'fastJSON' library from:
+  http://fastjson.codeplex.com/
+
+Steps to install:
+ - download the zip file from CodePlex.
+ - extract it.
+ - copy the 'fastJSON' directory into the directory *containing* the agent repo
+   i.e. fastJSON and agent should both have the same parent directory.
+ - open visual studio.
+ - build the 'fastJSON net35' project.
+
+After following the above steps once, you shouldn't have to do anything further.
+
+The checked-in VS project refers to this project location and loads the DLL from the 'output\net35'
+directory located at the same level as the fastJSON and agent directories.
