@@ -60,37 +60,48 @@ public class HttpProcessor
         }
     }
 
-    public void Run()
+    public void Run(HttpHandler handler)
     {
         //cannot put two different types in same using statement but you can nest them
-        using (StreamReader reader = new StreamReader(stream))         
-        {            
-            HttpRequest req;
-            
-            while ((req = GetRequest(reader)) != null)
+        using (StreamReader reader = new StreamReader(stream))
+        {
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                // FIXME: add a switch statement for GET/POST/PUT etc.
-                Console.WriteLine(req.ToString());
+                HttpRequest req;
+            
+                while ((req = HttpRequest.Get(reader)) != null)
+                {                 
+                    Console.WriteLine(req.ToString());
 
-                using (System.IO.TextWriter writer = new StreamWriter(stream))
-                {
+                    // This could be cleaner.
                     HttpResponse res = new HttpResponse(writer);
+                    req.Response = res;
 
-                    switch (req.url)
+                    try
                     {
-                        case "/auth":
-                            AuthReply reply = new AuthReply(@"/auth", "paul", "guessme", "00.00", 
-                                this.ipaddress, this.host, this.port.ToString());
-                            reply.SerializeToJSON();
-                            res.Write(reply.ToString());
-                            break;
-                        case "/status":
-
-                            break;
-                        default:
-                            //response should send HTTP not found error (404 error)
-                            res.StatusCode = 404;          
-                            break;
+                        res = handler.handle(req);
+                    }
+                    catch (HttpBadRequest exc)
+                    {
+                        // forcible close the socket.
+                        if (exc.Body != null)
+                        {
+                            Console.WriteLine(exc.Body);
+                        }
+                        else
+                        {
+                            Console.WriteLine(exc.ToString());
+                        }
+                        return;
+                    }
+                    catch (HttpException exc)
+                    {
+                        res.StatusCode = exc.StatusCode;
+                        res.StatusDescription = exc.Reason;
+                        if (exc.Body != null)
+                        {
+                            res.Write(exc.Body);
+                        }
                     }
 
                     res.Flush();
@@ -98,55 +109,6 @@ public class HttpProcessor
             }            
 
             // FIXME: add try for closed sockets.
-        }
-    }
-
-    protected HttpRequest GetRequest(StreamReader reader)
-    {
-        HttpRequest req = new HttpRequest();
-        ParseRequestLine(req, reader.ReadLine());
-        ReadHeaders(req, reader);
-
-        // FIXME: handle closed sockets and/or bad requests.
-        return req;
-    }
-
-    private void ParseRequestLine(HttpRequest req, string line)
-    {
-        string[] tokens = line.Split(' ');
-        if (tokens.Length != 3)
-        {
-            throw new Exception("invalid http request line");
-        }
-        req.method = tokens[0].ToUpper();
-        req.url = tokens[1];
-        req.protocol_version = tokens[2];
-    }
-
-    private void ReadHeaders(HttpRequest req, StreamReader reader)
-    {
-        String line;
-        while ((line = reader.ReadLine()) != null)
-        {
-            if (line.Equals(""))
-            {
-                return;
-            }
-
-            int separator = line.IndexOf(':');
-            if (separator == -1)
-            {
-                throw new Exception("invalid http header line: " + line);
-            }
-            String name = line.Substring(0, separator);
-            int pos = separator + 1;
-            while ((pos < line.Length) && (line[pos] == ' '))
-            {
-                pos++; // strip any spaces
-            }
-
-            string value = line.Substring(pos, line.Length - pos);
-            req.headers[name] = value;
         }
     }
 
