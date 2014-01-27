@@ -30,10 +30,20 @@ public class Agent
 
         HttpProcessor processor = new HttpProcessor(host, port);
         processor.Connect();
-        processor.Run(handler);
-        processor.Close();
 
-        return 0;
+        if (processor.isConnected)
+        {
+            processor.Run(handler);
+            processor.Close();
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+        
+
+        
     }
 }
 

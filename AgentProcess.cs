@@ -7,6 +7,57 @@ using System.Net.Sockets;
 using System.Configuration;
 using System.Diagnostics;
 
+public class ProcessCollection
+{
+    //Dictionary of xid, process
+    public Dictionary<int, AgentProcess> agentProcesses;
+
+    public ProcessCollection()
+    {
+        agentProcesses = new Dictionary<int, AgentProcess>();
+    }
+
+    public int GetProcessStatus(int xid)
+    {
+        if (agentProcesses.ContainsKey(xid))
+        {
+            return agentProcesses[xid].ReturnStatus();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public void AddCLIProcess(int xid, string binaryFolder, string outputFolder, string command, string args)
+    {
+        if (!agentProcesses.ContainsKey(xid))
+        {
+            CLIProcess proc = new CLIProcess(binaryFolder, outputFolder, command, args);
+
+            agentProcesses.Add(xid, proc);
+        }
+        else
+        {
+            throw new Exception("There is already a process with this xid");
+        }
+    }
+
+    public int KillProcess(int xid)
+    {
+        if (agentProcesses.ContainsKey(xid))
+        {
+            AgentProcess jobToKill = agentProcesses[xid];
+            return jobToKill.KillProcess();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+}
+
 public class CLIProcess : AgentProcess
 {
     public CLIProcess(int xid) : base(xid) 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Web;
+using System.Collections.Generic;
 
 public class HttpProcessor
 {
@@ -13,6 +14,7 @@ public class HttpProcessor
     protected int port = PORT;
     protected NetworkStream stream = null;
     protected string ipaddress = null;
+    public bool isConnected = false;    
 
     public HttpProcessor()
     {
@@ -39,20 +41,18 @@ public class HttpProcessor
             socket.Connect(remoteEP);         
 
             stream = new NetworkStream(socket, true);
+
+            isConnected = true;
         }
         catch (SocketException e)
         {
-            Console.WriteLine("SocketException caught!");
-            Console.WriteLine("Source : " + e.Source);
-            Console.WriteLine("Message : " + e.Message);
-            throw e;
+            Console.WriteLine("SocketException: " + e.Message + " Source: " + e.Source);
+            isConnected = false;
         }
         catch (Exception e)
         {
-            Console.WriteLine("Exception caught!");
-            Console.WriteLine("Source : " + e.Source);
-            Console.WriteLine("Message : " + e.Message);
-            throw e;
+            Console.WriteLine("General Exception: " + e.Message + " Source: " + e.Source);
+            isConnected = false;
         }
     }
 
@@ -67,53 +67,62 @@ public class HttpProcessor
 
     public void Run(HttpHandler handler)
     {
-        //cannot put two different types in same using statement but you can nest them
-        using (StreamReader reader = new StreamReader(stream))
+        for (; ; )  //Loop infinitely here
         {
-            using (StreamWriter writer = new StreamWriter(stream))
+            //cannot put two different types in same using statement but you can nest them
+            using (StreamReader reader = new StreamReader(stream))
             {
-                HttpRequest req;
-            
-                while ((req = HttpRequest.Get(reader)) != null)
-                {                 
-                    Console.WriteLine(req.ToString());
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    HttpRequest req;
 
-                    // This could be cleaner.
-                    HttpResponse res = new HttpResponse(writer);
-                    req.Response = res;
+                    while ((req = HttpRequest.Get(reader)) != null)
+                    {
+                        Console.WriteLine(req.ToString());
 
-                    try
-                    {
-                        res = handler.handle(req);
-                    }
-                    catch (HttpBadRequest exc)
-                    {
-                        // forcible close the socket.
-                        if (exc.Body != null)
-                        {
-                            Console.WriteLine(exc.Body);
-                        }
-                        else
-                        {
-                            Console.WriteLine(exc.ToString());
-                        }
-                        return;
-                    }
-                    catch (HttpException exc)
-                    {
-                        res.StatusCode = exc.StatusCode;
-                        res.StatusDescription = exc.Reason;
-                        if (exc.Body != null)
-                        {
-                            res.Write(exc.Body);
-                        }
-                    }
+                        // This could be cleaner.
+                        HttpResponse res = new HttpResponse(writer);
+                        req.Response = res;
 
-                    res.Flush();
+                        try
+                        {
+                            res = handler.Handle(req);
+                        }
+                        catch (SocketException exc)
+                        {
+                            Console.WriteLine("General Exception: " + exc.Message + " Source: " + exc.Source);
+                        }
+                        catch (HttpBadRequest exc)
+                        {
+                            // forcible close the socket.
+                            if (exc.Body != null)
+                            {
+                                Console.WriteLine(exc.Body);
+                            }
+                            else
+                            {
+                                Console.WriteLine(exc.ToString());
+                            }
+                            return;
+                        }
+                        catch (HttpException exc)
+                        {
+                            res.StatusCode = exc.StatusCode;
+                            res.StatusDescription = exc.Reason;
+                            if (exc.Body != null)
+                            {
+                                res.Write(exc.Body);
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            Console.WriteLine("General Exception: " + exc.Message + " Source: " + exc.Source);
+                        }
+
+                        res.Flush();
+                    }
                 }
-            }            
-
-            // FIXME: add try for closed sockets.
+            }
         }
     }
 
