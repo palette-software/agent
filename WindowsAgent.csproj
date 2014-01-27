@@ -65,6 +65,7 @@
     <Compile Include="HttpRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HttpResponse.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="PaletteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

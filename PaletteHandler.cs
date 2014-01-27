@@ -32,12 +32,13 @@ class PaletteHandler : HttpHandler
     protected HttpResponse HandleCmd(HttpRequest req)
     {
         HttpResponse res = req.Response;
-        req.ContentType = "application/json";
+        res.ContentType = "application/json";
 
-        int xid = GetXid(req.URI);
+        int xid = GetXid(req); // FIXME: test for XID existence.
         Dictionary<string, string> d = new Dictionary<string, string>();
+        d["xid"] = Convert.ToString(xid);
 
-        if (req.Method == "PUT") 
+        if (req.Method == "POST")
         {
             //create new process
             //TODO: put these in .ini file
@@ -80,20 +81,11 @@ class PaletteHandler : HttpHandler
         }
     }
 
-    //Making the assumption here that this is the last word in the req.data
-    protected int GetXid(string data)
+    protected int GetXid(HttpRequest req)
     {
-        try
-        {
-            Match match = Regex.Match(data, @"xid=([0-9\-]+)\$", RegexOptions.IgnoreCase);
-            int xid = Convert.ToInt32(match.Groups[1].Value);
-            return xid;
-        }
-        catch
-        {
-            Console.WriteLine("Error: Bad query string in command!");
-            return -1;
-        }
+        // FIXME: test for XID existence.
+        long xid = (long)req.JSON["xid"];
+        return (int)xid;
     }
 
     protected string GetCmd(string data)

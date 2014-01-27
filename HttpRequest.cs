@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Web;
 
 public class HttpRequest
 {
@@ -10,7 +8,7 @@ public class HttpRequest
     public string Url;
     public string URI;
     public string ProtocolVersion;
-    public Hashtable Headers = new Hashtable();
+    public Dictionary<string, string> Headers = new Dictionary<string, string>();
 
     public String QueryString = null;
     public Dictionary<string, string> QUERY = new Dictionary<string,string>();
@@ -21,7 +19,7 @@ public class HttpRequest
     public string ContentType = "text/plain";
 
     public string data = null;
-    public Hashtable JSON = null;
+    public Dictionary<string, object> JSON = null;
 
     public override string ToString()
     {
@@ -31,6 +29,8 @@ public class HttpRequest
     public static HttpRequest Get(StreamReader reader)
     {
         HttpRequest req = new HttpRequest();
+
+        // FIXME: catch IOException
         req.ParseRequestLine(reader.ReadLine());
         req.ReadHeaders(reader);
 
@@ -42,7 +42,7 @@ public class HttpRequest
 
             if (req.ContentType == "application/json")
             {
-                req.JSON = fastJSON.JSON.Instance.ToObject<Hashtable>(req.data);
+                req.JSON = fastJSON.JSON.Instance.Parse(req.data) as Dictionary<string, object>;
             }
         }
 
@@ -59,6 +59,8 @@ public class HttpRequest
         }
         Method = tokens[0].ToUpper();
         Url = tokens[1];
+
+        // FIXME: throw an exception if != 1.1
         ProtocolVersion = tokens[2];
 
         tokens = Url.Split('?');
@@ -121,7 +123,7 @@ public class HttpRequest
             string value = line.Substring(pos, line.Length - pos);
             Headers[name] = value;
 
-            if (name == "CONTENT_LENGTH")
+            if (name == "CONTENT-LENGTH")
             {
                 try
                 {
@@ -129,11 +131,11 @@ public class HttpRequest
                 }
                 catch
                 {
-                    throw new HttpBadRequest("invalid CONTENT_LENGTH");
+                    throw new HttpBadRequest("invalid CONTENT-LENGTH");
                 }
             }
 
-            if (name == "CONTENT_TYPE")
+            if (name == "CONTENT-TYPE")
             {
                 ContentType = value;
             }

@@ -70,9 +70,9 @@ public class HttpProcessor
         for (; ; )  //Loop infinitely here
         {
             //cannot put two different types in same using statement but you can nest them
-            using (StreamReader reader = new StreamReader(stream))
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (StreamReader reader = new StreamReader(stream))
                 {
                     HttpRequest req;
 
