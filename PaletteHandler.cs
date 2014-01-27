@@ -29,7 +29,7 @@ class PaletteHandler : HttpHandler
         return res;
     }
 
-    protected HttpResponse HandleCLI(HttpRequest req)
+    protected HttpResponse HandleCmd(HttpRequest req)
     {
         HttpResponse res = req.Response;
         req.ContentType = "application/json";
@@ -69,7 +69,10 @@ class PaletteHandler : HttpHandler
             case "/auth":
                 return HandleAuth(req);
             case "/cli":
-                return HandleCLI(req);
+            case "/backup":
+            case "/restore":
+            case "/sql":
+                return HandleCmd(req);
             case "/status":
                 return HandleStatus(req);
             default:
