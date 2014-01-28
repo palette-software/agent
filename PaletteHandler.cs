@@ -37,17 +37,26 @@ class PaletteHandler : HttpHandler
         int xid = GetXid(req); // FIXME: test for XID existence.
         Dictionary<string, string> d = new Dictionary<string, string>();
         d["xid"] = Convert.ToString(xid);
+        string cmd = GetCmd(req);
 
+        //TODO: put these in .ini file                
+        string outputFolder = "C:\\Temp\\";  //TESTING ONLY
+        string binaryFolder = "C:\\Temp\\"; //"C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";  //TESTING ONLY
+   
         if (req.Method == "POST")
         {
-            //create new process
-            //TODO: put these in .ini file
-            string binaryfolder = @"C:\Program Files\Tableau\Tableau Server\8.1\bin\";
-            string outputfolder = @"C:\ProgramData\Tableau\Tableau Server\data\";
+            if (cmd.Contains("backup") || cmd.Contains("restore") || cmd.Contains("status"))
+            {
+                string[] parts = cmd.Split(' ');
+                //create new process
+                allProcesses.AddCLIProcess(xid, binaryFolder, outputFolder, parts[0], parts[1] + " " + parts[2]);
 
-            allProcesses.AddCLIProcess(xid, binaryfolder, outputfolder, GetCmd(req.URI), "");
-
-            d["status"] = allProcesses.GetProcessStatus(xid).ToString();
+                d["status"] = allProcesses.GetProcessStatus(xid).ToString();
+            }
+            else
+            {
+                new HttpNotFound();
+            }
         }
         else if (req.Method == "GET")
         {
@@ -70,9 +79,6 @@ class PaletteHandler : HttpHandler
             case "/auth":
                 return HandleAuth(req);
             case "/cli":
-            case "/backup":
-            case "/restore":
-            case "/sql":
                 return HandleCmd(req);
             case "/status":
                 return HandleStatus(req);
@@ -88,41 +94,10 @@ class PaletteHandler : HttpHandler
         return (int)xid;
     }
 
-    protected string GetCmd(string data)
+    protected string GetCmd(HttpRequest req)
     {
-        string cmdStr = null;
-        try
-        {            
-            if (data.Contains(@"/cli"))
-            {
-                cmdStr = "cli";
-            }
-            else if (data.Contains(@"/backup"))
-            {
-                cmdStr = "backup";
-            }
-            else if (data.Contains(@"/restore"))
-            {
-                cmdStr = "restore";
-            }
-            else if (data.Contains(@"/copy"))
-            {
-                cmdStr = "copy";
-            }
-            else if (data.Contains(@"/sql"))
-            {
-                cmdStr = "sql";
-            }
-            else
-            {
-                Console.WriteLine("Error: Bad query string in command!");
-            }
-        }
-        catch
-        {
-            Console.WriteLine("Error: Bad query string in command!");
-        }
-
-        return cmdStr;
+        // FIXME: test for cli existence.
+        string cmd = req.JSON["cli"].ToString();
+        return cmd;
     }
 }

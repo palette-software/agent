@@ -10,7 +10,7 @@ using System.Diagnostics;
 public class ProcessCollection
 {
     //Dictionary of xid, process
-    public Dictionary<int, AgentProcess> agentProcesses;
+    public Dictionary<int, AgentProcess> agentProcesses;    
 
     public ProcessCollection()
     {
@@ -29,6 +29,7 @@ public class ProcessCollection
         }
     }
 
+    //For status, backup and restore calls
     public void AddCLIProcess(int xid, string binaryFolder, string outputFolder, string command, string args)
     {
         if (!agentProcesses.ContainsKey(xid))
@@ -55,17 +56,18 @@ public class ProcessCollection
             return -1;
         }
     }
-
 }
 
 public class CLIProcess : AgentProcess
 {
-    public CLIProcess(int xid) : base(xid) 
-    { 
-    }
+    public string processType = "unknown";
+
+    //public CLIProcess(int xid) : base(xid) 
+    //{ 
+    //}
 
     /// <summary>
-    /// Process class for requests of type /cli
+    /// Process class for cli backup and restore commands
     /// </summary>
     /// <param name="binaryFolder">folder for command executable</param>
     /// <param name="outputFolder">folder for output file</param>
@@ -73,83 +75,33 @@ public class CLIProcess : AgentProcess
     /// <param name="args">command args (optional)</param>
     public CLIProcess(string binaryFolder, string outputFolder, string command, string args)
     {
-        this.binFolder = binFolder;  
+        this.binFolder = binaryFolder;  
         this.outputFolder = outputFolder;
         this.command = command;  
         this.commandArgs = args;
 
-        if (this.command == "tabadmin backup")
+        if (this.commandArgs.Contains("backup"))
         {
+            processType = "backup";
             this.outputFileName = "tableau_backup " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
         }
-        else if (this.command == "tabadmin restore")
+
+        else if (this.commandArgs.Contains("restore"))
         {
+            processType = "restore";
             this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
         }
-    }
-}
 
-public abstract class AgentProcess
-{
-    const int SLEEP_AMOUNT = 100;
-    public int xid;  //controller transaction id
-    protected static Dictionary <int, int> xidMapping; 
-    protected Process process;
-    protected string command;
-    protected string commandArgs = null;
-    protected int windows_process_id;  //actual windows process id
-    protected string processStatus;
-    protected DateTime processStartTime
-    {
-        get { return process.StartTime; }
-    }
-    protected TimeSpan totalProcessorTime
-    {
-        get { return process.TotalProcessorTime; }
-    }
-    protected DateTime lastCheckTime;
-    int runStatus;
-    bool waitForResults;
-    protected string binFolder;
-    protected string outputFolder;
-    protected string outputFileName;
-    bool eventHandled = false;
-
-    public AgentProcess()
-    {
+        StartProcess(processType);
     }
 
-    public AgentProcess(int xid)
+    protected override int StartProcess(string processType)
     {
-        this.xid = xid;
-        if (xidMapping == null) xidMapping = new Dictionary<int, int>();
-    }
+        Process process = new Process();
 
-    /// <summary>
-    /// Returns the Windows process id for a given controller process id
-    /// </summary>
-    /// <param name="xid">controller process id</param>
-    /// /// <param name="waitForResults">whether or not to wait for results</param>
-    /// <returns>Windows process id</returns>
-    protected int GetWindowsProcessForXid(int xid, bool waitForResults)
-    {
-        this.waitForResults = waitForResults;
-        if (xidMapping.ContainsKey(xid))
-        {
-            return xidMapping[xid];
-        }
-        else
-        {
-            return -1;
-        }
-    }
-
-    protected virtual int StartProcess()
-    {
-        process = new Process();
-        windows_process_id = process.Id;
-        process.StartInfo.FileName = binFolder + command;
-        process.StartInfo.Arguments = (commandArgs != null)? (" " + commandArgs + " " + outputFileName): outputFileName;
+        process.StartInfo.WorkingDirectory = this.binFolder;
+        process.StartInfo.FileName = this.command + ".exe";
+        process.StartInfo.Arguments = (commandArgs != null) ? (" " + commandArgs + " " + outputFileName) : outputFileName;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.RedirectStandardOutput = true;
 
@@ -157,17 +109,22 @@ public abstract class AgentProcess
         {
             process.Start();
 
+            windows_process_id = process.Id;
+
             if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
 
             Console.WriteLine(process.StandardOutput.ReadToEnd());
 
-            using (FileStream fs = new FileStream(outputFileName, FileMode.CreateNew))
+            if (processType == "backup" || processType == "restore" || processType == "status")
             {
-                using (BinaryWriter w = new BinaryWriter(fs))
+                using (FileStream fs = new FileStream(outputFileName, FileMode.CreateNew))
                 {
-                    w.Write(process.StandardOutput.ReadToEnd());
+                    using (BinaryWriter w = new BinaryWriter(fs))
+                    {
+                        w.Write(process.StandardOutput.ReadToEnd());
+                    }
                 }
-            }            
+            }
         }
         catch (Exception ex)
         {
@@ -190,11 +147,108 @@ public abstract class AgentProcess
             runStatus = 1;
         }
 
+        return runStatus;
+    }
+}
+
+public abstract class AgentProcess
+{
+    protected const int SLEEP_AMOUNT = 100;
+    public int xid;  //controller transaction id
+    protected static Dictionary<int, int> xidMapping; 
+    protected Process process;
+    protected string command;
+    protected string commandArgs = null;
+    protected int windows_process_id;  //actual windows process id
+    protected string processStatus;
+    protected DateTime processStartTime
+    {
+        get { return process.StartTime; }
+    }
+    protected TimeSpan totalProcessorTime
+    {
+        get { return process.TotalProcessorTime; }
+    }
+    protected DateTime lastCheckTime;
+    protected int runStatus;
+    protected bool waitForResults;
+    protected string binFolder;
+    protected string outputFolder;
+    protected string outputFileName;
+    protected bool eventHandled = false;
+
+    //public AgentProcess()
+    //{
+    //}
+
+    //public AgentProcess(int xid)
+    //{
+    //    this.xid = xid;
+        
+    //}
+
+    /// <summary>
+    /// Returns the Windows process id for a given controller process id
+    /// </summary>
+    /// <param name="xid">controller process id</param>
+    /// /// <param name="waitForResults">whether or not to wait for results</param>
+    /// <returns>Windows process id</returns>
+    protected int GetWindowsProcessForXid(int xid, bool waitForResults)
+    {
+        if (xidMapping == null) xidMapping = new Dictionary<int, int>();
+
+        this.waitForResults = waitForResults;
+        if (xidMapping.ContainsKey(xid))
+        {
+            return xidMapping[xid];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    protected virtual int StartProcess(string processType)
+    {
+        process = new Process();
+        windows_process_id = process.Id;
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+
+        try
+        {
+            process.Start();
+
+            if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
+
+            Console.WriteLine(process.StandardOutput.ReadToEnd());         
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception caught in spawning process!! " + ex.ToString());
+            runStatus = -1; 
+        }
+
+        if (waitForResults)
+        {
+            process.Exited += new EventHandler(myProcess_Exited);
+            while (!eventHandled)
+            {
+                process.WaitForExit(SLEEP_AMOUNT);
+            }
+
+            runStatus = 1;
+        }
+        else
+        {
+            runStatus = 1;
+        }
+
         return runStatus;        
     }
 
     // Handle Exited event and display process information. 
-    private void myProcess_Exited(object sender, System.EventArgs e)
+    protected void myProcess_Exited(object sender, System.EventArgs e)
     {
         eventHandled = true;
         Console.WriteLine("Exit time: {0}\r\n" +
