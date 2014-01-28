@@ -29,12 +29,23 @@ public class ProcessCollection
         }
     }
 
+    public Dictionary<string, string> GetOutgoingBody(int xid)
+    {
+        return agentProcesses[xid].outgoingBody;
+    }
+
     //For status, backup and restore calls
     public void AddCLIProcess(int xid, string binaryFolder, string outputFolder, string command, string args)
     {
         if (!agentProcesses.ContainsKey(xid))
         {
             CLIProcess proc = new CLIProcess(binaryFolder, outputFolder, command, args);
+
+            proc.outgoingBody.Add("run-status", "");
+            proc.outgoingBody.Add("exit-status", "");
+            proc.outgoingBody.Add("xid", xid.ToString());
+            proc.outgoingBody.Add("stdout", "");
+            proc.outgoingBody.Add("stderr", "");
 
             agentProcesses.Add(xid, proc);
         }
@@ -101,35 +112,35 @@ public class CLIProcess : AgentProcess
 
         process.StartInfo.WorkingDirectory = this.binFolder;
         process.StartInfo.FileName = this.command + ".exe";
-        process.StartInfo.Arguments = (commandArgs != null) ? (" " + commandArgs + " " + outputFileName) : outputFileName;
+        //process.StartInfo.Arguments = (commandArgs != null) ? (" " + commandArgs + " " + outputFileName) : outputFileName;
         process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
         process.StartInfo.RedirectStandardOutput = true;
 
         try
         {
             process.Start();
 
-            windows_process_id = process.Id;
+            this.outgoingBody["stdout"] = process.StandardOutput.ReadToEnd();
+            this.outgoingBody["stderr"] = process.StandardError.ReadToEnd();
 
+            windows_process_id = process.Id;
             if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
 
-            Console.WriteLine(process.StandardOutput.ReadToEnd());
+            //Console.WriteLine(process.StandardOutput.ReadToEnd());
 
-            if (processType == "backup" || processType == "restore" || processType == "status")
+            using (FileStream fs = new FileStream(outputFileName, FileMode.CreateNew))
             {
-                using (FileStream fs = new FileStream(outputFileName, FileMode.CreateNew))
+                using (BinaryWriter w = new BinaryWriter(fs))
                 {
-                    using (BinaryWriter w = new BinaryWriter(fs))
-                    {
-                        w.Write(process.StandardOutput.ReadToEnd());
-                    }
+                    w.Write(this.outgoingBody["stdout"]);
                 }
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine("Exception caught in spawning process!! " + ex.ToString());
-            runStatus = -1;  //Not currently part of spec, but should be?
+            runStatus = -1;  //Not currently part of spec, but should be?            
         }
 
         if (waitForResults)
@@ -140,12 +151,13 @@ public class CLIProcess : AgentProcess
                 process.WaitForExit(SLEEP_AMOUNT);
             }
 
-            runStatus = 1;
+            runStatus = 2;
         }
         else
         {
             runStatus = 1;
         }
+        this.outgoingBody["run-status"] = runStatus.ToString();
 
         return runStatus;
     }
@@ -176,16 +188,7 @@ public abstract class AgentProcess
     protected string outputFolder;
     protected string outputFileName;
     protected bool eventHandled = false;
-
-    //public AgentProcess()
-    //{
-    //}
-
-    //public AgentProcess(int xid)
-    //{
-    //    this.xid = xid;
-        
-    //}
+    public Dictionary<string, string> outgoingBody = new Dictionary<string,string>();
 
     /// <summary>
     /// Returns the Windows process id for a given controller process id
@@ -244,6 +247,8 @@ public abstract class AgentProcess
             runStatus = 1;
         }
 
+        this.outgoingBody["run-status"] = runStatus.ToString();
+
         return runStatus;        
     }
 
@@ -251,6 +256,7 @@ public abstract class AgentProcess
     protected void myProcess_Exited(object sender, System.EventArgs e)
     {
         eventHandled = true;
+        this.outgoingBody["run-status"] = "2";
         Console.WriteLine("Exit time: {0}\r\n" +
             "Exit code: {1}\r\nElapsed time: {2}", process.ExitTime, process.ExitCode, totalProcessorTime.Seconds);
     }
@@ -282,6 +288,7 @@ public abstract class AgentProcess
             {
                 process.Kill();
                 runStatus = 3;
+                this.outgoingBody["run-status"] = runStatus.ToString();
             }
         }
         catch (Exception ex) 

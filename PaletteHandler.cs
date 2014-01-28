@@ -38,6 +38,7 @@ class PaletteHandler : HttpHandler
         Dictionary<string, string> d = new Dictionary<string, string>();
         d["xid"] = Convert.ToString(xid);
         string cmd = GetCmd(req);
+        Dictionary<string, string> outputBody = null;
 
         //TODO: put these in .ini file                
         string outputFolder = "C:\\Temp\\";  //TESTING ONLY
@@ -51,7 +52,7 @@ class PaletteHandler : HttpHandler
                 //create new process
                 allProcesses.AddCLIProcess(xid, binaryFolder, outputFolder, parts[0], parts[1] + " " + parts[2]);
 
-                d["status"] = allProcesses.GetProcessStatus(xid).ToString();
+                outputBody = allProcesses.GetOutgoingBody(xid);
             }
             else
             {
@@ -61,9 +62,9 @@ class PaletteHandler : HttpHandler
         else if (req.Method == "GET")
         {
             //check status of existing process        
-            d["status"] = allProcesses.GetProcessStatus(xid).ToString();
+            outputBody = allProcesses.GetOutgoingBody(xid);
         }
-        res.Write(fastJSON.JSON.Instance.ToJSON(d));
+        res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
         return res;
     }
 
