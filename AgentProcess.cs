@@ -29,7 +29,7 @@ public class ProcessCollection
         }
     }
 
-    public Dictionary<string, string> GetOutgoingBody(int xid)
+    public Dictionary<string, object> GetOutgoingBody(int xid)
     {
         return agentProcesses[xid].outgoingBody;
     }
@@ -41,11 +41,12 @@ public class ProcessCollection
         {
             CLIProcess proc = new CLIProcess(binaryFolder, outputFolder, command, args);
 
-            proc.outgoingBody.Add("run-status", "");
-            proc.outgoingBody.Add("exit-status", "");
-            proc.outgoingBody.Add("xid", xid.ToString());
-            proc.outgoingBody.Add("stdout", "");
-            proc.outgoingBody.Add("stderr", "");
+            //TODO: Clean up this
+            //if (!proc.outgoingBody.ContainsKey("run_status")) proc.outgoingBody.Add("run-status", "");
+            if (!proc.outgoingBody.ContainsKey("exit_status")) proc.outgoingBody.Add("exit-status", 0);
+            if (!proc.outgoingBody.ContainsKey("xid")) proc.outgoingBody.Add("xid", xid);
+            //if (!proc.outgoingBody.ContainsKey("stdout")) proc.outgoingBody.Add("stdout", "");
+            //if (!proc.outgoingBody.ContainsKey("stderr")) proc.outgoingBody.Add("stderr", "");
 
             agentProcesses.Add(xid, proc);
         }
@@ -91,6 +92,12 @@ public class CLIProcess : AgentProcess
         this.command = command;  
         this.commandArgs = args;
 
+        if (this.commandArgs.Contains("status"))
+        {
+            processType = "status";
+            this.outputFileName = "tableau_status " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
+        }
+
         if (this.commandArgs.Contains("backup"))
         {
             processType = "backup";
@@ -103,37 +110,40 @@ public class CLIProcess : AgentProcess
             this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
         }
 
-        StartProcess(processType);
+        StartProcess(processType, false);
     }
 
-    protected override int StartProcess(string processType)
+    protected override int StartProcess(string processType, bool waitForResults)
     {
         Process process = new Process();
 
         process.StartInfo.WorkingDirectory = this.binFolder;
-        process.StartInfo.FileName = this.command + ".exe";
-        //process.StartInfo.Arguments = (commandArgs != null) ? (" " + commandArgs + " " + outputFileName) : outputFileName;
+        process.StartInfo.FileName = this.binFolder + this.command + ".exe";
+        process.StartInfo.Arguments = (commandArgs != null) ? (" " + commandArgs + " " + outputFileName) : outputFileName;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.RedirectStandardOutput = true;
+        this.waitForResults = waitForResults;
+
+        //process.StartInfo.FileName = @"C:\Program Files\Tableau\Tableau Server\8.1\bin\tabadmin.exe";
 
         try
         {
             process.Start();
 
-            this.outgoingBody["stdout"] = process.StandardOutput.ReadToEnd();
-            this.outgoingBody["stderr"] = process.StandardError.ReadToEnd();
+            //this.outgoingBody["stdout"] = process.StandardOutput.ReadToEnd();
+            //this.outgoingBody["stderr"] = process.StandardError.ReadToEnd();
 
-            windows_process_id = process.Id;
-            if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
+            //windows_process_id = process.Id;
+            //if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
 
             //Console.WriteLine(process.StandardOutput.ReadToEnd());
 
-            using (FileStream fs = new FileStream(outputFileName, FileMode.CreateNew))
+            using (FileStream fs = new FileStream(outputFolder + outputFileName, FileMode.CreateNew))
             {
                 using (BinaryWriter w = new BinaryWriter(fs))
                 {
-                    w.Write(this.outgoingBody["stdout"]);
+                    w.Write(process.StandardOutput.ReadToEnd());
                 }
             }
         }
@@ -188,7 +198,7 @@ public abstract class AgentProcess
     protected string outputFolder;
     protected string outputFileName;
     protected bool eventHandled = false;
-    public Dictionary<string, string> outgoingBody = new Dictionary<string,string>();
+    public Dictionary<string, object> outgoingBody = new Dictionary<string, object>();
 
     /// <summary>
     /// Returns the Windows process id for a given controller process id
@@ -211,7 +221,7 @@ public abstract class AgentProcess
         }
     }
 
-    protected virtual int StartProcess(string processType)
+    protected virtual int StartProcess(string processType, bool waitForResults)
     {
         process = new Process();
         windows_process_id = process.Id;
@@ -247,7 +257,7 @@ public abstract class AgentProcess
             runStatus = 1;
         }
 
-        this.outgoingBody["run-status"] = runStatus.ToString();
+        this.outgoingBody["run-status"] = runStatus;
 
         return runStatus;        
     }
@@ -256,7 +266,7 @@ public abstract class AgentProcess
     protected void myProcess_Exited(object sender, System.EventArgs e)
     {
         eventHandled = true;
-        this.outgoingBody["run-status"] = "2";
+        this.outgoingBody["run-status"] = 2;
         Console.WriteLine("Exit time: {0}\r\n" +
             "Exit code: {1}\r\nElapsed time: {2}", process.ExitTime, process.ExitCode, totalProcessorTime.Seconds);
     }
@@ -288,7 +298,7 @@ public abstract class AgentProcess
             {
                 process.Kill();
                 runStatus = 3;
-                this.outgoingBody["run-status"] = runStatus.ToString();
+                this.outgoingBody["run-status"] = runStatus;
             }
         }
         catch (Exception ex) 

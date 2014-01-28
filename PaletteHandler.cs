@@ -38,11 +38,11 @@ class PaletteHandler : HttpHandler
         Dictionary<string, string> d = new Dictionary<string, string>();
         d["xid"] = Convert.ToString(xid);
         string cmd = GetCmd(req);
-        Dictionary<string, string> outputBody = null;
+        Dictionary<string, object> outputBody = null;
 
         //TODO: put these in .ini file                
         string outputFolder = "C:\\Temp\\";  //TESTING ONLY
-        string binaryFolder = "C:\\Temp\\"; //"C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";  //TESTING ONLY
+        string binaryFolder = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";  //TESTING ONLY
    
         if (req.Method == "POST")
         {
