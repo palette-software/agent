@@ -6,15 +6,36 @@ using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading;
 
 public class ProcessCollection
 {
     //Dictionary of xid, process
-    public Dictionary<int, AgentProcess> agentProcesses;    
+    public Dictionary<int, AgentProcess> agentProcesses;
+    protected static Dictionary<int, int> xidMapping; 
 
     public ProcessCollection()
     {
         agentProcesses = new Dictionary<int, AgentProcess>();
+        xidMapping = new Dictionary<int, int>();
+    }
+
+    /// <summary>
+    /// Returns the Windows process id for a given controller process id
+    /// </summary>
+    /// <param name="xid">controller process id</param>
+    /// /// <param name="waitForResults">whether or not to wait for results</param>
+    /// <returns>Windows process id</returns>
+    protected int GetWindowsProcessForXid(int xid)
+    {
+        if (xidMapping.ContainsKey(xid))
+        {
+            return xidMapping[xid];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     public int GetProcessStatus(int xid)
@@ -39,17 +60,11 @@ public class ProcessCollection
     {
         if (!agentProcesses.ContainsKey(xid))
         {
-            CLIProcess proc = new CLIProcess(binaryFolder, outputFolder, command, args);
-
-            int exit_status = 0;
-            //TODO: Clean up this
-            //if (!proc.outgoingBody.ContainsKey("run_status")) proc.outgoingBody.Add("run-status", "");
-            if (!proc.outgoingBody.ContainsKey("exit_status")) proc.outgoingBody.Add("exit-status", exit_status);
-            if (!proc.outgoingBody.ContainsKey("xid")) proc.outgoingBody.Add("xid", xid);
-            //if (!proc.outgoingBody.ContainsKey("stdout")) proc.outgoingBody.Add("stdout", "");
-            //if (!proc.outgoingBody.ContainsKey("stderr")) proc.outgoingBody.Add("stderr", "");
+            CLIProcess proc = new CLIProcess(xid, binaryFolder, outputFolder, command, args);
 
             agentProcesses.Add(xid, proc);
+
+            if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, proc.windows_process_id);
         }
         else
         {
@@ -69,15 +84,27 @@ public class ProcessCollection
             return -1;
         }
     }
+
+    public void RemoveProcess(int xid)
+    {
+        if (agentProcesses.ContainsKey(xid))
+        {
+            agentProcesses.Remove(xid);
+        }
+    }
+
+    public void RemoveAllProcesses()
+    {
+        agentProcesses.Clear();
+    }
 }
 
 public class CLIProcess : AgentProcess
 {
     public string processType = "unknown";
-
-    //public CLIProcess(int xid) : base(xid) 
-    //{ 
-    //}
+    protected string binFolder;
+    protected string outputFolder;
+    protected string outputFileName;
 
     /// <summary>
     /// Process class for cli backup and restore commands
@@ -86,8 +113,9 @@ public class CLIProcess : AgentProcess
     /// <param name="outputFolder">folder for output file</param>
     /// <param name="command">the actual command (i.e. "tabadmin backup")</param>
     /// <param name="args">command args (optional)</param>
-    public CLIProcess(string binaryFolder, string outputFolder, string command, string args)
+    public CLIProcess(int xid, string binaryFolder, string outputFolder, string command, string args)
     {
+        this.xid = xid;
         this.binFolder = binaryFolder;  
         this.outputFolder = outputFolder;
         this.command = command;  
@@ -111,7 +139,24 @@ public class CLIProcess : AgentProcess
             this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
         }
 
+        AddOutgoingBody(processType);
+
         StartProcess(processType, false);
+    }
+
+    protected void AddOutgoingBody(string processType)
+    {
+        this.outgoingBody = new Dictionary<string, object>();
+
+        int unknown = 0;
+        this.outgoingBody.Add("run-status", unknown);
+        this.outgoingBody.Add("exit-status", unknown);
+        this.outgoingBody.Add("xid", this.xid);
+        if (processType == "backup" || processType == "restore")
+        {
+            this.outgoingBody.Add("stdout", "");
+            this.outgoingBody.Add("stderr", "");
+        }
     }
 
     protected override int StartProcess(string processType, bool waitForResults)
@@ -135,8 +180,7 @@ public class CLIProcess : AgentProcess
             //this.outgoingBody["stdout"] = process.StandardOutput.ReadToEnd();
             //this.outgoingBody["stderr"] = process.StandardError.ReadToEnd();
 
-            //windows_process_id = process.Id;
-            //if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
+            windows_process_id = process.Id;           
 
             //Console.WriteLine(process.StandardOutput.ReadToEnd());
 
@@ -144,7 +188,9 @@ public class CLIProcess : AgentProcess
             {
                 using (BinaryWriter w = new BinaryWriter(fs))
                 {
+                    //create process thread that puts standard output to file
                     w.Write(process.StandardOutput.ReadToEnd());
+                    //process.WaitForExit();  --testing this only
                 }
             }
         }
@@ -177,12 +223,11 @@ public class CLIProcess : AgentProcess
 public abstract class AgentProcess
 {
     protected const int SLEEP_AMOUNT = 100;
-    public int xid;  //controller transaction id
-    protected static Dictionary<int, int> xidMapping; 
+    public int xid;  //controller transaction id    
     protected Process process;
     protected string command;
     protected string commandArgs = null;
-    protected int windows_process_id;  //actual windows process id
+    public int windows_process_id;  //actual windows process id
     protected string processStatus;
     protected DateTime processStartTime
     {
@@ -195,32 +240,8 @@ public abstract class AgentProcess
     protected DateTime lastCheckTime;
     protected int runStatus;
     protected bool waitForResults;
-    protected string binFolder;
-    protected string outputFolder;
-    protected string outputFileName;
     protected bool eventHandled = false;
-    public Dictionary<string, object> outgoingBody = new Dictionary<string, object>();
-
-    /// <summary>
-    /// Returns the Windows process id for a given controller process id
-    /// </summary>
-    /// <param name="xid">controller process id</param>
-    /// /// <param name="waitForResults">whether or not to wait for results</param>
-    /// <returns>Windows process id</returns>
-    protected int GetWindowsProcessForXid(int xid, bool waitForResults)
-    {
-        if (xidMapping == null) xidMapping = new Dictionary<int, int>();
-
-        this.waitForResults = waitForResults;
-        if (xidMapping.ContainsKey(xid))
-        {
-            return xidMapping[xid];
-        }
-        else
-        {
-            return -1;
-        }
-    }
+    public Dictionary<string, object> outgoingBody;
 
     protected virtual int StartProcess(string processType, bool waitForResults)
     {
@@ -232,8 +253,6 @@ public abstract class AgentProcess
         try
         {
             process.Start();
-
-            if (!xidMapping.ContainsKey(xid)) xidMapping.Add(xid, windows_process_id);
 
             Console.WriteLine(process.StandardOutput.ReadToEnd());         
         }
