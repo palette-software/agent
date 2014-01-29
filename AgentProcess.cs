@@ -41,9 +41,10 @@ public class ProcessCollection
         {
             CLIProcess proc = new CLIProcess(binaryFolder, outputFolder, command, args);
 
+            int exit_status = 0;
             //TODO: Clean up this
             //if (!proc.outgoingBody.ContainsKey("run_status")) proc.outgoingBody.Add("run-status", "");
-            if (!proc.outgoingBody.ContainsKey("exit_status")) proc.outgoingBody.Add("exit-status", 0);
+            if (!proc.outgoingBody.ContainsKey("exit_status")) proc.outgoingBody.Add("exit-status", exit_status);
             if (!proc.outgoingBody.ContainsKey("xid")) proc.outgoingBody.Add("xid", xid);
             //if (!proc.outgoingBody.ContainsKey("stdout")) proc.outgoingBody.Add("stdout", "");
             //if (!proc.outgoingBody.ContainsKey("stderr")) proc.outgoingBody.Add("stderr", "");
@@ -167,7 +168,7 @@ public class CLIProcess : AgentProcess
         {
             runStatus = 1;
         }
-        this.outgoingBody["run-status"] = runStatus.ToString();
+        this.outgoingBody["run-status"] = runStatus;
 
         return runStatus;
     }
