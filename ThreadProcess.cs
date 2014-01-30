@@ -8,12 +8,14 @@ using System.Diagnostics;
 public class ThreadProcess
 {
     private Process process;
-    string outputFileName;  //full path + filename
+    string stdOutFile;  //full path + filename
+    string stdErrFile;
 
-    public ThreadProcess(Process process, string outputFileName)
+    public ThreadProcess(Process process, string fullOutputPath)
     {
         this.process = process;
-        this.outputFileName = outputFileName;
+        this.stdOutFile = fullOutputPath + "stdout.txt";
+        this.stdErrFile = fullOutputPath + "stderr.txt";
     }
 
     public void SpawnThreadProcess()
@@ -22,7 +24,8 @@ public class ThreadProcess
         {
             process.Start();
 
-            using (StreamWriter writer = new StreamWriter(outputFileName))
+            //TODO: Need to deal with stderr
+            using (StreamWriter writer = new StreamWriter(stdOutFile))
             {
                 writer.Write(process.StandardOutput.ReadToEnd());
 

@@ -138,19 +138,16 @@ public class CLIProcess : AgentProcess
         if (this.commandArgs.Contains("status"))
         {
             processType = "status";
-            this.outputFileName = "tableau_status " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
-        if (this.commandArgs.Contains("backup"))
+        else if (this.commandArgs.Contains("backup"))
         {
             processType = "backup";
-            this.outputFileName = "tableau_backup " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
         else if (this.commandArgs.Contains("restore"))
         {
             processType = "restore";
-            this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
         AddOutgoingBody(processType);
@@ -185,9 +182,7 @@ public class CLIProcess : AgentProcess
         process.StartInfo.RedirectStandardOutput = true;
         this.waitForResults = waitForResults;
 
-        string filename = outputFolder + outputFileName;
-
-        ThreadProcess tp = new ThreadProcess(process, filename);
+        ThreadProcess tp = new ThreadProcess(process, fullOutputPath);
 
         ThreadStart threadDelegate = new ThreadStart(tp.SpawnThreadProcess);
 
