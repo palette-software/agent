@@ -6,8 +6,11 @@ Steps to install:
  - extract it.
  - copy the 'fastJSON' directory into the directory *containing* the agent repo
    i.e. fastJSON and agent should both have the same parent directory.
- - open visual studio.
- - build the 'fastJSON net35' project.
+ - open visual studio by opening the agent.csproj file or the .soln file
+   if it exists.
+ - in Solution Explorer (upper right hand corner some times) Right click on Solution WindowsAgent and choose "Add--->Existing Project..."
+ - Selet fastJSON/FastJSON net35.csproj and open.
+ - build the 'fastJSON net35' project by pressing F6.
 
 After following the above steps once, you shouldn't have to do anything further.
 
