@@ -209,8 +209,31 @@ public class CLIProcess : AgentProcess
         return runStatus;
     }
 
-    protected void Test()
+    public override int ReturnStatus()
     {
-        runStatus = 1;
+        string filename = outputFolder + "\\XID\\" + xid.ToString() + "\\" + "stdOut.txt";
+        if (File.Exists(filename))
+        {
+            //TODO: Add StdErr
+            runStatus = 2;            
+
+            System.IO.StreamReader fileToRead = new System.IO.StreamReader(filename);
+            this.outgoingBody["exit-status"] = 0;
+            this.outgoingBody["stdout"] = fileToRead.ReadToEnd();
+            this.outgoingBody["stderr"] = "";
+
+            fileToRead.Close();
+        }
+        else
+        {
+            runStatus = 1;
+            this.outgoingBody["exit-status"] = 0;
+            this.outgoingBody["stdout"] = "";
+            this.outgoingBody["stderr"] = "";
+        }
+
+        this.outgoingBody["run-status"] = runStatus;
+        
+        return runStatus;
     }
 }

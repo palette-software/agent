@@ -85,6 +85,7 @@ class PaletteHandler : HttpHandler
         else if (req.Method == "GET")
         {
             //check status of existing process        
+            int test = allProcesses.GetProcessStatus(xid);
             outputBody = allProcesses.GetOutgoingBody(xid);
         }
         res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
