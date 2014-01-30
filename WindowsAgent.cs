@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Net;
 
 public class Agent
 {
@@ -25,8 +26,13 @@ public class Agent
         int port = conf.KeyExists("port", "controller") ? Convert.ToInt16(conf.Read("port", "controller")) : HttpProcessor.PORT;
 
         string uuid = conf.KeyExists("uuid", "DEFAULT") ? conf.Read("uuid", "DEFAULT") : "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+        string username = "palette-username";
+        string password = "secret";
 
-        PaletteHandler handler = new PaletteHandler(uuid);
+        IPAddress addr;
+        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);  
+
+        PaletteHandler handler = new PaletteHandler(uuid, username, password, host, addr.ToString(), port.ToString());
 
         HttpProcessor processor = new HttpProcessor(host, port);
         processor.Connect();

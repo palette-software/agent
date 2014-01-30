@@ -103,12 +103,14 @@ public class CLIProcess : AgentProcess
 {
     public string processType = "unknown";
     protected string binFolder;
-    protected string outputFolder;
+    protected string outputFolder;  //The base output folder
+    protected string fullOutputPath;  //The full path for a CLI output folder (i.e. C:\Temp\XID\23\returncode)
     protected string outputFileName;
 
     /// <summary>
     /// Process class for cli backup and restore commands
     /// </summary>
+    /// /// <param name="xid">process id from controller</param>
     /// <param name="binaryFolder">folder for command executable</param>
     /// <param name="outputFolder">folder for output file</param>
     /// <param name="command">the actual command (i.e. "tabadmin backup")</param>
@@ -118,30 +120,41 @@ public class CLIProcess : AgentProcess
         this.xid = xid;
         this.binFolder = binaryFolder;  
         this.outputFolder = outputFolder;
+        this.fullOutputPath = outputFolder + "\\XID\\" + xid.ToString() + "\\";
+
         this.command = command;  
         this.commandArgs = args;
+
+        try
+        {
+            if (!Directory.Exists(fullOutputPath)) Directory.CreateDirectory(fullOutputPath);
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine("Error creating folder: " + exc.ToString());
+        }
 
         if (this.commandArgs.Contains("status"))
         {
             processType = "status";
-            this.outputFileName = "tableau_status " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
+            this.outputFileName = "tableau_status " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
         if (this.commandArgs.Contains("backup"))
         {
             processType = "backup";
-            this.outputFileName = "tableau_backup " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
+            this.outputFileName = "tableau_backup " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
         else if (this.commandArgs.Contains("restore"))
         {
             processType = "restore";
-            this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".out";
+            this.outputFileName = "restore " + System.DateTime.Now.ToString("yyyy.mm.dd") + ".txt";
         }
 
         AddOutgoingBody(processType);
 
-        StartProcess(processType, false);
+        //StartProcess(processType, false);
     }
 
     protected void AddOutgoingBody(string processType)
@@ -171,34 +184,15 @@ public class CLIProcess : AgentProcess
         process.StartInfo.RedirectStandardOutput = true;
         this.waitForResults = waitForResults;
 
-        //process.StartInfo.FileName = @"C:\Program Files\Tableau\Tableau Server\8.1\bin\tabadmin.exe";
+        string filename = outputFolder + outputFileName;
 
-        try
-        {
-            process.Start();
+        ThreadProcess tp = new ThreadProcess(process, filename);
 
-            //this.outgoingBody["stdout"] = process.StandardOutput.ReadToEnd();
-            //this.outgoingBody["stderr"] = process.StandardError.ReadToEnd();
+        ThreadStart threadDelegate = new ThreadStart(tp.SpawnThreadProcess);
 
-            windows_process_id = process.Id;           
+        Thread newThread = new Thread(threadDelegate);
 
-            //Console.WriteLine(process.StandardOutput.ReadToEnd());
-
-            using (FileStream fs = new FileStream(outputFolder + outputFileName, FileMode.CreateNew))
-            {
-                using (BinaryWriter w = new BinaryWriter(fs))
-                {
-                    //create process thread that puts standard output to file
-                    w.Write(process.StandardOutput.ReadToEnd());
-                    //process.WaitForExit();  --testing this only
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Exception caught in spawning process!! " + ex.ToString());
-            runStatus = -1;  //Not currently part of spec, but should be?            
-        }
+        newThread.Start();
 
         if (waitForResults)
         {
@@ -217,6 +211,11 @@ public class CLIProcess : AgentProcess
         this.outgoingBody["run-status"] = runStatus;
 
         return runStatus;
+    }
+
+    protected void Test()
+    {
+        runStatus = 1;
     }
 }
 

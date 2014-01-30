@@ -69,6 +69,7 @@
     <Compile Include="IniFile.cs" />
     <Compile Include="PaletteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadProcess.cs" />
     <Compile Include="WindowsAgent.cs">
       <SubType>Code</SubType>
     </Compile>

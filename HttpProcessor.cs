@@ -177,6 +177,5 @@ public class HttpProcessor
         }
 
         return isResolved;
-    }
-        
+    }        
 }

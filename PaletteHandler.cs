@@ -6,11 +6,27 @@ using System.Text.RegularExpressions;
 
 class PaletteHandler : HttpHandler
 {
+    protected string username = null;
+    protected string password = null;
+    protected string version = null;
+    protected string hostname = null;
+    protected string type = null;
+    protected string ip_address = null;
+    protected string listen_port = null;
     protected string uuid = null;
+
     protected ProcessCollection allProcesses;
 
-    public PaletteHandler(string uuid)
+    public PaletteHandler(string uuid, string username, string password, string hostname, 
+        string ip_address, string listen_port)
     {
+        //Agent authorization parameters
+        this.username = username;
+        this.password = password;
+        this.hostname = hostname;
+        this.type = "AGENT_TYPE_PRIMARY";
+        this.ip_address = ip_address;
+        this.listen_port = listen_port;        
         this.uuid = uuid;
         //represents all running processes managed by agent
         allProcesses = new ProcessCollection();
@@ -21,11 +37,18 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         req.ContentType = "application/json";
 
-        Dictionary<string, string> d = new Dictionary<string, string>();
-        d["version"] = Agent.VERSION;
-        d["uuid"] = uuid;
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["username"] = username;
+        data["password"] = password;
+        data["version"] = Agent.VERSION;
+        data["hostname"] = hostname;
+        data["type"] = type;
+        data["ip-address"] = ip_address;
+        data["listen-port"] = listen_port;
+        data["uuid"] = uuid;
 
-        res.Write(fastJSON.JSON.Instance.ToJSON(d));
+
+        res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
     }
 
