@@ -32,7 +32,7 @@ public class Agent
         IPAddress addr;
         HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);  
 
-        PaletteHandler handler = new PaletteHandler(uuid, username, password, host, addr.ToString(), port.ToString());
+        PaletteHandler handler = new PaletteHandler(uuid, username, password, host, addr.ToString(), port);
 
         HttpProcessor processor = new HttpProcessor(host, port);
         processor.Connect();

@@ -12,19 +12,19 @@ class PaletteHandler : HttpHandler
     protected string hostname = null;
     protected string type = null;
     protected string ip_address = null;
-    protected string listen_port = null;
+    protected int listen_port = -1;
     protected string uuid = null;
 
     protected ProcessCollection allProcesses;
 
     public PaletteHandler(string uuid, string username, string password, string hostname, 
-        string ip_address, string listen_port)
+        string ip_address, int listen_port)
     {
         //Agent authorization parameters
         this.username = username;
         this.password = password;
         this.hostname = hostname;
-        this.type = "AGENT_TYPE_PRIMARY";
+        this.type = "primary";
         this.ip_address = ip_address;
         this.listen_port = listen_port;        
         this.uuid = uuid;
@@ -37,7 +37,7 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         req.ContentType = "application/json";
 
-        Dictionary<string, string> data = new Dictionary<string, string>();
+        Dictionary<string, object> data = new Dictionary<string, object>();
         data["username"] = username;
         data["password"] = password;
         data["version"] = Agent.VERSION;

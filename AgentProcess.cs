@@ -134,6 +134,7 @@ public class CLIProcess : AgentProcess
             Console.WriteLine("Error creating folder: " + exc.ToString());
         }
 
+        //TODO: Change the output file names
         if (this.commandArgs.Contains("status"))
         {
             processType = "status";
@@ -154,7 +155,7 @@ public class CLIProcess : AgentProcess
 
         AddOutgoingBody(processType);
 
-        //StartProcess(processType, false);
+        StartProcess(processType, false);
     }
 
     protected void AddOutgoingBody(string processType)
