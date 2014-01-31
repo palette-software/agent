@@ -69,7 +69,12 @@ public class HttpRequest
             URI = Url;
             return;
         }
-        if (tokens.Length != 2)
+        else if (tokens.Length == 2)
+        {
+            URI = tokens[0];
+            return;
+        }
+        else if (tokens.Length == 2 || tokens.Length > 2)
         {
             throw new HttpBadRequest("invalid query string");
         }

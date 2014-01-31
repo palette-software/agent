@@ -57,10 +57,9 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
-        int xid = GetXid(req); // FIXME: test for XID existence.
+        int xid = GetXid(req); 
         Dictionary<string, string> d = new Dictionary<string, string>();
-        d["xid"] = Convert.ToString(xid);
-        string cmd = GetCmd(req);
+        d["xid"] = Convert.ToString(xid);        
         Dictionary<string, object> outputBody = null;
 
         //TODO: put these in .ini file                
@@ -69,6 +68,8 @@ class PaletteHandler : HttpHandler
    
         if (req.Method == "POST")
         {
+            string cmd = GetCmd(req);
+
             if (cmd.Contains("backup") || cmd.Contains("restore") || cmd.Contains("status"))
             {
                 string[] parts = cmd.Split(' ');
@@ -85,7 +86,7 @@ class PaletteHandler : HttpHandler
         else if (req.Method == "GET")
         {
             //check status of existing process        
-            int test = allProcesses.GetProcessStatus(xid);
+            string status = allProcesses.GetProcessStatus(xid);
             outputBody = allProcesses.GetOutgoingBody(xid);
         }
         res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
@@ -114,15 +115,37 @@ class PaletteHandler : HttpHandler
 
     protected int GetXid(HttpRequest req)
     {
-        // FIXME: test for XID existence.
-        long xid = (long)req.JSON["xid"];
-        return (int)xid;
+        if (req.JSON != null)
+        {
+            long xid = (long)req.JSON["xid"];
+            return (int)xid;
+        }
+        else
+        {
+            int xid = -1;
+            string[] tokens = req.Url.Split('?');
+            if (tokens[1].Contains("xid"))
+            {
+                string[] subtokens = tokens[1].Split('=');
+                if (subtokens.Length == 2)
+                {                    
+                    Int32.TryParse(subtokens[1], out xid);                    
+                }
+            }
+            return xid;
+        }
     }
 
     protected string GetCmd(HttpRequest req)
     {
-        // FIXME: test for cli existence.
-        string cmd = req.JSON["cli"].ToString();
-        return cmd;
+        if (req.JSON != null)
+        {
+            string cmd = req.JSON["cli"].ToString();
+            return cmd;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

@@ -38,7 +38,7 @@ public class ProcessCollection
         }
     }
 
-    public int GetProcessStatus(int xid)
+    public string GetProcessStatus(int xid)
     {
         if (agentProcesses.ContainsKey(xid))
         {
@@ -46,7 +46,7 @@ public class ProcessCollection
         }
         else
         {
-            return -1;
+            return "unknown";
         }
     }
 
@@ -72,7 +72,7 @@ public class ProcessCollection
         }
     }
 
-    public int KillProcess(int xid)
+    public string KillProcess(int xid)
     {
         if (agentProcesses.ContainsKey(xid))
         {
@@ -81,7 +81,7 @@ public class ProcessCollection
         }
         else
         {
-            return -1;
+            return "finished";
         }
     }
 
@@ -170,7 +170,7 @@ public class CLIProcess : AgentProcess
         }
     }
 
-    protected override int StartProcess(string processType, bool waitForResults)
+    protected override void StartProcess(string processType, bool waitForResults)
     {
         Process process = new Process();
 
@@ -198,24 +198,22 @@ public class CLIProcess : AgentProcess
                 process.WaitForExit(SLEEP_AMOUNT);
             }
 
-            runStatus = 2;
+            runStatus = "finished";
         }
         else
         {
-            runStatus = 1;
+            runStatus = "running";
         }
         this.outgoingBody["run-status"] = runStatus;
-
-        return runStatus;
     }
 
-    public override int ReturnStatus()
+    public override string ReturnStatus()
     {
-        string filename = outputFolder + "\\XID\\" + xid.ToString() + "\\" + "stdOut.txt";
+        string filename = outputFolder + "XID\\" + xid.ToString() + "\\" + "stdOut.txt";
         if (File.Exists(filename))
         {
             //TODO: Add StdErr
-            runStatus = 2;            
+            runStatus = "finished";            
 
             System.IO.StreamReader fileToRead = new System.IO.StreamReader(filename);
             this.outgoingBody["exit-status"] = 0;
@@ -226,7 +224,7 @@ public class CLIProcess : AgentProcess
         }
         else
         {
-            runStatus = 1;
+            runStatus = "running";
             this.outgoingBody["exit-status"] = 0;
             this.outgoingBody["stdout"] = "";
             this.outgoingBody["stderr"] = "";

@@ -21,12 +21,12 @@ public abstract class AgentProcess
         get { return process.TotalProcessorTime; }
     }
     protected DateTime lastCheckTime;
-    protected int runStatus;
+    protected string runStatus;
     protected bool waitForResults;
     protected bool eventHandled = false;
     public Dictionary<string, object> outgoingBody;
 
-    protected virtual int StartProcess(string processType, bool waitForResults)
+    protected virtual void StartProcess(string processType, bool waitForResults)
     {
         process = new Process();
         windows_process_id = process.Id;
@@ -42,7 +42,7 @@ public abstract class AgentProcess
         catch (Exception ex)
         {
             Console.WriteLine("Exception caught in spawning process!! " + ex.ToString());
-            runStatus = -1; 
+            runStatus = "unknown"; 
         }
 
         if (waitForResults)
@@ -53,16 +53,14 @@ public abstract class AgentProcess
                 process.WaitForExit(SLEEP_AMOUNT);
             }
 
-            runStatus = 1;
+            runStatus = "finished";
         }
         else
         {
-            runStatus = 1;
+            runStatus = "running";
         }
 
-        this.outgoingBody["run-status"] = runStatus;
-
-        return runStatus;        
+        this.outgoingBody["run-status"] = runStatus;      
     }
 
     // Handle Exited event and display process information. 
@@ -74,39 +72,38 @@ public abstract class AgentProcess
             "Exit code: {1}\r\nElapsed time: {2}", process.ExitTime, process.ExitCode, totalProcessorTime.Seconds);
     }
 
-    public virtual int ReturnStatus() 
+    public virtual string ReturnStatus()
     {
-        if (process.Responding)
-            return 1;
+        if (this.runStatus != "unknown")
+        {
+            return this.runStatus;
+        }
+        else if (process.Responding)
+            return "running";
+        else if (eventHandled)
+        {
+            return "finished";
+        }
         else
-            if (eventHandled)
-            {
-                return 2;
-            }
-            else if (runStatus == 3)
-            {
-                return 3;
-            }
-            else
-            {
-                return -1;
-            }
+        {
+            return "unknown"; //make sure we don't return null
+        }
     }
 
-    public virtual int KillProcess()
+    public virtual string KillProcess()
     {
         try
         {
             if (process.Responding)
             {
                 process.Kill();
-                runStatus = 3;
+                runStatus = "killed";
                 this.outgoingBody["run-status"] = runStatus;
             }
         }
         catch (Exception ex) 
         {
-            runStatus = -1;
+            runStatus = "unknown";
             Console.WriteLine("Error in Killing process " + xid + " " + ex.ToString());
         }
         return runStatus;
