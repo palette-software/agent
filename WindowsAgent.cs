@@ -41,7 +41,12 @@ public class Agent
         }
 
         HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);
-    }   
+    }
+
+    public static string SendResponse(HttpListenerRequest request)
+    {
+        return string.Format("<HTML><BODY>Pallete Windows Agent: {0}</BODY></HTML>", Agent.VERSION);
+    }
 
     public static int Main(String[] args)
     {
@@ -61,6 +66,9 @@ public class Agent
 
         // FIXME: cleanup XID directory.
         PaletteHandler handler = new PaletteHandler(agent);
+
+        WebServer ws = new WebServer(SendResponse, "http://localhost:8889/");
+        ws.Run();
 
         HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
         processor.Connect();
