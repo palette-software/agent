@@ -60,13 +60,11 @@
   <ItemGroup>
     <Compile Include="AgentProcess.cs" />
     <Compile Include="CLIProcess.cs" />
-    <Compile Include="HttpException.cs" />
-    <Compile Include="HttpHandler.cs" />
-    <Compile Include="HttpProcessor.cs" />
-    <Compile Include="HttpRequest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HttpResponse.cs" />
+    <Compile Include="http\HttpException.cs" />
+    <Compile Include="http\HttpHandler.cs" />
+    <Compile Include="http\HttpProcessor.cs" />
+    <Compile Include="http\HttpRequest.cs" />
+    <Compile Include="http\HttpResponse.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="PaletteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
