@@ -6,28 +6,19 @@ using System.Text.RegularExpressions;
 
 class PaletteHandler : HttpHandler
 {
+    protected Agent agent;
     protected string username = null;
-    protected string password = null;
-    protected string version = null;
-    protected string hostname = null;
     protected string type = null;
-    protected string ip_address = null;
-    protected int listen_port = -1;
+   
     protected string uuid = null;
 
     protected ProcessCollection allProcesses;
 
-    public PaletteHandler(string uuid, string username, string password, string hostname, 
-        string ip_address, int listen_port)
+    public PaletteHandler(Agent agent)
     {
-        //Agent authorization parameters
-        this.username = username;
-        this.password = password;
-        this.hostname = hostname;
-        this.type = "primary";
-        this.ip_address = ip_address;
-        this.listen_port = listen_port;        
-        this.uuid = uuid;
+        // agent autorization parameters come from the agent instance.
+        this.agent = agent;
+ 
         //represents all running processes managed by agent
         allProcesses = new ProcessCollection();
     }
@@ -38,13 +29,13 @@ class PaletteHandler : HttpHandler
         req.ContentType = "application/json";
 
         Dictionary<string, object> data = new Dictionary<string, object>();
-        data["username"] = username;
-        data["password"] = password;
+        data["username"] = agent.username;
+        data["password"] = agent.password;
         data["version"] = Agent.VERSION;
-        data["hostname"] = hostname;
-        data["type"] = type;
-        data["ip-address"] = ip_address;
-        data["listen-port"] = listen_port;
+        data["hostname"] = agent.host;
+        data["type"] = agent.type;
+        data["ip-address"] = agent.addr.ToString();
+        data["listen-port"] = agent.port;
         data["uuid"] = uuid;
 
 
@@ -92,11 +83,6 @@ class PaletteHandler : HttpHandler
         return res;
     }
 
-    protected HttpResponse HandleStatus(HttpRequest req)
-    {
-        return req.Response;
-    }
-
     override public HttpResponse Handle(HttpRequest req)
     {
         switch (req.URI)
@@ -105,8 +91,6 @@ class PaletteHandler : HttpHandler
                 return HandleAuth(req);
             case "/cli":
                 return HandleCmd(req);
-            case "/status":
-                return HandleStatus(req);
             default:
                 throw new HttpNotFound();
         }

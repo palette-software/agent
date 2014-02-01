@@ -6,6 +6,42 @@ using System.Net;
 public class Agent
 {
     public const string VERSION = "0.0";
+    public const string TYPE = "primary";
+
+    public IniFile conf = null;
+    public string type;
+
+    public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+    public string host = HttpProcessor.HOST;
+    public int port = HttpProcessor.PORT;
+    public IPAddress addr;
+
+    // testing only.
+    public string username = "palette";
+    public string password = "unknown";
+
+    public Agent(string inifile)
+    {
+        type = Agent.TYPE;
+        conf = new IniFile(inifile);
+
+        if (conf.KeyExists("uuid", "DEFAULT"))
+        {
+            uuid = conf.Read("uuid", "DEFAULT");
+        }
+
+        if (conf.KeyExists("host", "controller"))
+        {
+            host = conf.Read("host", "controller");
+        }
+
+        if (conf.KeyExists("port", "controller")) 
+        {
+            port = Convert.ToInt16(conf.Read("port", "controller"));
+        }
+
+        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);
+    }   
 
     public static int Main(String[] args)
     {
@@ -21,20 +57,12 @@ public class Agent
             return -1;
         }
 
-        IniFile conf = new IniFile(inifile);
-        string host = conf.KeyExists("host", "controller") ? conf.Read("host", "controller") : HttpProcessor.HOST;
-        int port = conf.KeyExists("port", "controller") ? Convert.ToInt16(conf.Read("port", "controller")) : HttpProcessor.PORT;
+        Agent agent = new Agent(inifile);
 
-        string uuid = conf.KeyExists("uuid", "DEFAULT") ? conf.Read("uuid", "DEFAULT") : "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-        string username = "palette-username";
-        string password = "secret";
+        // FIXME: cleanup XID directory.
+        PaletteHandler handler = new PaletteHandler(agent);
 
-        IPAddress addr;
-        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);  
-
-        PaletteHandler handler = new PaletteHandler(uuid, username, password, host, addr.ToString(), port);
-
-        HttpProcessor processor = new HttpProcessor(host, port);
+        HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
         processor.Connect();
 
         if (processor.isConnected)
