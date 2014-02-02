@@ -4,14 +4,14 @@ using System.Threading;
 using System.Linq;
 using System.Text;
  
-// Standard Web Server class - see: http://www.codehosting.net/blog/BlogEngine/post/Simple-C-Web-Server.aspx
+// Base Class for a Standard Web Server
+//   see: http://www.codehosting.net/blog/BlogEngine/post/Simple-C-Web-Server.aspx
 // All the work is done on background threads, which will be automatically cleaned up when the program quits.
-public class WebServer
+public abstract class HttpBaseServer
 {
-        private readonly HttpListener listener = new HttpListener();
-        private readonly Func<HttpListenerRequest, string> responderMethod;
- 
-        public WebServer(string[] prefixes, Func<HttpListenerRequest, string> method)
+        protected readonly HttpListener listener = new HttpListener();
+
+        public HttpBaseServer(string[] prefixes)
         {
             if (!HttpListener.IsSupported)
                 throw new NotSupportedException(
@@ -19,24 +19,19 @@ public class WebServer
  
             // URI prefixes are required, for example 
             // "http://localhost:8080/index/".
-            if (prefixes == null || prefixes.Length == 0)
+            if (prefixes == null)
                 throw new ArgumentException("prefixes");
- 
-            // A responder method is required
-            if (method == null)
-                throw new ArgumentException("method");
- 
+            
             foreach (string s in prefixes)
                 listener.Prefixes.Add(s);
-            responderMethod = method;
-            listener.Start();
         }
  
-        public WebServer(Func<HttpListenerRequest, string> method, params string[] prefixes)
-            : this(prefixes, method) { }
+        public HttpBaseServer() : this(new string[0]) { }
  
         public void Run()
         {
+            listener.Start();
+
             ThreadPool.QueueUserWorkItem((o) =>
             {
                 foreach (string prefix in listener.Prefixes)
@@ -50,16 +45,23 @@ public class WebServer
                             var ctx = c as HttpListenerContext;
                             try
                             {
-                                string rstr = responderMethod(ctx.Request);
-                                byte[] buf = Encoding.UTF8.GetBytes(rstr);
-                                ctx.Response.ContentLength64 = buf.Length;
-                                ctx.Response.OutputStream.Write(buf, 0, buf.Length);
+                                Handle(ctx);
                             }
-                            catch { } // suppress any exceptions
+                            catch (HttpException exc)
+                            {
+                                ctx.Response.StatusCode = exc.StatusCode;
+                                ctx.Response.StatusDescription = exc.Reason;                                
+                            }
+                            catch (Exception exc)
+                            {
+                                // FIXME: return internal server error.
+                                Console.WriteLine(exc.ToString());
+                            }
                             finally
                             {
                                 // always close the stream
                                 ctx.Response.OutputStream.Close();
+                                ctx.Response.Close();
                             }
                         }, listener.GetContext());
                     }
@@ -67,12 +69,25 @@ public class WebServer
                 catch { } // suppress any exceptions
             });
         }
+
+        protected void SendString(HttpListenerResponse res, string rstr)
+        {
+            byte[] buf = Encoding.UTF8.GetBytes(rstr);
+            res.ContentLength64 = buf.Length;
+            res.OutputStream.Write(buf, 0, buf.Length);
+        }
  
         public void Stop()
         {
             listener.Stop();
+        }
+
+        public void Close()
+        {
             listener.Close();
         }
+
+        protected abstract void Handle(HttpListenerContext ctx);
 }
 
 #if False

@@ -19,20 +19,30 @@ class HttpException: Exception
 
 class HttpBadRequest : HttpException
 {
-    new public int StatusCode = 400;
-    new public string Reason = "Bad Request";
-
-    public HttpBadRequest(string body) : base(body) { }
+    public HttpBadRequest(string body)
+        : base(body)
+    {
+        StatusCode = 400;
+        Reason = "Bad Request";
+    }
 }
 
 class HttpNotFound : HttpException
 {
-    new public int StatusCode = 404;
-    new public string Reason = "Not Found";
+    public HttpNotFound()
+        : base()
+    {
+        StatusCode = 404;
+        Reason = "Not Found";
+    }
 }
 
 class HttpMethodNotAllowed : HttpException
 {
-    new public int StatusCode = 405;
-    new public string Reason = "Method Not Allowed";
+    public HttpMethodNotAllowed()
+        : base()
+    {
+        StatusCode = 404;
+        Reason = "Method Not Allowed";
+    }
 }
