@@ -33,7 +33,6 @@ class PaletteHandler : HttpHandler
         data["listen-port"] = agent.port;
         data["uuid"] = uuid;
 
-
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
     }

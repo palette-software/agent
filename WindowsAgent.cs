@@ -50,11 +50,6 @@ public class Agent
         processManager = new ProcessManager();
     }
 
-    public static string SendResponse(HttpListenerRequest request)
-    {
-        return string.Format("<HTML><BODY>Pallete Windows Agent: {0}</BODY></HTML>", Agent.VERSION);
-    }
-
     public static int Main(String[] args)
     {
         string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\agent.ini";
@@ -74,10 +69,11 @@ public class Agent
         // FIXME: cleanup XID directory.
         PaletteHandler handler = new PaletteHandler(agent);
 
-        WebServer ws = new WebServer(SendResponse, "http://localhost:8889/");
-        ws.Run();
+        FileServer fs = new FileServer(8889);
+        fs.Run();
 
         HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
+
         processor.Connect();
 
         if (!processor.isConnected)
