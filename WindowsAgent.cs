@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Net;
+using System.Threading;
 
 public class Agent
 {
@@ -15,6 +17,8 @@ public class Agent
     public string host = HttpProcessor.HOST;
     public int port = HttpProcessor.PORT;
     public IPAddress addr;
+
+    public ProcessManager processManager;
 
     // testing only.
     public string username = "palette";
@@ -41,6 +45,9 @@ public class Agent
         }
 
         HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);
+
+        // FIXME: get path(s) from the INI file.
+        processManager = new ProcessManager();
     }
 
     public static string SendResponse(HttpListenerRequest request)
@@ -73,16 +80,15 @@ public class Agent
         HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
         processor.Connect();
 
-        if (processor.isConnected)
+        if (!processor.isConnected)
         {
-            processor.Run(handler);
-            processor.Close();
-            return 0;
-        }
-        else
-        {
+            // FIXME: sleep and try again
             return -1;
-        }        
+        }
+
+        processor.Run(handler);
+        processor.Close();
+        return 0;
     }
 }
 

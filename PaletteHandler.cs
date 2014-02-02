@@ -12,15 +12,10 @@ class PaletteHandler : HttpHandler
    
     protected string uuid = null;
 
-    protected ProcessCollection allProcesses;
-
     public PaletteHandler(Agent agent)
     {
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
- 
-        //represents all running processes managed by agent
-        allProcesses = new ProcessCollection();
     }
 
     protected HttpResponse HandleAuth(HttpRequest req)
@@ -48,37 +43,38 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
-        int xid = GetXid(req); // FIXME: test for XID existence.
         Dictionary<string, string> d = new Dictionary<string, string>();
-        d["xid"] = Convert.ToString(xid);
-        string cmd = GetCmd(req);
-        Dictionary<string, object> outputBody = null;
 
-        //TODO: put these in .ini file                
-        string outputFolder = "C:\\Temp\\";  //TESTING ONLY
-        string binaryFolder = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";  //TESTING ONLY
-   
+        int xid = -1;
         if (req.Method == "POST")
         {
-            if (cmd.Contains("backup") || cmd.Contains("restore") || cmd.Contains("status"))
-            {
-                string[] parts = cmd.Split(' ');
-                //create new process
-                allProcesses.AddCLIProcess(xid, binaryFolder, outputFolder, parts[0], parts[1] + " " + parts[2]);
+            xid = GetXidfromJSON(req);
 
-                outputBody = allProcesses.GetOutgoingBody(xid);
+            // FIXME: check for existence.
+            string action = GetAction(req);
+            if (action == "start")
+            {
+                string cmd = GetCmd(req);
+                agent.processManager.Start(xid, cmd);
+            }
+            else if (action == "cleanup")
+            {
+                // FIXME: handle this.
             }
             else
             {
-                new HttpNotFound();
+                // FIXME: throw error.
             }
         }
         else if (req.Method == "GET")
         {
-            //check status of existing process        
-            int test = allProcesses.GetProcessStatus(xid);
-            outputBody = allProcesses.GetOutgoingBody(xid);
+            xid = GetXidfromQueryString(req);
         }
+        else
+        {
+            throw new HttpMethodNotAllowed();
+        }
+        Dictionary<string, object> outputBody = agent.processManager.GetInfo(xid);
         res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
         return res;
     }
@@ -96,11 +92,24 @@ class PaletteHandler : HttpHandler
         }
     }
 
-    protected int GetXid(HttpRequest req)
+    protected int GetXidfromJSON(HttpRequest req)
     {
         // FIXME: test for XID existence.
         long xid = (long)req.JSON["xid"];
         return (int)xid;
+    }
+
+    protected int GetXidfromQueryString(HttpRequest req)
+    {
+        // FIXME: test for XID existence.
+        return Convert.ToInt32(req.QUERY["xid"]);
+    }
+
+    protected string GetAction(HttpRequest req)
+    {
+        // FIXME: test for action existence.
+        string action = req.JSON["action"].ToString();
+        return action;
     }
 
     protected string GetCmd(HttpRequest req)
