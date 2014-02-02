@@ -44,15 +44,10 @@ public class HttpProcessor
 
             isConnected = true;
         }
-        catch (SocketException e)
-        {
-            Console.WriteLine("SocketException: " + e.Message + " Source: " + e.Source);
-            isConnected = false;
-        }
         catch (Exception e)
         {
-            Console.WriteLine("General Exception: " + e.Message + " Source: " + e.Source);
             isConnected = false;
+            throw e;
         }
     }
 
@@ -87,10 +82,6 @@ public class HttpProcessor
                         try
                         {
                             res = handler.Handle(req);
-                        }
-                        catch (SocketException exc)
-                        {
-                            Console.WriteLine("General Exception: " + exc.Message + " Source: " + exc.Source);
                         }
                         catch (HttpBadRequest exc)
                         {

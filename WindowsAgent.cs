@@ -39,7 +39,7 @@ public class Agent
             host = conf.Read("host", "controller");
         }
 
-        if (conf.KeyExists("port", "controller")) 
+        if (conf.KeyExists("port", "controller"))
         {
             port = Convert.ToInt16(conf.Read("port", "controller"));
         }
@@ -72,19 +72,35 @@ public class Agent
         FileServer fs = new FileServer(8889);
         fs.Run();
 
-        HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
+        // FIXME: make this configurable in the INI file.
+        int reconnectInterval = 10;
 
-        processor.Connect();
-
-        if (!processor.isConnected)
+        while (true)
         {
-            // FIXME: sleep and try again
-            return -1;
-        }
+            HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
 
-        processor.Run(handler);
+            try
+            {
+                processor.Connect();
+
+                if (processor.isConnected)
+                {
+                    processor.Run(handler);
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.ToString());
+            }
+            
+            Thread.Sleep(reconnectInterval * 1000);
+            processor.Close();
+        }
+#if false
+        // FIXME: implement clean shutdown (currently unreachable).
         processor.Close();
         return 0;
+#endif
     }
 }
 
