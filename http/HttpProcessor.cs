@@ -114,10 +114,13 @@ public class HttpProcessor
                                 res.Write(exc.Body);
                             }
                         }
+// FIXME: Make this actually print out where the execption occurred and WHY.
+#if False
                         catch (Exception exc)
                         {
                             Console.WriteLine("General Exception: " + exc.Message + " Source: " + exc.Source);
                         }
+#endif
 
                         res.Flush();
                     }
