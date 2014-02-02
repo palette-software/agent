@@ -1,11 +1,54 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Net;
+using System.Threading;
 
 public class Agent
 {
     public const string VERSION = "0.0";
+    public const string TYPE = "primary";
+
+    public IniFile conf = null;
+    public string type;
+
+    public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+    public string host = HttpProcessor.HOST;
+    public int port = HttpProcessor.PORT;
+    public IPAddress addr;
+
+    public ProcessManager processManager;
+
+    // testing only.
+    public string username = "palette";
+    public string password = "unknown";
+
+    public Agent(string inifile)
+    {
+        type = Agent.TYPE;
+        conf = new IniFile(inifile);
+
+        if (conf.KeyExists("uuid", "DEFAULT"))
+        {
+            uuid = conf.Read("uuid", "DEFAULT");
+        }
+
+        if (conf.KeyExists("host", "controller"))
+        {
+            host = conf.Read("host", "controller");
+        }
+
+        if (conf.KeyExists("port", "controller"))
+        {
+            port = Convert.ToInt16(conf.Read("port", "controller"));
+        }
+
+        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);
+
+        // FIXME: get path(s) from the INI file.
+        processManager = new ProcessManager();
+    }
 
     public static int Main(String[] args)
     {
@@ -21,32 +64,43 @@ public class Agent
             return -1;
         }
 
-        IniFile conf = new IniFile(inifile);
-        string host = conf.KeyExists("host", "controller") ? conf.Read("host", "controller") : HttpProcessor.HOST;
-        int port = conf.KeyExists("port", "controller") ? Convert.ToInt16(conf.Read("port", "controller")) : HttpProcessor.PORT;
+        Agent agent = new Agent(inifile);
 
-        string uuid = conf.KeyExists("uuid", "DEFAULT") ? conf.Read("uuid", "DEFAULT") : "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-        string username = "palette-username";
-        string password = "secret";
+        // FIXME: cleanup XID directory.
+        PaletteHandler handler = new PaletteHandler(agent);
 
-        IPAddress addr;
-        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);  
+        FileServer fs = new FileServer(8889);
+        fs.Run();
 
-        PaletteHandler handler = new PaletteHandler(uuid, username, password, host, addr.ToString(), port);
+        // FIXME: make this configurable in the INI file.
+        int reconnectInterval = 10;
 
-        HttpProcessor processor = new HttpProcessor(host, port);
-        processor.Connect();
-
-        if (processor.isConnected)
+        while (true)
         {
-            processor.Run(handler);
+            HttpProcessor processor = new HttpProcessor(agent.host, agent.port);
+
+            try
+            {
+                processor.Connect();
+
+                if (processor.isConnected)
+                {
+                    processor.Run(handler);
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.ToString());
+            }
+            
+            Thread.Sleep(reconnectInterval * 1000);
             processor.Close();
-            return 0;
         }
-        else
-        {
-            return -1;
-        }        
+#if false
+        // FIXME: implement clean shutdown (currently unreachable).
+        processor.Close();
+        return 0;
+#endif
     }
 }
 

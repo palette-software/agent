@@ -78,6 +78,7 @@ public class HttpRequest
         {
             throw new HttpBadRequest("invalid query string");
         }
+        URI = tokens[0];
         QueryString = tokens[1];
         ParseQueryString();
     }
@@ -86,7 +87,7 @@ public class HttpRequest
     {
         string[] tokens = QueryString.Split('&');
         foreach (string token in tokens) {
-            string[] keyvalue = token.Split('&');
+            string[] keyvalue = token.Split('=');
             if (keyvalue.Length == 1)
             {
                 QUERY[token] = "";
