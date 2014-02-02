@@ -43,6 +43,7 @@ class PaletteHandler : HttpHandler
         res.ContentType = "application/json";
 
         Dictionary<string, string> d = new Dictionary<string, string>();
+        Dictionary<string, object> outputBody = null;
 
         int xid = -1;
         if (req.Method == "POST")
@@ -55,10 +56,13 @@ class PaletteHandler : HttpHandler
             {
                 string cmd = GetCmd(req);
                 agent.processManager.Start(xid, cmd);
+                outputBody = agent.processManager.GetInfo(xid);
             }
             else if (action == "cleanup")
             {
-                // FIXME: handle this.
+                agent.processManager.Cleanup(xid);
+                outputBody = new Dictionary<string, object>();
+                outputBody.Add("xid", xid);
             }
             else
             {
@@ -68,13 +72,15 @@ class PaletteHandler : HttpHandler
         else if (req.Method == "GET")
         {
             xid = GetXidfromQueryString(req);
+            outputBody = agent.processManager.GetInfo(xid);
         }
         else
         {
             throw new HttpMethodNotAllowed();
         }
-        Dictionary<string, object> outputBody = agent.processManager.GetInfo(xid);
-        res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
+        string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+        Console.WriteLine(json);
+        res.Write(json);
         return res;
     }
 

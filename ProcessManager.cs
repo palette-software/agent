@@ -70,6 +70,18 @@ public class ProcessManager
         return process;
     }
 
+    public void Cleanup(int xid)
+    {
+        // FIXME: check xid
+        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        if (!Directory.Exists(dir))
+        {
+            return;
+        }
+        DirectoryInfo dirInfo = new DirectoryInfo(dir);
+        dirInfo.Delete(true);
+    }
+
     protected void WritePid(string dir, int pid)
     {
         string path = Path.Combine(dir, "pid");
@@ -116,13 +128,19 @@ public class ProcessManager
         {
             return "";
         }
-        string path = Path.Combine(dir, "stdout");
+        string path = Path.Combine(dir, name);
         // FIXME: check for file existence and catch IOException(s).
-        try
+        if (File.Exists(path))
         {
-            return File.ReadAllText(path).Trim();
+            try
+            {
+                return File.ReadAllText(path).Trim();
+            }
+            catch (IOException exc)
+            {
+                Console.WriteLine(exc.ToString());
+            }
         }
-        catch { }
 
         return "";
     }
@@ -143,16 +161,17 @@ public class ProcessManager
 
         d["xid"] = xid;
         d["run-status"] = "unknown";
+        d["pid"] = GetPid(xid);
         
         if (IsDone(xid)) {
             d["run-status"] = "finished";
             d["exit-status"] = GetReturnCode(xid);
+            d["stdout"] = GetStdOut(xid);
+            d["stderr"] = GetStdErr(xid);
         } else {
             d["run-status"] = "running";
         }
 
-        d["stdout"] = GetStdOut(xid);
-        d["stderr"] = GetStdErr(xid);
         return d;
     }
 }
