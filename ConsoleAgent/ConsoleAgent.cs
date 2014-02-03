@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Net;
 using System.Threading;
 
-public class Agent
+public class ConsoleAgent
 {
     public const string VERSION = "0.0";
     public const string TYPE = "primary";
@@ -24,9 +24,9 @@ public class Agent
     public string username = "palette";
     public string password = "unknown";
 
-    public Agent(string inifile)
+    public ConsoleAgent(string inifile)
     {
-        type = Agent.TYPE;
+        type = ConsoleAgent.TYPE;
         conf = new IniFile(inifile);
 
         if (conf.KeyExists("uuid", "DEFAULT"))
@@ -64,7 +64,7 @@ public class Agent
             return -1;
         }
 
-        Agent agent = new Agent(inifile);
+        ConsoleAgent agent = new ConsoleAgent(inifile);
 
         // FIXME: cleanup XID directory.
         PaletteHandler handler = new PaletteHandler(agent);

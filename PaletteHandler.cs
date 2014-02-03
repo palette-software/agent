@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 
 class PaletteHandler : HttpHandler
 {
-    protected Agent agent;
+    protected ConsoleAgent agent;
     protected string username = null;
     protected string type = null;
    
     protected string uuid = null;
 
-    public PaletteHandler(Agent agent)
+    public PaletteHandler(ConsoleAgent agent)
     {
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
@@ -26,7 +26,7 @@ class PaletteHandler : HttpHandler
         Dictionary<string, object> data = new Dictionary<string, object>();
         data["username"] = agent.username;
         data["password"] = agent.password;
-        data["version"] = Agent.VERSION;
+        data["version"] = ConsoleAgent.VERSION;
         data["hostname"] = agent.host;
         data["type"] = agent.type;
         data["ip-address"] = agent.addr.ToString();
