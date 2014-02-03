@@ -72,6 +72,8 @@ public class HttpRequest
         else if (tokens.Length == 2)
         {
             URI = tokens[0];
+            QueryString = tokens[1];
+            ParseQueryString();
             return;
         }
         else if (tokens.Length == 2 || tokens.Length > 2)
@@ -79,8 +81,6 @@ public class HttpRequest
             throw new HttpBadRequest("invalid query string");
         }
         URI = tokens[0];
-        QueryString = tokens[1];
-        ParseQueryString();
     }
 
     protected void ParseQueryString()
