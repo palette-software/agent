@@ -2,5 +2,5 @@ bin
 obj
 Debug
 Release
-*.sln
 *.suo
+*.user

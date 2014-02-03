@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAgent", "ConsoleAgent\ConsoleAgent.csproj", "{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceAgent", "ServiceAgent\ServiceAgent.csproj", "{1F86B649-B376-4711-874E-1DD824E12D6C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServiceAgentSetup", "ServiceAgentSetup\ServiceAgentSetup.vdproj", "{8279E96E-EB22-4407-8613-49A367D2742B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F86B649-B376-4711-874E-1DD824E12D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F86B649-B376-4711-874E-1DD824E12D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F86B649-B376-4711-874E-1DD824E12D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F86B649-B376-4711-874E-1DD824E12D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8279E96E-EB22-4407-8613-49A367D2742B}.Debug|Any CPU.ActiveCfg = Debug
+		{8279E96E-EB22-4407-8613-49A367D2742B}.Debug|Any CPU.Build.0 = Debug
+		{8279E96E-EB22-4407-8613-49A367D2742B}.Release|Any CPU.ActiveCfg = Release
+		{8279E96E-EB22-4407-8613-49A367D2742B}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

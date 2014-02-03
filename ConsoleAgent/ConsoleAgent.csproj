@@ -60,15 +60,28 @@
   <ItemGroup>
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="..\FileServer.cs" />
+    <Compile Include="..\Agent.cs" />
     <Compile Include="..\IniFile.cs" />
     <Compile Include="..\PaletteHandler.cs" />
     <Compile Include="..\ProcessManager.cs" />
-    <Compile Include="..\http\HttpException.cs" />
-    <Compile Include="..\http\HttpHandler.cs" />
-    <Compile Include="..\http\HttpProcessor.cs" />
-    <Compile Include="..\http\HttpRequest.cs" />
-    <Compile Include="..\http\HttpResponse.cs" />
-    <Compile Include="..\http\HttpServer.cs" />
+    <Compile Include="..\http\HttpException.cs">
+      <Link>http\HttpException.cs</Link>
+    </Compile>
+    <Compile Include="..\http\HttpHandler.cs">
+      <Link>http\HttpHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\http\HttpProcessor.cs">
+      <Link>http\HttpProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\http\HttpRequest.cs">
+      <Link>http\HttpRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\http\HttpResponse.cs">
+      <Link>http\HttpResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\http\HttpServer.cs">
+      <Link>http\HttpServer.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
