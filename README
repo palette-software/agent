@@ -16,3 +16,10 @@ After following the above steps once, you shouldn't have to do anything further.
 
 The checked-in VS project refers to this project location and loads the DLL from the 'output\net35'
 directory located at the same level as the fastJSON and agent directories.
+
+ =====
+
+Before you run Palette.exe after building it with Visual Studio, create the directories it expects:
+
+	mkdir /C/Palette/XID
+	mkdir /C/Palette/Data

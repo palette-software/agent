@@ -9,6 +9,7 @@ public class ConsoleAgent
 {
     public const string VERSION = "0.0";
     public const string TYPE = "primary";
+    public static string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\agent.ini";
 
     public IniFile conf = null;
     public string type;
@@ -50,7 +51,7 @@ public class ConsoleAgent
         processManager = new ProcessManager();
     }
 
-    public static int Main(String[] args)
+    public static void RunAgent()
     {
         string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\agent.ini";
 
@@ -92,15 +93,33 @@ public class ConsoleAgent
             {
                 Console.WriteLine(exc.ToString());
             }
-            
+
             Thread.Sleep(reconnectInterval * 1000);
             processor.Close();
         }
-#if false
-        // FIXME: implement clean shutdown (currently unreachable).
-        processor.Close();
+        #if false
+                        // FIXME: implement clean shutdown (currently unreachable).
+                        processor.Close();
+                        return 0;
+        #endif
+
+    }
+
+    public static int Main(String[] args)
+    {  
+        if (args.Length == 1)
+        {
+            inifile = args[1];
+        }
+        else if (args.Length != 0)
+        {
+            Console.WriteLine("usage: %s [inifile]", args[0]);
+            return -1;
+        }
+
+        RunAgent();
+
         return 0;
-#endif
     }
 }
 
