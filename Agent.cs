@@ -9,15 +9,25 @@ public class Agent
 {
     public const string VERSION = "0.0";
     public const string TYPE = "primary";
-    public static string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\agent.ini";
+
+    public const string DEFAULT_SECTION = "DEFAULT";
+
+    public const string DEFAULT_CONTROLLER_HOST = "localhost";
+    public const int DEFAULT_CONTROLLER_PORT = 8888;
+    public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
 
     public IniFile conf = null;
     public string type;
 
+    private bool _isArchiveAgent = false;
+    public bool isArchiveAgent { get { return _isArchiveAgent; } }
+
     public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-    public string host = HttpProcessor.HOST;
-    public int port = HttpProcessor.PORT;
-    public IPAddress addr;
+    public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
+    public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
+    public IPAddress controllerAddr;
+
+    public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
     public ProcessManager processManager;
 
@@ -29,42 +39,39 @@ public class Agent
     {
         type = Agent.TYPE;
         conf = new IniFile(inifile);
+        ParseIniFile();
 
-        if (conf.KeyExists("uuid", "DEFAULT"))
-        {
-            uuid = conf.Read("uuid", "DEFAULT");
-        }
-
-        if (conf.KeyExists("host", "controller"))
-        {
-            host = conf.Read("host", "controller");
-        }
-
-        if (conf.KeyExists("port", "controller"))
-        {
-            port = Convert.ToInt16(conf.Read("port", "controller"));
-        }
-
-        HttpProcessor.GetResolvedConnectionIPAddress(host, out addr);
+        HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         // FIXME: get path(s) from the INI file.
         processManager = new ProcessManager();
     }
 
-    public int Run()
+    public void Run()
+    {
+        // For now (V0), we assume that the primary agent can't archive,
+        // but all other types (WORKER,OTHER) do nothing but archive.
+        if (type == "PRIMARY")
+        {
+            RunPrimary();
+        }
+        else
+        {
+            RunArchive();
+        }
+    }
+
+    protected int RunPrimary()
     {
         // FIXME: cleanup XID directory.
         PaletteHandler handler = new PaletteHandler(this);
-
-        FileServer fs = new FileServer(8889);
-        fs.Run();
 
         // FIXME: make this configurable in the INI file.
         int reconnectInterval = 10;
 
         while (true)
         {
-            HttpProcessor processor = new HttpProcessor(host, port);
+            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort);
 
             try
             {
@@ -89,6 +96,61 @@ public class Agent
                         return 0;
         #endif
 
+    }
+
+    // Temporary function (V0).
+    protected void RunArchive()
+    {
+        FileServer fs = new FileServer(archiveListenPort);
+        fs.Run();
+        while (true)
+        {
+            // hack-ish way to wait.
+            Console.ReadKey();
+        }
+        //fs.Stop();
+    }
+
+    protected void ParseIniFile()
+    {
+        if (conf.KeyExists("type", DEFAULT_SECTION))
+        {
+            type = conf.Read("type", DEFAULT_SECTION);
+        }
+        type = type.ToUpper();
+        if (type != "PRIMARY" && type != "WORKER" && type != "OTHER")
+        {
+            throw new ArgumentException("DEFAULT:type");
+        }
+
+        if (conf.KeyExists("uuid", DEFAULT_SECTION))
+        {
+            uuid = conf.Read("uuid", DEFAULT_SECTION);
+        }
+
+        if (conf.KeyExists("archive", DEFAULT_SECTION))
+        {
+            string archive = conf.Read("archive", DEFAULT_SECTION).ToUpper();
+            if (archive == "TRUE")
+            {
+                _isArchiveAgent = true;
+            }
+        }
+
+        if (conf.KeyExists("host", "controller"))
+        {
+            controllerHost = conf.Read("host", "controller");
+        }
+
+        if (conf.KeyExists("port", "controller"))
+        {
+            controllerPort = Convert.ToInt16(conf.Read("port", "controller"));
+        }
+
+        if (conf.KeyExists("listen-port", "archive"))
+        {
+            archiveListenPort = Convert.ToInt16(conf.Read("listen-port", "archive"));
+        }
     }
 }
 

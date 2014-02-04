@@ -27,10 +27,10 @@ class PaletteHandler : HttpHandler
         data["username"] = agent.username;
         data["password"] = agent.password;
         data["version"] = Agent.VERSION;
-        data["hostname"] = agent.host;
+        data["hostname"] = agent.controllerHost;
         data["type"] = agent.type;
-        data["ip-address"] = agent.addr.ToString();
-        data["listen-port"] = agent.port;
+        data["ip-address"] = agent.controllerAddr.ToString();
+        data["listen-port"] = agent.controllerPort;
         data["uuid"] = uuid;
 
         res.Write(fastJSON.JSON.Instance.ToJSON(data));

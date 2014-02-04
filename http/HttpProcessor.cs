@@ -7,18 +7,11 @@ using System.Collections.Generic;
 
 public class HttpProcessor
 {
-    public const string HOST = "localhost";
-    public const int PORT = 8888;
-
-    protected string host = HOST;
-    protected int port = PORT;
+    protected string host;
+    protected int port;
     protected NetworkStream stream = null;
     protected string ipaddress = null;
     public bool isConnected = false;    
-
-    public HttpProcessor()
-    {
-    }
 
 	public HttpProcessor(string host, int port)
 	{

@@ -33,10 +33,17 @@ public class FileServer : HttpBaseServer
     {
         HttpListenerRequest req = ctx.Request;
 
+        if (req.HttpMethod.ToUpper() != "GET")
+        {
+            throw new HttpMethodNotAllowed();
+        }
+
         string path = UriToPath(req.Url.PathAndQuery);
         if (!File.Exists(path)) {
             throw new HttpNotFound();
         }
+
+        Console.WriteLine("GET " + req.Url.PathAndQuery);
 
         string mimeType = GuessMimeType(Path.GetExtension(path));
         ctx.Response.ContentType = mimeType;

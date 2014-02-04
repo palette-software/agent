@@ -14,11 +14,11 @@ public class ConsoleAgent
 
         if (args.Length == 1)
         {
-            inifile = args[1];
+            inifile = args[0];
         }
         else if (args.Length != 0)
         {
-            Console.WriteLine("usage: %s [inifile]", args[0]);
+            Console.WriteLine("usage: ConsoleAgent [inifile]");
             return -1;
         }
 
