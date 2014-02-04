@@ -4,5 +4,4 @@ Debug
 Release
 *.suo
 *.user
-/primary.ini
-/worker.ini
+/*.ini

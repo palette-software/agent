@@ -50,8 +50,8 @@ public class Agent
     public void Run()
     {
         // For now (V0), we assume that the primary agent can't archive,
-        // but all other types (WORKER,OTHER) do nothing but archive.
-        if (type == "PRIMARY")
+        // but all other types (worker,other) do nothing but archive.
+        if (type == "primary")
         {
             RunPrimary();
         }
@@ -117,8 +117,8 @@ public class Agent
         {
             type = conf.Read("type", DEFAULT_SECTION);
         }
-        type = type.ToUpper();
-        if (type != "PRIMARY" && type != "WORKER" && type != "OTHER")
+        type = type.ToLower();
+        if (type != "primary" && type != "worker" && type != "other")
         {
             throw new ArgumentException("DEFAULT:type");
         }
