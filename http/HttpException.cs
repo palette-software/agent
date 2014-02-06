@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// <summary>
+/// Encapsulates an HttpException.  Inherits from System.Exception
+/// </summary>
 class HttpException: Exception
 {
     public int StatusCode = -1;
@@ -11,12 +14,19 @@ class HttpException: Exception
 
     public HttpException() { }
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="body">Exception text</param>
     public HttpException(string body)
     {
         Body = body;
     }
 }
 
+/// <summary>
+/// HttpBadRequest exception (status code 400)
+/// </summary>
 class HttpBadRequest : HttpException
 {
     public HttpBadRequest(string body)
@@ -27,6 +37,9 @@ class HttpBadRequest : HttpException
     }
 }
 
+/// <summary>
+/// HttpNotFound exception (status code 404)
+/// </summary>
 class HttpNotFound : HttpException
 {
     public HttpNotFound()
@@ -37,6 +50,9 @@ class HttpNotFound : HttpException
     }
 }
 
+/// <summary>
+/// HttpMethodNotAllowed exception (status code 404)
+/// </summary>
 class HttpMethodNotAllowed : HttpException
 {
     public HttpMethodNotAllowed()

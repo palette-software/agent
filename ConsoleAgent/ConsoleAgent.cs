@@ -5,9 +5,16 @@ using System.Reflection;
 using System.Net;
 using System.Threading;
 
+/// <summary>
+/// Encapsulates a console app version of agent
+/// </summary>
 public class ConsoleAgent
 {
-
+    /// <summary>
+    /// Starts a console app with a running agent
+    /// </summary>
+    /// <param name="args">Path of .ini file</param>
+    /// <returns>Never returns anything, should run perpetually</returns>
     public static int Main(String[] args)
     {
         string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\agent.ini";

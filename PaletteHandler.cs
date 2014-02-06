@@ -4,21 +4,33 @@ using System.Collections.Generic;
 using fastJSON;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
+/// </summary>
 class PaletteHandler : HttpHandler
 {
-    protected Agent agent;
-    protected string username = null;
-    protected string type = null;
+    private Agent agent;
+    //private string username = null;
+    //private string type = null;
    
-    protected string uuid = null;
+    private string uuid = null;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="agent">Agent instance</param>
     public PaletteHandler(Agent agent)
     {
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
     }
 
-    protected HttpResponse HandleAuth(HttpRequest req)
+    /// <summary>
+    /// Handles a request of type /auth
+    /// </summary>
+    /// <param name="req">Http request</param>
+    /// <returns>HttpResponse</returns>
+    private HttpResponse HandleAuth(HttpRequest req)
     {
         HttpResponse res = req.Response;
         req.ContentType = "application/json";
@@ -37,7 +49,12 @@ class PaletteHandler : HttpHandler
         return res;
     }
 
-    protected HttpResponse HandleCmd(HttpRequest req)
+    /// <summary>
+    /// Handles a request of type /cmd
+    /// </summary>
+    /// <param name="req">Http request</param>
+    /// <returns>HttpResponse</returns>
+    private HttpResponse HandleCmd(HttpRequest req)
     {
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
@@ -50,7 +67,6 @@ class PaletteHandler : HttpHandler
         {
             xid = GetXidfromJSON(req);
 
-            // FIXME: check for existence.
             string action = GetAction(req);
             if (action == "start")
             {
@@ -66,7 +82,7 @@ class PaletteHandler : HttpHandler
             }
             else
             {
-                // FIXME: throw error.
+                throw new SystemException("Invalid action value in JSON post");
             }
         }
         else if (req.Method == "GET")
@@ -84,6 +100,11 @@ class PaletteHandler : HttpHandler
         return res;
     }
 
+    /// <summary>
+    /// Sorts requests based on URI
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>HttpResponse</returns>
     override public HttpResponse Handle(HttpRequest req)
     {
         switch (req.URI)
@@ -97,7 +118,12 @@ class PaletteHandler : HttpHandler
         }
     }
 
-    protected int GetXidfromJSON(HttpRequest req)
+    /// <summary>
+    /// Pulls xid (agent process id) from JSON dictionary
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>xid</returns>
+    private int GetXidfromJSON(HttpRequest req)
     {
         if (req.JSON != null)
         {
@@ -120,20 +146,41 @@ class PaletteHandler : HttpHandler
         }
     }
 
-    protected int GetXidfromQueryString(HttpRequest req)
+    /// <summary>
+    /// Pulls xid (agent process id) from query string
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>xid</returns>
+    private int GetXidfromQueryString(HttpRequest req)
     {
         // FIXME: test for XID existence.
         return Convert.ToInt32(req.QUERY["xid"]);
     }
 
-    protected string GetAction(HttpRequest req)
+    /// <summary>
+    /// Pulls action from JSON dictionary
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>action</returns>
+    private string GetAction(HttpRequest req)
     {
-        // FIXME: test for action existence.
-        string action = req.JSON["action"].ToString();
-        return action;
+        if (req.JSON.ContainsKey("action"))
+        {
+            string action = req.JSON["action"].ToString();
+            return action;
+        }
+        else
+        {
+            return "unknown";
+        }
     }
 
-    protected string GetCmd(HttpRequest req)
+    /// <summary>
+    /// Pulls CLI Command from JSON dictionary
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>Command</returns>
+    private string GetCmd(HttpRequest req)
     {
         if (req.JSON != null)
         {

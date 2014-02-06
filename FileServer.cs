@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
+/// <summary>
+/// File handling methods.  Inherits from HttpBaseServer
+/// </summary>
 public class FileServer : HttpBaseServer
 {
     protected static IDictionary<string, string> mappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) 
@@ -15,6 +18,11 @@ public class FileServer : HttpBaseServer
 
     protected string documentRoot = "C:\\Palette\\Data";
 
+    /// <summary>
+    /// Constructor.  Calls HttpBaseServer base constructor
+    /// </summary>
+    /// <param name="port">Port id</param>
+    /// <param name="documentRoot">Root file path</param>
     public FileServer(int port, string documentRoot) : base()
     {
         if (documentRoot != null)
@@ -29,6 +37,10 @@ public class FileServer : HttpBaseServer
 
     public FileServer(int port) : this(port, null) { }
 
+    /// <summary>
+    /// Handles an HttpListenerRequest
+    /// </summary>
+    /// <param name="ctx">HttpListenerContext</param>
     protected override void Handle(HttpListenerContext ctx)
     {
         HttpListenerRequest req = ctx.Request;
@@ -53,6 +65,11 @@ public class FileServer : HttpBaseServer
         ctx.Response.OutputStream.Write(data, 0, data.Length);
     }
 
+    /// <summary>
+    /// Converts a URI string to a filepath
+    /// </summary>
+    /// <param name="uri">a URI</param>
+    /// <returns>a filepath</returns>
     protected string UriToPath(string uri)
     {
         string s = uri.Replace('/', Path.DirectorySeparatorChar);
@@ -64,6 +81,11 @@ public class FileServer : HttpBaseServer
         return path;
     }
 
+    /// <summary>
+    /// Determines MIME type based on filepath extension
+    /// </summary>
+    /// <param name="extension">filepath extension</param>
+    /// <returns>MIME type</returns>
     protected string GuessMimeType(string extension)
     {
         if (!extension.StartsWith("."))

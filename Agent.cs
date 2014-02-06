@@ -5,6 +5,10 @@ using System.Reflection;
 using System.Net;
 using System.Threading;
 
+/// <summary>
+/// The class that needs to be instantiated by a Console app or Windows service 
+/// to run an agent
+/// </summary>
 public class Agent
 {
     public const string VERSION = "0.0";
@@ -35,6 +39,10 @@ public class Agent
     public string username = "palette";
     public string password = "unknown";
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="inifile">Path of .ini file</param>
     public Agent(string inifile)
     {
         type = Agent.TYPE;
@@ -47,6 +55,9 @@ public class Agent
         processManager = new ProcessManager();
     }
 
+    /// <summary>
+    /// Kicks off run based on agent type ("primary" or "worker")
+    /// </summary>
     public void Run()
     {
         // For now (V0), we assume that the primary agent can't archive,
@@ -61,9 +72,20 @@ public class Agent
         }
     }
 
-    protected int RunPrimary()
+    /// <summary>
+    /// Runs the HTTP Processing for a Primary Agent
+    /// </summary>
+    /// <returns>0 if process completes regularly</returns>
+    private int RunPrimary()
     {
-        // FIXME: cleanup XID directory.
+        string xidDir = "C:\\Palette\\XID";
+
+        if (Directory.Exists(xidDir))
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(xidDir);
+            dirInfo.Delete(true);
+        }
+        
         PaletteHandler handler = new PaletteHandler(this);
 
         // FIXME: make this configurable in the INI file.
@@ -95,11 +117,10 @@ public class Agent
                         processor.Close();
                         return 0;
         #endif
-
     }
 
     // Temporary function (V0).
-    protected void RunArchive()
+    private void RunArchive()
     {
         FileServer fs = new FileServer(archiveListenPort);
         fs.Run();
@@ -111,7 +132,10 @@ public class Agent
         //fs.Stop();
     }
 
-    protected void ParseIniFile()
+    /// <summary>
+    /// Parses text in .ini file
+    /// </summary>
+    private void ParseIniFile()
     {
         if (conf.KeyExists("type", DEFAULT_SECTION))
         {

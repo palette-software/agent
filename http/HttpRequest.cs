@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
+/// <summary>
+/// Encapsulates an HTTP request object.  
+/// </summary>
 public class HttpRequest
 {
     public string Method;
@@ -21,18 +24,33 @@ public class HttpRequest
     public string data = null;
     public Dictionary<string, object> JSON = null;
 
+    /// <summary>
+    /// Overrides System.ToString()
+    /// </summary>
+    /// <returns>Method + URL</returns>
     public override string ToString()
     {
         return Method + " " + Url;
     }
 
+    /// <summary>
+    /// Returns new HttpRequest object for "GET".  Parses JSON if ContentType == "application/json" 
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <returns></returns>
     public static HttpRequest Get(StreamReader reader)
     {
         HttpRequest req = new HttpRequest();
 
-        // FIXME: catch IOException
-        req.ParseRequestLine(reader.ReadLine());
-        req.ReadHeaders(reader);
+        try
+        {
+            req.ParseRequestLine(reader.ReadLine());
+            req.ReadHeaders(reader);
+        }
+        catch (System.IO.IOException exc)
+        {
+            Console.WriteLine("IOException: caught while parsing http header" + exc.ToString());
+        }
 
         if (req.ContentLength != 0)
         {
@@ -50,7 +68,11 @@ public class HttpRequest
         return req;
     }
 
-    protected void ParseRequestLine(string line)
+    /// <summary>
+    /// Parses request to get URI, Method, Protocol version, Query string 
+    /// </summary>
+    /// <param name="line">request string</param>
+    private void ParseRequestLine(string line)
     {
         string[] tokens = line.Split(' ');
         if (tokens.Length != 3)
@@ -60,8 +82,12 @@ public class HttpRequest
         Method = tokens[0].ToUpper();
         Url = tokens[1];
 
-        // FIXME: throw an exception if != 1.1
         ProtocolVersion = tokens[2];
+
+        if (!ProtocolVersion.Contains("1.1"))
+        {
+            throw new HttpBadRequest("Invalid http version.  Use version 1.1");
+        }
 
         tokens = Url.Split('?');
         if (tokens.Length == 1)
@@ -83,7 +109,10 @@ public class HttpRequest
         URI = tokens[0];
     }
 
-    protected void ParseQueryString()
+    /// <summary>
+    /// Parses query string.  Populates QUERY dictionary
+    /// </summary>
+    private void ParseQueryString()
     {
         string[] tokens = QueryString.Split('&');
         foreach (string token in tokens) {
@@ -103,7 +132,11 @@ public class HttpRequest
         }
     }
 
-    protected void ReadHeaders(StreamReader reader)
+    /// <summary>
+    /// Reads the HTTP Header line
+    /// </summary>
+    /// <param name="reader">StreamReader</param>
+    private void ReadHeaders(StreamReader reader)
     {
         String line;
         while ((line = reader.ReadLine()) != null)

@@ -5,6 +5,9 @@ using System.Net.Sockets;
 using System.Web;
 using System.Collections.Generic;
 
+/// <summary>
+/// Encapsulates the socket connections and network stream to handle HTTP requests 
+/// </summary>
 public class HttpProcessor
 {
     protected string host;
@@ -13,12 +16,20 @@ public class HttpProcessor
     protected string ipaddress = null;
     public bool isConnected = false;    
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="host">host name (i.e. "localhost")</param>
+    /// <param name="port">port (i.e. "8080")</param>
 	public HttpProcessor(string host, int port)
 	{
         this.host = host;
         this.port = port;
 	}
 
+    /// <summary>
+    /// Connects a socket to a specified host
+    /// </summary>
     public void Connect()
     {
         IPAddress addr;
@@ -44,6 +55,9 @@ public class HttpProcessor
         }
     }
 
+    /// <summary>
+    /// Closes the connection stream
+    /// </summary>
     public void Close()
     {
         if (stream != null)
@@ -53,6 +67,10 @@ public class HttpProcessor
         }
     }
 
+    /// <summary>
+    /// Loops infintely to handle incoming HTTP requests
+    /// </summary>
+    /// <param name="handler">HttpHandler</param>
     public void Run(HttpHandler handler)
     {
         for (; ; )  //Loop infinitely here
@@ -113,7 +131,13 @@ public class HttpProcessor
         }
     }
 
-    // http://www.codeproject.com/Tips/440861/Resolving-a-hostname-in-Csharp-and-retrieving-IP-v
+    /// <summary>
+    /// Gets the resolved ip address for a specified server name or url.  See 
+    /// http://www.codeproject.com/Tips/440861/Resolving-a-hostname-in-Csharp-and-retrieving-IP-v
+    /// </summary>
+    /// <param name="serverNameOrURL">Server name or URL</param>
+    /// <param name="resolvedIPAddress">Out: the resolved ip address</param>
+    /// <returns></returns>
     public static bool GetResolvedConnectionIPAddress(string serverNameOrURL,
                    out IPAddress resolvedIPAddress)
     {

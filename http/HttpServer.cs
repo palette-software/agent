@@ -3,14 +3,20 @@ using System.Net;
 using System.Threading;
 using System.Linq;
 using System.Text;
- 
-// Base Class for a Standard Web Server
-//   see: http://www.codehosting.net/blog/BlogEngine/post/Simple-C-Web-Server.aspx
-// All the work is done on background threads, which will be automatically cleaned up when the program quits.
+
+/// <summary>
+/// Base Class for a Standard Web Server
+///   see: http://www.codehosting.net/blog/BlogEngine/post/Simple-C-Web-Server.aspx
+/// All the work is done on background threads, which will be automatically cleaned up when the program quits.
+/// </summary>
 public abstract class HttpBaseServer
 {
         protected readonly HttpListener listener = new HttpListener();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="prefixes">URI Prefixes (i.e. "http://localhost:8080/index/")</param>
         public HttpBaseServer(string[] prefixes)
         {
             if (!HttpListener.IsSupported)
@@ -28,6 +34,9 @@ public abstract class HttpBaseServer
  
         public HttpBaseServer() : this(new string[0]) { }
  
+        /// <summary>
+        /// Starts the listener
+        /// </summary>
         public void Run()
         {
             listener.Start();
@@ -54,7 +63,8 @@ public abstract class HttpBaseServer
                             }
                             catch (Exception exc)
                             {
-                                // FIXME: return internal server error.
+                                ctx.Response.StatusCode = 100;
+                                ctx.Response.StatusDescription = "Internal Server Error";   
                                 Console.WriteLine(exc.ToString());
                             }
                             finally
@@ -70,6 +80,11 @@ public abstract class HttpBaseServer
             });
         }
 
+        /// <summary>
+        /// Sends buffered response
+        /// </summary>
+        /// <param name="res">HttpListenerResponse</param>
+        /// <param name="rstr">Response string</param>
         protected void SendString(HttpListenerResponse res, string rstr)
         {
             byte[] buf = Encoding.UTF8.GetBytes(rstr);
@@ -77,11 +92,17 @@ public abstract class HttpBaseServer
             res.OutputStream.Write(buf, 0, buf.Length);
         }
  
+        /// <summary>
+        /// Stops the listener
+        /// </summary>
         public void Stop()
         {
             listener.Stop();
         }
 
+        /// <summary>
+        /// Closes the listener
+        /// </summary>
         public void Close()
         {
             listener.Close();
