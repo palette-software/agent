@@ -20,9 +20,9 @@ public class Agent
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
     
-    public const string DEFAULT_INSTALL_DIR = "C:\\Palette";
-    public const string DEFAULT_DOCUMENT_SUBDIR = "Data";
+    public const string DEFAULT_INSTALL_DIR = "c:/Palette";
     public const string DEFAULT_XID_SUBDIR = "XID";
+    public const string DEFAULT_DATA_SUBDIR = "Data";
 
     public IniFile conf = null;
     public string type;
@@ -32,12 +32,15 @@ public class Agent
 
     public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
     public string hostname = "localhost";
+    public string ipaddr;
 
     public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
     public IPAddress controllerAddr;
 
     public string installDir = Agent.DEFAULT_INSTALL_DIR;
+    public string xidDir;
+    public string dataDir;
 
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
@@ -54,14 +57,21 @@ public class Agent
     public Agent(string inifile)
     {
         type = Agent.TYPE;
+
+        // set hostname (may be overridden by the INI file)
+        hostname = Dns.GetHostName();
+
         conf = new IniFile(inifile);
         ParseIniFile();
 
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         // FIXME: get path(s) from the INI file.
-        string xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
+        xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
         processManager = new ProcessManager(xidDir);
+
+        dataDir = Path.Combine(this.installDir, Agent.DEFAULT_DATA_SUBDIR);
+        ipaddr = GetFirstIPAddr();
     }
 
     /// <summary>
@@ -85,7 +95,7 @@ public class Agent
         
         PaletteHandler handler = new PaletteHandler(this);
         
-        FileServer fs = new FileServer(archiveListenPort, xidDir);
+        FileServer fs = new FileServer(archiveListenPort, dataDir);
         fs.Run();
 
         // FIXME: make this configurable in the INI file.
@@ -172,6 +182,19 @@ public class Agent
         {
             archiveListenPort = Convert.ToInt16(conf.Read("listen-port", "archive"));
         }
+    }
+
+    protected string GetFirstIPAddr()
+    {
+        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() == "InterNetwork")
+            {
+                return ip.ToString();
+            }
+        }
+        return "127.0.0.1";
     }
 }
 

@@ -30,14 +30,22 @@ public class FileServer : HttpBaseServer
         {
             this.documentRoot = documentRoot;
         }
-        //else
-        //{
-        //    documentRoot = "C:\\Palette\\Data";
-        //}
+
 
         // FIXME: add all IP addresses here too.
         string prefix = "http://localhost:" + Convert.ToString(port) + "/";
         listener.Prefixes.Add(prefix);
+
+        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() != "InterNetwork")
+            {
+                continue;
+            }
+            prefix = "http://" + ip.ToString() + ":" + Convert.ToString(port) + "/";
+            listener.Prefixes.Add(prefix);
+        }
     }
 
     public FileServer(int port) : this(port, null) { }

@@ -37,9 +37,10 @@ class PaletteHandler : HttpHandler
         data["version"] = Agent.VERSION;
         data["hostname"] = agent.hostname;
         data["type"] = agent.type;
-        data["ip-address"] = agent.controllerAddr.ToString();
-        data["listen-port"] = agent.controllerPort;
+        data["ip-address"] = agent.ipaddr;
+        data["listen-port"] = agent.archiveListenPort;
         data["uuid"] = agent.uuid;
+        data["install-dir"] = agent.installDir;
 
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
@@ -67,6 +68,7 @@ class PaletteHandler : HttpHandler
             if (action == "start")
             {
                 string cmd = GetCmd(req);
+                Console.WriteLine(cmd);
                 agent.processManager.Start(xid, cmd);
                 outputBody = agent.processManager.GetInfo(xid);
             }
