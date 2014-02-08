@@ -21,6 +21,16 @@ public class ProcessManager
     /// Constructor
     /// </summary>
     /// <param name="xidDir">Folder named by xid</param>
+    public ProcessManager(string xidDir)
+    {
+        this.xidDir = xidDir;
+        CheckPaths();
+    }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="xidDir">Folder named by xid</param>
     /// <param name="binDir">Folder containing command executable</param>
     public ProcessManager(string xidDir, string binDir)
     {

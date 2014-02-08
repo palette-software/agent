@@ -16,7 +16,8 @@ public class FileServer : HttpBaseServer
         {".zip", "application/x-zip-compressed"},
     };
 
-    protected string documentRoot = "C:\\Palette\\Data";
+    //TODO: get from .ini
+    protected string documentRoot;
 
     /// <summary>
     /// Constructor.  Calls HttpBaseServer base constructor
@@ -29,6 +30,10 @@ public class FileServer : HttpBaseServer
         {
             this.documentRoot = documentRoot;
         }
+        //else
+        //{
+        //    documentRoot = "C:\\Palette\\Data";
+        //}
 
         // FIXME: add all IP addresses here too.
         string prefix = "http://localhost:" + Convert.ToString(port) + "/";

@@ -19,6 +19,10 @@ public class Agent
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
+    
+    public const string DEFAULT_INSTALL_DIR = "C:\\Palette";
+    public const string DEFAULT_DOCUMENT_DIR = "Data";
+    public const string DEFAULT_XID_DIR = "XID";
 
     public IniFile conf = null;
     public string type;
@@ -30,6 +34,10 @@ public class Agent
     public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
     public IPAddress controllerAddr;
+
+    public string installDir = Agent.DEFAULT_INSTALL_DIR;
+    public string documentAppend = Agent.DEFAULT_DOCUMENT_DIR;
+    public string xidAppend = Agent.DEFAULT_XID_DIR;  
 
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
@@ -52,41 +60,33 @@ public class Agent
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         // FIXME: get path(s) from the INI file.
-        processManager = new ProcessManager();
+        string xidDir = Path.Combine(this.installDir, this.xidAppend);
+        processManager = new ProcessManager(xidDir);
     }
 
     /// <summary>
-    /// Kicks off run based on agent type ("primary" or "worker")
-    /// </summary>
-    public void Run()
-    {
-        // For now (V0), we assume that the primary agent can't archive,
-        // but all other types (worker,other) do nothing but archive.
-        if (type == "primary")
-        {
-            RunPrimary();
-        }
-        else
-        {
-            RunArchive();
-        }
-    }
-
-    /// <summary>
-    /// Runs the HTTP Processing for a Primary Agent
+    /// Runs the HTTP Processing for a Primary or Worker Agent
     /// </summary>
     /// <returns>0 if process completes regularly</returns>
-    private int RunPrimary()
+    public int Run()
     {
-        string xidDir = "C:\\Palette\\XID";
+        string xidDir = Path.Combine(this.installDir, this.xidAppend);
 
-        if (Directory.Exists(xidDir))
+        System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
+
+        foreach (FileInfo file in xidContents.GetFiles())
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(xidDir);
-            dirInfo.Delete(true);
+            file.Delete();
+        }
+        foreach (DirectoryInfo dir in xidContents.GetDirectories())
+        {
+            dir.Delete(true);
         }
         
         PaletteHandler handler = new PaletteHandler(this);
+        
+        FileServer fs = new FileServer(archiveListenPort, xidDir);
+        fs.Run();
 
         // FIXME: make this configurable in the INI file.
         int reconnectInterval = 10;
@@ -119,19 +119,6 @@ public class Agent
         #endif
     }
 
-    // Temporary function (V0).
-    private void RunArchive()
-    {
-        FileServer fs = new FileServer(archiveListenPort);
-        fs.Run();
-        while (true)
-        {
-            // hack-ish way to wait.
-            Console.ReadKey();
-        }
-        //fs.Stop();
-    }
-
     /// <summary>
     /// Parses text in .ini file
     /// </summary>
@@ -150,6 +137,21 @@ public class Agent
         if (conf.KeyExists("uuid", DEFAULT_SECTION))
         {
             uuid = conf.Read("uuid", DEFAULT_SECTION);
+        }
+
+        if (conf.KeyExists("install-dir", DEFAULT_SECTION))
+        {
+            installDir = conf.Read("install-dir", DEFAULT_SECTION);
+        }
+
+        if (conf.KeyExists("document-append", DEFAULT_SECTION))
+        {
+            documentAppend = conf.Read("document-append", DEFAULT_SECTION);
+        }
+
+        if (conf.KeyExists("xid-append", DEFAULT_SECTION))
+        {
+            xidAppend = conf.Read("xid-append", DEFAULT_SECTION);
         }
 
         if (conf.KeyExists("archive", DEFAULT_SECTION))
