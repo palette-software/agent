@@ -31,6 +31,8 @@ public class Agent
     public bool isArchiveAgent { get { return _isArchiveAgent; } }
 
     public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+    public string hostname = "localhost";
+
     public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
     public IPAddress controllerAddr;
@@ -135,6 +137,11 @@ public class Agent
         if (conf.KeyExists("uuid", DEFAULT_SECTION))
         {
             uuid = conf.Read("uuid", DEFAULT_SECTION);
+        }
+
+        if (conf.KeyExists("hostname", DEFAULT_SECTION))
+        {
+            hostname = conf.Read("hostname", DEFAULT_SECTION);
         }
 
         if (conf.KeyExists("install-dir", DEFAULT_SECTION))

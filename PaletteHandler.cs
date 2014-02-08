@@ -10,10 +10,6 @@ using System.Text.RegularExpressions;
 class PaletteHandler : HttpHandler
 {
     private Agent agent;
-    //private string username = null;
-    //private string type = null;
-   
-    private string uuid = null;
 
     /// <summary>
     /// Constructor
@@ -39,11 +35,11 @@ class PaletteHandler : HttpHandler
         data["username"] = agent.username;
         data["password"] = agent.password;
         data["version"] = Agent.VERSION;
-        data["hostname"] = agent.controllerHost;
+        data["hostname"] = agent.hostname;
         data["type"] = agent.type;
         data["ip-address"] = agent.controllerAddr.ToString();
         data["listen-port"] = agent.controllerPort;
-        data["uuid"] = uuid;
+        data["uuid"] = agent.uuid;
 
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
