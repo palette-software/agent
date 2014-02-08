@@ -1,11 +1,13 @@
 [DEFAULT]
 type=WORKER
 archive=true
-uuid=WWWWWWWW-WWWW-WWWW-WWWW-WWWWWWWWWWWW
+install-dir=c:\worker
+uuid=09242a8b-ccbc-4998-90ab-e7a4c054f847
+hostname=worker
 
 [controller]
-# host=localhost
+# host=192.168.87.216
 # port=8888
 
 [archive]
-# listen-port=8889
+listen-port=8890

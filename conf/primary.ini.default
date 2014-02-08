@@ -1,10 +1,11 @@
 [DEFAULT]
-# type=primary
-# archive=false
-# uuid=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+type=primary
+archive=false
+uuid=5e94aad1-67bc-46b7-a16d-52c6b1443cef
+install-dir=c:\Palette
 
 [controller]
-# host=localhost
+# host=192.168.87.216
 # port=8888
 
 [archive]
