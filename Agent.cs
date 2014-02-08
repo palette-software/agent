@@ -21,8 +21,8 @@ public class Agent
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
     
     public const string DEFAULT_INSTALL_DIR = "C:\\Palette";
-    public const string DEFAULT_DOCUMENT_DIR = "Data";
-    public const string DEFAULT_XID_DIR = "XID";
+    public const string DEFAULT_DOCUMENT_SUBDIR = "Data";
+    public const string DEFAULT_XID_SUBDIR = "XID";
 
     public IniFile conf = null;
     public string type;
@@ -36,8 +36,6 @@ public class Agent
     public IPAddress controllerAddr;
 
     public string installDir = Agent.DEFAULT_INSTALL_DIR;
-    public string documentAppend = Agent.DEFAULT_DOCUMENT_DIR;
-    public string xidAppend = Agent.DEFAULT_XID_DIR;  
 
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
@@ -60,7 +58,7 @@ public class Agent
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         // FIXME: get path(s) from the INI file.
-        string xidDir = Path.Combine(this.installDir, this.xidAppend);
+        string xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
         processManager = new ProcessManager(xidDir);
     }
 
@@ -70,7 +68,7 @@ public class Agent
     /// <returns>0 if process completes regularly</returns>
     public int Run()
     {
-        string xidDir = Path.Combine(this.installDir, this.xidAppend);
+        string xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
 
         System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
 
@@ -142,16 +140,6 @@ public class Agent
         if (conf.KeyExists("install-dir", DEFAULT_SECTION))
         {
             installDir = conf.Read("install-dir", DEFAULT_SECTION);
-        }
-
-        if (conf.KeyExists("document-append", DEFAULT_SECTION))
-        {
-            documentAppend = conf.Read("document-append", DEFAULT_SECTION);
-        }
-
-        if (conf.KeyExists("xid-append", DEFAULT_SECTION))
-        {
-            xidAppend = conf.Read("xid-append", DEFAULT_SECTION);
         }
 
         if (conf.KeyExists("archive", DEFAULT_SECTION))
