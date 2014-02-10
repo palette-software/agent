@@ -23,6 +23,7 @@ public class Agent
     public const string DEFAULT_INSTALL_DIR = "c:/Palette";
     public const string DEFAULT_XID_SUBDIR = "XID";
     public const string DEFAULT_DATA_SUBDIR = "Data";
+    public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";
 
     public IniFile conf = null;
     public string type;
@@ -45,6 +46,7 @@ public class Agent
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
     public ProcessManager processManager;
+    protected MaintServer maintServer = null;
 
     // testing only.
     public string username = "palette";
@@ -80,7 +82,7 @@ public class Agent
     /// <returns>0 if process completes regularly</returns>
     public int Run()
     {
-        string xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
+        string xidDir = Path.Combine(installDir, Agent.DEFAULT_XID_SUBDIR);
 
         System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
 
@@ -195,6 +197,23 @@ public class Agent
             }
         }
         return "127.0.0.1";
+    }
+
+    public void startMaintServer()
+    {
+        string docroot = Path.Combine(installDir, Agent.DEFAULT_DOCROOT_SUBDIR);
+        maintServer = new MaintServer(80, docroot);
+        maintServer.Run();
+    }
+
+    public void stopMaintServer()
+    {
+        if (maintServer != null)
+        {
+            maintServer.Stop();
+            maintServer.Close();
+            maintServer = null;
+        }
     }
 }
 

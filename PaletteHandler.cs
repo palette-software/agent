@@ -22,7 +22,7 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
-    /// Handles a request of type /auth
+    /// Handles a request to /auth
     /// </summary>
     /// <param name="req">Http request</param>
     /// <returns>HttpResponse</returns>
@@ -47,7 +47,7 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
-    /// Handles a request of type /cmd
+    /// Handles a request to /cmd
     /// </summary>
     /// <param name="req">Http request</param>
     /// <returns>HttpResponse</returns>
@@ -99,6 +99,36 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
+    /// Handles a request to /maint
+    /// </summary>
+    /// <param name="req">Http request</param>
+    /// <returns>HttpResponse</returns>
+    private HttpResponse HandleMaint(HttpRequest req)
+    {
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+
+        // FIXME: verify the request.
+        string action = GetAction(req);
+        if (action == "start")
+        {
+            agent.startMaintServer();
+            Console.WriteLine("Maintenance webserver started.");
+        }
+        else if (action == "stop")
+        {
+            agent.stopMaintServer();
+            Console.WriteLine("Maintenance webserver stopped.");
+        }
+        else
+        {
+            throw new HttpBadRequest("invalid action");
+        }
+
+        return res;
+    }
+
+    /// <summary>
     /// Sorts requests based on URI
     /// </summary>
     /// <param name="req">HttpRequest</param>
@@ -111,6 +141,8 @@ class PaletteHandler : HttpHandler
                 return HandleAuth(req);
             case "/cli":
                 return HandleCmd(req);
+            case "/maint":
+                return HandleMaint(req);
             default:
                 throw new HttpNotFound();
         }

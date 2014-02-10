@@ -83,7 +83,7 @@ public class FileServer : HttpBaseServer
     /// </summary>
     /// <param name="uri">a URI</param>
     /// <returns>a filepath</returns>
-    protected string UriToPath(string uri)
+    protected virtual string UriToPath(string uri)
     {
         string s = uri.Replace('/', Path.DirectorySeparatorChar);
         if (s[0] == Path.DirectorySeparatorChar)

@@ -82,6 +82,7 @@
     <Compile Include="..\http\HttpServer.cs">
       <Link>http\HttpServer.cs</Link>
     </Compile>
+    <Compile Include="MaintServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
