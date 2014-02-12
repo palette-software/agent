@@ -10,10 +10,13 @@ public class FileServer : HttpBaseServer
 {
     protected static IDictionary<string, string> mappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) 
     {
+        {".css", "text/css"},
         {".htm", "text/html"},
         {".html", "text/html"},
+        {".ico", "image/x-icon"},
+        {".png", "image/png"},
         {".txt", "text/plain"},
-        {".zip", "application/x-zip-compressed"},
+        {".zip", "application/x-zip-compressed"}
     };
 
     //TODO: get from .ini
