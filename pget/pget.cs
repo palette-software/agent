@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 class pget
 {
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
         string url = "";
         string localFolder = "";
@@ -52,10 +52,15 @@ class pget
 
             File.Move(tmpFileName, fileName);
             Console.WriteLine("Download of file " + fileName + " completed.");
+
+            return 0;
         }
         catch (Exception exc)
         {
-            Console.WriteLine("Error in download: " + exc.ToString());
+            TextWriter errorWriter = Console.Error;
+            errorWriter.WriteLine("Download of file " + fileName + " failed." + exc.Message);
+
+            return -1;
         }
     }
 }
