@@ -70,7 +70,7 @@ public class Agent
 
         // FIXME: get path(s) from the INI file.
         xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
-        processManager = new ProcessManager(xidDir);
+        processManager = new ProcessManager(xidDir, type);
 
         dataDir = Path.Combine(this.installDir, Agent.DEFAULT_DATA_SUBDIR);
         ipaddr = GetFirstIPAddr();
