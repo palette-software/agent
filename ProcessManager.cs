@@ -12,19 +12,19 @@ public class ProcessManager
     private string xidDir = "C:\\Palette\\XID";
     private string binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
 
-    public ProcessManager()
+    public ProcessManager(string agentType)
     {
-        CheckPaths();
+        CheckPaths(agentType);
     }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="xidDir">Folder named by xid</param>
-    public ProcessManager(string xidDir)
+    public ProcessManager(string xidDir, string agentType)
     {
         this.xidDir = xidDir;
-        CheckPaths();
+        CheckPaths(agentType);
     }
 
     /// <summary>
@@ -32,23 +32,23 @@ public class ProcessManager
     /// </summary>
     /// <param name="xidDir">Folder named by xid</param>
     /// <param name="binDir">Folder containing command executable</param>
-    public ProcessManager(string xidDir, string binDir)
+    public ProcessManager(string xidDir, string binDir, string agentType)
     {
         this.xidDir = xidDir;
         this.binDir = binDir;
-        CheckPaths();
+        CheckPaths(agentType);
     }
 
     /// <summary>
     /// Checks for existence of xid and bin folders
     /// </summary>
-    private void CheckPaths()
+    private void CheckPaths(string agentType)
     {
         if (!Directory.Exists(xidDir))
         {
             throw new FileNotFoundException(xidDir);
         }
-        if (!Directory.Exists(binDir))
+        if (!Directory.Exists(binDir) && agentType != "other")
         {
             throw new FileNotFoundException(binDir);
         }

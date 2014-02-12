@@ -39,14 +39,14 @@ public abstract class HttpBaseServer
         /// </summary>
         public void Run()
         {
-            listener.Start();
-
-            ThreadPool.QueueUserWorkItem((o) =>
+            try
             {
-                foreach (string prefix in listener.Prefixes)
-                    Console.WriteLine(prefix + " ...");
-                try
+                listener.Start();
+
+                ThreadPool.QueueUserWorkItem((o) =>
                 {
+                    foreach (string prefix in listener.Prefixes)
+                        Console.WriteLine(prefix + " ...");
                     while (listener.IsListening)
                     {
                         ThreadPool.QueueUserWorkItem((c) =>
@@ -59,12 +59,12 @@ public abstract class HttpBaseServer
                             catch (HttpException exc)
                             {
                                 ctx.Response.StatusCode = exc.StatusCode;
-                                ctx.Response.StatusDescription = exc.Reason;                                
+                                ctx.Response.StatusDescription = exc.Reason;
                             }
                             catch (Exception exc)
                             {
                                 ctx.Response.StatusCode = 100;
-                                ctx.Response.StatusDescription = "Internal Server Error";   
+                                ctx.Response.StatusDescription = "Internal Server Error";
                                 Console.WriteLine(exc.ToString());
                             }
                             finally
@@ -75,9 +75,16 @@ public abstract class HttpBaseServer
                             }
                         }, listener.GetContext());
                     }
-                }
-                catch { } // suppress any exceptions
-            });
+                });
+            }
+            catch (HttpListenerException excep)
+            {
+                Console.WriteLine("Failed to listen on assigned port.  Already in use?" + excep.Message);
+            }
+            catch (Exception excep)
+            {
+                Console.WriteLine(excep.ToString());
+            }
         }
 
         /// <summary>
