@@ -58,7 +58,7 @@ class pget
         catch (Exception exc)
         {
             TextWriter errorWriter = Console.Error;
-            errorWriter.WriteLine("Download of file " + fileName + " failed." + exc.Message);
+            errorWriter.WriteLine("Download of file failed." + exc.Message);
 
             return -1;
         }
