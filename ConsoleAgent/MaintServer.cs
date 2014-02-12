@@ -22,6 +22,13 @@ public class MaintServer : FileServer
             // FIXME: this should be configurable in the INI file.
             uri = "/index.html";
         }
-        return base.UriToPath(uri);
+        string path = base.UriToPath(uri);
+
+        // If a file doesn't exist, send back the index page.
+        if (!File.Exists(path))
+        {
+            path = base.UriToPath("/index.html");
+        }
+        return path;
     }
 }

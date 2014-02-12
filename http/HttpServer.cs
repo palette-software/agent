@@ -45,45 +45,52 @@ public abstract class HttpBaseServer
 
                 ThreadPool.QueueUserWorkItem((o) =>
                 {
-                    foreach (string prefix in listener.Prefixes)
-                        Console.WriteLine(prefix + " ...");
-                    while (listener.IsListening)
+                    try
                     {
-                        ThreadPool.QueueUserWorkItem((c) =>
+                        foreach (string prefix in listener.Prefixes)
+                            Console.WriteLine(prefix + " ...");
+                        while (listener.IsListening)
                         {
-                            var ctx = c as HttpListenerContext;
-                            try
+                            ThreadPool.QueueUserWorkItem((c) =>
                             {
-                                Handle(ctx);
-                            }
-                            catch (HttpException exc)
-                            {
-                                ctx.Response.StatusCode = exc.StatusCode;
-                                ctx.Response.StatusDescription = exc.Reason;
-                            }
-                            catch (Exception exc)
-                            {
-                                ctx.Response.StatusCode = 100;
-                                ctx.Response.StatusDescription = "Internal Server Error";
-                                Console.WriteLine(exc.ToString());
-                            }
-                            finally
-                            {
-                                // always close the stream
-                                ctx.Response.OutputStream.Close();
-                                ctx.Response.Close();
-                            }
-                        }, listener.GetContext());
+                                var ctx = c as HttpListenerContext;
+                                try
+                                {
+                                    Handle(ctx);
+                                }
+                                catch (HttpException exc)
+                                {
+                                    ctx.Response.StatusCode = exc.StatusCode;
+                                    ctx.Response.StatusDescription = exc.Reason;
+                                }
+                                catch (Exception exc)
+                                {
+                                    ctx.Response.StatusCode = 100;
+                                    ctx.Response.StatusDescription = "Internal Server Error";
+                                    Console.WriteLine(exc.ToString());
+                                }
+                                finally
+                                {
+                                    // always close the stream
+                                    ctx.Response.OutputStream.Close();
+                                    ctx.Response.Close();
+                                }
+                            }, listener.GetContext());
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        Console.WriteLine(exc.ToString());
                     }
                 });
             }
-            catch (HttpListenerException excep)
+            catch (HttpListenerException exc)
             {
-                Console.WriteLine("Failed to listen on assigned port.  Already in use?" + excep.Message);
+                Console.WriteLine("Failed to listen on assigned port.  Already in use?" + exc.Message);
             }
-            catch (Exception excep)
+            catch (Exception exc)
             {
-                Console.WriteLine(excep.ToString());
+                Console.WriteLine(exc.ToString());
             }
         }
 
