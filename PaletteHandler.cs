@@ -125,6 +125,7 @@ class PaletteHandler : HttpHandler
             throw new HttpBadRequest("invalid action");
         }
 
+        res.Write("{\"status\": \"ok\"}");
         return res;
     }
 

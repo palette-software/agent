@@ -56,4 +56,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy /y "$(TargetDir)pget.exe" c:\Palette\bin\</PostBuildEvent>
+  </PropertyGroup>
 </Project>
