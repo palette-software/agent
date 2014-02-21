@@ -41,7 +41,7 @@ class PaletteHandler : HttpHandler
         data["listen-port"] = agent.archiveListenPort;
         data["uuid"] = agent.uuid;
         data["install-dir"] = agent.installDir;
-
+        data["displayname"] = agent.displayName;
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
     }

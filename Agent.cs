@@ -34,6 +34,7 @@ public class Agent
     public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
     public string hostname = "localhost";
     public string ipaddr;
+    public string displayName = "unknown";
 
     public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
@@ -62,6 +63,8 @@ public class Agent
 
         // set hostname (may be overridden by the INI file)
         hostname = Dns.GetHostName();
+
+        displayName = Dns.GetHostName();
 
         conf = new IniFile(inifile);
         ParseIniFile();
