@@ -9,6 +9,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServiceAgentSetup", "Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pget", "pget\pget.csproj", "{B2E0FC1A-28D5-461F-88E1-3C066499B8D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prun", "prun\prun.csproj", "{48B11D21-B213-41A7-9700-9D43BAC337B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{B2E0FC1A-28D5-461F-88E1-3C066499B8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2E0FC1A-28D5-461F-88E1-3C066499B8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2E0FC1A-28D5-461F-88E1-3C066499B8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48B11D21-B213-41A7-9700-9D43BAC337B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B11D21-B213-41A7-9700-9D43BAC337B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B11D21-B213-41A7-9700-9D43BAC337B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48B11D21-B213-41A7-9700-9D43BAC337B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
