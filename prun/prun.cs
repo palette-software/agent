@@ -176,11 +176,12 @@ public class PRunProcess
 
     /// <summary>
     /// Alternative approach using event driven output to files
+    /// WARNING: Times out after 10 minutes!!
     /// </summary>
     /// <returns>Error code (any value but 0 indicates an error)</returns>
     public int RunWithEventOutput()
     {
-        int timeout = 10000;
+        int timeout = 600000;  //TODO: Remove or increase this?
         int exitCode = -1;
 
         using (Process process = new Process())
