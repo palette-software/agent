@@ -9,8 +9,9 @@ using System.Collections.Generic;
 /// </summary>
 public class ProcessManager
 {
-    private string xidDir = "C:\\Palette\\XID";
-    private string binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
+    private string xidDir = "C:\\Palette\\XID";  //FIXME: make this configurable  
+    private string binDir = "C:\\Palette\\bin\\";  //FIXME: make this configurable
+    //private string binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
 
     public ProcessManager(string agentType)
     {
@@ -70,10 +71,10 @@ public class ProcessManager
         Directory.CreateDirectory(dir);
         // FIXME: check result
 
-        string stdOutPath = Path.Combine(dir, "stdout");
-        string stdErrPath = Path.Combine(dir, "stderr");
-        string retPath = Path.Combine(dir, "returncode");
-        string tmpPath = Path.Combine(dir, "tmp");
+        //string stdOutPath = Path.Combine(dir, "stdout");
+        //string stdErrPath = Path.Combine(dir, "stderr");
+        //string retPath = Path.Combine(dir, "returncode");
+        //string tmpPath = Path.Combine(dir, "tmp");
 
         // Steps:
         //  1. Call the command using cmd.exe.
@@ -81,18 +82,26 @@ public class ProcessManager
         //  3. write the return code to 'tmp'.
         //  4. rename 'tmp' to 'retval' (which should be an atomic FS operation.)
         // Note: A single '&' in cmd.exe is equivalent to ';' in a BASH shell.
-        string args = "/c call " + cmd + " 2>" + stdErrPath + " 1>" + stdOutPath;
-        args += " & echo %ERRORLEVEL% >" + tmpPath;
-        args += " & move " + tmpPath + " " + retPath;
+        //string args = "/c call " + cmd + " 2>" + stdErrPath + " 1>" + stdOutPath;
+        //args += " & echo %ERRORLEVEL% >" + tmpPath;
+        //args += " & move " + tmpPath + " " + retPath;
 
-        process.StartInfo.WorkingDirectory = binDir;
-        process.StartInfo.FileName = "cmd.exe";
-        process.StartInfo.Arguments = args;
+        //process.StartInfo.WorkingDirectory = binDir;
+        process.StartInfo.WorkingDirectory = dir;
+        process.StartInfo.FileName = "C:\\Palette\\bin\\prun.exe";
+        process.StartInfo.Arguments = cmd;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
 
-        process.Start();
-        WritePid(dir, process.Id);
+        try
+        {
+            process.Start();
+            WritePid(dir, process.Id);
+        }
+        catch(Exception exc)
+        {
+            Console.WriteLine("Error launching process: " + exc.Message);
+        }
 
         return process;
     }

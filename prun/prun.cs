@@ -241,12 +241,10 @@ public class PRunProcess
                     Console.WriteLine("Error: Process timed out");
                     exitCode = -1;                    
                     return exitCode;
-                }
-
-                RenameFiles();
+                }                
             }
         }
-
+        RenameFiles();
         return exitCode;
     }
 }
