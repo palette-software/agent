@@ -13,13 +13,16 @@ class prun
     static int Main(string[] args)
     {
         string filename = "";  
-        string arguments = "";      
-        string localOutputFolder = "";
+        string arguments = "";
+
+        //May want to allow for overriding this in the future
+        string localOutputFolder = Directory.GetCurrentDirectory();
 
         if (args.Length < 1)
         {
             //Example: prun tabadmin status -v
-            Console.WriteLine("Usage: prun.exe FileToRun [arguments]");
+            Console.WriteLine("Usage: prun.exe FileToRun [arguments]"); 
+            return -1;
         }
         else
         {
@@ -32,13 +35,11 @@ class prun
             }
 
             arguments = arguments.Trim();
-
-            if (localOutputFolder == "") localOutputFolder = Directory.GetCurrentDirectory();
         }
 
         PRunProcess proc = new PRunProcess(filename, arguments, localOutputFolder);
 
-        return proc.Run();        
+        return proc.RunWithEventOutput();        
     }
 }
 
@@ -48,8 +49,8 @@ class prun
 /// </summary>
 public class PRunProcess
 {
-    static string stdOutPath = "";
-    static string stdErrPath = "";
+    private string stdOutPath = "";
+    private string stdErrPath = "";
     private string binDir = "";
     StreamReader standardOutStream;
     StreamReader standardErrStream;
@@ -62,7 +63,7 @@ public class PRunProcess
     /// <param name="arguments">the corresponding arguments</param>
     /// <param name="localOutputFolder">folder to output stdout.out and stderr.out</param>
     public PRunProcess(string filename, string arguments, string localOutputFolder)
-    {
+    {       
         if (filename == "tabadmin") binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
 
         startInfo = new ProcessStartInfo();
@@ -73,18 +74,20 @@ public class PRunProcess
         startInfo.CreateNoWindow = true;
         startInfo.RedirectStandardOutput = true;
         startInfo.RedirectStandardError = true;
+        //TODO: Use Environment variable property of StartInfo
+        //startInfo.EnvironmentVariables.Add();
 
         stdOutPath = Path.Combine(localOutputFolder, "stdout");
-        stdErrPath = Path.Combine(localOutputFolder, "stderr");
-
-        
+        stdErrPath = Path.Combine(localOutputFolder, "stderr");        
     }
 
     /// <summary>
-    /// Runs the process and writes StdOut and StdErr to files
+    /// Runs the process and writes StdOut and StdErr to files.  Spawns threads to handle 
+    /// StdOut and StdErr output
     /// </summary>
-    /// <returns>Error code (0 for no errors)</returns>
-    public int Run()
+    /// <returns>Error code (any value but 0 indicates an error)</returns>
+    [System.Obsolete("use RunWithEventOutput()")]
+    public int RunWithThreadedOutput()
     {
         Thread standardOutputThread = null;
         Thread standardErrorThread = null;
@@ -114,8 +117,7 @@ public class PRunProcess
             if (standardOutputThread != null) standardOutputThread.Join();
             if (standardErrorThread != null) standardErrorThread.Join();
 
-            File.Move(stdOutPath + ".tmp", stdOutPath + ".out");
-            File.Move(stdErrPath + ".tmp", stdErrPath + ".out");
+            RenameFiles();
         }
 
         return exitCode;
@@ -165,60 +167,37 @@ public class PRunProcess
             }
         }
     }
-}
 
-
-/// <summary>
-/// Alternative approach, much simpler but writes StdOut and StdErr to StringBuilder objects and 
-/// then all at once to files once the process is finished
-/// </summary>
-/*
-private class prun_alt
-{
-    static int Main(string[] args)
+    private void RenameFiles()
     {
-        int timeout = 60000;
+        File.Move(stdOutPath + ".tmp", stdOutPath + ".out");
+        File.Move(stdErrPath + ".tmp", stdErrPath + ".out");
+    }
+
+    /// <summary>
+    /// Alternative approach using event driven output to files
+    /// </summary>
+    /// <returns>Error code (any value but 0 indicates an error)</returns>
+    public int RunWithEventOutput()
+    {
+        int timeout = 10000;
         int exitCode = -1;
-        string filename = "";
-        string arguments = "";
-        string localOutputFolder = "";
-        string processId = "?";
-
-        if (args.Length < 1)
-        {
-            Console.WriteLine(@"Usage: prun.exe FileToRun [/v arguments] [/o LocalOutputFolder] [/p ProcessID]");
-        }
-        else
-        {
-            filename = args[0];
-
-            int i = 0;
-            foreach (string arg in args)
-            {
-                if (arg == @"/v") arguments = args[i + 1];  //FIXME: include multiple args
-                if (arg == @"/o") localOutputFolder = args[i + 1];
-                if (arg == @"/p") processId = args[i + 1].ToString().TrimEnd();
-                i++;
-            }
-
-            if (localOutputFolder == "") localOutputFolder = Directory.GetCurrentDirectory();
-        }
 
         using (Process process = new Process())
         {
-            process.StartInfo.FileName = filename;
-            process.StartInfo.Arguments = arguments;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo = startInfo;
 
-            StringBuilder output = new StringBuilder();
-            StringBuilder error = new StringBuilder();
+            FileStream fsOut = File.Open(stdOutPath + ".tmp", FileMode.Create, FileAccess.Write, FileShare.Read);
+            FileStream fsErr = File.Open(stdErrPath + ".tmp", FileMode.Create, FileAccess.Write, FileShare.Read);
 
             using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
             using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+            using (StreamWriter outputWriter = new StreamWriter(fsOut))
+            using (StreamWriter errorWriter = new StreamWriter(fsErr))
             {
+                outputWriter.AutoFlush = true;
+                errorWriter.AutoFlush = true;
+
                 process.OutputDataReceived += (sender, e) =>
                 {
                     if (e.Data == null)
@@ -227,7 +206,7 @@ private class prun_alt
                     }
                     else
                     {
-                        output.AppendLine(e.Data);
+                        outputWriter.WriteLine(e.Data);
                     }
                 };
                 process.ErrorDataReceived += (sender, e) =>
@@ -238,7 +217,7 @@ private class prun_alt
                     }
                     else
                     {
-                        error.AppendLine(e.Data);
+                        errorWriter.WriteLine(e.Data);
                     }
                 };
 
@@ -258,28 +237,15 @@ private class prun_alt
                 else
                 {
                     // Process timed out
-                    exitCode = -1;
                     Console.WriteLine("Error: Process timed out");
-                }
-                //Either way, write to StdOut and StdErr
-                if (output.Length > 0)
-                {
-                    string stdOutPath = Path.Combine(localOutputFolder, "stdout");
-                    File.WriteAllText(stdOutPath, output.ToString());
+                    exitCode = -1;                    
+                    return exitCode;
                 }
 
-                if (error.Length > 0)
-                {
-                    string stdErrPath = Path.Combine(localOutputFolder, "stderr");
-                    File.WriteAllText(stdErrPath, error.ToString());
-                }
-
-                string retPath = Path.Combine(localOutputFolder, "returncode");
-                File.WriteAllText(retPath, process.ExitCode.ToString());
+                RenameFiles();
             }
         }
 
         return exitCode;
     }
 }
-*/
