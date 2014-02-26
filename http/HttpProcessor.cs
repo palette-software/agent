@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Web;
 using System.Collections.Generic;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// Encapsulates the socket connections and network stream to handle HTTP requests 
@@ -14,7 +16,11 @@ public class HttpProcessor
     protected int port;
     protected NetworkStream stream = null;
     protected string ipaddress = null;
-    public bool isConnected = false;    
+    public bool isConnected = false;
+
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     /// <summary>
     /// Constructor
@@ -84,7 +90,7 @@ public class HttpProcessor
 
                     while ((req = HttpRequest.Get(reader)) != null)
                     {
-                        Console.WriteLine(req.ToString());
+                        logger.Info(req.ToString());
 
                         // This could be cleaner.
                         HttpResponse res = new HttpResponse(writer);
@@ -99,11 +105,11 @@ public class HttpProcessor
                             // forcible close the socket.
                             if (exc.Body != null)
                             {
-                                Console.WriteLine(exc.Body);
+                                logger.Error(exc.ToString());
                             }
                             else
                             {
-                                Console.WriteLine(exc.ToString());
+                                logger.Error(exc.ToString());
                             }
                             return;
                         }
@@ -117,12 +123,12 @@ public class HttpProcessor
                             }
                         }
                         // FIXME: Make this actually print out where the execption occurred and WHY.
-                        #if False
+#if False
                         catch (Exception exc)
                         {
-                            Console.WriteLine("General Exception: " + exc.Message + " Source: " + exc.Source);
+                            logger.Error("General Exception: " + exc.Message + " Source: " + exc.Source);
                         }
-                        #endif
+#endif
 
                         res.Flush();
                     }

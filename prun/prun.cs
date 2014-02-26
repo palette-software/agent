@@ -64,6 +64,7 @@ public class PRunProcess
     /// <param name="localOutputFolder">folder to output stdout.out and stderr.out</param>
     public PRunProcess(string filename, string arguments, string localOutputFolder)
     {       
+        //make sure bin for tableau and the agent are in the path
         if (filename == "tabadmin") binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
 
         startInfo = new ProcessStartInfo();

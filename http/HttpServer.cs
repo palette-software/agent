@@ -3,6 +3,8 @@ using System.Net;
 using System.Threading;
 using System.Linq;
 using System.Text;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// Base Class for a Standard Web Server
@@ -12,6 +14,10 @@ using System.Text;
 public abstract class HttpBaseServer
 {
         protected readonly HttpListener listener = new HttpListener();
+
+        //This has to be put in each class for logging purposes
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+        (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Constructor
@@ -48,7 +54,7 @@ public abstract class HttpBaseServer
                     try
                     {
                         foreach (string prefix in listener.Prefixes)
-                            Console.WriteLine(prefix + " ...");
+                            logger.Info(prefix + " ...");
                         while (listener.IsListening)
                         {
                             ThreadPool.QueueUserWorkItem((c) =>
@@ -67,7 +73,7 @@ public abstract class HttpBaseServer
                                 {
                                     ctx.Response.StatusCode = 100;
                                     ctx.Response.StatusDescription = "Internal Server Error";
-                                    Console.WriteLine(exc.ToString());
+                                    logger.Error(exc.ToString());
                                 }
                                 finally
                                 {
@@ -80,17 +86,17 @@ public abstract class HttpBaseServer
                     }
                     catch (Exception exc)
                     {
-                        Console.WriteLine(exc.ToString());
+                        logger.Error(exc.ToString());
                     }
                 });
             }
             catch (HttpListenerException exc)
             {
-                Console.WriteLine("Failed to listen on assigned port.  Already in use?" + exc.Message);
+                logger.Error("Failed to listen on assigned port.  Already in use?" + exc.Message);
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.ToString());
+                logger.Error(exc.ToString());
             }
         }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// Encapsulates an HTTP request object.  
@@ -23,6 +25,10 @@ public class HttpRequest
 
     public string data = null;
     public Dictionary<string, object> JSON = null;
+
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     /// <summary>
     /// Overrides System.ToString()
@@ -49,7 +55,7 @@ public class HttpRequest
         }
         catch (System.IO.IOException exc)
         {
-            Console.WriteLine("IOException: caught while parsing http header" + exc.ToString());
+            logger.Error("IOException: caught while parsing http header" + exc.ToString());
         }
 
         if (req.ContentLength != 0)

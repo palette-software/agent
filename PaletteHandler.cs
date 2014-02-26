@@ -3,6 +3,8 @@ using System.Web;
 using System.Collections.Generic;
 using fastJSON;
 using System.Text.RegularExpressions;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -10,6 +12,10 @@ using System.Text.RegularExpressions;
 class PaletteHandler : HttpHandler
 {
     private Agent agent;
+
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     /// <summary>
     /// Constructor
@@ -68,7 +74,8 @@ class PaletteHandler : HttpHandler
             if (action == "start")
             {
                 string cmd = GetCmd(req);
-                Console.WriteLine(cmd);
+                logger.Info("CMD: " + cmd);
+
                 agent.processManager.Start(xid, cmd);
                 outputBody = agent.processManager.GetInfo(xid);
             }
@@ -93,7 +100,7 @@ class PaletteHandler : HttpHandler
             throw new HttpMethodNotAllowed();
         }
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
-        Console.WriteLine(json);
+        logger.Info("JSON: " + json);
         res.Write(json);
         return res;
     }
@@ -113,12 +120,12 @@ class PaletteHandler : HttpHandler
         if (action == "start")
         {
             agent.startMaintServer();
-            Console.WriteLine("Maintenance webserver started.");
+            logger.Info("Maintenance webserver started.");
         }
         else if (action == "stop")
         {
             agent.stopMaintServer();
-            Console.WriteLine("Maintenance webserver stopped.");
+            logger.Info("Maintenance webserver stopped.");
         }
         else
         {

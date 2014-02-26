@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// File handling methods.  Inherits from HttpBaseServer
@@ -21,6 +23,10 @@ public class FileServer : HttpBaseServer
 
     //TODO: get from .ini
     protected string documentRoot;
+
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     /// <summary>
     /// Constructor.  Calls HttpBaseServer base constructor
@@ -71,7 +77,7 @@ public class FileServer : HttpBaseServer
             throw new HttpNotFound();
         }
 
-        Console.WriteLine("GET " + req.Url.PathAndQuery);
+        logger.Info("GET " + req.Url.PathAndQuery);
 
         string mimeType = GuessMimeType(Path.GetExtension(path));
         ctx.Response.ContentType = mimeType;

@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// Manages all agent processes
@@ -12,6 +14,10 @@ public class ProcessManager
     private string xidDir = "C:\\Palette\\XID";  //FIXME: make this configurable  
     private string binDir = "C:\\Palette\\bin\\";  //FIXME: make this configurable
     //private string binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
+
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     public ProcessManager(string agentType)
     {
@@ -100,7 +106,7 @@ public class ProcessManager
         }
         catch(Exception exc)
         {
-            Console.WriteLine("Error launching process: " + exc.Message);
+            logger.Error("Error launching process: " + exc.Message);
         }
 
         return process;
@@ -211,7 +217,7 @@ public class ProcessManager
             }
             catch (IOException exc)
             {
-                Console.WriteLine(exc.ToString());
+                logger.Error(exc.ToString());
             }
         }
 

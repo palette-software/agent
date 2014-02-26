@@ -4,6 +4,9 @@ using System.IO;
 using System.Reflection;
 using System.Net;
 using System.Threading;
+using System.Configuration;
+using log4net;
+using log4net.Config;
 
 /// <summary>
 /// The class that needs to be instantiated by a Console app or Windows service 
@@ -53,12 +56,18 @@ public class Agent
     public string username = "palette";
     public string password = "unknown";
 
+    //This has to be put in each class for logging purposes
+    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="inifile">Path of .ini file</param>
     public Agent(string inifile)
     {
+        log4net.Config.XmlConfigurator.Configure(); 
+
         type = Agent.TYPE;
 
         // set hostname (may be overridden by the INI file)
@@ -121,7 +130,7 @@ public class Agent
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.ToString());
+                logger.Error(exc.ToString());
             }
 
             Thread.Sleep(reconnectInterval * 1000);
@@ -220,5 +229,25 @@ public class Agent
     }
 }
 
+//public class LogTest2
+//{
+//    //private static readonly ILog logger = LogManager.GetLogger(typeof(LogTest2));
+//    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
+//    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+//    static LogTest2()
+//    {
+//        XmlConfigurator.Configure();
+//    }
+
+//    static void Log(string[] args)
+//    {
+//        logger.Debug("Here is a debug log.");
+//        logger.Info("... and an Info log.");
+//        logger.Warn("... and a warning.");
+//        logger.Error("... and an error.");
+//        logger.Fatal("... and a fatal error.");
+//    }
+//}
 
 
