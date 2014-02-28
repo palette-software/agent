@@ -7,6 +7,7 @@ using System.Threading;
 using System.Configuration;
 using log4net;
 using log4net.Config;
+using Microsoft.Win32;
 
 /// <summary>
 /// The class that needs to be instantiated by a Console app or Windows service 
@@ -141,6 +142,32 @@ public class Agent
                         processor.Close();
                         return 0;
         #endif
+    }
+
+    /// <summary>
+    /// Finds out if Tableau is installed on local machine and if so returns version number
+    /// otherwise returns null
+    /// </summary>
+    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
+    public static string GetTableauVersion()
+    {
+        //Find out if Tableau is installed
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
+            string[] sk = rk.GetSubKeyNames();
+
+            foreach (string key in sk)
+            {
+                if (key.Contains("Tableau Server")) return key;
+            }
+        }
+        catch 
+        {
+            return null;
+        }
+
+        return null;
     }
 
     /// <summary>

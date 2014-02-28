@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,15 +9,13 @@ using System.Timers;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading;
+using System.Reflection;
 
 
 namespace ServiceAgent
 {
     public partial class ServiceAgent : ServiceBase
     {
-        //private System.Timers.Timer timer;
-        //private Thread newThread;
-
         public ServiceAgent()
         {
             ServiceName = "Service Agent";
@@ -50,29 +49,7 @@ namespace ServiceAgent
 
         protected override void OnStart(string[] args)
         {
-            // Obtain the interval between log entry writes from the first argument. Use 60000 milliseconds by
-            // default and enforce a 60000 millisecond minimum.
-            //double interval;
-
-            //try
-            //{
-            //    interval = Double.Parse(args[0]);
-            //    interval = Math.Max(60000, interval);
-            //}
-            //catch
-            //{
-            //    interval = 60000;
-            //}
-
-            EventLog.WriteEntry("ServiceAgent Service starting...");
-            //EventLog.WriteEntry(String.Format("ServiceAgent Service starting. " +
-            //    "Writing log entries every {0} milliseconds...", interval));            
-
-            //timer = new System.Timers.Timer();
-            //timer.Interval = interval;
-            //timer.AutoReset = true;
-            //timer.Elapsed += new ElapsedEventHandler(WriteLogEntry);
-            //timer.Start();            
+            EventLog.WriteEntry("ServiceAgent Service starting...");   
 
             //Kick off the Agent as a thread so it doesn't halt the onStart() method
             Thread t = new Thread(new ThreadStart(this.InitAgent));
@@ -81,18 +58,26 @@ namespace ServiceAgent
 
         private void InitAgent()
         {
-            // FIXME:
-            //Agent.RunAgent();
+            string inifile = "";
+
+            string ver = Agent.GetTableauVersion();
+
+            if (ver == null)
+            {
+                inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\other.ini";
+            }
+            else
+            {
+                inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\primary.ini";
+            }   
+
+            Agent agent = new Agent(inifile);
+            agent.Run();
         }
 
         protected override void OnStop()
         {
             EventLog.WriteEntry("ServiceAgent Service stopping...");
-            //newThread.Abort();
-            //timer.Stop();
-
-            //timer.Dispose();
-            //timer = null;
         }
     }
 }
