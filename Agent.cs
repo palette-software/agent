@@ -67,7 +67,11 @@ public class Agent
     /// <param name="inifile">Path of .ini file</param>
     public Agent(string inifile)
     {
-        log4net.Config.XmlConfigurator.Configure(); 
+        //log4net.Config.XmlConfigurator.Configure();
+        FileInfo log4NetConfigFile = new FileInfo(@"C:\Palette\agent\conf\log4net.config");
+        log4net.Config.XmlConfigurator.Configure(log4NetConfigFile);
+        
+        logger.Info("Starting Agent using inifile: " + inifile);
 
         type = Agent.TYPE;
 
@@ -255,26 +259,4 @@ public class Agent
         }
     }
 }
-
-//public class LogTest2
-//{
-//    //private static readonly ILog logger = LogManager.GetLogger(typeof(LogTest2));
-//    private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
-//    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-//    static LogTest2()
-//    {
-//        XmlConfigurator.Configure();
-//    }
-
-//    static void Log(string[] args)
-//    {
-//        logger.Debug("Here is a debug log.");
-//        logger.Info("... and an Info log.");
-//        logger.Warn("... and a warning.");
-//        logger.Error("... and an error.");
-//        logger.Fatal("... and a fatal error.");
-//    }
-//}
-
 
