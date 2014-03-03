@@ -7,6 +7,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.ComponentModel;
+using System.Reflection;
 
 class prun
 {
@@ -51,6 +52,8 @@ public class PRunProcess
 {
     private string stdOutPath = "";
     private string stdErrPath = "";
+    private string returnCdTmpPath = "";
+    private string returnCdPath = "";
     private string binDir = "";
     StreamReader standardOutStream;
     StreamReader standardErrStream;
@@ -65,6 +68,7 @@ public class PRunProcess
     public PRunProcess(string filename, string arguments, string localOutputFolder)
     {       
         //make sure bin for tableau and the agent are in the path
+        //FIXME: Remove this and make sure tableau is in path
         if (filename == "tabadmin") binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
 
         startInfo = new ProcessStartInfo();
@@ -79,7 +83,9 @@ public class PRunProcess
         //startInfo.EnvironmentVariables.Add();
 
         stdOutPath = Path.Combine(localOutputFolder, "stdout");
-        stdErrPath = Path.Combine(localOutputFolder, "stderr");        
+        stdErrPath = Path.Combine(localOutputFolder, "stderr");
+        returnCdPath = Path.Combine(localOutputFolder, "returncode");
+        returnCdTmpPath = Path.Combine(localOutputFolder, "tmp"); 
     }
 
     /// <summary>
@@ -118,7 +124,7 @@ public class PRunProcess
             if (standardOutputThread != null) standardOutputThread.Join();
             if (standardErrorThread != null) standardErrorThread.Join();
 
-            RenameFiles();
+            WriteReturnCode(exitCode);
         }
 
         return exitCode;
@@ -135,7 +141,7 @@ public class PRunProcess
 
     private void WriteStandardOutput()
     {
-        FileStream fs = File.Open(stdOutPath + ".tmp", FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+        FileStream fs = File.Open(stdOutPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
         using (StreamWriter writer = new StreamWriter(fs))
         using (StreamReader reader = standardOutStream)
         {
@@ -153,7 +159,7 @@ public class PRunProcess
 
     private void WriteStandardError()
     {
-        FileStream fs = File.Open(stdErrPath + ".tmp", FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+        FileStream fs = File.Open(stdErrPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
         using (StreamWriter writer = new StreamWriter(fs))
         using (StreamReader reader = standardErrStream)
         {
@@ -169,10 +175,15 @@ public class PRunProcess
         }
     }
 
-    private void RenameFiles()
+    /// <summary>
+    /// Writes return value of the process to a file called tmp in the current directory
+    /// After write completes, renames tmp to returncode
+    /// </summary>
+    private void WriteReturnCode(int returnCode)
     {
-        File.Move(stdOutPath + ".tmp", stdOutPath + ".out");
-        File.Move(stdErrPath + ".tmp", stdErrPath + ".out");
+        File.WriteAllText(returnCdTmpPath, Convert.ToString(returnCode));
+
+        File.Move(returnCdTmpPath, returnCdPath);
     }
 
     /// <summary>
@@ -189,8 +200,8 @@ public class PRunProcess
         {
             process.StartInfo = startInfo;
 
-            FileStream fsOut = File.Open(stdOutPath + ".tmp", FileMode.Create, FileAccess.Write, FileShare.Read);
-            FileStream fsErr = File.Open(stdErrPath + ".tmp", FileMode.Create, FileAccess.Write, FileShare.Read);
+            FileStream fsOut = File.Open(stdOutPath, FileMode.Create, FileAccess.Write, FileShare.Read);
+            FileStream fsErr = File.Open(stdErrPath, FileMode.Create, FileAccess.Write, FileShare.Read);
 
             using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
             using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
@@ -245,7 +256,9 @@ public class PRunProcess
                 }                
             }
         }
-        RenameFiles();
+
+        WriteReturnCode(exitCode);
+
         return exitCode;
     }
 }

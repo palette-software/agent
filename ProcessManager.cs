@@ -11,9 +11,8 @@ using log4net.Config;
 /// </summary>
 public class ProcessManager
 {
-    private string xidDir = "C:\\Palette\\XID";  //FIXME: make this configurable  
-    private string binDir = "C:\\Palette\\bin\\";  //FIXME: make this configurable
-    //private string binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
+    private string xidDir = "C:\\Palette\\XID";  //Default only, overwritten by config file 
+    private string binDir = "C:\\Palette\\bin\\";  //Default only, overwritten by config file 
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger

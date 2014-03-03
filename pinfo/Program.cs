@@ -19,14 +19,13 @@ class Program
         {
             //Example: pinfo /du (returns disk usage)
             Console.Error.WriteLine("Usage: pinfo.exe /du");
+
             return -1;
         }
         else if (args[0] == @"/du")
         {
             Dictionary<string, Dictionary<string, object>> data = GetDriveInfo();
-
             string json = fastJSON.JSON.Instance.ToJSON(data);
-
             Console.Out.WriteLine(json);
 
             return 0;
@@ -35,6 +34,7 @@ class Program
         else
         {
             Console.Error.WriteLine("Usage: pinfo.exe /du");
+
             return -1;
         }
     }
