@@ -24,7 +24,7 @@ public class Agent
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
     
-    public const string DEFAULT_INSTALL_DIR = "c:/Palette";
+    public const string DEFAULT_INSTALL_DIR = @"c:/Palette";
     public const string DEFAULT_XID_SUBDIR = "XID";
     public const string DEFAULT_DATA_SUBDIR = "Data";
     public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";
@@ -67,8 +67,15 @@ public class Agent
     /// <param name="inifile">Path of .ini file</param>
     public Agent(string inifile)
     {
-        //log4net.Config.XmlConfigurator.Configure();
-        FileInfo log4NetConfigFile = new FileInfo(@"C:\Palette\agent\conf\log4net.config");
+        string configfile = @"c:/Palette/conf/log4net.config";
+        if (!File.Exists(configfile))
+        {
+            configfile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString())
+                + @"/conf/log4net.config";
+        }
+
+        FileInfo log4NetConfigFile = new FileInfo(configfile);
+        //FileInfo log4NetConfigFile = new FileInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\log4net.config");
         log4net.Config.XmlConfigurator.Configure(log4NetConfigFile);
         
         logger.Info("Starting Agent using inifile: " + inifile);
