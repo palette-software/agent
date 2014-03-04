@@ -75,25 +75,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_892C77047D644CD29A6D4C64E454B371"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8D640E343B9041ACB0D6DBE410352298"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9587F72614714CFFB0E040ECFF456418"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A750A675DE76439CAA4E1CF26581F763"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C0D839E856794E77A2EEB6FC4B0A37A2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -123,6 +117,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F742C15F7407465880586E2E7D225B2A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F8F548D37D61449FA15902BD82F2E88C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -142,7 +142,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23236EACB45D4327856E0C4EFBBF75BD"
+        "OwnerKey" = "8:_A750A675DE76439CAA4E1CF26581F763"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,13 +154,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_05909113E7C442349FA5663A17E60D96"
+        "OwnerKey" = "8:_23236EACB45D4327856E0C4EFBBF75BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A750A675DE76439CAA4E1CF26581F763"
+        "OwnerKey" = "8:_05909113E7C442349FA5663A17E60D96"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -504,12 +504,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D640E343B9041ACB0D6DBE410352298"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_892C77047D644CD29A6D4C64E454B371"
             {
-            "SourcePath" = "8:..\\..\\bin\\msys-iconv-2.dll"
-            "TargetName" = "8:msys-iconv-2.dll"
+            "SourcePath" = "8:..\\conf\\other.ini"
+            "TargetName" = "8:other.ini"
             "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
+            "Folder" = "8:_6DF65DFE5CCE42BD954DB771D3A2B49E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -524,12 +524,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9587F72614714CFFB0E040ECFF456418"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D640E343B9041ACB0D6DBE410352298"
             {
-            "SourcePath" = "8:..\\ConsoleAgent\\primary.ini"
-            "TargetName" = "8:primary.ini"
+            "SourcePath" = "8:..\\..\\bin\\msys-iconv-2.dll"
+            "TargetName" = "8:msys-iconv-2.dll"
             "Tag" = "8:"
-            "Folder" = "8:_6DF65DFE5CCE42BD954DB771D3A2B49E"
+            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -561,26 +561,6 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C0D839E856794E77A2EEB6FC4B0A37A2"
-            {
-            "SourcePath" = "8:..\\ConsoleAgent\\other.ini"
-            "TargetName" = "8:other.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_6DF65DFE5CCE42BD954DB771D3A2B49E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -653,11 +633,6 @@
             "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DE53F34BA28882F1CE377424682971A8"
-                    {
-                    "Name" = "8:log4net.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
@@ -675,6 +650,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F742C15F7407465880586E2E7D225B2A"
+            {
+            "SourcePath" = "8:..\\conf\\primary.ini"
+            "TargetName" = "8:primary.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_6DF65DFE5CCE42BD954DB771D3A2B49E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F8F548D37D61449FA15902BD82F2E88C"
@@ -826,7 +821,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ServiceAgent"
         "ProductCode" = "8:{ECB55FBE-302E-4B58-B99E-EA866F5B0963}"
-        "PackageCode" = "8:{81E449D4-88D9-4DFF-93EF-960BA2BA2E6C}"
+        "PackageCode" = "8:{07FD50E9-9EA7-468F-ADF6-C65FE056E44A}"
         "UpgradeCode" = "8:{F8C0C6B3-1766-499D-B6BF-186708141297}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
