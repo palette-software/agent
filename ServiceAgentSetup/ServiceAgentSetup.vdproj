@@ -15,14 +15,14 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_05909113E7C442349FA5663A17E60D96"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_010B90FCD804D1AF80AA7C64D3ECD504"
+        "OwnerKey" = "8:_FDC02A67EFD64B8A9081598A0D8C7690"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0AEF53FEC13B4FA59B863D3654F286F7"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_010B90FCD804D1AF80AA7C64D3ECD504"
+        "OwnerKey" = "8:_D45C2D92D5A5C5F6DE7D5F6CC70B6BD6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -34,7 +34,7 @@
         "Entry"
         {
         "MsmKey" = "8:_2122EB7BC229A6A03A2748C3888F3116"
-        "OwnerKey" = "8:_05909113E7C442349FA5663A17E60D96"
+        "OwnerKey" = "8:_55E713988291476C989632FB11B7E89B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,31 +45,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23236EACB45D4327856E0C4EFBBF75BD"
+        "MsmKey" = "8:_3410BF0AC5E7493B9893971CEFECBFD3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_549162943C814FC5849A7ED0D0A1BE71"
+        "MsmKey" = "8:_55E713988291476C989632FB11B7E89B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_56F265B48FD648E094121ECB65E9F90C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_65FA931DA1D94499A5FC07C377FEABD5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_701A9DD0B8FC4BFB81F4C0E40C3280AF"
+        "MsmKey" = "8:_59B9B58338554A2195E28D85946848B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -81,37 +69,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8D640E343B9041ACB0D6DBE410352298"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A750A675DE76439CAA4E1CF26581F763"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D45C2D92D5A5C5F6DE7D5F6CC70B6BD6"
-        "OwnerKey" = "8:_FDC02A67EFD64B8A9081598A0D8C7690"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DCCF8731855444A8B5C605A88460765B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DE53F34BA28882F1CE377424682971A8"
-        "OwnerKey" = "8:_D45C2D92D5A5C5F6DE7D5F6CC70B6BD6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DE53F34BA28882F1CE377424682971A8"
         "OwnerKey" = "8:_FDC02A67EFD64B8A9081598A0D8C7690"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -142,37 +100,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A750A675DE76439CAA4E1CF26581F763"
+        "OwnerKey" = "8:_3410BF0AC5E7493B9893971CEFECBFD3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_549162943C814FC5849A7ED0D0A1BE71"
+        "OwnerKey" = "8:_55E713988291476C989632FB11B7E89B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23236EACB45D4327856E0C4EFBBF75BD"
+        "OwnerKey" = "8:_59B9B58338554A2195E28D85946848B3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_05909113E7C442349FA5663A17E60D96"
+        "OwnerKey" = "8:_010B90FCD804D1AF80AA7C64D3ECD504"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D45C2D92D5A5C5F6DE7D5F6CC70B6BD6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DE53F34BA28882F1CE377424682971A8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -300,23 +252,23 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_05909113E7C442349FA5663A17E60D96"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_010B90FCD804D1AF80AA7C64D3ECD504"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:pinfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_05909113E7C442349FA5663A17E60D96"
+                    "_010B90FCD804D1AF80AA7C64D3ECD504"
                     {
-                    "Name" = "8:pinfo.exe"
+                    "Name" = "8:log4net.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\..\\bin\\pinfo.exe"
+            "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
+            "Folder" = "8:_23AFCB9A8D2A4400B892757909A5A857"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -328,27 +280,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0AEF53FEC13B4FA59B863D3654F286F7"
-            {
-            "SourcePath" = "8:..\\..\\bin\\msys-ssl-1.0.0.dll"
-            "TargetName" = "8:msys-ssl-1.0.0.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2122EB7BC229A6A03A2748C3888F3116"
@@ -382,51 +314,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23236EACB45D4327856E0C4EFBBF75BD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:pservice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_23236EACB45D4327856E0C4EFBBF75BD"
-                    {
-                    "Name" = "8:pservice.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\bin\\pservice.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_549162943C814FC5849A7ED0D0A1BE71"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3410BF0AC5E7493B9893971CEFECBFD3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:prun, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_549162943C814FC5849A7ED0D0A1BE71"
+                    "_3410BF0AC5E7493B9893971CEFECBFD3"
                     {
                     "Name" = "8:prun.exe"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\..\\bin\\prun.exe"
+            "SourcePath" = "8:..\\prun\\bin\\Debug\\prun.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
@@ -444,10 +345,21 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_56F265B48FD648E094121ECB65E9F90C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55E713988291476C989632FB11B7E89B"
             {
-            "SourcePath" = "8:..\\..\\bin\\msys-crypto-1.0.0.dll"
-            "TargetName" = "8:msys-crypto-1.0.0.dll"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:pinfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_55E713988291476C989632FB11B7E89B"
+                    {
+                    "Name" = "8:pinfo.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\pinfo\\bin\\Debug\\pinfo.exe"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
             "Condition" = "8:"
@@ -464,30 +376,21 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65FA931DA1D94499A5FC07C377FEABD5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_59B9B58338554A2195E28D85946848B3"
             {
-            "SourcePath" = "8:..\\..\\bin\\msys-1.0.dll"
-            "TargetName" = "8:msys-1.0.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_701A9DD0B8FC4BFB81F4C0E40C3280AF"
-            {
-            "SourcePath" = "8:..\\..\\bin\\returncode"
-            "TargetName" = "8:returncode"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:pget, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_59B9B58338554A2195E28D85946848B3"
+                    {
+                    "Name" = "8:pget.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\pget\\bin\\Debug\\pget.exe"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
             "Condition" = "8:"
@@ -524,57 +427,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D640E343B9041ACB0D6DBE410352298"
-            {
-            "SourcePath" = "8:..\\..\\bin\\msys-iconv-2.dll"
-            "TargetName" = "8:msys-iconv-2.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A750A675DE76439CAA4E1CF26581F763"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:pget, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A750A675DE76439CAA4E1CF26581F763"
-                    {
-                    "Name" = "8:pget.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\bin\\pget.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D45C2D92D5A5C5F6DE7D5F6CC70B6BD6"
             {
             "AssemblyRegister" = "3:1"
@@ -589,52 +441,6 @@
                     }
                 }
             "SourcePath" = "8:ConsoleAgent.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_23AFCB9A8D2A4400B892757909A5A857"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DCCF8731855444A8B5C605A88460765B"
-            {
-            "SourcePath" = "8:..\\..\\bin\\msys-intl-8.dll"
-            "TargetName" = "8:msys-intl-8.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_11C1A4C4CA4D4251B2216828553337FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DE53F34BA28882F1CE377424682971A8"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:log4net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_23AFCB9A8D2A4400B892757909A5A857"
@@ -821,7 +627,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ServiceAgent"
         "ProductCode" = "8:{ECB55FBE-302E-4B58-B99E-EA866F5B0963}"
-        "PackageCode" = "8:{07FD50E9-9EA7-468F-ADF6-C65FE056E44A}"
+        "PackageCode" = "8:{4DD8700B-9FCB-424B-A80B-3E869E01ADC1}"
         "UpgradeCode" = "8:{F8C0C6B3-1766-499D-B6BF-186708141297}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
