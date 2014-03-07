@@ -50,6 +50,31 @@ public class ProcessManager
     /// </summary>
     private void CheckPaths(string agentType)
     {
+        //Add paths for Tableau and Palette
+        string tableauBinPath = Agent.GetTableauPath() + "\\bin\\";
+        string paletteBinPath = binDir;
+
+        bool addTableauToPath = false;
+        bool addPaletteToPath = false;
+
+        string path = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+        if (Directory.Exists(tableauBinPath) && !path.Contains(tableauBinPath))
+        {
+            path += ";" + tableauBinPath;
+            addTableauToPath = true;
+        }
+        if (Directory.Exists(paletteBinPath) && !path.Contains(paletteBinPath))
+        {
+            path += ";" + paletteBinPath;
+            addPaletteToPath = true;
+        }
+
+        if (addTableauToPath || addPaletteToPath)
+        {
+            Environment.SetEnvironmentVariable("Path", path, EnvironmentVariableTarget.Machine);
+        }
+
         if (!Directory.Exists(xidDir))
         {
             throw new FileNotFoundException(xidDir);
@@ -259,8 +284,8 @@ public class ProcessManager
         if (IsDone(xid)) {
             d["run-status"] = "finished";
             d["exit-status"] = GetReturnCode(xid);
-            d["stdout"] = GetStdOut(xid);
-            d["stderr"] = GetStdErr(xid);
+            d["stdout"] = GetStdOut(xid).Replace("\r", "");
+            d["stderr"] = GetStdErr(xid).Replace("\r", "");
         } else {
             d["run-status"] = "running";
         }

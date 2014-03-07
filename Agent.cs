@@ -67,6 +67,8 @@ public class Agent
     /// <param name="inifile">Path of .ini file</param>
     public Agent(string inifile)
     {
+        string test = GetTableauPath();
+
         string configfile = @"c:/Palette/conf/log4net.config";
         if (!File.Exists(configfile))
         {
@@ -174,6 +176,37 @@ public class Agent
             }
         }
         catch 
+        {
+            return null;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Finds out if Tableau is installed on local machine and if so returns version number
+    /// otherwise returns null
+    /// </summary>
+    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
+    public static string GetTableauPath()
+    {
+        //Find out if Tableau is installed
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
+            string[] sk = rk.GetSubKeyNames();
+
+            foreach (string key in sk)
+            {
+                if (key.Contains("Tableau Server"))
+                {
+                    RegistryKey ssk = Registry.LocalMachine.OpenSubKey("Software\\Tableau\\" + key 
+                        + "\\Directories\\");
+                    return ssk.GetValue("AppVersion").ToString();
+                }
+            }
+        }
+        catch
         {
             return null;
         }

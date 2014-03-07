@@ -58,31 +58,8 @@ namespace ServiceAgent
 
         private void InitAgent()
         {
-            string inifile = "";
-
-            string ver = Agent.GetTableauVersion();
-
-            if (ver == null)
-            {
-                inifile = @"c:/Palette/conf/other.ini";
-                if (!File.Exists(inifile))
-                {
-                    inifile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString()) 
-                        + @"/conf/other.ini";
-                    //inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\other.ini";
-                }
-            }
-            else
-            {
-                inifile = @"c:/Palette/conf/primary.ini";
-                if (!File.Exists(inifile))
-                {
-                    inifile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString())
-                        + @"/conf/primary.ini";
-                    //inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\other.ini";
-                }
-            }   
-
+            string inifile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString())
+                        + @"/conf/agent.ini";
             Agent agent = new Agent(inifile);
             agent.Run();
         }

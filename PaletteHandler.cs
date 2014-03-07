@@ -28,6 +28,18 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
+    /// Handles a request to /ping
+    /// returns no data, only a 200 OK
+    /// </summary>
+    /// <param name="req">Http request</param>
+    /// <returns>HttpResponse</returns>
+    private HttpResponse HandlePing(HttpRequest req)
+    {
+        HttpResponse res = req.Response;
+        return res;
+    }
+
+    /// <summary>
     /// Handles a request to /auth
     /// </summary>
     /// <param name="req">Http request</param>
@@ -145,6 +157,8 @@ class PaletteHandler : HttpHandler
     {
         switch (req.URI)
         {
+            case "/ping":
+                return HandlePing(req);
             case "/auth":
                 return HandleAuth(req);
             case "/cli":
