@@ -48,11 +48,11 @@
   <ItemGroup>
     <Reference Include="fastJSON, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6b75a806b86095cd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\fastJSON.dll</HintPath>
+      <HintPath>..\..\lib\$(Configuration)\fastJSON.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\log4net.dll</HintPath>
+      <HintPath>..\..\lib\$(Configuration)\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

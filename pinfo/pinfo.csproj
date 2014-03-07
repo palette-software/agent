@@ -60,7 +60,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetDir)pinfo.exe" c:\Palette\bin\</PostBuildEvent>
-  </PropertyGroup>
 </Project>
