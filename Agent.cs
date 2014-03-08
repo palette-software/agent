@@ -15,7 +15,7 @@ using Microsoft.Win32;
 /// </summary>
 public class Agent
 {
-    public const string VERSION = "0.0";
+    public const string VERSION = "0.1";
     public const string TYPE = "primary";
 
     public const string DEFAULT_SECTION = "DEFAULT";
@@ -57,6 +57,8 @@ public class Agent
     public string username = "palette";
     public string password = "unknown";
 
+    public string tableauVersion = "?";
+
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -65,9 +67,18 @@ public class Agent
     /// Constructor
     /// </summary>
     /// <param name="inifile">Path of .ini file</param>
-    public Agent(string inifile)
+    /// <param name="runAsService">True if run as a Windows Service, False as Console App</param>
+    public Agent(string inifile, bool runAsService)
     {
-        string test = GetTableauPath();
+        if (runAsService && !File.Exists(inifile))
+        {
+            tableauVersion = SetupConfig();
+        }
+        else
+        {
+            tableauVersion = GetTableauVersion();
+        }
+             
 
         string configfile = @"c:/Palette/conf/log4net.config";
         if (!File.Exists(configfile))
@@ -100,6 +111,52 @@ public class Agent
 
         dataDir = Path.Combine(this.installDir, Agent.DEFAULT_DATA_SUBDIR);
         ipaddr = GetFirstIPAddr();
+    }
+
+    /// <summary>
+    /// If System has Tableau, copy primary.ini to agent.ini, otherwise copy other.ini 
+    /// </summary>
+    /// <returns>Tableau version if running Tableau, null otherwise</returns>
+    public static string SetupConfig()
+    {
+        FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
+        string drive = Path.GetPathRoot(f.FullName);
+
+        string ver = Agent.GetTableauVersion();
+        string iniTemplate = Path.Combine(drive, "Palette\\conf\\primary.ini");
+
+        try
+        {
+            if (ver == null)
+            {
+                iniTemplate = Path.Combine(drive, "Palette\\conf\\other.ini");
+                if (File.Exists(iniTemplate))
+                {
+                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+                }
+                else  //This should never happen
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                if (File.Exists(iniTemplate))
+                {
+                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+                }
+                else  //This should never happen
+                {
+                    return null;
+                }
+            }
+        }
+        catch
+        {
+            return null;
+        }
+
+        return ver;
     }
 
     /// <summary>
@@ -167,6 +224,7 @@ public class Agent
         //Find out if Tableau is installed
         try
         {
+            //First try Registry
             RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
             string[] sk = rk.GetSubKeyNames();
 
@@ -174,13 +232,23 @@ public class Agent
             {
                 if (key.Contains("Tableau Server")) return key;
             }
+
+            //Local machine may not allow registry access from a Service, so look for folder also
+            FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
+            string tableauFolder = Path.Combine(Path.GetPathRoot(f.FullName), "Program Files\\Tableau\\Tableau Server");
+            string[] subFolders = null;
+            if (Directory.Exists(tableauFolder))
+            {
+                subFolders = Directory.GetDirectories(tableauFolder);
+                string[] tokens = subFolders[0].ToString().Split('\\');
+                return tokens[tokens.Length - 1];
+            }
+            return null;
         }
         catch 
         {
             return null;
         }
-
-        return null;
     }
 
     /// <summary>

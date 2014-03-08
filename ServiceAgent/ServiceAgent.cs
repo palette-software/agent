@@ -60,7 +60,7 @@ namespace ServiceAgent
         {
             string inifile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString())
                         + @"/conf/agent.ini";
-            Agent agent = new Agent(inifile);
+            Agent agent = new Agent(inifile, true);
             agent.Run();
         }
 

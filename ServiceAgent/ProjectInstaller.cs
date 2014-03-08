@@ -7,6 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.IO;
 using System.Reflection;
+using Microsoft.Win32;
 
 
 namespace ServiceAgent
@@ -25,43 +26,43 @@ namespace ServiceAgent
         void ServiceInstaller_AfterInstall(object sender, InstallEventArgs e)
         {
             //Create the .ini file
-            SetupConfig();
+            //Agent.SetupConfig();
 
             ServiceController sc = new ServiceController(serviceInstaller1.ServiceName);
             sc.Start();
         }
 
-        void SetupConfig()
-        {
-            FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            string drive = Path.GetPathRoot(f.FullName);
+        //void SetupConfig()
+        //{
+        //    FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
+        //    string drive = Path.GetPathRoot(f.FullName);
 
-            string ver = Agent.GetTableauVersion();
-            string iniTemplate = Path.Combine(drive, "Palette\\conf\\primary.ini");
+        //    string ver = Agent.GetTableauVersion();
+        //    string iniTemplate = Path.Combine(drive, "Palette\\conf\\primary.ini");
 
-            if (ver == null)
-            {
-                iniTemplate = Path.Combine(drive, "Palette\\conf\\other.ini");
-                if (File.Exists(iniTemplate))
-                {
-                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"));
-                }
-                else  //This should never happen
-                {
-                    throw new SystemException("No other.ini file available");
-                }
-            }
-            else
-            {
-                if (File.Exists(iniTemplate))
-                {
-                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"));
-                }
-                else  //This should never happen
-                {
-                    throw new SystemException("No primary.ini file available");
-                }
-            }            
-        }
+        //    if (ver == null)
+        //    {
+        //        iniTemplate = Path.Combine(drive, "Palette\\conf\\other.ini");
+        //        if (File.Exists(iniTemplate))
+        //        {
+        //            File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+        //        }
+        //        else  //This should never happen
+        //        {
+        //            throw new SystemException("No other.ini file available");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (File.Exists(iniTemplate))
+        //        {
+        //            File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+        //        }
+        //        else  //This should never happen
+        //        {
+        //            throw new SystemException("No primary.ini file available");
+        //        }
+        //    }
+        //}
     }
 }

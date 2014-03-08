@@ -30,7 +30,7 @@ public class ConsoleAgent
             return -1;
         }
 
-        Agent agent = new Agent(inifile);
+        Agent agent = new Agent(inifile, false);
         agent.Run();
 
         return 0;
