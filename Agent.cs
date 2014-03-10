@@ -6,7 +6,11 @@ using System.Net;
 using System.Threading;
 using System.Configuration;
 using log4net;
-using log4net.Config;
+using log4net.Repository.Hierarchy;
+using log4net.Core;
+using log4net.Appender;
+using log4net.Layout;
+//using log4net.Config;
 using Microsoft.Win32;
 
 /// <summary>
@@ -25,9 +29,11 @@ public class Agent
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
     
     public const string DEFAULT_INSTALL_DIR = @"c:/Palette";
+    public const string DEFAULT_LOG_NAME = @"c:/Palette/log/AgentRollingLogFile.txt";
+    public const string DEFAULT_MAX_LOG_SIZE = "10MB";
     public const string DEFAULT_XID_SUBDIR = "XID";
     public const string DEFAULT_DATA_SUBDIR = "Data";
-    public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";
+    public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";    
 
     public IniFile conf = null;
     public string type;
@@ -45,6 +51,8 @@ public class Agent
     public IPAddress controllerAddr;
 
     public string installDir = Agent.DEFAULT_INSTALL_DIR;
+    public string logName = Agent.DEFAULT_LOG_NAME;
+    public string maxLogSize = Agent.DEFAULT_MAX_LOG_SIZE;
     public string xidDir;
     public string dataDir;
 
@@ -78,8 +86,10 @@ public class Agent
         {
             tableauVersion = GetTableauVersion();
         }
-             
 
+        SetupLogging(runAsService);
+             
+        /*
         string configfile = @"c:/Palette/conf/log4net.config";
         if (!File.Exists(configfile))
         {
@@ -90,6 +100,7 @@ public class Agent
         FileInfo log4NetConfigFile = new FileInfo(configfile);
         //FileInfo log4NetConfigFile = new FileInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\log4net.config");
         log4net.Config.XmlConfigurator.Configure(log4NetConfigFile);
+        */
         
         logger.Info("Starting Agent using inifile: " + inifile);
 
@@ -157,6 +168,40 @@ public class Agent
         }
 
         return ver;
+    }
+
+    /// <summary>
+    /// Takes configuration settings from .ini file to setup logging options
+    /// </summary>
+    public void SetupLogging(bool runAsService)
+    {
+        Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
+
+        PatternLayout patternLayout = new PatternLayout();
+        patternLayout.ConversionPattern = "%date [%thread] %level %logger - %message%newline";
+        patternLayout.ActivateOptions();
+
+        RollingFileAppender roller = new RollingFileAppender();
+        roller.AppendToFile = true;
+        roller.File = logName;
+        roller.Layout = patternLayout;
+        roller.MaxSizeRollBackups = 5;
+        roller.MaximumFileSize = maxLogSize;
+        roller.RollingStyle = RollingFileAppender.RollingMode.Size;
+        roller.StaticLogFileName = true;
+        roller.ActivateOptions();
+        hierarchy.Root.AddAppender(roller);
+
+        if (!runAsService)
+        {
+            ConsoleAppender console = new ConsoleAppender();
+            console.Layout = patternLayout;
+            console.ActivateOptions();
+            hierarchy.Root.AddAppender(console);
+        }
+
+        hierarchy.Root.Level = Level.Info;
+        hierarchy.Configured = true;
     }
 
     /// <summary>
@@ -334,6 +379,16 @@ public class Agent
         if (conf.KeyExists("listen-port", "archive"))
         {
             archiveListenPort = Convert.ToInt16(conf.Read("listen-port", "archive"));
+        }
+
+        if (conf.KeyExists("location", "logging"))
+        {
+            logName = conf.Read("location", "logging");
+        }
+
+        if (conf.KeyExists("maxsize", "logging"))
+        {
+            maxLogSize = conf.Read("maxsize", "logging");
         }
     }
 
