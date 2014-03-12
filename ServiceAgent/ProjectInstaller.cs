@@ -8,6 +8,7 @@ using System.ServiceProcess;
 using System.IO;
 using System.Reflection;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 
 namespace ServiceAgent
@@ -32,37 +33,22 @@ namespace ServiceAgent
             sc.Start();
         }
 
-        //void SetupConfig()
-        //{
-        //    FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
-        //    string drive = Path.GetPathRoot(f.FullName);
+        //This requires "Primary output from ServiceAgent (Active)" in the uninstall action
+        //If this fails and you can't install or uninstall, go to "HKEY_USERS" in Registry, 
+        //and search for "ServiceAgent". Delete the folder containing a reference to it
+        //in \Software\Microsoft\Installer\Products 
+        public override void Uninstall(IDictionary savedState)
+        {
+            base.Uninstall(savedState);
 
-        //    string ver = Agent.GetTableauVersion();
-        //    string iniTemplate = Path.Combine(drive, "Palette\\conf\\primary.ini");
-
-        //    if (ver == null)
-        //    {
-        //        iniTemplate = Path.Combine(drive, "Palette\\conf\\other.ini");
-        //        if (File.Exists(iniTemplate))
-        //        {
-        //            File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
-        //        }
-        //        else  //This should never happen
-        //        {
-        //            throw new SystemException("No other.ini file available");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (File.Exists(iniTemplate))
-        //        {
-        //            File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
-        //        }
-        //        else  //This should never happen
-        //        {
-        //            throw new SystemException("No primary.ini file available");
-        //        }
-        //    }
-        //}
+            using (Process process = new Process())
+            {
+                process.StartInfo.FileName = @"sc.exe";
+                process.StartInfo.Arguments = "delete ServiceAgent";
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.Start();
+            }        
+        }
     }
 }

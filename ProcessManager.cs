@@ -11,8 +11,8 @@ using log4net.Config;
 /// </summary>
 public class ProcessManager
 {
-    private string xidDir = "C:\\Palette\\XID";  //Default only, overwritten by config file 
-    private string binDir = "C:\\Palette\\bin\\";  //Default only, overwritten by config file 
+    private string xidDir; 
+    private string binDir; 
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -61,12 +61,12 @@ public class ProcessManager
 
         if (Directory.Exists(tableauBinPath) && !path.Contains(tableauBinPath))
         {
-            path += ";" + tableauBinPath;
+            path += tableauBinPath + ";";
             addTableauToPath = true;
         }
-        if (Directory.Exists(paletteBinPath) && !path.Contains(paletteBinPath))
+        if (Directory.Exists(paletteBinPath) && !path.Contains(paletteBinPath))  //TODO: FIX paletteBinPath
         {
-            path += ";" + paletteBinPath;
+            path += paletteBinPath + ";";
             addPaletteToPath = true;
         }
 
@@ -77,9 +77,9 @@ public class ProcessManager
 
         if (!Directory.Exists(xidDir))
         {
-            throw new FileNotFoundException(xidDir);
+            throw new FileNotFoundException(xidDir);  //TODO: FIX xidDir
         }
-        if (!Directory.Exists(binDir) && agentType != "other")
+        if (!Directory.Exists(binDir) && agentType != "other")  //TODO: FIX binDir
         {
             throw new FileNotFoundException(binDir);
         }
@@ -118,7 +118,7 @@ public class ProcessManager
 
         //process.StartInfo.WorkingDirectory = binDir;
         process.StartInfo.WorkingDirectory = dir;
-        process.StartInfo.FileName = "C:\\Palette\\bin\\prun.exe";
+        process.StartInfo.FileName = binDir + "\\prun.exe";  //For some reason Path.Combine fails here
         process.StartInfo.Arguments = cmd;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;

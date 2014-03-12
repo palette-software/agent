@@ -23,20 +23,20 @@ public class Agent
     public const string TYPE = "primary";
 
     public const string DEFAULT_SECTION = "DEFAULT";
-
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
-    
-    public const string DEFAULT_INSTALL_DIR = @"c:/Palette";
-    public const string DEFAULT_LOG_NAME = @"c:/Palette/log/AgentRollingLogFile.txt";
+
     public const string DEFAULT_MAX_LOG_SIZE = "10MB";
-    public const string DEFAULT_XID_SUBDIR = "XID";
-    public const string DEFAULT_DATA_SUBDIR = "Data";
-    public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";    
+
+    //public const string DEFAULT_INSTALL_DIR = @"c:/Palette";
+    //public const string DEFAULT_LOG_NAME = @"c:/Palette/log/agent.log";    
+    //public const string DEFAULT_XID_SUBDIR = "XID";
+    //public const string DEFAULT_DATA_SUBDIR = "Data";
+    //public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";    
 
     public IniFile conf = null;
-    public string type;
+    public string type;  //Agent type (primary, worker, other, etc.)
 
     private bool _isArchiveAgent = false;
     public bool isArchiveAgent { get { return _isArchiveAgent; } }
@@ -50,11 +50,15 @@ public class Agent
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
     public IPAddress controllerAddr;
 
-    public string installDir = Agent.DEFAULT_INSTALL_DIR;
-    public string logName = Agent.DEFAULT_LOG_NAME;
-    public string maxLogSize = Agent.DEFAULT_MAX_LOG_SIZE;
+    public string installDir;
+    public string binDir;
     public string xidDir;
     public string dataDir;
+    public string iniDir;
+    public string logName;
+    public string docRoot;
+    public string maxLogSize = Agent.DEFAULT_MAX_LOG_SIZE;
+
 
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
@@ -78,6 +82,14 @@ public class Agent
     /// <param name="runAsService">True if run as a Windows Service, False as Console App</param>
     public Agent(string inifile, bool runAsService)
     {
+        installDir = ProgramFilesx86() + "\\Palette\\ServiceAgent";
+        binDir = installDir + "\\bin";
+        xidDir = installDir + "\\XID";
+        dataDir = installDir + "\\Data";
+        iniDir = installDir + "\\conf";
+        docRoot = installDir + "\\DocRoot";
+        logName = installDir + "\\log\\agent.log";
+
         if (runAsService && !File.Exists(inifile))
         {
             tableauVersion = SetupConfig();
@@ -87,7 +99,7 @@ public class Agent
             tableauVersion = GetTableauVersion();
         }
 
-        SetupLogging(runAsService);
+        SetupLogging(runAsService); 
              
         /*
         string configfile = @"c:/Palette/conf/log4net.config";
@@ -116,11 +128,8 @@ public class Agent
 
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
-        // FIXME: get path(s) from the INI file.
-        xidDir = Path.Combine(this.installDir, Agent.DEFAULT_XID_SUBDIR);
-        processManager = new ProcessManager(xidDir, type);
+        processManager = new ProcessManager(xidDir, binDir, type);
 
-        dataDir = Path.Combine(this.installDir, Agent.DEFAULT_DATA_SUBDIR);
         ipaddr = GetFirstIPAddr();
     }
 
@@ -130,20 +139,19 @@ public class Agent
     /// <returns>Tableau version if running Tableau, null otherwise</returns>
     public static string SetupConfig()
     {
-        FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
-        string drive = Path.GetPathRoot(f.FullName);
+        string iniDir = ProgramFilesx86() + "\\Palette\\conf";
 
         string ver = Agent.GetTableauVersion();
-        string iniTemplate = Path.Combine(drive, "Palette\\conf\\primary.ini");
+        string iniTemplate = Path.Combine(iniDir, "\\primary.ini");
 
         try
         {
             if (ver == null)
             {
-                iniTemplate = Path.Combine(drive, "Palette\\conf\\other.ini");
+                iniTemplate = Path.Combine(iniDir, "\\other.ini");
                 if (File.Exists(iniTemplate))
                 {
-                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+                    File.Copy(iniTemplate, Path.Combine(iniDir, "\\agent.ini"), true);
                 }
                 else  //This should never happen
                 {
@@ -154,7 +162,7 @@ public class Agent
             {
                 if (File.Exists(iniTemplate))
                 {
-                    File.Copy(iniTemplate, Path.Combine(drive, "Palette\\conf\\agent.ini"), true);
+                    File.Copy(iniTemplate, Path.Combine(iniDir, "\\agent.ini"), true);
                 }
                 else  //This should never happen
                 {
@@ -210,8 +218,6 @@ public class Agent
     /// <returns>0 if process completes regularly</returns>
     public int Run()
     {
-        string xidDir = Path.Combine(installDir, Agent.DEFAULT_XID_SUBDIR);
-
         System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
 
         foreach (FileInfo file in xidContents.GetFiles())
@@ -296,35 +302,10 @@ public class Agent
         }
     }
 
-    /// <summary>
-    /// Finds out if Tableau is installed on local machine and if so returns version number
-    /// otherwise returns null
-    /// </summary>
-    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
-    public static string GetTableauPath()
+    public void startMaintServer()
     {
-        //Find out if Tableau is installed
-        try
-        {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
-            string[] sk = rk.GetSubKeyNames();
-
-            foreach (string key in sk)
-            {
-                if (key.Contains("Tableau Server"))
-                {
-                    RegistryKey ssk = Registry.LocalMachine.OpenSubKey("Software\\Tableau\\" + key 
-                        + "\\Directories\\");
-                    return ssk.GetValue("AppVersion").ToString();
-                }
-            }
-        }
-        catch
-        {
-            return null;
-        }
-
-        return null;
+        maintServer = new MaintServer(80, docRoot);
+        maintServer.Run();
     }
 
     /// <summary>
@@ -392,6 +373,37 @@ public class Agent
         }
     }
 
+    /// <summary>
+    /// Finds out if Tableau is installed on local machine and if so returns version number
+    /// otherwise returns null
+    /// </summary>
+    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
+    public static string GetTableauPath()
+    {
+        //Find out if Tableau is installed
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
+            string[] sk = rk.GetSubKeyNames();
+
+            foreach (string key in sk)
+            {
+                if (key.Contains("Tableau Server"))
+                {
+                    RegistryKey ssk = Registry.LocalMachine.OpenSubKey("Software\\Tableau\\" + key
+                        + "\\Directories\\");
+                    return ssk.GetValue("AppVersion").ToString();
+                }
+            }
+        }
+        catch
+        {
+            return null;
+        }
+
+        return null;
+    }
+
     protected string GetFirstIPAddr()
     {
         IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -405,13 +417,6 @@ public class Agent
         return "127.0.0.1";
     }
 
-    public void startMaintServer()
-    {
-        string docroot = Path.Combine(installDir, Agent.DEFAULT_DOCROOT_SUBDIR);
-        maintServer = new MaintServer(80, docroot);
-        maintServer.Run();
-    }
-
     public void stopMaintServer()
     {
         if (maintServer != null)
@@ -420,6 +425,22 @@ public class Agent
             maintServer.Close();
             maintServer = null;
         }
+    }
+
+    /// <summary>
+    /// The function below will return the x86 Program Files directory in all of these three Windows configurations:
+    ///   32 bit Windows, 32 bit program running on 64 bit Windows, 64 bit program running on 64 bit windows
+    /// </summary>
+    /// <returns>x86 Program Files directory</returns>
+    public static string ProgramFilesx86()
+    {
+        if (8 == IntPtr.Size
+            || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
+        {
+            return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+        }
+
+        return Environment.GetEnvironmentVariable("ProgramFiles");
     }
 }
 
