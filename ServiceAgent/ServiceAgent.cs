@@ -58,7 +58,7 @@ namespace ServiceAgent
 
         private void InitAgent()
         {            
-            string inifile = (Assembly.GetExecutingAssembly().Location).ToString() + @"/conf/agent.ini";
+            string inifile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\agent.ini";
             Agent agent = new Agent(inifile, true);
             agent.Run();
         }
