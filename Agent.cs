@@ -82,13 +82,23 @@ public class Agent
     /// <param name="runAsService">True if run as a Windows Service, False as Console App</param>
     public Agent(string inifile, bool runAsService)
     {
-        installDir = ProgramFilesx86() + "\\Palette\\ServiceAgent";
-        binDir = installDir + "\\bin";
-        xidDir = installDir + "\\XID";
-        dataDir = installDir + "\\Data";
-        iniDir = installDir + "\\conf";
-        docRoot = installDir + "\\DocRoot";
-        logName = installDir + "\\log\\agent.log";
+        //First try the default installation path
+        installDir = ProgramFilesx86() + "\\Palette\\ServiceAgent\\";
+
+        //if not there, check the registry to see where it was put
+        if (!Directory.Exists(installDir))  
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\ServiceAgent");
+            installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
+            installDir = installDir.Replace("ServiceAgent.exe", "");
+        }
+
+        binDir = installDir + "bin";
+        xidDir = installDir + "XID";
+        dataDir = installDir + "Data";
+        iniDir = installDir + "conf";
+        docRoot = installDir + "DocRoot";
+        logName = installDir + "log\\agent.log";
 
         if (runAsService && !File.Exists(inifile))
         {

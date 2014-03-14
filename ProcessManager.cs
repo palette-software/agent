@@ -77,11 +77,11 @@ public class ProcessManager
 
         if (!Directory.Exists(xidDir))
         {
-            throw new FileNotFoundException(xidDir);  //TODO: FIX xidDir
+            Directory.CreateDirectory(xidDir);
         }
         if (!Directory.Exists(binDir) && agentType != "other")  //TODO: FIX binDir
         {
-            throw new FileNotFoundException(binDir);
+            Directory.CreateDirectory(binDir);
         }
     }
 
