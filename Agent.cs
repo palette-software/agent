@@ -85,12 +85,18 @@ public class Agent
         //First try the default installation path
         installDir = ProgramFilesx86() + "\\Palette\\";
 
-        //if not there, check the registry to see where it was put
-        if (!Directory.Exists(installDir))  
+        try
         {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
-            installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
-            installDir = installDir.Replace("ServiceAgent.exe", "");
+            //if not there, check the registry to see where it was put
+            if (!Directory.Exists(installDir))
+            {
+                RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
+                installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
+                installDir = installDir.Replace("ServiceAgent.exe", "");
+            }
+        }
+        catch //Catch all exceptions
+        {
         }
 
         //binDir = installDir +"bin";
@@ -208,6 +214,7 @@ public class Agent
         roller.MaximumFileSize = maxLogSize;
         roller.RollingStyle = RollingFileAppender.RollingMode.Size;
         roller.StaticLogFileName = true;
+        roller.LockingModel = new FileAppender.MinimalLock();
         roller.ActivateOptions();
         hierarchy.Root.AddAppender(roller);
 
