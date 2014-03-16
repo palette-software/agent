@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="d03dd71e-a3c6-4950-b35c-3e518908f9d6" Name="Palette Agent" Language="1033" Version="0.1" Manufacturer="Palette Software" UpgradeCode="ab39a1ce-7e04-42c6-8abe-d30f22fa3eda">
+		<Package InstallerVersion="200" Compressed="yes" />
+
+		<Media Id="1" Cabinet="palette.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION" Name="Palette">
+          <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+          <Component Id="ProductComponent" Guid="f8e03674-4769-4971-8180-75e968e3064f">
+            <!-- TODO: Insert files, registry keys, and other resources here. -->
+            <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
+            <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
+            <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>
+            <File Id="pget.exe" Source="..\pget\bin\Debug\pget.exe"></File>
+            <File Id="prun.exe" Source="..\prun\bin\Debug\prun.exe"></File>
+            <File Id="pinfo.exe" Source="..\pinfo\bin\Debug\pinfo.exe"></File>            
+          </Component>
+          <Component Id="Palette" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
+            <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\Debug\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
+            <ServiceInstall Id="Palette" Type="ownProcess" Name="Palette" DisplayName="Palette Agent"
+                    Description="Service for Palette Agent" Start="auto" Account="LocalSystem" ErrorControl="normal">
+              <!--PermissionEx  Sddl="yes" User="Everyone" ServicePauseContinue="yes" ServiceQueryStatus="yes"
+                      ServiceStart="yes" ServiceStop="yes" ServiceUserDefinedControl="yes" /-->
+            </ServiceInstall>
+            <ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" />
+          </Component>
+          <Directory Id="log" Name="log">
+            <Component Id="SupportingFiles" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
+              <File Id="agent.log" Source="..\conf\agent.log"></File>
+            </Component>
+          </Directory>
+          <Directory Id="XIDFolder" Name="XID">
+            <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
+              <CreateFolder />
+              <!-- TODO: Unfortunately does not delete files recursively. -->
+              <RemoveFile Id="RemoveXIDFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="Palette" Level="1">
+      <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
+      <ComponentRef Id="Palette" />
+      <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="SupportingFiles" />
+      <ComponentRef Id="XIDFolder" />      
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+	</Product>
+</Wix>

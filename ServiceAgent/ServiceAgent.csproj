@@ -94,7 +94,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ConsoleAgent\ConsoleAgent.csproj">
       <Project>{99E5F714-3ED2-43FE-A85E-4A2259C2F4EA}</Project>
-      <Name>WindowsAgent</Name>
+      <Name>ConsoleAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

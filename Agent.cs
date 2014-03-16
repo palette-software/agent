@@ -83,17 +83,18 @@ public class Agent
     public Agent(string inifile, bool runAsService)
     {
         //First try the default installation path
-        installDir = ProgramFilesx86() + "\\Palette\\ServiceAgent\\";
+        installDir = ProgramFilesx86() + "\\Palette\\";
 
         //if not there, check the registry to see where it was put
         if (!Directory.Exists(installDir))  
         {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\ServiceAgent");
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
             installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
             installDir = installDir.Replace("ServiceAgent.exe", "");
         }
 
-        binDir = installDir + "bin";
+        //binDir = installDir +"bin";
+        binDir = installDir;  //Change for WiX installer release
         xidDir = installDir + "XID";
         dataDir = installDir + "Data";
         iniDir = installDir + "conf";
