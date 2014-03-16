@@ -28,14 +28,22 @@
             <ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" />
           </Component>
           <Directory Id="log" Name="log">
-            <Component Id="SupportingFiles" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
+            <Component Id="LogFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
               <CreateFolder />
               <File Id="agent.log" Source="..\conf\agent.log"></File>
               <RemoveFile Id="RemoveLogFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
+          <Directory Id="ConfigFolder" Name="conf">
+            <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
+              <CreateFolder />
+              <File Id="primary.ini" Source="..\conf\primary.ini"></File>
+              <File Id="other.ini" Source="..\conf\other.ini"></File>
+              <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
           <Directory Id="XIDFolder" Name="XID">
-            <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
+            <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f270">
               <CreateFolder />
               <!-- TODO: Unfortunately does not delete files recursively. -->
               <RemoveFile Id="RemoveXIDFolder" Name="*.*" On="uninstall" />
@@ -49,8 +57,9 @@
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
       <ComponentRef Id="Palette" />
       <ComponentRef Id="ProductComponent" />
-      <ComponentRef Id="SupportingFiles" />
-      <ComponentRef Id="XIDFolder" />      
+      <ComponentRef Id="LogFolder" />
+      <ComponentRef Id="XIDFolder" />
+      <ComponentRef Id="ConfigFolder" />
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
