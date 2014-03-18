@@ -22,7 +22,7 @@ class prun
         if (args.Length < 1)
         {
             //Example: prun tabadmin status -v
-            Console.WriteLine("Usage: prun.exe FileToRun [arguments]"); 
+            Console.Error.WriteLine("Usage: prun.exe FileToRun [arguments]"); 
             return -1;
         }
         else
@@ -250,7 +250,7 @@ public class PRunProcess
                 else
                 {
                     // Process timed out
-                    Console.WriteLine("Error: Process timed out");
+                    Console.Error.WriteLine("Error: Process timed out");
                     exitCode = -1;                    
                     return exitCode;
                 }                

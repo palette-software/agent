@@ -26,7 +26,7 @@ public class ConsoleAgent
         }
         else if (args.Length != 0)
         {
-            Console.WriteLine("usage: ConsoleAgent [inifile]");
+            Console.Error.WriteLine("usage: ConsoleAgent [inifile]");
             return -1;
         }
 

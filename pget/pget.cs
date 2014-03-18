@@ -18,7 +18,7 @@ class pget
 
         if (args.Length < 1)
         {
-            Console.WriteLine("Usage: PGet UrlToCopy [LocalFolderToCopyTo]");
+            Console.Error.WriteLine("Usage: PGet UrlToCopy [LocalFolderToCopyTo]");
             return -1;
         }
         else
