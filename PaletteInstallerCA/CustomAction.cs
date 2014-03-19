@@ -12,39 +12,39 @@ namespace PaletteInstallerCA
 {
     public class CustomActions
     {
-        [CustomAction]
-        public static ActionResult UpdateIniWithServerName(Session session)
-        {
-            try
-            {
-                string output = "[DEFAULT]" + Environment.NewLine;
-                output += "type=primary" + Environment.NewLine;
-                output += "# archive=false" + Environment.NewLine;
-                output += "uuid=5e94aad1-67bc-46b7-a16d-52c6b1443cef" + Environment.NewLine;
-                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine; //session["INSTALLLOCATION"].ToString() = C:\Program Files (x86)\Palette\
-                output += "# hostname=primary" + Environment.NewLine;
-                output += Environment.NewLine;
-                output += "[controller]" + Environment.NewLine;
-                output += "# host=" + session["SERVERNAME"].ToString() + Environment.NewLine;
-                output += "# port=8888" + Environment.NewLine;
-                output += Environment.NewLine;
-                output += "[archive]" + Environment.NewLine;
-                output += "# listen-port=8889" + Environment.NewLine;
-                output += Environment.NewLine;
-                output += "[logging]" + Environment.NewLine;
-                output += "location=" + session["INSTALLLOCATION"].ToString() + @"log\agent.log" + Environment.NewLine;
-                output += "maxsize=10MB" + Environment.NewLine;                   
+        //[CustomAction]
+        //public static ActionResult UpdateIniWithServerName(Session session)
+        //{
+        //    try
+        //    {
+        //        string output = "[DEFAULT]" + Environment.NewLine;
+        //        output += "type=primary" + Environment.NewLine;
+        //        output += "# archive=false" + Environment.NewLine;
+        //        output += "uuid=5e94aad1-67bc-46b7-a16d-52c6b1443cef" + Environment.NewLine;
+        //        output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine; //session["INSTALLLOCATION"].ToString() = C:\Program Files (x86)\Palette\
+        //        output += "# hostname=primary" + Environment.NewLine;
+        //        output += Environment.NewLine;
+        //        output += "[controller]" + Environment.NewLine;
+        //        output += "# host=" + session["SERVERNAME"].ToString() + Environment.NewLine;
+        //        output += "# port=8888" + Environment.NewLine;
+        //        output += Environment.NewLine;
+        //        output += "[archive]" + Environment.NewLine;
+        //        output += "# listen-port=8889" + Environment.NewLine;
+        //        output += Environment.NewLine;
+        //        output += "[logging]" + Environment.NewLine;
+        //        output += "# location=" + session["INSTALLLOCATION"].ToString() + @"log\agent.log" + Environment.NewLine;
+        //        output += "maxsize=10MB" + Environment.NewLine;                   
                 
-                string path = Path.Combine("c://temp//", "agent.ini");
-                File.WriteAllText(path, Convert.ToString(output));
-            }
-            catch
-            {
-                return ActionResult.Failure;
-            }
+        //        string path = Path.Combine("c://temp//", "agent.ini");
+        //        File.WriteAllText(path, Convert.ToString(output));
+        //    }
+        //    catch
+        //    {
+        //        return ActionResult.Failure;
+        //    }
 
-            return ActionResult.Success;
-        }
+        //    return ActionResult.Success;
+        //}
 
         [CustomAction]
         public static ActionResult CreateIniFile(Session session)

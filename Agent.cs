@@ -59,7 +59,6 @@ public class Agent
     public string docRoot;
     public string maxLogSize = Agent.DEFAULT_MAX_LOG_SIZE;
 
-
     public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
 
     public ProcessManager processManager;
@@ -107,31 +106,8 @@ public class Agent
         docRoot = installDir + "DocRoot";
         logName = installDir + "log\\agent.log";
 
-        if (runAsService && !File.Exists(inifile))
-        {
-            tableauVersion = SetupConfig();
-        }
-        else
-        {
-            tableauVersion = GetTableauVersion();
-        }
-
-        SetupLogging(runAsService); 
-             
-        /*
-        string configfile = @"c:/Palette/conf/log4net.config";
-        if (!File.Exists(configfile))
-        {
-            configfile = Directory.GetParent(Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString())
-                + @"/conf/log4net.config";
-        }
-
-        FileInfo log4NetConfigFile = new FileInfo(configfile);
-        //FileInfo log4NetConfigFile = new FileInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\conf\log4net.config");
-        log4net.Config.XmlConfigurator.Configure(log4NetConfigFile);
-        */
-        
-        logger.Info("Starting Agent using inifile: " + inifile);
+        //Find version of tableau if it is installed.  May be usefull for configuration of Agent type
+        tableauVersion = GetTableauVersion();
 
         type = Agent.TYPE;
 
@@ -143,56 +119,14 @@ public class Agent
         conf = new IniFile(inifile);
         ParseIniFile();
 
+        SetupLogging(runAsService);
+        logger.Info("Starting Agent using inifile: " + inifile);
+
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         processManager = new ProcessManager(xidDir, binDir, type);
 
         ipaddr = GetFirstIPAddr();
-    }
-
-    /// <summary>
-    /// If System has Tableau, copy primary.ini to agent.ini, otherwise copy other.ini 
-    /// </summary>
-    /// <returns>Tableau version if running Tableau, null otherwise</returns>
-    public static string SetupConfig()
-    {
-        string iniDir = ProgramFilesx86() + "\\Palette\\conf";
-
-        string ver = Agent.GetTableauVersion();
-        string iniTemplate = Path.Combine(iniDir, "\\primary.ini");
-
-        try
-        {
-            if (ver == null)
-            {
-                iniTemplate = Path.Combine(iniDir, "\\other.ini");
-                if (File.Exists(iniTemplate))
-                {
-                    File.Copy(iniTemplate, Path.Combine(iniDir, "\\agent.ini"), true);
-                }
-                else  //This should never happen
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                if (File.Exists(iniTemplate))
-                {
-                    File.Copy(iniTemplate, Path.Combine(iniDir, "\\agent.ini"), true);
-                }
-                else  //This should never happen
-                {
-                    return null;
-                }
-            }
-        }
-        catch
-        {
-            return null;
-        }
-
-        return ver;
     }
 
     /// <summary>
