@@ -54,12 +54,12 @@ namespace PaletteInstallerCA
                 string output = "[DEFAULT]" + Environment.NewLine;
                 output += "type=primary" + Environment.NewLine;
                 output += "# archive=false" + Environment.NewLine;
-                output += "uuid=5e94aad1-67bc-46b7-a16d-52c6b1443cef" + Environment.NewLine;
-                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine; //session["INSTALLLOCATION"].ToString() = C:\Program Files (x86)\Palette\
+                output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;  
+                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine; 
                 output += "# hostname=primary" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[controller]" + Environment.NewLine;
-                output += "# host=" + session["SERVERNAME"].ToString() + Environment.NewLine;
+                output += "# host=" + session["SERVERNAME"].ToString().Trim() + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[archive]" + Environment.NewLine;
