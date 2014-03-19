@@ -14,9 +14,6 @@
             <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
             <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>
-            <File Id="pget.exe" Source="..\pget\bin\Debug\pget.exe"></File>
-            <File Id="prun.exe" Source="..\prun\bin\Debug\prun.exe"></File>
-            <File Id="pinfo.exe" Source="..\pinfo\bin\Debug\pinfo.exe"></File>            
           </Component>
           <Component Id="Palette" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
             <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\Debug\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
@@ -27,6 +24,14 @@
             </ServiceInstall>
             <ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" />
           </Component>
+          <Directory Id="bin" Name="bin">
+            <Component Id="BinFolder" Guid="13d612a4-69a2-4231-b404-09e891e7e44b">
+              <!-- TODO: Insert files, registry keys, and other resources here. -->
+              <File Id="pget.exe" Source="..\pget\bin\Debug\pget.exe"></File>
+              <File Id="prun.exe" Source="..\prun\bin\Debug\prun.exe"></File>
+              <File Id="pinfo.exe" Source="..\pinfo\bin\Debug\pinfo.exe"></File>
+            </Component>
+          </Directory>
           <Directory Id="log" Name="log">
             <Component Id="LogFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
               <CreateFolder />
@@ -34,7 +39,7 @@
               <RemoveFile Id="RemoveLogFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
-          <Directory Id="ConfigFolder" Name="conf">
+          <Directory Id="conf" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
               <!--File Id="primary.ini" Source="..\conf\primary.ini"></File>
@@ -42,7 +47,7 @@
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
-          <Directory Id="XIDFolder" Name="XID">
+          <Directory Id="XID" Name="XID">
             <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f270">
               <CreateFolder />
               <!-- TODO: Unfortunately does not delete files recursively. -->
@@ -57,6 +62,7 @@
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
       <ComponentRef Id="Palette" />
       <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="BinFolder"/>
       <ComponentRef Id="LogFolder" />
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="ConfigFolder" />
