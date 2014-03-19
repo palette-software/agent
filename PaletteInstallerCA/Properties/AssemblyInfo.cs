@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PaletteInstallerCleanup")]
+[assembly: AssemblyTitle("PaletteInstallerCA")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("PaletteInstallerCleanup")]
+[assembly: AssemblyProduct("PaletteInstallerCA")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5cae05b4-1965-40de-95e9-f87f30e79c93")]
+[assembly: Guid("aa588691-7362-43f5-8181-023206d9017a")]
 
 // Version information for an assembly consists of the following four values:
 //

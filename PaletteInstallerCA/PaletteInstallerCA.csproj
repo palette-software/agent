@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FA17DA69-DA7B-4B67-81D5-841B8A24F122}</ProjectGuid>
+    <ProjectGuid>{9BC87294-FD7B-49A8-8A0F-CD794CAE546F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PaletteInstallerCleanup</RootNamespace>
-    <AssemblyName>PaletteInstallerCleanup</AssemblyName>
+    <RootNamespace>PaletteInstallerCA</RootNamespace>
+    <AssemblyName>PaletteInstallerCA</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AppDesignerFolder>Properties</AppDesignerFolder>

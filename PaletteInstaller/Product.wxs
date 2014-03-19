@@ -4,7 +4,7 @@
 		<Package InstallerVersion="200" Compressed="yes" />
 		<Media Id="1" Cabinet="palette.cab" EmbedCab="yes" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
-    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_InstallDir_Palette" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLLOCATION" Name="Palette">
@@ -37,8 +37,8 @@
           <Directory Id="ConfigFolder" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
-              <File Id="primary.ini" Source="..\conf\primary.ini"></File>
-              <File Id="other.ini" Source="..\conf\other.ini"></File>
+              <!--File Id="primary.ini" Source="..\conf\primary.ini"></File>
+              <File Id="other.ini" Source="..\conf\other.ini"></File-->
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
@@ -63,10 +63,12 @@
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
-    <Binary Id="PaletteInstallerCleanup.CA.dll" SourceFile="..\PaletteInstallerCleanup\bin\Debug\PaletteInstallerCleanup.CA.dll" />
-    <CustomAction Id="CleanupAfterInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCleanup.CA.dll" DllEntry="CleanupAfterInstall" />
+    <Binary Id="PaletteInstallerCA" SourceFile="..\PaletteInstallerCA\bin\Debug\PaletteInstallerCA.CA.dll" />
+    <CustomAction Id="CreateIniFile" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" />
+    <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
     <InstallExecuteSequence>
-      <Custom Action="CleanupAfterInstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="CreateIniFile" After='InstallFinalize'>NOT Installed</Custom>
+      <Custom Action="CleanupAfterUnInstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
     </InstallExecuteSequence>
 	</Product>
 </Wix>

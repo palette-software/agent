@@ -21,7 +21,9 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ControllerServerNameDlg.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="WixUI_InstallDir_Palette.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
