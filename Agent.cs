@@ -86,7 +86,7 @@ public class Agent
             ParseIniFile();
         }
 
-        binDir = installDir;  
+        binDir = Path.Combine(installDir, "bin");  
         xidDir = Path.Combine(installDir, "XID");
         dataDir = Path.Combine(installDir, "Data");
         docRoot = Path.Combine(installDir, "DocRoot");
