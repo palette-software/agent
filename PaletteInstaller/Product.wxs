@@ -9,13 +9,13 @@
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLLOCATION" Name="Palette">
           <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-          <Component Id="ProductComponent" Guid="f8e03674-4769-4971-8180-75e968e3064f">
+          <Component Id="Base" Guid="f8e03674-4769-4971-8180-75e968e3064f">
             <!-- TODO: Insert files, registry keys, and other resources here. -->
             <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
             <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>
           </Component>
-          <Component Id="Palette" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
+          <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
             <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\Debug\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
             <ServiceInstall Id="Palette" Type="ownProcess" Name="Palette" DisplayName="Palette Agent"
                     Description="Service for Palette Agent" Start="auto" Account="LocalSystem" ErrorControl="normal">
@@ -61,12 +61,13 @@
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
-      <ComponentRef Id="Palette" />
-      <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="Base" />
       <ComponentRef Id="BinFolder"/>
       <ComponentRef Id="LogFolder" />
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="ConfigFolder" />
+      <!-- This ref should be last to ensure the service isn't started before everything is done. -->
+      <ComponentRef Id="Service" />
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
