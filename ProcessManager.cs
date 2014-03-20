@@ -79,10 +79,6 @@ public class ProcessManager
         {
             Directory.CreateDirectory(xidDir);
         }
-        if (!Directory.Exists(binDir) && agentType != "other")  //TODO: FIX binDir
-        {
-            Directory.CreateDirectory(binDir);
-        }
     }
 
     /// <summary>
