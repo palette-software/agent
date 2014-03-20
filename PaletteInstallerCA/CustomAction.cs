@@ -17,7 +17,7 @@ namespace PaletteInstallerCA
         [CustomAction]
         public static ActionResult CreateIniFile(Session session)
         {
-            System.Diagnostics.Debugger.Launch();
+            //System.Diagnostics.Debugger.Launch();
             string path = session["INSTALLLOCATION"].ToString() + @"bin";
 
             string tableauPath = GetTableauPath(session);
