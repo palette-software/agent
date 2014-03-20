@@ -133,24 +133,6 @@ namespace PaletteInstallerCA
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static string GetTableauRegistryKey()
-        {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
-            if (rk == null) return null;
-
-            string[] sk = rk.GetSubKeyNames();
-
-            foreach (string key in sk)
-            {
-                if (key.Contains("Tableau Server")) return key;
-            }
-            return sk.ToString();
-        }
-
-        /// <summary>
         /// Finds out if Tableau is installed by querying the registry.
         /// </summary>
         /// <returns>the install path or null if not found.</returns>
