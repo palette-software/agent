@@ -71,11 +71,18 @@
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
+
     <Binary Id="PaletteInstallerCA" SourceFile="..\PaletteInstallerCA\bin\Debug\PaletteInstallerCA.CA.dll" />
-    <CustomAction Id="CreateIniFile" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" />
+
+    <!-- Immediate CA -->
+    <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME]" />
+    <!-- Deferred CA -->
+    <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
+
     <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
     <InstallExecuteSequence>
-      <Custom Action="CreateIniFile" After='InstallFinalize'>NOT Installed</Custom>
+      <Custom Action="CreateIniFileImmediate" Sequence="5000">NOT Installed</Custom>
+      <Custom Action="CreateIniFile" Sequence="5001">NOT Installed</Custom>
       <Custom Action="CleanupAfterUnInstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
     </InstallExecuteSequence>
 	</Product>

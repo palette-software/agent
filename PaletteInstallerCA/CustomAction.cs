@@ -18,9 +18,15 @@ namespace PaletteInstallerCA
         public static ActionResult CreateIniFile(Session session)
         {
             //System.Diagnostics.Debugger.Launch();
-            string path = session["INSTALLLOCATION"].ToString() + @"bin";
 
-            string tableauPath = GetTableauPath(session);
+            string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
+
+            string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+            string binDir = installDir + @"\bin";
+
+            string path = installDir + @"bin";
+
+            string tableauPath = GetTableauPath(binDir);
             if (tableauPath != null)
                 path += Path.PathSeparator.ToString() + tableauPath + @"\bin";
 
@@ -30,21 +36,21 @@ namespace PaletteInstallerCA
                 output += "type=primary" + Environment.NewLine;
                 output += "# archive=false" + Environment.NewLine;
                 output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
-                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine;
+                output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[controller]" + Environment.NewLine;
-                output += "host=" + session["SERVERNAME"].ToString().Trim() + Environment.NewLine;
+                output += "host=" + serverName + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[archive]" + Environment.NewLine;
                 output += "# listen-port=8889" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
-                output += "location=" + session["INSTALLLOCATION"].ToString() + @"log\agent.log" + Environment.NewLine;
+                output += "location=" + installDir + @"log\agent.log" + Environment.NewLine;
                 output += "maxsize=10MB" + Environment.NewLine;
 
-                string inipath = Path.Combine(session["INSTALLLOCATION"].ToString(), @"conf\agent.ini");
+                string inipath = Path.Combine(installDir, @"conf\agent.ini");
                 File.WriteAllText(inipath, Convert.ToString(output));
             }
             catch
@@ -122,11 +128,5 @@ namespace PaletteInstallerCA
 
             return stdOut.Trim();
         }
-
-        public static string GetTableauPath(Session session)
-        {
-            return GetTableauPath(session["INSTALLLOCATION"].ToString() + @"\bin");
-        }
-
     }
 }
