@@ -27,13 +27,7 @@ public class Agent
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
 
-    public const string DEFAULT_MAX_LOG_SIZE = "10MB";
-
-    //public const string DEFAULT_INSTALL_DIR = @"c:/Palette";
-    //public const string DEFAULT_LOG_NAME = @"c:/Palette/log/agent.log";    
-    //public const string DEFAULT_XID_SUBDIR = "XID";
-    //public const string DEFAULT_DATA_SUBDIR = "Data";
-    //public const string DEFAULT_DOCROOT_SUBDIR = "DocRoot";    
+    public const string DEFAULT_MAX_LOG_SIZE = "10MB"; 
 
     public IniFile conf = null;
     public string type;  //Agent type (primary, worker, other, etc.)
@@ -81,46 +75,34 @@ public class Agent
     /// <param name="runAsService">True if run as a Windows Service, False as Console App</param>
     public Agent(string inifile, bool runAsService)
     {
-        //First try the default installation path
-        installDir = ProgramFilesx86() + "\\Palette\\";
-
-        try
-        {
-            //if not there, check the registry to see where it was put
-            if (!Directory.Exists(installDir))
-            {
-                RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
-                installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
-                installDir = installDir.Replace("ServiceAgent.exe", "");
-            }
-        }
-        catch //Catch all exceptions
-        {
-        }
-
-        //binDir = installDir +"bin";
-        binDir = installDir;  //Change for WiX installer release
-        xidDir = installDir + "XID";
-        dataDir = installDir + "Data";
-        iniDir = installDir + "conf";
-        docRoot = installDir + "DocRoot";
-        logName = installDir + "log\\agent.log";
-
-        //Find version of tableau if it is installed.  May be usefull for configuration of Agent type
-        tableauVersion = GetTableauVersion();
-
+        //Set some Agent defaults (may be overridden by the INI file)
         type = Agent.TYPE;
-
-        // set hostname (may be overridden by the INI file)
         hostname = Dns.GetHostName();
+        displayName = Dns.GetHostName();        
 
-        displayName = Dns.GetHostName();
+        if (File.Exists(inifile))
+        {           
+            conf = new IniFile(inifile);
+            ParseIniFile();
+        }
 
-        conf = new IniFile(inifile);
-        ParseIniFile();
+        binDir = installDir;  
+        xidDir = Path.Combine(installDir, "XID");
+        dataDir = Path.Combine(installDir, "Data");
+        docRoot = Path.Combine(installDir, "DocRoot");
+        logName = Path.Combine(installDir, "log\\agent.log");
 
         SetupLogging(runAsService);
-        logger.Info("Starting Agent using inifile: " + inifile);
+
+        if (File.Exists(inifile)) 
+        {
+            logger.Info("Starting Agent using inifile: " + inifile);
+        }
+        else
+        {
+            logger.Error("agent.ini file not found: " + inifile);
+            logger.Error("Starting Agent with default settings");
+        }
 
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
