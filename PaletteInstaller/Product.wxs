@@ -27,6 +27,7 @@
           <Directory Id="bin" Name="bin">
             <Component Id="BinFolder" Guid="13d612a4-69a2-4231-b404-09e891e7e44b">
               <!-- TODO: Insert files, registry keys, and other resources here. -->
+              <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\Debug\InstallerHelper.exe"></File>
               <File Id="pget.exe" Source="..\pget\bin\Debug\pget.exe"></File>
               <File Id="prun.exe" Source="..\prun\bin\Debug\prun.exe"></File>
               <File Id="pinfo.exe" Source="..\pinfo\bin\Debug\pinfo.exe"></File>

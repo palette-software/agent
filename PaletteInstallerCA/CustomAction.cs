@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.IO;
 using System.Threading;
@@ -34,7 +36,7 @@ namespace PaletteInstallerCA
         //        output += "[logging]" + Environment.NewLine;
         //        output += "# location=" + session["INSTALLLOCATION"].ToString() + @"log\agent.log" + Environment.NewLine;
         //        output += "maxsize=10MB" + Environment.NewLine;                   
-                
+
         //        string path = Path.Combine("c://temp//", "agent.ini");
         //        File.WriteAllText(path, Convert.ToString(output));
         //    }
@@ -49,17 +51,24 @@ namespace PaletteInstallerCA
         [CustomAction]
         public static ActionResult CreateIniFile(Session session)
         {
+            System.Diagnostics.Debugger.Launch();
+            string path = session["INSTALLLOCATION"].ToString() + @"bin";
+
+            string tableauPath = GetTableauPath(session);
+            if (tableauPath != null)
+                path += Path.PathSeparator.ToString() + tableauPath + @"\bin";
+
             try
             {
                 string output = "[DEFAULT]" + Environment.NewLine;
                 output += "type=primary" + Environment.NewLine;
                 output += "# archive=false" + Environment.NewLine;
-                output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;  
-                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine; 
-                output += "# hostname=primary" + Environment.NewLine;
+                output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
+                output += "install-dir=" + session["INSTALLLOCATION"].ToString() + Environment.NewLine;
+                output += "path=" + path + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[controller]" + Environment.NewLine;
-                output += "# host=" + session["SERVERNAME"].ToString().Trim() + Environment.NewLine;
+                output += "host=" + session["SERVERNAME"].ToString().Trim() + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[archive]" + Environment.NewLine;
@@ -69,8 +78,8 @@ namespace PaletteInstallerCA
                 output += "location=" + session["INSTALLLOCATION"].ToString() + @"log\agent.log" + Environment.NewLine;
                 output += "maxsize=10MB" + Environment.NewLine;
 
-                string path = Path.Combine(session["INSTALLLOCATION"].ToString(), @"conf\agent.ini");
-                File.WriteAllText(path, Convert.ToString(output));
+                string inipath = Path.Combine(session["INSTALLLOCATION"].ToString(), @"conf\agent.ini");
+                File.WriteAllText(inipath, Convert.ToString(output));
             }
             catch
             {
@@ -122,5 +131,54 @@ namespace PaletteInstallerCA
 
             return Environment.GetEnvironmentVariable("ProgramFiles");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string GetTableauRegistryKey()
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
+            if (rk == null) return null;
+
+            string[] sk = rk.GetSubKeyNames();
+
+            foreach (string key in sk)
+            {
+                if (key.Contains("Tableau Server")) return key;
+            }
+            return sk.ToString();
+        }
+
+        /// <summary>
+        /// Finds out if Tableau is installed by querying the registry.
+        /// </summary>
+        /// <returns>the install path or null if not found.</returns>
+        public static string GetTableauPath(string binDir)
+        {
+            //System.Diagnostics.Debugger.Launch();
+            string path = binDir + @"\InstallerHelper.exe";
+
+            Process process = new Process();
+
+            process.StartInfo.FileName = path;
+            process.StartInfo.Arguments = "tableau-install-path";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardOutput = true;
+
+            process.Start();
+
+            string stdOut = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            return stdOut.Trim();
+        }
+
+        public static string GetTableauPath(Session session)
+        {
+            return GetTableauPath(session["INSTALLLOCATION"].ToString() + @"\bin");
+        }
+
     }
 }
