@@ -50,12 +50,20 @@ public class HttpRequest
 
         try
         {
-            req.ParseRequestLine(reader.ReadLine());
+            string line = reader.ReadLine();
+            if (line == null)
+            {
+                // This prevents mis-leading exceptions when the controller gracefully closes the socket.
+                logger.Error("The first line of the HTTP request was null");
+                return null;
+            }
+            req.ParseRequestLine(line);
             req.ReadHeaders(reader);
         }
         catch (System.IO.IOException exc)
         {
-            logger.Error("IOException: caught while parsing http header" + exc.ToString());
+            logger.Error("IOException: caught while parsing HTTP headers - " + exc.ToString());
+            return null;
         }
 
         if (req.ContentLength != 0)
@@ -83,7 +91,7 @@ public class HttpRequest
         string[] tokens = line.Split(' ');
         if (tokens.Length != 3)
         {
-            throw new HttpBadRequest("invalid http request line");
+            throw new HttpBadRequest("invalid HTTP request line");
         }
         Method = tokens[0].ToUpper();
         Url = tokens[1];
@@ -92,7 +100,7 @@ public class HttpRequest
 
         if (!ProtocolVersion.Contains("1.1"))
         {
-            throw new HttpBadRequest("Invalid http version.  Use version 1.1");
+            throw new HttpBadRequest("Invalid HTTP version.  Use version 1.1");
         }
 
         tokens = Url.Split('?');
@@ -155,7 +163,7 @@ public class HttpRequest
             int separator = line.IndexOf(':');
             if (separator == -1)
             {
-                throw new HttpBadRequest("invalid http header line: " + line);
+                throw new HttpBadRequest("invalid HTTP header line: " + line);
             }
             String name = line.Substring(0, separator);
             int pos = separator + 1;
