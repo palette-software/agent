@@ -42,6 +42,16 @@ public class IniFile
         return RetVal.ToString();
     }
 
+    public string Read(string Key, string Section, string Default)
+    {
+        if (KeyExists(Key, Section))
+        {
+            return Read(Key, Section);
+        }
+        return Default;
+    }
+
+
     /// <summary>
     /// Writes a Key, Value, Section to .ini file
     /// </summary>

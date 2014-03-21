@@ -26,14 +26,25 @@ public class ConsoleAgent
         }
         else if (args.Length != 0)
         {
-            Console.Error.WriteLine("usage: ConsoleAgent [inifile]");
+            Usage();
             return -1;
         }
 
-        Agent agent = new Agent(inifile, false);
+        if (!File.Exists(inifile))
+        {
+            Usage();
+            return -1;
+        }
+
+        Agent agent = new Agent(inifile);
         agent.Run();
 
         return 0;
+    }
+
+    private static void Usage() 
+    {
+         Console.Error.WriteLine("usage: ConsoleAgent [inifile]");
     }
 }
 
