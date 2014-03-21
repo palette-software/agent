@@ -133,7 +133,12 @@ namespace PaletteInstallerCA
             string stdOut = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
 
-            return stdOut.Trim();
+            string tableauPath = stdOut.Trim();
+            if (tableauPath.Length == 0)
+            {
+                return null;
+            }
+            return tableauPath;
         }
     }
 }
