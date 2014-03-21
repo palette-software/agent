@@ -43,9 +43,13 @@
           <Directory Id="conf" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
-              <!--File Id="primary.ini" Source="..\conf\primary.ini"></File>
-              <File Id="other.ini" Source="..\conf\other.ini"></File-->
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
+          <Directory Id="data" Name="Data">
+            <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
+              <CreateFolder />
+              <RemoveFile Id="RemoveDataFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
           <Directory Id="XID" Name="XID">
@@ -66,6 +70,7 @@
       <ComponentRef Id="LogFolder" />
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="ConfigFolder" />
+      <ComponentRef Id="DataFolder" />
       <!-- This ref should be last to ensure the service isn't started before everything is done. -->
       <ComponentRef Id="Service" />
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
