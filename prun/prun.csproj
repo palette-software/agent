@@ -57,7 +57,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>IF NOT EXIST "$(SolutionDir)build"  (mkdir "$(SolutionDir)build")
+IF NOT EXIST "$(SolutionDir)build\bin"  (mkdir "$(SolutionDir)build\bin")
+COPY /Y "$(TargetPath)" "$(SolutionDir)build\bin\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
