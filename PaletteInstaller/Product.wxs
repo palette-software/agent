@@ -49,7 +49,6 @@
           <Directory Id="data" Name="Data">
             <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
               <CreateFolder />
-              <RemoveFile Id="RemoveDataFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
           <Directory Id="XID" Name="XID">
@@ -57,6 +56,20 @@
               <CreateFolder />
               <!-- TODO: Unfortunately does not delete files recursively. -->
               <RemoveFile Id="RemoveXIDFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
+          <Directory Id="docroot" Name="DocRoot">
+            <Component Id="DocRootFolder" Guid="2f73bf32-d937-4d3b-9aed-566ff1368958">
+              <CreateFolder />
+              <File Id="index.html" Source="..\..\maint\www\index.html" />
+              <File Id="style.css" Source="..\..\maint\www\style.css" />
+              <File Id="palette_logo_600dpi_2.png" Source="..\..\maint\www\palette_logo_600dpi-2.png" />
+              <File Id="bg.png" Source="..\..\maint\www\bg.png" />
+              <File Id="favicon.ico" Source="..\..\maint\www\favicon.ico" />
+              <File Id="favicon60.ico" Source="..\..\maint\www\favicon-60.png" />
+              <File Id="favicon76.ico" Source="..\..\maint\www\favicon-76.png" />
+              <File Id="favicon120.ico" Source="..\..\maint\www\favicon-120.png" />
+              <File Id="favicon152.ico" Source="..\..\maint\www\favicon-152.png" />
             </Component>
           </Directory>
         </Directory>
@@ -71,6 +84,7 @@
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="ConfigFolder" />
       <ComponentRef Id="DataFolder" />
+      <ComponentRef Id="DocRootFolder" />
       <!-- This ref should be last to ensure the service isn't started before everything is done. -->
       <ComponentRef Id="Service" />
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
