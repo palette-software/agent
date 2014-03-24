@@ -54,7 +54,6 @@ public class PRunProcess
     private string stdErrPath = "";
     private string returnCdTmpPath = "";
     private string returnCdPath = "";
-    private string binDir = "";
     StreamReader standardOutStream;
     StreamReader standardErrStream;
     ProcessStartInfo startInfo;
@@ -66,21 +65,16 @@ public class PRunProcess
     /// <param name="arguments">the corresponding arguments</param>
     /// <param name="localOutputFolder">folder to output stdout.out and stderr.out</param>
     public PRunProcess(string filename, string arguments, string localOutputFolder)
-    {       
-        //make sure bin for tableau and the agent are in the path
-        //FIXME: Remove this and make sure tableau is in path
-        if (filename == "tabadmin") binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
-
+    {
         startInfo = new ProcessStartInfo();
-        startInfo.WorkingDirectory = binDir;
-        startInfo.FileName = Path.Combine(binDir, filename);
+        startInfo.FileName = filename;
         startInfo.Arguments = arguments;
         startInfo.UseShellExecute = false;
         startInfo.CreateNoWindow = true;
         startInfo.RedirectStandardOutput = true;
         startInfo.RedirectStandardError = true;
-        //TODO: Use Environment variable property of StartInfo
-        //startInfo.EnvironmentVariables.Add();
+        // Environment variables are inherited from the agent.
+        // The XID directory is the working directory from the agent call.
 
         stdOutPath = Path.Combine(localOutputFolder, "stdout");
         stdErrPath = Path.Combine(localOutputFolder, "stderr");
@@ -200,8 +194,8 @@ public class PRunProcess
         {
             process.StartInfo = startInfo;
 
-            FileStream fsOut = File.Open(stdOutPath, FileMode.Create, FileAccess.Write, FileShare.Read);
-            FileStream fsErr = File.Open(stdErrPath, FileMode.Create, FileAccess.Write, FileShare.Read);
+            FileStream fsOut = File.Open(stdOutPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+            FileStream fsErr = File.Open(stdErrPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
 
             using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
             using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))

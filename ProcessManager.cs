@@ -12,67 +12,30 @@ using log4net.Config;
 public class ProcessManager
 {
     private string xidDir; 
-    private string binDir; 
+    private string binDir;
+    private string envPath;
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-    public ProcessManager(string agentType)
-    {
-        CheckPaths(agentType);
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="xidDir">Folder named by xid</param>
-    public ProcessManager(string xidDir, string agentType)
-    {
-        this.xidDir = xidDir;
-        CheckPaths(agentType);
-    }
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="xidDir">Folder named by xid</param>
     /// <param name="binDir">Folder containing command executable</param>
-    public ProcessManager(string xidDir, string binDir, string agentType)
+    public ProcessManager(string xidDir, string binDir, string envPath)
     {
         this.xidDir = xidDir;
         this.binDir = binDir;
-        CheckPaths(agentType);
-    }
+        this.envPath = envPath;
 
-    /// <summary>
-    /// Checks for existence of xid and bin folders
-    /// </summary>
-    private void CheckPaths(string agentType)
-    {
-        //Add paths for Tableau and Palette
-        string tableauBinPath = Agent.GetTableauPath() + "\\bin\\";
-        string paletteBinPath = binDir;
+        string currentPath = Environment.GetEnvironmentVariable("Path");
 
-        bool addTableauToPath = false;
-        bool addPaletteToPath = false;
-
-        string path = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
-
-        if (Directory.Exists(tableauBinPath) && !path.Contains(tableauBinPath))
+        if (envPath != null && envPath.Length > 0)
         {
-            path += tableauBinPath + ";";
-            addTableauToPath = true;
-        }
-        if (Directory.Exists(paletteBinPath) && !path.Contains(paletteBinPath))  //TODO: FIX paletteBinPath
-        {
-            path += paletteBinPath + ";";
-            addPaletteToPath = true;
-        }
-
-        if (addTableauToPath || addPaletteToPath)
-        {
-            Environment.SetEnvironmentVariable("Path", path, EnvironmentVariableTarget.Machine);
+            string path = envPath + Path.PathSeparator.ToString() + currentPath;
+            Environment.SetEnvironmentVariable("Path", path);
         }
 
         if (!Directory.Exists(xidDir))
