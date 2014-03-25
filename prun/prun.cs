@@ -16,6 +16,8 @@ class prun
         string filename = "";  
         string arguments = "";
 
+        // System.Diagnostics.Debugger.Launch();
+
         //May want to allow for overriding this in the future
         string localOutputFolder = Directory.GetCurrentDirectory();
 
@@ -32,7 +34,7 @@ class prun
             foreach(string arg in args)
             {
                 if (arg == args[0]) continue;
-                arguments += arg + " "; 
+                arguments += "\"" + arg + "\" ";
             }
 
             arguments = arguments.Trim();
@@ -50,13 +52,10 @@ class prun
 /// </summary>
 public class PRunProcess
 {
-    private string stdOutPath = "";
-    private string stdErrPath = "";
-    private string returnCdTmpPath = "";
-    private string returnCdPath = "";
-    private string binDir = "";
-    StreamReader standardOutStream;
-    StreamReader standardErrStream;
+    private string stdOutPath;
+    private string stdErrPath;
+    private string returnCdTmpPath;
+    private string returnCdPath;
     ProcessStartInfo startInfo;
 
     /// <summary>
@@ -66,113 +65,21 @@ public class PRunProcess
     /// <param name="arguments">the corresponding arguments</param>
     /// <param name="localOutputFolder">folder to output stdout.out and stderr.out</param>
     public PRunProcess(string filename, string arguments, string localOutputFolder)
-    {       
-        //make sure bin for tableau and the agent are in the path
-        //FIXME: Remove this and make sure tableau is in path
-        if (filename == "tabadmin") binDir = "C:\\Program Files\\Tableau\\Tableau Server\\8.1\\bin\\";
-
+    {
         startInfo = new ProcessStartInfo();
-        startInfo.WorkingDirectory = binDir;
-        startInfo.FileName = Path.Combine(binDir, filename);
+        startInfo.FileName = filename;
         startInfo.Arguments = arguments;
         startInfo.UseShellExecute = false;
         startInfo.CreateNoWindow = true;
         startInfo.RedirectStandardOutput = true;
         startInfo.RedirectStandardError = true;
-        //TODO: Use Environment variable property of StartInfo
-        //startInfo.EnvironmentVariables.Add();
+        // Environment variables are inherited from the agent.
+        // The XID directory is the working directory from the agent call.
 
         stdOutPath = Path.Combine(localOutputFolder, "stdout");
         stdErrPath = Path.Combine(localOutputFolder, "stderr");
         returnCdPath = Path.Combine(localOutputFolder, "returncode");
         returnCdTmpPath = Path.Combine(localOutputFolder, "tmp"); 
-    }
-
-    /// <summary>
-    /// Runs the process and writes StdOut and StdErr to files.  Spawns threads to handle 
-    /// StdOut and StdErr output
-    /// </summary>
-    /// <returns>Error code (any value but 0 indicates an error)</returns>
-    [System.Obsolete("use RunWithEventOutput()")]
-    public int RunWithThreadedOutput()
-    {
-        Thread standardOutputThread = null;
-        Thread standardErrorThread = null;
-
-        int exitCode = -1;
-
-        try
-        {
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-
-                standardOutStream = process.StandardOutput;
-                standardOutputThread = StartThread(new ThreadStart(WriteStandardOutput), "StandardOutput");
-
-                standardErrStream = process.StandardError;
-                standardErrorThread = StartThread(new ThreadStart(WriteStandardError), "StandardError");
-
-                process.WaitForExit();
-                exitCode = process.ExitCode;
-            }
-        }
-
-        finally  // Ensure that the threads do not persist beyond the process being run
-        {
-            if (standardOutputThread != null) standardOutputThread.Join();
-            if (standardErrorThread != null) standardErrorThread.Join();
-
-            WriteReturnCode(exitCode);
-        }
-
-        return exitCode;
-    }
-
-    private static Thread StartThread(ThreadStart startInfo, string name)
-    {
-        Thread thread = new Thread(startInfo);
-        thread.IsBackground = true;
-        thread.Name = name;
-        thread.Start();
-        return thread;
-    }
-
-    private void WriteStandardOutput()
-    {
-        FileStream fs = File.Open(stdOutPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
-        using (StreamWriter writer = new StreamWriter(fs))
-        using (StreamReader reader = standardOutStream)
-        {
-            writer.AutoFlush = true;
-            for ( ; ; )
-            {
-                string textLine = reader.ReadLine();
-
-                if (textLine == null) break;
-
-                writer.WriteLine(textLine);
-            }
-        }
-    }
-
-    private void WriteStandardError()
-    {
-        FileStream fs = File.Open(stdErrPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
-        using (StreamWriter writer = new StreamWriter(fs))
-        using (StreamReader reader = standardErrStream)
-        {
-            writer.AutoFlush = true;
-            for ( ; ; )
-            {
-                string textLine = reader.ReadLine();
-
-                if (textLine == null) break;
-
-                writer.WriteLine(textLine);
-            }
-        }
     }
 
     /// <summary>
@@ -188,20 +95,18 @@ public class PRunProcess
 
     /// <summary>
     /// Alternative approach using event driven output to files
-    /// WARNING: Times out after 10 minutes!!
     /// </summary>
     /// <returns>Error code (any value but 0 indicates an error)</returns>
     public int RunWithEventOutput()
     {
-        int timeout = 600000;  //TODO: Remove or increase this?
         int exitCode = -1;
 
         using (Process process = new Process())
         {
             process.StartInfo = startInfo;
 
-            FileStream fsOut = File.Open(stdOutPath, FileMode.Create, FileAccess.Write, FileShare.Read);
-            FileStream fsErr = File.Open(stdErrPath, FileMode.Create, FileAccess.Write, FileShare.Read);
+            FileStream fsOut = File.Open(stdOutPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+            FileStream fsErr = File.Open(stdErrPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
 
             using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
             using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
@@ -239,25 +144,27 @@ public class PRunProcess
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
 
-                if (process.WaitForExit(timeout) &&
-                    outputWaitHandle.WaitOne(timeout) &&
-                    errorWaitHandle.WaitOne(timeout))
-                {
-                    // Process completed. Check process.ExitCode here. 
-                    exitCode = process.ExitCode;
-                    Console.WriteLine("Process completed");
-                }
-                else
-                {
-                    // Process timed out
-                    Console.Error.WriteLine("Error: Process timed out");
-                    exitCode = -1;                    
-                    return exitCode;
-                }                
+                process.WaitForExit();
+                outputWaitHandle.WaitOne();
+                errorWaitHandle.WaitOne();
+
+                exitCode = process.ExitCode;
             }
         }
 
-        WriteReturnCode(exitCode);
+        try
+        {
+            WriteReturnCode(exitCode);
+        }
+        catch (IOException e)
+        {
+            Console.Error.WriteLine(e.ToString());
+        }
+
+        if (File.Exists(returnCdTmpPath))
+        {
+            File.Delete(returnCdTmpPath);
+        }
 
         return exitCode;
     }

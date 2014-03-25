@@ -38,6 +38,9 @@ public class Agent
     public string ipaddr;
     public string displayName = "unknown";
 
+    // Values to pre-pend to the environment variable 'PATH' for child processes.
+    public string envPath;
+
     public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
     public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
     public IPAddress controllerAddr;
@@ -57,8 +60,6 @@ public class Agent
     // testing only.
     public string username = "palette";
     public string password = "unknown";
-
-    public string tableauVersion = "?";
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -103,7 +104,7 @@ public class Agent
 
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
-        processManager = new ProcessManager(xidDir, binDir, type);
+        processManager = new ProcessManager(xidDir, binDir, envPath);
 
         ipaddr = GetFirstIPAddr();
     }
@@ -206,43 +207,6 @@ public class Agent
         #endif
     }
 
-    /// <summary>
-    /// Finds out if Tableau is installed on local machine and if so returns version number
-    /// otherwise returns null
-    /// </summary>
-    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
-    public static string GetTableauVersion()
-    {
-        //Find out if Tableau is installed
-        try
-        {
-            //First try Registry
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
-            string[] sk = rk.GetSubKeyNames();
-
-            foreach (string key in sk)
-            {
-                if (key.Contains("Tableau Server")) return key;
-            }
-
-            //Local machine may not allow registry access from a Service, so look for folder also
-            FileInfo f = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            string tableauFolder = Path.Combine(Path.GetPathRoot(f.FullName), "Program Files\\Tableau\\Tableau Server");
-            string[] subFolders = null;
-            if (Directory.Exists(tableauFolder))
-            {
-                subFolders = Directory.GetDirectories(tableauFolder);
-                string[] tokens = subFolders[0].ToString().Split('\\');
-                return tokens[tokens.Length - 1];
-            }
-            return null;
-        }
-        catch 
-        {
-            return null;
-        }
-    }
-
     public void startMaintServer()
     {
         maintServer = new MaintServer(80, docRoot);
@@ -258,6 +222,9 @@ public class Agent
         {
             type = conf.Read("type", DEFAULT_SECTION);
         }
+
+        envPath = conf.Read("path", DEFAULT_SECTION, null);
+
         type = type.ToLower();
         if (type != "primary" && type != "worker" && type != "other")
         {
@@ -304,37 +271,6 @@ public class Agent
         }
     }
 
-    /// <summary>
-    /// Finds out if Tableau is installed on local machine and if so returns version number
-    /// otherwise returns null
-    /// </summary>
-    /// <returns>version number (i.e., "Tableau Server 8.1")</returns>
-    public static string GetTableauPath()
-    {
-        //Find out if Tableau is installed
-        try
-        {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Tableau");
-            string[] sk = rk.GetSubKeyNames();
-
-            foreach (string key in sk)
-            {
-                if (key.Contains("Tableau Server"))
-                {
-                    RegistryKey ssk = Registry.LocalMachine.OpenSubKey("Software\\Tableau\\" + key
-                        + "\\Directories\\");
-                    return ssk.GetValue("AppVersion").ToString();
-                }
-            }
-        }
-        catch
-        {
-            return null;
-        }
-
-        return null;
-    }
-
     protected string GetFirstIPAddr()
     {
         IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -356,22 +292,6 @@ public class Agent
             maintServer.Close();
             maintServer = null;
         }
-    }
-
-    /// <summary>
-    /// The function below will return the x86 Program Files directory in all of these three Windows configurations:
-    ///   32 bit Windows, 32 bit program running on 64 bit Windows, 64 bit program running on 64 bit windows
-    /// </summary>
-    /// <returns>x86 Program Files directory</returns>
-    public static string ProgramFilesx86()
-    {
-        if (8 == IntPtr.Size
-            || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
-        {
-            return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-        }
-
-        return Environment.GetEnvironmentVariable("ProgramFiles");
     }
 }
 
