@@ -16,6 +16,8 @@ class pget
         string fileName;
         string tmpFileName;
 
+        //System.Diagnostics.Debugger.Launch();
+
         if (args.Length < 1)
         {
             Console.Error.WriteLine("Usage: PGet UrlToCopy [LocalFolderToCopyTo]");
@@ -59,7 +61,8 @@ class pget
         catch (Exception exc)
         {
             TextWriter errorWriter = Console.Error;
-            errorWriter.WriteLine("Download of file failed." + exc.Message);
+            errorWriter.WriteLine("Download of URL failed : " + url);
+            errorWriter.WriteLine(exc.ToString());
 
             return -1;
         }

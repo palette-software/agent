@@ -16,6 +16,8 @@ class prun
         string filename = "";  
         string arguments = "";
 
+        // System.Diagnostics.Debugger.Launch();
+
         //May want to allow for overriding this in the future
         string localOutputFolder = Directory.GetCurrentDirectory();
 
@@ -32,7 +34,7 @@ class prun
             foreach(string arg in args)
             {
                 if (arg == args[0]) continue;
-                arguments += arg + " "; 
+                arguments += "\"" + arg + "\" ";
             }
 
             arguments = arguments.Trim();
@@ -50,12 +52,10 @@ class prun
 /// </summary>
 public class PRunProcess
 {
-    private string stdOutPath = "";
-    private string stdErrPath = "";
-    private string returnCdTmpPath = "";
-    private string returnCdPath = "";
-    StreamReader standardOutStream;
-    StreamReader standardErrStream;
+    private string stdOutPath;
+    private string stdErrPath;
+    private string returnCdTmpPath;
+    private string returnCdPath;
     ProcessStartInfo startInfo;
 
     /// <summary>
@@ -83,93 +83,6 @@ public class PRunProcess
     }
 
     /// <summary>
-    /// Runs the process and writes StdOut and StdErr to files.  Spawns threads to handle 
-    /// StdOut and StdErr output
-    /// </summary>
-    /// <returns>Error code (any value but 0 indicates an error)</returns>
-    [System.Obsolete("use RunWithEventOutput()")]
-    public int RunWithThreadedOutput()
-    {
-        Thread standardOutputThread = null;
-        Thread standardErrorThread = null;
-
-        int exitCode = -1;
-
-        try
-        {
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-
-                standardOutStream = process.StandardOutput;
-                standardOutputThread = StartThread(new ThreadStart(WriteStandardOutput), "StandardOutput");
-
-                standardErrStream = process.StandardError;
-                standardErrorThread = StartThread(new ThreadStart(WriteStandardError), "StandardError");
-
-                process.WaitForExit();
-                exitCode = process.ExitCode;
-            }
-        }
-
-        finally  // Ensure that the threads do not persist beyond the process being run
-        {
-            if (standardOutputThread != null) standardOutputThread.Join();
-            if (standardErrorThread != null) standardErrorThread.Join();
-
-            WriteReturnCode(exitCode);
-        }
-
-        return exitCode;
-    }
-
-    private static Thread StartThread(ThreadStart startInfo, string name)
-    {
-        Thread thread = new Thread(startInfo);
-        thread.IsBackground = true;
-        thread.Name = name;
-        thread.Start();
-        return thread;
-    }
-
-    private void WriteStandardOutput()
-    {
-        FileStream fs = File.Open(stdOutPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
-        using (StreamWriter writer = new StreamWriter(fs))
-        using (StreamReader reader = standardOutStream)
-        {
-            writer.AutoFlush = true;
-            for ( ; ; )
-            {
-                string textLine = reader.ReadLine();
-
-                if (textLine == null) break;
-
-                writer.WriteLine(textLine);
-            }
-        }
-    }
-
-    private void WriteStandardError()
-    {
-        FileStream fs = File.Open(stdErrPath, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
-        using (StreamWriter writer = new StreamWriter(fs))
-        using (StreamReader reader = standardErrStream)
-        {
-            writer.AutoFlush = true;
-            for ( ; ; )
-            {
-                string textLine = reader.ReadLine();
-
-                if (textLine == null) break;
-
-                writer.WriteLine(textLine);
-            }
-        }
-    }
-
-    /// <summary>
     /// Writes return value of the process to a file called tmp in the current directory
     /// After write completes, renames tmp to returncode
     /// </summary>
@@ -182,12 +95,10 @@ public class PRunProcess
 
     /// <summary>
     /// Alternative approach using event driven output to files
-    /// WARNING: Times out after 10 minutes!!
     /// </summary>
     /// <returns>Error code (any value but 0 indicates an error)</returns>
     public int RunWithEventOutput()
     {
-        int timeout = 600000;  //TODO: Remove or increase this?
         int exitCode = -1;
 
         using (Process process = new Process())
@@ -233,25 +144,27 @@ public class PRunProcess
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
 
-                if (process.WaitForExit(timeout) &&
-                    outputWaitHandle.WaitOne(timeout) &&
-                    errorWaitHandle.WaitOne(timeout))
-                {
-                    // Process completed. Check process.ExitCode here. 
-                    exitCode = process.ExitCode;
-                    Console.WriteLine("Process completed");
-                }
-                else
-                {
-                    // Process timed out
-                    Console.Error.WriteLine("Error: Process timed out");
-                    exitCode = -1;                    
-                    return exitCode;
-                }                
+                process.WaitForExit();
+                outputWaitHandle.WaitOne();
+                errorWaitHandle.WaitOne();
+
+                exitCode = process.ExitCode;
             }
         }
 
-        WriteReturnCode(exitCode);
+        try
+        {
+            WriteReturnCode(exitCode);
+        }
+        catch (IOException e)
+        {
+            Console.Error.WriteLine(e.ToString());
+        }
+
+        if (File.Exists(returnCdTmpPath))
+        {
+            File.Delete(returnCdTmpPath);
+        }
 
         return exitCode;
     }
