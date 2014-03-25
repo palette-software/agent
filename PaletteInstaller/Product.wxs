@@ -17,8 +17,10 @@
           </Component>
           <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
             <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\Debug\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
-            <ServiceInstall Id="Palette" Type="ownProcess" Name="Palette" DisplayName="Palette Agent"
-                    Description="Service for Palette Agent" Start="auto" Account="LocalSystem" ErrorControl="normal">
+            <!--ServiceInstall Id="Palette" Type="ownProcess" Name="Palette" DisplayName="Palette Agent"
+                    Description="Service for Palette Agent" Start="auto" Account="LocalSystem" ErrorControl="normal"-->
+              <ServiceInstall Id="Palette" Type="ownProcess" Name="Palette" DisplayName="Palette Agent"
+                    Description="Service for Palette Agent" Start="auto" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal">
               <!--PermissionEx  Sddl="yes" User="Everyone" ServicePauseContinue="yes" ServiceQueryStatus="yes"
                       ServiceStart="yes" ServiceStop="yes" ServiceUserDefinedControl="yes" /-->
             </ServiceInstall>
