@@ -16,7 +16,7 @@ class prun
         string filename = "";  
         string arguments = "";
 
-        // System.Diagnostics.Debugger.Launch();
+        //System.Diagnostics.Debugger.Launch();
 
         //May want to allow for overriding this in the future
         string localOutputFolder = Directory.GetCurrentDirectory();
@@ -34,7 +34,15 @@ class prun
             foreach(string arg in args)
             {
                 if (arg == args[0]) continue;
-                arguments += "\"" + arg + "\" ";
+                if (arg.Contains(' '))
+                {
+                    // quote any argument containing a space.
+                    arguments += "\"" + arg + "\" ";
+                }
+                else
+                {
+                    arguments += arg + " ";
+                }
             }
 
             arguments = arguments.Trim();
