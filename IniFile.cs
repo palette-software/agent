@@ -42,6 +42,48 @@ public class IniFile
         return RetVal.ToString();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Key"></param>
+    /// <param name="Section"></param>
+    /// <returns></returns>
+    public int ReadInt(string Key, string Section)
+    {
+        return Convert.ToInt32(Read(Key, Section));
+    }
+
+    public int ReadInt(string Key, String Section, int Default)
+    {
+        if (KeyExists(Key, Section))
+        {
+            return ReadInt(Key, Section);
+        }
+        return Default;
+    }
+
+    public bool ReadBool(string Key, String Section)
+    {
+        return Convert.ToBoolean(Read(Key, Section));
+    }
+
+    public bool ReadBool(string Key, String Section, bool Default)
+    {
+        if (KeyExists(Key, Section))
+        {
+            return ReadBool(Key, Section);
+        }
+        return Default;
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Key"></param>
+    /// <param name="Section"></param>
+    /// <param name="Default"></param>
+    /// <returns></returns>
     public string Read(string Key, string Section, string Default)
     {
         if (KeyExists(Key, Section))
@@ -50,6 +92,8 @@ public class IniFile
         }
         return Default;
     }
+
+
 
 
     /// <summary>
