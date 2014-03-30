@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Web;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using log4net;
 using log4net.Config;
 
@@ -14,7 +16,8 @@ public class HttpProcessor
 {
     protected string host;
     protected int port;
-    protected NetworkStream stream = null;
+    protected bool ssl = false;
+    protected Stream stream = null;
     protected string ipaddress = null;
     public bool isConnected = false;
 
@@ -34,6 +37,17 @@ public class HttpProcessor
 	}
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="host">host name (i.e. "localhost")</param>
+    /// <param name="port">port (i.e. "8080")</param>
+    /// <param name="ssl">use ssl</param>
+    public HttpProcessor(string host, int port, bool ssl) : this(host, port)
+    {
+        this.ssl = ssl;
+    }
+
+    /// <summary>
     /// Connects a socket to a specified host
     /// </summary>
     public void Connect()
@@ -51,6 +65,13 @@ public class HttpProcessor
             socket.Connect(remoteEP);         
 
             stream = new NetworkStream(socket, true);
+
+            if (ssl)
+            {
+                SslStream sslStream = new SslStream(stream, true, CertificateValidationCallback);
+                sslStream.AuthenticateAsClient(host);
+                stream = sslStream;
+            }
 
             isConnected = true;
         }
@@ -79,7 +100,7 @@ public class HttpProcessor
     /// <param name="handler">HttpHandler</param>
     public void Run(HttpHandler handler)
     {
-        for (; ; )  //Loop infinitely here
+        for ( ; ; )  //Loop infinitely here
         {
             //cannot put two different types in same using statement but you can nest them
             using (StreamWriter writer = new StreamWriter(stream))
@@ -194,5 +215,11 @@ public class HttpProcessor
         }
 
         return isResolved;
-    }        
+    }
+
+    static bool CertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+    {
+        // FIXME
+        return true;
+    }
 }

@@ -20,20 +20,20 @@ using Microsoft.Win32;
 public class Agent
 {
     public const string VERSION = "0.1";
-    public const string TYPE = "primary";
 
+    public const string DEFAULT_TYPE = "primary";
     public const string DEFAULT_SECTION = "DEFAULT";
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
 
     public IniFile conf = null;
-    public string type;  //Agent type (primary, worker, other, etc.)
+    public string type;  // Agent type (primary, worker, other)
 
     private bool _isArchiveAgent = false;
     public bool isArchiveAgent { get { return _isArchiveAgent; } }
 
-    public string uuid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+    public string uuid;
     public string hostname = "localhost";
     public string ipaddr;
     public string displayName = "unknown";
@@ -41,9 +41,10 @@ public class Agent
     // Values to pre-pend to the environment variable 'PATH' for child processes.
     public string envPath;
 
-    public string controllerHost = Agent.DEFAULT_CONTROLLER_HOST;
-    public int controllerPort = Agent.DEFAULT_CONTROLLER_PORT;
+    public string controllerHost;
+    public int controllerPort;
     public IPAddress controllerAddr;
+    public bool controllerSsl;
 
     public string installDir;
     public string binDir;
@@ -52,7 +53,7 @@ public class Agent
     public string iniDir;
     public string docRoot;
 
-    public int archiveListenPort = Agent.DEFAULT_ARCHIVE_LISTEN_PORT;
+    public int archiveListenPort;
 
     public ProcessManager processManager;
     protected MaintServer maintServer = null;
@@ -73,7 +74,6 @@ public class Agent
     public Agent(string inifile)
     {
         //Set some Agent defaults (may be overridden by the INI file)
-        type = Agent.TYPE;
         hostname = Dns.GetHostName();
         displayName = Dns.GetHostName();
 
@@ -181,7 +181,7 @@ public class Agent
 
         while (true)
         {
-            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort);
+            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl);
 
             try
             {
@@ -218,32 +218,23 @@ public class Agent
     /// </summary>
     private void ParseIniFile()
     {
-        if (conf.KeyExists("type", DEFAULT_SECTION))
-        {
-            type = conf.Read("type", DEFAULT_SECTION);
-        }
-
         envPath = conf.Read("path", DEFAULT_SECTION, null);
 
+        type = conf.Read("type", DEFAULT_SECTION, DEFAULT_TYPE);
         type = type.ToLower();
         if (type != "primary" && type != "worker" && type != "other")
         {
             throw new ArgumentException("DEFAULT:type");
         }
 
-        if (conf.KeyExists("uuid", DEFAULT_SECTION))
-        {
-            uuid = conf.Read("uuid", DEFAULT_SECTION);
-        }
-
+        // intentionally raise exception if these are not set.
+        uuid = conf.Read("uuid", DEFAULT_SECTION);
+        installDir = conf.Read("install-dir", DEFAULT_SECTION);
+        
+        // allow overriding the hostname in the INI file so that multiple agents may be run on the same system for development.
         if (conf.KeyExists("hostname", DEFAULT_SECTION))
         {
             hostname = conf.Read("hostname", DEFAULT_SECTION);
-        }
-
-        if (conf.KeyExists("install-dir", DEFAULT_SECTION))
-        {
-            installDir = conf.Read("install-dir", DEFAULT_SECTION);
         }
 
         if (conf.KeyExists("archive", DEFAULT_SECTION))
@@ -255,20 +246,11 @@ public class Agent
             }
         }
 
-        if (conf.KeyExists("host", "controller"))
-        {
-            controllerHost = conf.Read("host", "controller");
-        }
+        controllerHost = conf.Read("host", "controller", DEFAULT_CONTROLLER_HOST);
+        controllerPort = conf.ReadInt("port", "controller", DEFAULT_CONTROLLER_PORT);
+        controllerSsl = conf.ReadBool("ssl", "controller", false);
 
-        if (conf.KeyExists("port", "controller"))
-        {
-            controllerPort = Convert.ToInt16(conf.Read("port", "controller"));
-        }
-
-        if (conf.KeyExists("listen-port", "archive"))
-        {
-            archiveListenPort = Convert.ToInt16(conf.Read("listen-port", "archive"));
-        }
+        archiveListenPort = conf.ReadInt("listen-port", "archive", DEFAULT_ARCHIVE_LISTEN_PORT);
     }
 
     protected string GetFirstIPAddr()
