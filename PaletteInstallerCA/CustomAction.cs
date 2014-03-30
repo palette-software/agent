@@ -8,12 +8,47 @@ using System.IO;
 using System.Threading;
 using System.ServiceProcess;
 using Microsoft.Deployment.WindowsInstaller;
+using System.DirectoryServices;
 using Microsoft.Win32;
 
 namespace PaletteInstallerCA
 {
     public class CustomActions
     {
+        [CustomAction]
+        public static ActionResult CreatePaletteUser(Session session)
+        {
+            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                string userName = "Palette";
+                DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
+                DirectoryEntry NewUser = AD.Children.Add(userName, "user");
+                string pwd = CreatePassword(10); 
+                NewUser.Invoke("SetPassword", new object[] { pwd });
+                NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
+                NewUser.CommitChanges();
+                DirectoryEntry grp;
+                grp = AD.Children.Find("Administrators", "group");
+                if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
+
+                GrantLogonAsServiceRight(userName);                
+
+                session.CustomActionData["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
+                session.CustomActionData["SERVICEPASSWORD"] = pwd;
+                session["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
+                session["SERVICEPASSWORD"] = pwd;
+
+                //HideUser();  //TODO: MAKE THIS WORK
+            }
+            catch  //catch all exceptions
+            {
+                return ActionResult.Failure;
+            }
+
+            return ActionResult.Success;
+        }
+
         [CustomAction]
         public static ActionResult CreateIniFile(Session session)
         {
@@ -84,12 +119,28 @@ namespace PaletteInstallerCA
                     RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
                     installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
                     installDir = installDir.Replace("ServiceAgent.exe", "");
-                }
-
-                if (Directory.Exists(installDir)) Directory.Delete(installDir, true);
+                }                
             }
             catch //Catch all exceptions
             {
+                //return ActionResult.Failure;
+            }
+            finally
+            {
+                if (Directory.Exists(installDir)) Directory.Delete(installDir, true);
+            }
+
+            try
+            {
+                //Now remove Palette User
+                DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
+                DirectoryEntries users = localDirectory.Children;
+                DirectoryEntry user = users.Find("Palette");
+                users.Remove(user);
+            }
+            catch //Catch all exceptions
+            {
+                return ActionResult.Failure;
             }
 
             return ActionResult.Success;
@@ -139,6 +190,37 @@ namespace PaletteInstallerCA
                 return null;
             }
             return tableauPath;
+        }
+
+        private static string CreatePassword(int length)
+        {
+            string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            string res = "";
+            Random rnd = new Random();
+            while (0 < length--)
+                res += valid[rnd.Next(valid.Length)];
+            return res;
+        }
+
+        private static void GrantLogonAsServiceRight(string username)
+        {
+            using (LsaWrapper lsa = new LsaWrapper())
+            {
+                lsa.AddPrivileges(username, "SeServiceLogonRight");
+            }
+        }
+
+        private static void HideUser()
+        {
+            try
+            {
+                //HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Windows > CurrentVersion > Policies > System
+                string key = @"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System";
+                Registry.SetValue(key, "dontdisplaylastusername", 1);
+            }
+            catch  //Supress all exceptions
+            {
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ class InstallerHelper
     {
         try
         {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"Software\Tableau");
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"Software\Tableau");  //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList
             string[] sk = rk.GetSubKeyNames();
 
             foreach (string key in sk)
