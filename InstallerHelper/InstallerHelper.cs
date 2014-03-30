@@ -18,6 +18,9 @@ class InstallerHelper
             case "tableau-install-path":
                 printTableauInstallPath();
                 break;
+            case "hide-user":
+                HideUser();
+                break;
             default:
                 Usage();
                 return -1;
@@ -69,5 +72,46 @@ class InstallerHelper
             return null;
         }
         return null;
+    }
+
+    public static void HideUser()
+    {
+        string userName = "Palette";
+
+        try
+        {
+            //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon  \SpecialAccounts\UserList
+            string key = @"Software\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts";
+
+            RegistryKey saSubKey = Registry.LocalMachine.OpenSubKey(key, true);
+            if (saSubKey == null)
+            {
+                // It doesn't exist
+                saSubKey = Registry.LocalMachine.CreateSubKey(key);
+                RegistryKey ulSubKey = saSubKey.CreateSubKey("UserList");
+                ulSubKey.SetValue(userName, 0, RegistryValueKind.DWord);
+            }
+            else
+            {
+                // It exists
+                RegistryKey ulSubKey = saSubKey.OpenSubKey("UserList");
+                if (ulSubKey == null)
+                {
+                    // It doesn't exist
+                    ulSubKey = saSubKey.CreateSubKey("UserList");
+                    ulSubKey.SetValue(userName, 0, RegistryValueKind.DWord);
+                }
+                else
+                {
+                    // It exists
+                    ulSubKey = saSubKey.OpenSubKey("UserList", true);
+                    ulSubKey.SetValue(userName, 0, RegistryValueKind.DWord);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString()); 
+        }
     }
 }

@@ -32,14 +32,43 @@ namespace PaletteInstallerCA
                 grp = AD.Children.Find("Administrators", "group");
                 if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
 
-                GrantLogonAsServiceRight(userName);                
+                GrantLogonAsServiceRight(userName);
 
                 session.CustomActionData["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session.CustomActionData["SERVICEPASSWORD"] = pwd;
                 session["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session["SERVICEPASSWORD"] = pwd;
+            }
+            catch  //catch all exceptions
+            {
+                return ActionResult.Failure;
+            }
 
-                //HideUser();  //TODO: MAKE THIS WORK
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult HidePaletteUser(Session session)
+        {
+            try
+            {
+                string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+                string binDir = installDir + @"\bin";
+
+                string path = binDir + @"\InstallerHelper.exe";
+
+                Process process = new Process();
+
+                process.StartInfo.FileName = path;
+                process.StartInfo.Arguments = "hide-user";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+
+                process.Start();
+
+                string stdOut = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
             }
             catch  //catch all exceptions
             {
@@ -207,19 +236,6 @@ namespace PaletteInstallerCA
             using (LsaWrapper lsa = new LsaWrapper())
             {
                 lsa.AddPrivileges(username, "SeServiceLogonRight");
-            }
-        }
-
-        private static void HideUser()
-        {
-            try
-            {
-                //HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Windows > CurrentVersion > Policies > System
-                string key = @"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System";
-                Registry.SetValue(key, "dontdisplaylastusername", 1);
-            }
-            catch  //Supress all exceptions
-            {
             }
         }
     }

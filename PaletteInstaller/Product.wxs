@@ -102,15 +102,22 @@
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME]" />
     <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD]"/>
     <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
-    <!-- Deferred CA -->
-    <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
+    <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
     <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
+    <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
+    
+    <!-- Deferred CA -->    
+    <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />    
+    <CustomAction Id="HidePaletteUser" Return="check" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="HidePaletteUser"/>
     
     <InstallExecuteSequence>
       <Custom Action="CreatePaletteUser" Before="LaunchConditions">NOT Installed</Custom>
       <Custom Action="CreateIniFileImmediate" Sequence="5000">NOT Installed</Custom>
       <Custom Action="CreateIniFile" Sequence="5001">NOT Installed</Custom>
+      <Custom Action="HidePaletteUserImmediate" Sequence="5002">NOT Installed</Custom>
+      <Custom Action="HidePaletteUser" Sequence="5003">NOT Installed</Custom>
       <Custom Action="CleanupAfterUnInstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
     </InstallExecuteSequence>
 	</Product>
 </Wix>
