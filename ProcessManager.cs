@@ -123,11 +123,7 @@ public class ProcessManager
 
         string[] tokens = System.Environment.CurrentDirectory.Split('\\');
 
-        //do
-        //{
-        //    File.WriteAllText(path, Convert.ToString(pid));
-
-        //} while ((System.IO.File.Exists(filename) != true));        
+        File.WriteAllText(path, Convert.ToString(pid));     
     }
 
     /// <summary>
