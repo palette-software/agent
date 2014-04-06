@@ -7,7 +7,7 @@ using fastJSON;
 using System.Reflection;
 using System.Diagnostics;
 
-class Program
+class pinfo
 {
     /// <summary>
     /// Writes a serialized JSON string to StdOut with usage information for each drive on the system
