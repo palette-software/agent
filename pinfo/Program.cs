@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using fastJSON;
 using System.Reflection;
+using System.Diagnostics;
 
 class Program
 {
@@ -15,28 +16,30 @@ class Program
     /// <returns>nested JSON</returns>
     static int Main(string[] args)
     {
-        if (args.Length < 1)
-        {
-            //Example: pinfo /du (returns disk usage)
-            Console.Error.WriteLine("Usage: pinfo.exe /du");
+        Dictionary<string, object> allData = new Dictionary<string,object>();
 
-            return -1;
-        }
-        else if (args[0] == @"/du")
+        try
         {
-            Dictionary<string, Dictionary<string, object>> data = GetDriveInfo();
-            string json = fastJSON.JSON.Instance.ToJSON(data);
+            PerformanceCounter ramInMB = new PerformanceCounter("Memory", "Available MBytes");
+            Dictionary<string, Dictionary<string, object>> driveData = GetDriveInfo();
+
+            allData.Add("os-version", System.Environment.OSVersion.ToString());
+            allData.Add("processor-type", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
+            allData.Add("processor-count", System.Environment.ProcessorCount.ToString());
+            allData.Add("installed-memory", Convert.ToInt16(ramInMB.NextValue()) * 1000000);
+            allData.Add("machine-name", System.Environment.MachineName);
+            allData.Add("user-name", System.Environment.UserName);            
+            allData.Add("volumes", driveData);
+
+            string json = fastJSON.JSON.Instance.ToJSON(allData);
             Console.Out.WriteLine(json);
-
-            return 0;
         }
-
-        else
+        catch
         {
-            Console.Error.WriteLine("Usage: pinfo.exe /du");
-
             return -1;
         }
+
+        return 0;
     }
 
     /// <summary>
@@ -45,7 +48,7 @@ class Program
     /// <returns>a nested dictionary</returns>
     private static Dictionary<string, Dictionary<string, object>> GetDriveInfo()
     {
-        //Use a nested dictionary to handle mutliple drives
+        //Use a nested dictionary for volumes to handle mutliple drives
         Dictionary<string, Dictionary<string, object>> allData = new Dictionary<string, Dictionary<string, object>>();
 
         DriveInfo[] allDrives = DriveInfo.GetDrives();
@@ -53,16 +56,16 @@ class Program
         foreach (DriveInfo di in allDrives)
         {
             Dictionary<string, object> driveData = new Dictionary<string, object>();
-            driveData["Name"] = di.Name;
-            driveData["Drive type"] = di.DriveType;
+            string[] tokens = di.Name.Split(':');
+            driveData["name"] = tokens[0];
+            driveData["type"] = di.DriveType;
 
             if (di.IsReady == true)
             {
-                driveData["Volume label"] = di.VolumeLabel;
-                driveData["Drive format"] = di.DriveFormat;
-                driveData["Available space to current user"] = di.AvailableFreeSpace;
-                driveData["Total available space"] = di.TotalFreeSpace;
-                driveData["Total size of drive"] = di.TotalSize;
+                driveData["label"] = di.VolumeLabel;
+                driveData["drive-format"] = di.DriveFormat;                
+                driveData["available-space"] = di.TotalFreeSpace;
+                driveData["size"] = di.TotalSize;
             }
 
             allData.Add(di.Name, driveData);
