@@ -120,7 +120,12 @@ public class ProcessManager
     private void WritePid(string dir, int pid)
     {
         string path = Path.Combine(dir, "pid");
-        File.WriteAllText(path, Convert.ToString(pid));
+
+        do
+        {
+            File.WriteAllText(path, Convert.ToString(pid));
+
+        } while ((System.IO.File.Exists(path) != true));        
     }
 
     /// <summary>
