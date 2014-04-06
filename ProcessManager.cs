@@ -121,11 +121,13 @@ public class ProcessManager
     {
         string path = Path.Combine(dir, "pid");
 
-        do
-        {
-            File.WriteAllText(path, Convert.ToString(pid));
+        string[] tokens = System.Environment.CurrentDirectory.Split('\\');
 
-        } while ((System.IO.File.Exists(path) != true));        
+        //do
+        //{
+        //    File.WriteAllText(path, Convert.ToString(pid));
+
+        //} while ((System.IO.File.Exists(filename) != true));        
     }
 
     /// <summary>
