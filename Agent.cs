@@ -52,11 +52,12 @@ public class Agent
     public string dataDir;
     public string iniDir;
     public string docRoot;
+    public string httpdBinDir;
 
     public int archiveListenPort;
 
     public ProcessManager processManager;
-    protected MaintServer maintServer = null;
+    protected Process maintServer = null;
 
     // testing only.
     public string username = "palette";
@@ -89,6 +90,9 @@ public class Agent
         xidDir = Path.Combine(installDir, "XID");
         dataDir = Path.Combine(installDir, "Data");
         docRoot = Path.Combine(installDir, "DocRoot");
+
+        httpdBinDir = Path.Combine(installDir, "apache2/bin");
+        Environment.SetEnvironmentVariable("TOPDIR", installDir);
 
         SetupLogging();
 
@@ -207,12 +211,6 @@ public class Agent
         #endif
     }
 
-    public void startMaintServer()
-    {
-        maintServer = new MaintServer(80, docRoot);
-        maintServer.Run();
-    }
-
     /// <summary>
     /// Parses text in .ini file
     /// </summary>
@@ -266,13 +264,36 @@ public class Agent
         return "127.0.0.1";
     }
 
+    public void startMaintServer()
+    {
+        Process process = new Process();
+
+        process.StartInfo.WorkingDirectory = httpdBinDir;
+        process.StartInfo.FileName = Path.Combine(httpdBinDir, "httpd.exe");
+        process.StartInfo.Arguments = "-f ../maint/conf/httpd.conf";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+
+        process.Start();
+
+        logger.Info("Maintenance webserver started.");
+        maintServer = process;
+    }
+
     public void stopMaintServer()
     {
+
         if (maintServer != null)
         {
-            maintServer.Stop();
-            maintServer.Close();
-            maintServer = null;
+            try
+            {
+                maintServer.Kill();
+                logger.Info("Maintenance webserver stopped.");
+            }
+            finally
+            {
+                maintServer = null;
+            }
         }
     }
 }

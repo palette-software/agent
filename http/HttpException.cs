@@ -29,8 +29,7 @@ class HttpException: Exception
 /// </summary>
 class HttpBadRequest : HttpException
 {
-    public HttpBadRequest(string body)
-        : base(body)
+    public HttpBadRequest(string body) : base(body)
     {
         StatusCode = 400;
         Reason = "Bad Request";
@@ -42,8 +41,7 @@ class HttpBadRequest : HttpException
 /// </summary>
 class HttpNotFound : HttpException
 {
-    public HttpNotFound()
-        : base()
+    public HttpNotFound() : base()
     {
         StatusCode = 404;
         Reason = "Not Found";
@@ -55,10 +53,18 @@ class HttpNotFound : HttpException
 /// </summary>
 class HttpMethodNotAllowed : HttpException
 {
-    public HttpMethodNotAllowed()
-        : base()
+    public HttpMethodNotAllowed(): base()
     {
         StatusCode = 404;
         Reason = "Method Not Allowed";
+    }
+}
+
+class HttpInternalServerError : HttpException
+{
+    public HttpInternalServerError(string body) : base(body)
+    {
+        StatusCode = 500;
+        Reason = "Internal Server Error";
     }
 }

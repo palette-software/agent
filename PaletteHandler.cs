@@ -132,12 +132,10 @@ class PaletteHandler : HttpHandler
         if (action == "start")
         {
             agent.startMaintServer();
-            logger.Info("Maintenance webserver started.");
         }
         else if (action == "stop")
         {
             agent.stopMaintServer();
-            logger.Info("Maintenance webserver stopped.");
         }
         else
         {

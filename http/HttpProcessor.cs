@@ -143,7 +143,13 @@ public class HttpProcessor
                                 res.Write(exc.Body);
                             }
                         }
-                        // FIXME: Make this actually print out where the execption occurred and WHY.
+                        catch (Exception exc)
+                        {
+                            res.StatusCode = 500;
+                            res.StatusDescription = "Internal Server Error";
+                            res.Write(exc.ToString() + "\r\n");
+                            res.Write(exc.StackTrace);
+                        }
 #if False
                         catch (Exception exc)
                         {
