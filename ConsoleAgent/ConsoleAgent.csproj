@@ -143,17 +143,16 @@ IF NOT EXIST "$(SolutionDir)build\Data"  (mkdir "$(SolutionDir)build\Data")
 
 IF NOT EXIST "$(SolutionDir)build\XID"  (mkdir "$(SolutionDir)build\XID")
 
-
 IF NOT EXIST "$(SolutionDir)build\apache2"  (mkdir "$(SolutionDir)build\apache2")
 XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
-
-
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
 
 IF NOT EXIST "$(SolutionDir)build\maint\conf"  (mkdir "$(SolutionDir)build\maint\conf")
 COPY /Y "$(SolutionDir)conf\archive-httpd.conf" "$(SolutionDir)build\conf"
+COPY /Y "$(SolutionDir)conf\archive.crt" "$(SolutionDir)build\conf"
+COPY /Y "$(SolutionDir)conf\archive.key" "$(SolutionDir)build\conf"
 
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"
