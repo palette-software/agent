@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\ConsoleAgent\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -61,9 +61,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>IF NOT EXIST "$(SolutionDir)build"  (mkdir "$(SolutionDir)build")
-IF NOT EXIST "$(SolutionDir)build\bin"  (mkdir "$(SolutionDir)build\bin")
-COPY /Y "$(SolutionDir)..\lib\$(Configuration)\fastJSON.dll"  "$(SolutionDir)build\bin\"
-COPY /Y "$(TargetPath)" "$(SolutionDir)build\bin\"</PostBuildEvent>
+    <PostBuildEvent>COPY /Y "$(TargetPath)" "$(SolutionDir)build\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

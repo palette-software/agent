@@ -52,8 +52,7 @@ namespace PaletteInstallerCA
         {
             try
             {
-                string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-                string binDir = installDir + @"\bin";
+                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
 
                 string path = binDir + @"\InstallerHelper.exe";
 
@@ -86,13 +85,12 @@ namespace PaletteInstallerCA
             string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
 
             string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-            string binDir = installDir + @"\bin";
-
-            string path = installDir + @"bin";
+            string binDir = installDir;
+            string path = installDir;
 
             string tableauPath = GetTableauPath(binDir);
             if (tableauPath != null)
-                path += Path.PathSeparator.ToString() + tableauPath + @"\bin";
+                path += Path.PathSeparator.ToString() + tableauPath;
 
             try
             {
@@ -113,6 +111,7 @@ namespace PaletteInstallerCA
                 output += "[controller]" + Environment.NewLine;
                 output += "host=" + serverName + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
+                output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[archive]" + Environment.NewLine;
                 output += "# listen-port=8889" + Environment.NewLine;
@@ -166,6 +165,8 @@ namespace PaletteInstallerCA
                 DirectoryEntries users = localDirectory.Children;
                 DirectoryEntry user = users.Find("Palette");
                 users.Remove(user);
+
+                //TODO: Make sure user folder is being removed
             }
             catch //Catch all exceptions
             {

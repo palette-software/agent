@@ -86,7 +86,7 @@ public class Agent
             throw new DirectoryNotFoundException(installDir);
         }
 
-        binDir = Path.Combine(installDir, "bin");  
+        binDir = installDir;  
         xidDir = Path.Combine(installDir, "XID");
         dataDir = Path.Combine(installDir, "Data");
         docRoot = Path.Combine(installDir, "DocRoot");
