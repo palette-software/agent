@@ -114,7 +114,7 @@ namespace PaletteInstallerCA
                 output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[archive]" + Environment.NewLine;
-                output += "# listen-port=8889" + Environment.NewLine;
+                output += "# port=8889" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
                 output += "location=" + installDir + @"log\agent.log" + Environment.NewLine;

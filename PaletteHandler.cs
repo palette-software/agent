@@ -56,7 +56,7 @@ class PaletteHandler : HttpHandler
         data["hostname"] = agent.hostname;
         data["type"] = agent.type;
         data["ip-address"] = agent.ipaddr;
-        data["listen-port"] = agent.archiveListenPort;
+        data["listen-port"] = agent.archivePort;
         data["uuid"] = agent.uuid;
         data["install-dir"] = agent.installDir;
         data["displayname"] = agent.displayName;

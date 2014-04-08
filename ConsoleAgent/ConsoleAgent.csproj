@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAgent.cs" />
-    <Compile Include="..\FileServer.cs" />
     <Compile Include="..\Agent.cs" />
     <Compile Include="..\IniFile.cs" />
     <Compile Include="..\PaletteHandler.cs" />
@@ -138,7 +137,7 @@
     <PostBuildEvent>IF NOT EXIST "$(SolutionDir)build"  (mkdir "$(SolutionDir)build")
 
 IF NOT EXIST "$(SolutionDir)build\conf"  (mkdir "$(SolutionDir)build\conf")
-IF NOT EXIST "$(SolutionDir)build\log"  (mkdir "$(SolutionDir)build\log")
+IF NOT EXIST "$(SolutionDir)build\logs"  (mkdir "$(SolutionDir)build\logs")
 
 IF NOT EXIST "$(SolutionDir)build\Data"  (mkdir "$(SolutionDir)build\Data")
 
@@ -152,7 +151,10 @@ XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
+
 IF NOT EXIST "$(SolutionDir)build\maint\conf"  (mkdir "$(SolutionDir)build\maint\conf")
+COPY /Y "$(SolutionDir)conf\archive-httpd.conf" "$(SolutionDir)build\conf"
+
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"
 COPY /Y "$(SolutionDir)..\maint\conf\httpd.conf"  "$(SolutionDir)build\maint\conf\"

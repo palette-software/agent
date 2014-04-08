@@ -25,7 +25,8 @@ public class Agent
     public const string DEFAULT_SECTION = "DEFAULT";
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
-    public const int DEFAULT_ARCHIVE_LISTEN_PORT = 8889;
+    public const int DEFAULT_ARCHIVE_PORT = 8889;
+    public const int DEFAULT_MAINTENANCE_PORT = 80;
 
     public IniFile conf = null;
     public string type;  // Agent type (primary, worker, other)
@@ -54,10 +55,12 @@ public class Agent
     public string docRoot;
     public string httpdBinDir;
 
-    public int archiveListenPort;
+    public int archivePort;
+    public int maintPort;
 
     public ProcessManager processManager;
     protected Process maintServer = null;
+    protected Process archiveServer = null;
 
     // testing only.
     public string username = "palette";
@@ -93,6 +96,8 @@ public class Agent
 
         httpdBinDir = Path.Combine(installDir, "apache2/bin");
         Environment.SetEnvironmentVariable("TOPDIR", installDir);
+        Environment.SetEnvironmentVariable("MAINTENANCE_PORT", Convert.ToString(maintPort));
+        Environment.SetEnvironmentVariable("ARCHIVE_PORT", Convert.ToString(archivePort));
 
         SetupLogging();
 
@@ -111,6 +116,9 @@ public class Agent
         processManager = new ProcessManager(xidDir, binDir, envPath);
 
         ipaddr = GetFirstIPAddr();
+
+        // shutdown any leftover apache2 processes.
+        killArchiveServer();
     }
 
     /// <summary>
@@ -176,9 +184,11 @@ public class Agent
         }
         
         PaletteHandler handler = new PaletteHandler(this);
-        
-        FileServer fs = new FileServer(archiveListenPort, dataDir);
-        fs.Run();
+
+        if (_isArchiveAgent)
+        {
+            startArchiveServer();
+        }
 
         // FIXME: make this configurable in the INI file.
         int reconnectInterval = 10;
@@ -248,9 +258,14 @@ public class Agent
         controllerPort = conf.ReadInt("port", "controller", DEFAULT_CONTROLLER_PORT);
         controllerSsl = conf.ReadBool("ssl", "controller", false);
 
-        archiveListenPort = conf.ReadInt("listen-port", "archive", DEFAULT_ARCHIVE_LISTEN_PORT);
+        maintPort = conf.ReadInt("port", "maintenance", DEFAULT_MAINTENANCE_PORT);
+        archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
     }
 
+    /// <summary>
+    /// Return the first IPv4 address of this system.
+    /// </summary>
+    /// <returns></returns>
     protected string GetFirstIPAddr()
     {
         IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -264,6 +279,9 @@ public class Agent
         return "127.0.0.1";
     }
 
+    /// <summary>
+    /// Turn on the maintenace webserver.
+    /// </summary>
     public void startMaintServer()
     {
         Process process = new Process();
@@ -276,10 +294,13 @@ public class Agent
 
         process.Start();
 
-        logger.Info("Maintenance webserver started.");
+        logger.Info("Maintenance webserver started on port " + Convert.ToString(maintPort));
         maintServer = process;
     }
 
+    /// <summary>
+    /// Shutdown the maintenance webserver (if running).
+    /// </summary>
     public void stopMaintServer()
     {
 
@@ -294,6 +315,82 @@ public class Agent
             {
                 maintServer = null;
             }
+        }
+    }
+
+    /// <summary>
+    /// Turn on the archive webserver.
+    /// </summary>
+    public void startArchiveServer()
+    {
+        Process process = new Process();
+
+        process.StartInfo.WorkingDirectory = httpdBinDir;
+        process.StartInfo.FileName = Path.Combine(httpdBinDir, "httpd.exe");
+        process.StartInfo.Arguments = "-f ../conf/archive-httpd.conf";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+
+        process.Start();
+
+        logger.Info("Archive webserver started on port " + Convert.ToString(archivePort));
+        maintServer = process;
+    }
+
+    /// <summary>
+    /// Shutdown the archive webserver (if running).
+    public void stopArchiveServer()
+    {
+
+        if (archiveServer != null)
+        {
+            try
+            {
+                archiveServer.Kill();
+            }
+            finally
+            {
+                archiveServer = null;
+            }
+        }
+    }
+
+    public void killArchiveServer()
+    {
+        string pidFile = Path.Combine(installDir, "httpd.pid");
+
+        if (!File.Exists(pidFile)) return;
+
+        int pid = -1;
+        try
+        {
+            string val = File.ReadAllText(pidFile).Trim();
+            pid = Convert.ToInt32(val);
+        }
+        catch (Exception exc)
+        {
+            logger.Error("error killing archive server : " + exc.ToString());
+        }
+
+        if (pid != -1)
+        {
+            try
+            {
+                Process process = Process.GetProcessById(pid);
+                process.Kill();
+            }
+            catch (Exception exc)
+            {
+                logger.Error("error killing archive server : " + exc.ToString());
+            }
+        }
+
+        try
+        {
+            File.Delete(pidFile);
+        }
+        catch
+        {
         }
     }
 }
