@@ -85,12 +85,11 @@ namespace PaletteInstallerCA
             string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
 
             string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-            string binDir = installDir;
             string path = installDir;
 
-            string tableauPath = GetTableauPath(binDir);
+            string tableauPath = GetTableauPath(installDir);
             if (tableauPath != null)
-                path += Path.PathSeparator.ToString() + tableauPath;
+                path += Path.PathSeparator.ToString() + Path.Combine(tableauPath, "bin");
 
             try
             {
