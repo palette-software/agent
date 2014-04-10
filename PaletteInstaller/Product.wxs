@@ -46,9 +46,9 @@
           <Directory Id="conf1" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
-              <!--File Id="archive.crt" Source="..\..\conf\archive.crt" /-->
-              <!--File Id="archive.key" Source="..\..\conf\archive.key" /-->
-              <!--File Id="archive_httpd.conf" Source="..\..\conf\archive-httpd.conf" /-->
+              <File Id="archive.crt" Source="..\conf\archive.crt" />
+              <File Id="archive.key" Source="..\conf\archive.key" />
+              <File Id="archive_httpd.conf" Source="..\conf\archive-httpd.conf" />
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
