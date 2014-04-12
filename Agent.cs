@@ -31,7 +31,7 @@ public class Agent
     public IniFile conf = null;
     public string type;  // Agent type (primary, worker, other)
 
-    private bool _isArchiveAgent = false;
+    private bool _isArchiveAgent = true;
     public bool isArchiveAgent { get { return _isArchiveAgent; } }
 
     public string uuid;
@@ -185,7 +185,7 @@ public class Agent
         
         PaletteHandler handler = new PaletteHandler(this);
 
-        if (_isArchiveAgent)
+        if (isArchiveAgent)
         {
             startArchiveServer();
         }

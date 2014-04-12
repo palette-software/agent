@@ -102,7 +102,7 @@ namespace PaletteInstallerCA
                 {
                     output += "type=other" + Environment.NewLine;
                 }
-                output += "# archive=false" + Environment.NewLine;
+                output += "# archive=true" + Environment.NewLine;
                 output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
                 output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
