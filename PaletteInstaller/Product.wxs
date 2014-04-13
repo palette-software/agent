@@ -36,13 +36,6 @@
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
             <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="Palette" Wait="no" />            
           </Component>
-          <Directory Id="log" Name="log">
-            <Component Id="LogFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
-              <CreateFolder />
-              <!--File Id="agent.log" Source="..\conf\agent.log"></File-->
-              <RemoveFile Id="RemoveLogFolder" Name="*.*" On="uninstall" />
-            </Component>
-          </Directory>
           <Directory Id="conf1" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
