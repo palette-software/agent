@@ -273,8 +273,7 @@
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
-      <ComponentRef Id="Base" />
-      <ComponentRef Id="LogFolder" />      
+      <ComponentRef Id="Base" />    
       <ComponentRef Id="ConfigFolder" />
       <ComponentRef Id="DataFolder" />
       <ComponentRef Id="XIDFolder" />
