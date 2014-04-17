@@ -7,6 +7,9 @@
     <Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
       <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+    <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
+      <![CDATA[Installed OR Privileged]]></Condition>
     <Property Id="SERVICEACCOUNT" Secure="yes"></Property>
     <Property Id="SERVICEPASSWORD" Secure="yes"></Property>
     <UIRef Id="WixUI_InstallDir_Palette" />
