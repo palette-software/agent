@@ -102,7 +102,6 @@ namespace PaletteInstallerCA
                 {
                     output += "type=other" + Environment.NewLine;
                 }
-                output += "# archive=true" + Environment.NewLine;
                 output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
                 output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
@@ -111,9 +110,6 @@ namespace PaletteInstallerCA
                 output += "host=" + serverName + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
-                output += Environment.NewLine;
-                output += "[archive]" + Environment.NewLine;
-                output += "# port=8889" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
                 output += "location=" + installDir + @"log\agent.log" + Environment.NewLine;

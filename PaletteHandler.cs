@@ -28,6 +28,30 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
+    /// Sorts requests based on URI
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>HttpResponse</returns>
+    override public HttpResponse Handle(HttpRequest req)
+    {
+        switch (req.URI)
+        {
+            case "/archive":
+                return HandleArchive(req);
+            case "/auth":
+                return HandleAuth(req);
+            case "/cli":
+                return HandleCmd(req);
+            case "/maint":
+                return HandleMaint(req);
+            case "/ping":
+                return HandlePing(req);
+            default:
+                throw new HttpNotFound();
+        }
+    }
+
+    /// <summary>
     /// Handles a request to /ping
     /// returns no data, only a 200 OK
     /// </summary>
@@ -127,46 +151,74 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
-        // FIXME: verify the request.
-        string action = GetAction(req);
-        if (action == "start")
+        ServerControlInfo info;
+        try
         {
-            agent.startMaintServer();
+            info = ServerControlInfo.parse(req);
         }
-        else if (action == "stop")
+        catch (ArgumentException e)
         {
-            agent.stopMaintServer();
-        }
-        else
-        {
-            throw new HttpBadRequest("invalid action");
+            throw new HttpBadRequest(e.Message);
         }
 
-        res.Write("{\"status\": \"ok\"}");
+        if (info.port != -1)
+        {
+            agent.maintPort = info.port;
+        }
+
+        switch (info.action)
+        {
+            case "start":
+                agent.startMaintServer();
+                break;
+            case "stop":
+                agent.stopMaintServer();
+                break;
+        }
+
+        res.Write("{\"status\": \"ok\", \"port\": " + Convert.ToString(agent.maintPort) + "}");
         return res;
     }
 
     /// <summary>
-    /// Sorts requests based on URI
+    /// Handles a request to /archive
     /// </summary>
-    /// <param name="req">HttpRequest</param>
+    /// <param name="req">Http request</param>
     /// <returns>HttpResponse</returns>
-    override public HttpResponse Handle(HttpRequest req)
+    private HttpResponse HandleArchive(HttpRequest req)
     {
-        switch (req.URI)
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+
+        ServerControlInfo info;
+        try
         {
-            case "/ping":
-                return HandlePing(req);
-            case "/auth":
-                return HandleAuth(req);
-            case "/cli":
-                return HandleCmd(req);
-            case "/maint":
-                return HandleMaint(req);
-            default:
-                throw new HttpNotFound();
+            info = ServerControlInfo.parse(req);
         }
+        catch (ArgumentException e)
+        {
+            throw new HttpBadRequest(e.Message);
+        }
+
+        if (info.port != -1)
+        {
+            agent.archivePort = info.port;
+        }
+    
+        switch (info.action)
+        {
+            case "start":
+                agent.startArchiveServer();
+                break;
+            case "stop":
+                agent.stopArchiveServer();
+                break;
+        }
+        
+        res.Write("{\"status\": \"ok\", \"port\": " + Convert.ToString(agent.archivePort) + "}");
+        return res;
     }
+
 
     /// <summary>
     /// Pulls xid (agent process id) from JSON dictionary
@@ -221,7 +273,7 @@ class PaletteHandler : HttpHandler
         }
         else
         {
-            return "unknown";
+            throw new ArgumentException("missing parameter : \"action\"");
         }
     }
 
@@ -240,6 +292,40 @@ class PaletteHandler : HttpHandler
         else
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Helper class for /maint and /archive URIs.
+    /// </summary>
+    private class ServerControlInfo
+    {
+        public string action = null;
+        public int port = -1;
+
+        public static ServerControlInfo parse(HttpRequest req)
+        {
+            ServerControlInfo info = new ServerControlInfo();
+            foreach (string key in req.JSON.Keys)
+            {
+                object val = req.JSON[key];
+                switch (key.ToLower())
+                {
+                    case "action":
+                        info.action = val.ToString().ToLower();
+                        if (info.action != "start" && info.action != "stop")
+                        {
+                            throw new ArgumentException("invalid action : " + info.action);
+                        }
+                        break;
+                    case "port":
+                        info.port = Convert.ToInt32(val);
+                        break;
+                    default:
+                        throw new ArgumentException("invalid parameter : " + key);
+                }
+            }
+            return info;
         }
     }
 }
