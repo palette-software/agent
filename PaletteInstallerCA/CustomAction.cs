@@ -112,7 +112,7 @@ namespace PaletteInstallerCA
                 output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
-                output += "location=" + installDir + @"log\agent.log" + Environment.NewLine;
+                output += "location=" + installDir + @"logs\agent.log" + Environment.NewLine;
                 output += "maxsize=10MB" + Environment.NewLine;
 
                 string inipath = Path.Combine(installDir, @"conf\agent.ini");
