@@ -19,11 +19,11 @@ class Apache2
         this.name = name;
         this.conf = conf;
         this.topDir = topDir;
-        this.srvRootDir = Path.Combine(topDir, "apache2");
-        this.logDir = Path.Combine(topDir, "logs");
-        string binDir = Path.Combine(srvRootDir, "bin");
-        fileName = Path.Combine(binDir, "httpd.exe");
-        string startupLog = Path.Combine(logDir, "startup.log");
+        this.srvRootDir = StdPath.Combine(topDir, "apache2");
+        this.logDir = StdPath.Combine(topDir, "logs");
+        string binDir = StdPath.Combine(srvRootDir, "bin");
+        fileName = StdPath.Combine(binDir, "httpd.exe");
+        string startupLog = StdPath.Combine(logDir, "startup.log");
         baseArgs = "-f \"" + conf + "\" -n \"" + name + "\" -E \"" + startupLog;
     }
 

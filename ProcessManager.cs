@@ -56,28 +56,12 @@ public class ProcessManager
 
         // FIXME: check validity of 'cmd' and 'xid'
 
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         Directory.CreateDirectory(dir);
         // FIXME: check result
 
-        //string stdOutPath = Path.Combine(dir, "stdout");
-        //string stdErrPath = Path.Combine(dir, "stderr");
-        //string retPath = Path.Combine(dir, "returncode");
-        //string tmpPath = Path.Combine(dir, "tmp");
-
-        // Steps:
-        //  1. Call the command using cmd.exe.
-        //  2. Redirect stderr and stdout to respective file.
-        //  3. write the return code to 'tmp'.
-        //  4. rename 'tmp' to 'retval' (which should be an atomic FS operation.)
-        // Note: A single '&' in cmd.exe is equivalent to ';' in a BASH shell.
-        //string args = "/c call " + cmd + " 2>" + stdErrPath + " 1>" + stdOutPath;
-        //args += " & echo %ERRORLEVEL% >" + tmpPath;
-        //args += " & move " + tmpPath + " " + retPath;
-
-        //process.StartInfo.WorkingDirectory = binDir;
         process.StartInfo.WorkingDirectory = dir;
-        process.StartInfo.FileName = binDir + "\\prun.exe";  //For some reason Path.Combine fails here
+        process.StartInfo.FileName = StdPath.Combine(binDir, "prun.exe");
         process.StartInfo.Arguments = cmd;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
@@ -103,7 +87,7 @@ public class ProcessManager
     public void Cleanup(int xid)
     {
         // FIXME: check xid
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return;
@@ -119,7 +103,7 @@ public class ProcessManager
     /// <param name="pid">Windows process id</param>
     private void WritePid(string dir, int pid)
     {
-        string path = Path.Combine(dir, "pid");
+        string path = StdPath.Combine(dir, "pid");
 
         string[] tokens = System.Environment.CurrentDirectory.Split('\\');
 
@@ -133,12 +117,12 @@ public class ProcessManager
     /// <returns>true if complete, false otherwise</returns>
     private bool IsDone(int xid)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return false;
         }
-        string path = Path.Combine(dir, "returncode");
+        string path = StdPath.Combine(dir, "returncode");
         return File.Exists(path);
     }
 
@@ -150,12 +134,12 @@ public class ProcessManager
     /// <returns>Status code</returns>
     private int GetInt(int xid, string name)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return -1;
         }
-        string path = Path.Combine(dir, name);
+        string path = StdPath.Combine(dir, name);
         string val = File.ReadAllText(path).Trim();
         return Convert.ToInt32(val);
     }
@@ -188,12 +172,12 @@ public class ProcessManager
     /// <returns>Output text</returns>
     private string GetString(int xid, string name)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return "";
         }
-        string path = Path.Combine(dir, name);
+        string path = StdPath.Combine(dir, name);
 
         if (File.Exists(path))
         {
