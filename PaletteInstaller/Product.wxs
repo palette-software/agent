@@ -299,7 +299,7 @@
 
     <!-- Immediate CA -->
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME]" />
-    <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD]"/>
+    <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD];INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
     <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />

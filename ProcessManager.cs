@@ -55,7 +55,6 @@ public class ProcessManager
         Process process = new Process();
 
         // FIXME: check validity of 'cmd' and 'xid'
-
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         Directory.CreateDirectory(dir);
         // FIXME: check result
