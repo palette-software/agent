@@ -6,6 +6,7 @@ using System.IO;
 using fastJSON;
 using System.Reflection;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 class pinfo
 {
@@ -30,6 +31,12 @@ class pinfo
             allData.Add("machine-name", System.Environment.MachineName);
             allData.Add("user-name", System.Environment.UserName);            
             allData.Add("volumes", driveData);
+
+            string path = GetTableauInstallPath();
+            if (path != null && path.Length > 0)
+            {
+                allData.Add("tableau-install-dir", path);
+            }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
             Console.Out.WriteLine(json);
@@ -73,4 +80,39 @@ class pinfo
 
         return allData;
     }
+
+    // FIXME: this is duplicated in the installHelper utility.
+    public static string GetTableauRegistryKey()
+    {
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"Software\Tableau");  //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList
+            string[] sk = rk.GetSubKeyNames();
+
+            foreach (string key in sk)
+            {
+                if (key.Contains("Tableau Server")) return @"Software\Tableau\" + key;
+            }
+        }
+        catch //catch all exceptions
+        {
+        }
+        return null;
+    }
+
+    // FIXME: this is duplicated in the installHelper utility.
+    private static string GetTableauInstallPath()
+    {
+        string key = GetTableauRegistryKey();
+        if (key == null) return null;
+
+        RegistryKey rk = Registry.LocalMachine.OpenSubKey(key + @"\Directories");
+        if (rk == null) return null;
+
+        object value = rk.GetValue("AppVersion");
+        if (value == null) return null;
+
+        return value.ToString();
+    }
+
 }
