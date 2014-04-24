@@ -24,17 +24,22 @@ class RegistryUtil
         return null;
     }
 
-    public static string GetTableauInstallPath()
+    private static string GetTableauValueByKey(string key)
     {
-        string key = GetTableauKey();
-        if (key == null) return null;
+        string parent = GetTableauKey();
+        if (parent == null) return null;
 
-        RegistryKey rk = Registry.LocalMachine.OpenSubKey(key + @"\Directories");
+        RegistryKey rk = Registry.LocalMachine.OpenSubKey(parent + @"\Directories");
         if (rk == null) return null;
 
-        object value = rk.GetValue("AppVersion");
+        object value = rk.GetValue(key);
         if (value == null) return null;
 
         return value.ToString();
+    }
+
+    public static string GetTableauInstallPath()
+    {
+        return GetTableauValueByKey("AppVersion");
     }
 }

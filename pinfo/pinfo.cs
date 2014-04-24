@@ -21,7 +21,7 @@ class pinfo
         try
         {
             PerformanceCounter ramInMB = new PerformanceCounter("Memory", "Available MBytes");
-            Dictionary<string, Dictionary<string, object>> driveData = GetDriveInfo();
+            List<Dictionary<string, object>> driveData = GetDriveInfo();
 
             allData.Add("os-version", System.Environment.OSVersion.ToString());
             allData.Add("processor-type", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
@@ -31,10 +31,16 @@ class pinfo
             allData.Add("user-name", System.Environment.UserName);            
             allData.Add("volumes", driveData);
 
-            string path = RegistryUtil.GetTableauInstallPath();
-            if (path != null && path.Length > 0)
+            string installDir = RegistryUtil.GetTableauInstallPath();
+            if (installDir != null && installDir.Length > 0)
             {
-                allData.Add("tableau-install-dir", path);
+                allData.Add("tableau-install-dir", installDir);
+            }
+
+            string dataDir = GetTableauDataPath();
+            if (dataDir != null && dataDir.Length > 0)
+            {
+                allData.Add("tableau-data-dir", dataDir);
             }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
@@ -49,13 +55,13 @@ class pinfo
     }
 
     /// <summary>
-    /// Returns a nested dictionary of drive info for each drive
+    /// Returns a list of dictionaries containing drive info for each drive
     /// </summary>
     /// <returns>a nested dictionary</returns>
-    private static Dictionary<string, Dictionary<string, object>> GetDriveInfo()
+    private static List<Dictionary<string, object>> GetDriveInfo()
     {
         //Use a nested dictionary for volumes to handle mutliple drives
-        Dictionary<string, Dictionary<string, object>> allData = new Dictionary<string, Dictionary<string, object>>();
+        List<Dictionary<string, object>> allData = new List<Dictionary<string, object>>();
 
         DriveInfo[] allDrives = DriveInfo.GetDrives();
 
@@ -74,9 +80,22 @@ class pinfo
                 driveData["size"] = di.TotalSize;
             }
 
-            allData.Add(di.Name, driveData);
+            allData.Add(driveData);
         }
 
         return allData;
+    }
+
+    public static string GetTableauDataPath()
+    {
+        string installDir = RegistryUtil.GetTableauInstallPath();
+        if (installDir == null)
+        {
+            return null;
+        }
+
+        string root = Path.GetPathRoot(installDir);
+        string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
+        return path;
     }
 }
