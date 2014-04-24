@@ -42,38 +42,11 @@ class InstallerHelper
 
     private static void printTableauInstallPath()
     {
-        string key = GetTableauRegistryKey();
-        if (key == null) return;
-
-        RegistryKey rk = Registry.LocalMachine.OpenSubKey(key + @"\Directories");
-        if (rk == null) return;
-
-        object value = rk.GetValue("AppVersion");
-        if (value == null) return;
-
-        Console.WriteLine(value.ToString());
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public static string GetTableauRegistryKey()
-    {
-        try
+        string path = RegistryUtil.GetTableauInstallPath();
+        if (path != null)
         {
-            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"Software\Tableau");  //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList
-            string[] sk = rk.GetSubKeyNames();
-
-            foreach (string key in sk)
-            {
-                if (key.Contains("Tableau Server")) return @"Software\Tableau\" + key;
-            }
+            Console.WriteLine(path);
         }
-        catch //catch all exceptions
-        {
-        }
-        return null;
     }
 
     public static string DisableUAC()
