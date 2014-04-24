@@ -50,6 +50,9 @@ class pget
             fileName = Path.Combine(localFolder, filePath);
             tmpFileName = fileName + ".tmp";
 
+            //Accept all (especially self-signed) certificates
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
             //Download the file
             client.DownloadFile(uri, tmpFileName);
 

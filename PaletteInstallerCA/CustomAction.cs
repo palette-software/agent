@@ -10,15 +10,44 @@ using System.ServiceProcess;
 using Microsoft.Deployment.WindowsInstaller;
 using System.DirectoryServices;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
 
 namespace PaletteInstallerCA
 {
     public class CustomActions
     {
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool DeleteFile(string path);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool RemoveDirectory(string path);
+ 
         [CustomAction]
         public static ActionResult CreatePaletteUser(Session session)
         {
-            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+
+                string path = binDir + @"\InstallerHelper.exe";
+
+                Process process = new Process();
+
+                process.StartInfo.FileName = path;
+                process.StartInfo.Arguments = "disable-uac";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+
+                process.Start();
+
+                string stdOut = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+            }
+            catch  //catch all exceptions
+            {
+            }
+
             try
             {
                 string userName = "Palette";
@@ -85,12 +114,11 @@ namespace PaletteInstallerCA
             string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
 
             string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-            string binDir = installDir;
             string path = installDir;
 
-            string tableauPath = GetTableauPath(binDir);
+            string tableauPath = GetTableauPath(installDir);
             if (tableauPath != null)
-                path += Path.PathSeparator.ToString() + tableauPath;
+                path += Path.PathSeparator.ToString() + Path.Combine(tableauPath, "bin");
 
             try
             {
@@ -103,7 +131,6 @@ namespace PaletteInstallerCA
                 {
                     output += "type=other" + Environment.NewLine;
                 }
-                output += "# archive=false" + Environment.NewLine;
                 output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
                 output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
@@ -113,11 +140,8 @@ namespace PaletteInstallerCA
                 output += "# port=8888" + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
-                output += "[archive]" + Environment.NewLine;
-                output += "# port=8889" + Environment.NewLine;
-                output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
-                output += "location=" + installDir + @"log\agent.log" + Environment.NewLine;
+                output += "location=" + installDir + @"logs\agent.log" + Environment.NewLine;
                 output += "maxsize=10MB" + Environment.NewLine;
 
                 string inipath = Path.Combine(installDir, @"conf\agent.ini");
@@ -138,6 +162,7 @@ namespace PaletteInstallerCA
 
             //First try the default installation path
             string installDir = ProgramFilesx86() + "\\Palette\\";
+            string userDir = ProgramFilesx86().ToString().Substring(0, 3) + "Users\\Palette";
 
             try
             {
@@ -147,15 +172,12 @@ namespace PaletteInstallerCA
                     RegistryKey rk = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\services\\Palette");
                     installDir = rk.GetValue("ImagePath").ToString().TrimStart('"').TrimEnd('"');
                     installDir = installDir.Replace("ServiceAgent.exe", "");
-                }                
-            }
-            catch //Catch all exceptions
-            {
-                //return ActionResult.Failure;
-            }
-            finally
-            {
+                }
                 if (Directory.Exists(installDir)) Directory.Delete(installDir, true);
+            }
+            catch //if this fails, delete by removing files first
+            {
+                if (Directory.Exists(installDir)) DeleteDirectory(installDir, true);  
             }
 
             try
@@ -166,14 +188,105 @@ namespace PaletteInstallerCA
                 DirectoryEntry user = users.Find("Palette");
                 users.Remove(user);
 
-                //TODO: Make sure user folder is being removed
+                if (Directory.Exists(userDir)) Directory.Delete(userDir, true);
             }
-            catch //Catch all exceptions
+            catch //Likely that directory was not removed because it was "not empty" (despite recursive = true)
             {
-                return ActionResult.Failure;
+                try
+                {
+                    if (Directory.Exists(userDir)) DeleteDirectory(userDir, true);
+                }
+                catch  //Folders are still there?
+                {
+                    if (Directory.Exists(installDir) || Directory.Exists(userDir))
+                    return ActionResult.Failure;
+                }
             }
 
             return ActionResult.Success;
+        }
+
+        /// <summary>
+        /// Delete all files from directory before deleting directory.  Handles Read-Only attributes
+        /// </summary>
+        /// <param name="path">the folder path</param>
+        /// <param name="recursive">true for recursive delete</param>
+       public static void DeleteDirectory(string path, bool recursive)
+        {
+            // Delete all files and sub-folders?
+            if (recursive)
+            {
+                // Yep... Let's do this
+                var subfolders = Directory.GetDirectories(path);
+                foreach (var s in subfolders)
+                {
+                    DeleteDirectory(s, recursive);
+                }
+            }
+ 
+            // Get all files of the folder
+            var files = Directory.GetFiles(path);
+            foreach (var f in files)
+            {
+                // Get the attributes of the file
+                var attr = File.GetAttributes(f);
+ 
+                // Is this file marked as 'read-only'?
+                if ((attr & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
+                {
+                    // Yes... Remove the 'read-only' attribute, then
+                    File.SetAttributes(f, attr ^ System.IO.FileAttributes.ReadOnly);
+                }
+ 
+                // Delete the file
+                File.Delete(f);
+            }
+ 
+            // When we get here, all the files of the folder were
+            // already deleted, so we just delete the empty folder
+            Directory.Delete(path);
+        }
+
+       /// <summary>
+       /// Delete all files from directory before deleting directory using methods from Windows kernal32.dll.  
+       /// Handles Read-Only attributes
+       /// </summary>
+       /// <param name="path">the folder path</param>
+       /// <param name="recursive">true for recursive delete</param>
+        public static void DeleteDirectoryWithKernal(string path, bool recursive)
+        {
+            // Delete all files and sub-folders?
+            if (recursive)
+            {
+                // Yep... Let's do this
+                var subfolders = Directory.GetDirectories(path);
+                foreach (var s in subfolders)
+                {
+                    DeleteDirectoryWithKernal(s, recursive);
+                }
+            }
+ 
+            // Get all files of the folder
+            var files = Directory.GetFiles(path);
+            foreach (var f in files)
+            {
+                // Get the attributes of the file
+                var attr = File.GetAttributes(f);
+ 
+                // Is this file marked as 'read-only'?
+                if ((attr & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
+                {
+                    // Yes... Remove the 'read-only' attribute, then
+                    File.SetAttributes(f, attr ^ System.IO.FileAttributes.ReadOnly);
+                }
+ 
+                // Delete the file
+                DeleteFile(f);
+            }
+ 
+            // When we get here, all the files of the folder were
+            // already deleted, so we just delete the empty folder
+            RemoveDirectory(path);
         }
 
         /// <summary>

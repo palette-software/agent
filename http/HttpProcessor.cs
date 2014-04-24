@@ -149,6 +149,7 @@ public class HttpProcessor
                             res.StatusDescription = "Internal Server Error";
                             res.Write(exc.ToString() + "\r\n");
                             res.Write(exc.StackTrace);
+                            // FIXME: log this.
                         }
 #if False
                         catch (Exception exc)

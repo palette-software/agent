@@ -112,6 +112,7 @@ class PaletteHandler : HttpHandler
             throw new HttpMethodNotAllowed();
         }
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+
         logger.Info("JSON: " + json);
         res.Write(json);
         return res;
@@ -147,6 +148,58 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
+    /// Handles a request to /firewall
+    /// </summary>
+    /// <param name="req">Http request</param>
+    /// <returns>HttpResponse</returns>
+    private HttpResponse HandleFirewall(HttpRequest req)
+    {
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+
+        if (req.Method == "POST")  //Enable ports
+        {
+            Dictionary<int, string> portList = GetPortDictionaryfromJSON(req);
+            if (portList != null)
+            {
+                List<int> portsToEnable = new List<int>();
+                string msg = "Request to enable the following ports: ";
+                foreach (int portNum in portList.Keys)
+                {
+                    if (portList[portNum] == "open")
+                    {
+                        portsToEnable.Add(portNum);
+                        msg += portNum + ",";
+                    }
+                }
+
+                FirewallUtil fUtil = new FirewallUtil();
+                fUtil.OpenFirewall(portsToEnable);
+
+                msg = msg.TrimEnd(',');
+                if (portsToEnable.Count > 0) logger.Info(msg);
+            }
+            else
+            {
+                logger.Error("Port list empty. Badly formed JSON?");
+            }
+        }
+        else if (req.Method == "GET")
+        {
+            FirewallUtil fUtil = new FirewallUtil();
+            List<int> openPorts = fUtil.CheckPorts();
+
+            string json = GetPortInformationInJSON(openPorts);
+            logger.Info("JSON: " + json);
+            res.Write(json);
+            return res;
+        }
+
+        res.Write("{\"status\": \"ok\"}");
+        return res;
+    }
+
+    /// <summary>
     /// Sorts requests based on URI
     /// </summary>
     /// <param name="req">HttpRequest</param>
@@ -163,6 +216,8 @@ class PaletteHandler : HttpHandler
                 return HandleCmd(req);
             case "/maint":
                 return HandleMaint(req);
+            case "/firewall":
+                return HandleFirewall(req);
             default:
                 throw new HttpNotFound();
         }
@@ -194,6 +249,44 @@ class PaletteHandler : HttpHandler
             }
             return xid;
         }
+    }
+
+    /// <summary>
+    /// Gets list of ports and actions to perform from JSON dictionary
+    /// </summary>
+    /// <param name="req">HttpRequest</param>
+    /// <returns>xid</returns>
+    private Dictionary<int, string> GetPortDictionaryfromJSON(HttpRequest req)
+    {
+        //if (req.JSON != null)
+        //{
+        //    object objList = fastJSON.JSON.Instance.ToObject<Dictionary<string, Dictionary<int, string>>>(req.JSON);
+
+        //    Dictionary<string, Dictionary<int, string>> portList = (Dictionary<string, Dictionary<int, string>>)objList;
+
+        //    if (portList.ContainsKey("ports")) return portList["ports"];
+        //}
+        return null;
+    }
+
+    /// <summary>
+    /// Returns the port information in JSON, i.e. {"ports": [num:8889, "state": "open"]}
+    /// </summary>
+    /// <returns>JSON formatted string</returns>
+    private string GetPortInformationInJSON(List<int> openPorts)
+    {
+        Dictionary<string, Dictionary<int, string>> ports = new Dictionary<string, Dictionary<int, string>>();
+        Dictionary<int, string> sub = new Dictionary<int, string>();
+
+        foreach (int portNum in openPorts)
+        {
+            sub.Add(portNum, "open");
+        }
+        ports.Add("ports", sub);
+
+        string json = fastJSON.JSON.Instance.ToJSON(ports);
+
+        return json;
     }
 
     /// <summary>

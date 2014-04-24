@@ -7,6 +7,9 @@
     <Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
       <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+    <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
+      <![CDATA[Installed OR Privileged]]></Condition>
     <Property Id="SERVICEACCOUNT" Secure="yes"></Property>
     <Property Id="SERVICEPASSWORD" Secure="yes"></Property>
     <UIRef Id="WixUI_InstallDir_Palette" />
@@ -36,16 +39,12 @@
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
             <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="Palette" Wait="no" />            
           </Component>
-          <Directory Id="log" Name="log">
-            <Component Id="LogFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
-              <CreateFolder />
-              <!--File Id="agent.log" Source="..\conf\agent.log"></File-->
-              <RemoveFile Id="RemoveLogFolder" Name="*.*" On="uninstall" />
-            </Component>
-          </Directory>
-          <Directory Id="conf" Name="conf">
+          <Directory Id="conf1" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
+              <File Id="archive.crt" Source="..\conf\archive.crt" />
+              <File Id="archive.key" Source="..\conf\archive.key" />
+              <File Id="archive_httpd.conf" Source="..\conf\archive-httpd.conf" />
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
@@ -61,19 +60,215 @@
               <RemoveFile Id="RemoveXIDFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
-          <Directory Id="docroot" Name="DocRoot">
-            <Component Id="DocRootFolder" Guid="2f73bf32-d937-4d3b-9aed-566ff1368958">
+          <Directory Id="maint" Name="maint">
+            <Component Id="MaintFolder" Guid="040d8e73-2cd1-4884-88c3-8a24436fcbc1">
               <CreateFolder />
-              <File Id="index.html" Source="..\..\maint\www\index.html" />
-              <File Id="style.css" Source="..\..\maint\www\style.css" />
-              <File Id="palette_logo_600dpi_2.png" Source="..\..\maint\www\palette_logo_600dpi-2.png" />
-              <File Id="bg.png" Source="..\..\maint\www\bg.png" />
-              <File Id="favicon.ico" Source="..\..\maint\www\favicon.ico" />
-              <File Id="favicon60.ico" Source="..\..\maint\www\favicon-60.png" />
-              <File Id="favicon76.ico" Source="..\..\maint\www\favicon-76.png" />
-              <File Id="favicon120.ico" Source="..\..\maint\www\favicon-120.png" />
-              <File Id="favicon152.ico" Source="..\..\maint\www\favicon-152.png" />
+              <!-- TODO: Unfortunately does not delete files recursively. -->
+              <RemoveFile Id="RemoveMaintFolder" Name="*.*" On="uninstall" />
             </Component>
+            <Directory Id="www" Name="www">
+              <Component Id="WWWFolder" Guid="aa62f593-f69f-4552-ab20-4d6228435e9c">
+                <CreateFolder />
+                <File Id="index.html" Source="..\..\maint\www\index.html" />
+                <File Id="style.css" Source="..\..\maint\www\style.css" />
+                <File Id="palette_logo_600dpi_2.png" Source="..\..\maint\www\palette_logo_600dpi-2.png" />
+                <File Id="bg.png" Source="..\..\maint\www\bg.png" />
+                <File Id="favicon.ico" Source="..\..\maint\www\favicon.ico" />
+                <File Id="favicon60.ico" Source="..\..\maint\www\favicon-60.png" />
+                <File Id="favicon76.ico" Source="..\..\maint\www\favicon-76.png" />
+                <File Id="favicon120.ico" Source="..\..\maint\www\favicon-120.png" />
+                <File Id="favicon152.ico" Source="..\..\maint\www\favicon-152.png" />
+                <RemoveFile Id="RemoveWWWFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+            <Directory Id="logs" Name="logs">
+              <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
+                <CreateFolder />
+                <RemoveFile Id="RemoveLogsFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+            <Directory Id="conf" Name="conf">
+              <Component Id="ConfFolder" Guid="6adfeb8f-8135-4a2c-98cb-3eb162e315cd">
+                <CreateFolder />
+                <File Id="httpd.conf" Source="..\..\maint\conf\httpd.conf" />
+                <RemoveFile Id="RemoveConfFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id="apache2" Name="apache2">
+            <Component Id="Apache2Folder" Guid="a6db6273-4f31-4c9b-8a8b-d3f688853231">
+              <CreateFolder />
+            </Component>
+            <Directory Id="bin" Name="bin">
+              <Component Id="Apache2BinFolder" Guid="d8bba363-46de-4a58-bf68-06735f310171">
+                <CreateFolder />
+                <File Id="ab.exe" Source="..\..\maint\apache2\bin\ab.exe" />
+                <File Id="abs.exe" Source="..\..\maint\apache2\bin\abs.exe" />
+                <File Id="ApacheMonitor.exe" Source="..\..\maint\apache2\bin\ApacheMonitor.exe" />
+                <File Id="apr_crypto_openssl_1.dll" Source="..\..\maint\apache2\bin\apr_crypto_openssl-1.dll" />
+                <File Id="apr_dbd_mysql_1.dll" Source="..\..\maint\apache2\bin\apr_dbd_mysql-1.dll" />
+                <File Id="apr_dbd_odbc_1.dll" Source="..\..\maint\apache2\bin\apr_dbd_odbc-1.dll" />
+                <File Id="apr_ldap_1.dll" Source="..\..\maint\apache2\bin\apr_ldap-1.dll" />
+                <File Id="dbmmanage.pl" Source="..\..\maint\apache2\bin\dbmmanage.pl" />
+                <File Id="htcacheclean.exe" Source="..\..\maint\apache2\bin\htcacheclean.exe" />
+                <File Id="htdbm.exe" Source="..\..\maint\apache2\bin\htdbm.exe" />
+                <File Id="htdigest.exe" Source="..\..\maint\apache2\bin\htdigest.exe" />
+                <File Id="htpasswd.exe" Source="..\..\maint\apache2\bin\htpasswd.exe" />
+                <File Id="httpd.exe" Source="..\..\maint\apache2\bin\httpd.exe" />
+                <File Id="httxt2dbm.exe" Source="..\..\maint\apache2\bin\httxt2dbm.exe" />
+                <File Id="libapr_1.dll" Source="..\..\maint\apache2\bin\libapr-1.dll" />
+                <File Id="libapriconv_1.dll" Source="..\..\maint\apache2\bin\libapriconv-1.dll" />
+                <File Id="libaprutil_1.dll" Source="..\..\maint\apache2\bin\libaprutil-1.dll" />
+                <File Id="libeay32.dll" Source="..\..\maint\apache2\bin\libeay32.dll" />
+                <File Id="libhttpd.dll" Source="..\..\maint\apache2\bin\libhttpd.dll" />
+                <File Id="libxml2.dll" Source="..\..\maint\apache2\bin\libxml2.dll" />
+                <File Id="logresolve.exe" Source="..\..\maint\apache2\bin\logresolve.exe" />
+                <File Id="lua51.dll" Source="..\..\maint\apache2\bin\lua51.dll" />
+                <File Id="openssl.exe" Source="..\..\maint\apache2\bin\openssl.exe" />
+                <File Id="pcre.dll" Source="..\..\maint\apache2\bin\pcre.dll" />
+                <File Id="rotatelogs.exe" Source="..\..\maint\apache2\bin\rotatelogs.exe" />
+                <File Id="ssleay32.dll" Source="..\..\maint\apache2\bin\ssleay32.dll" />
+                <File Id="wintty.exe" Source="..\..\maint\apache2\bin\wintty.exe" />
+                <File Id="zlib1.dll" Source="..\..\maint\apache2\bin\zlib1.dll" />
+                <RemoveFile Id="RemoveApache2BinFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+            <Directory Id="lib" Name="lib">
+              <Component Id="Apache2LibFolder" Guid="56d446ad-9ead-48a5-925d-f51939154a0c">
+                <CreateFolder />
+                <File Id="apr_1.lib" Source="..\..\maint\apache2\lib\apr-1.lib" />
+                <File Id="aprutil_1.lib" Source="..\..\maint\apache2\lib\aprutil-1.lib" />
+                <File Id="libapr_1.exp" Source="..\..\maint\apache2\lib\libapr-1.exp" />
+                <File Id="libapr_1.lib" Source="..\..\maint\apache2\lib\libapr-1.lib" />
+                <File Id="libapriconv_1.exp" Source="..\..\maint\apache2\lib\libapriconv-1.exp" />
+                <File Id="libapriconv_1.lib" Source="..\..\maint\apache2\lib\libapriconv-1.lib" />
+                <File Id="libaprutil_1.exp" Source="..\..\maint\apache2\lib\libaprutil-1.exp" />
+                <File Id="libaprutil_1.lib" Source="..\..\maint\apache2\lib\libaprutil-1.lib" />
+                <File Id="libhttpd.exp" Source="..\..\maint\apache2\lib\libhttpd.exp" />
+                <File Id="libhttpd.lib" Source="..\..\maint\apache2\lib\libhttpd.lib" />
+                <File Id="mod_dav.exp" Source="..\..\maint\apache2\lib\mod_dav.exp" />
+                <File Id="mod_dav.lib" Source="..\..\maint\apache2\lib\mod_dav.lib" />
+                <File Id="xml.lib" Source="..\..\maint\apache2\lib\xml.lib" />
+                <RemoveFile Id="RemoveApache2LibFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+            <Directory Id="conf2" Name="conf">
+              <Component Id="Apache2ConfFolder" Guid="48199657-5807-4214-b773-bf60895cd88c">
+                <CreateFolder />
+                <File Id="mime.types" Source="..\..\maint\apache2\conf\mime.types" />
+                <RemoveFile Id="RemoveApache2ConfFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
+            <Directory Id="modules" Name="modules">
+              <Component Id="Apache2ModulesFolder" Guid="3cdefa95-cd12-4dfc-a6d2-778558271dd6">
+                <CreateFolder />
+                <File Id="mod_access_compat.so" Source="..\..\maint\apache2\modules\mod_access_compat.so" />
+                <File Id="mod_actions.so" Source="..\..\maint\apache2\modules\mod_actions.so" />
+                <File Id="mod_alias.so" Source="..\..\maint\apache2\modules\mod_alias.so" />
+                <File Id="mod_allowmethods.so" Source="..\..\maint\apache2\modules\mod_allowmethods.so" />
+                <File Id="mod_asis.so" Source="..\..\maint\apache2\modules\mod_asis.so" />
+                <File Id="mod_auth_basic.so" Source="..\..\maint\apache2\modules\mod_auth_basic.so" />
+                <File Id="mod_auth_digest.so" Source="..\..\maint\apache2\modules\mod_auth_digest.so" />
+                <File Id="mod_auth_form.so" Source="..\..\maint\apache2\modules\mod_auth_form.so" />
+                <File Id="mod_authn_anon.so" Source="..\..\maint\apache2\modules\mod_authn_anon.so" />
+                <File Id="mod_authn_core.so" Source="..\..\maint\apache2\modules\mod_authn_core.so" />
+                <File Id="mod_authn_dbd.so" Source="..\..\maint\apache2\modules\mod_authn_dbd.so" />
+                <File Id="mod_authn_dbm.so" Source="..\..\maint\apache2\modules\mod_authn_dbm.so" />
+                <File Id="mod_authn_file.so" Source="..\..\maint\apache2\modules\mod_authn_file.so" />
+                <File Id="mod_authn_socache.so" Source="..\..\maint\apache2\modules\mod_authn_socache.so" />
+                <File Id="mod_authnz_ldap.so" Source="..\..\maint\apache2\modules\mod_authnz_ldap.so" />
+                <File Id="mod_authz_core.so" Source="..\..\maint\apache2\modules\mod_authz_core.so" />
+                <File Id="mod_authz_dbd.so" Source="..\..\maint\apache2\modules\mod_authz_dbd.so" />
+                <File Id="mod_authz_dbm.so" Source="..\..\maint\apache2\modules\mod_authz_dbm.so" />
+                <File Id="mod_authz_groupfile.so" Source="..\..\maint\apache2\modules\mod_authz_groupfile.so" />
+                <File Id="mod_authz_host.so" Source="..\..\maint\apache2\modules\mod_authz_host.so" />
+                <File Id="mod_authz_owner.so" Source="..\..\maint\apache2\modules\mod_authz_owner.so" />
+                <File Id="mod_authz_user.so" Source="..\..\maint\apache2\modules\mod_authz_user.so" />
+                <File Id="mod_autoindex.so" Source="..\..\maint\apache2\modules\mod_autoindex.so" />
+                <File Id="mod_buffer.so" Source="..\..\maint\apache2\modules\mod_buffer.so" />
+                <File Id="mod_cache.so" Source="..\..\maint\apache2\modules\mod_cache.so" />
+                <File Id="mod_cache_disk.so" Source="..\..\maint\apache2\modules\mod_cache_disk.so" />
+                <File Id="mod_cache_socache.so" Source="..\..\maint\apache2\modules\mod_cache_socache.so" />
+                <File Id="mod_cern_meta.so" Source="..\..\maint\apache2\modules\mod_cern_meta.so" />
+                <File Id="mod_cgi.so" Source="..\..\maint\apache2\modules\mod_cgi.so" />
+                <File Id="mod_charset_lite.so" Source="..\..\maint\apache2\modules\mod_charset_lite.so" />
+                <File Id="mod_data.so" Source="..\..\maint\apache2\modules\mod_data.so" />
+                <File Id="mod_dav.so" Source="..\..\maint\apache2\modules\mod_dav.so" />
+                <File Id="mod_dav_fs.so" Source="..\..\maint\apache2\modules\mod_dav_fs.so" />
+                <File Id="mod_dav_lock.so" Source="..\..\maint\apache2\modules\mod_dav_lock.so" />
+                <File Id="mod_dbd.so" Source="..\..\maint\apache2\modules\mod_dbd.so" />
+                <File Id="mod_deflate.so" Source="..\..\maint\apache2\modules\mod_deflate.so" />
+                <File Id="mod_dir.so" Source="..\..\maint\apache2\modules\mod_dir.so" />
+                <File Id="mod_dumpio.so" Source="..\..\maint\apache2\modules\mod_dumpio.so" />
+                <File Id="mod_env.so" Source="..\..\maint\apache2\modules\mod_env.so" />
+                <File Id="mod_expires.so" Source="..\..\maint\apache2\modules\mod_expires.so" />
+                <File Id="mod_ext_filter.so" Source="..\..\maint\apache2\modules\mod_ext_filter.so" />
+                <File Id="mod_file_cache.so" Source="..\..\maint\apache2\modules\mod_file_cache.so" />
+                <File Id="mod_filter.so" Source="..\..\maint\apache2\modules\mod_filter.so" />
+                <File Id="mod_headers.so" Source="..\..\maint\apache2\modules\mod_headers.so" />
+                <File Id="mod_heartbeat.so" Source="..\..\maint\apache2\modules\mod_heartbeat.so" />
+                <File Id="mod_heartmonitor.so" Source="..\..\maint\apache2\modules\mod_heartmonitor.so" />
+                <File Id="mod_ident.so" Source="..\..\maint\apache2\modules\mod_ident.so" />
+                <File Id="mod_imagemap.so" Source="..\..\maint\apache2\modules\mod_imagemap.so" />
+                <File Id="mod_include.so" Source="..\..\maint\apache2\modules\mod_include.so" />
+                <File Id="mod_info.so" Source="..\..\maint\apache2\modules\mod_info.so" />
+                <File Id="mod_isapi.so" Source="..\..\maint\apache2\modules\mod_isapi.so" />
+                <File Id="mod_lbmethod_bybusyness.so" Source="..\..\maint\apache2\modules\mod_lbmethod_bybusyness.so" />
+                <File Id="mod_lbmethod_byrequests.so" Source="..\..\maint\apache2\modules\mod_lbmethod_byrequests.so" />
+                <File Id="mod_lbmethod_bytraffic.so" Source="..\..\maint\apache2\modules\mod_lbmethod_bytraffic.so" />
+                <File Id="mod_lbmethod_heartbeat.so" Source="..\..\maint\apache2\modules\mod_lbmethod_heartbeat.so" />
+                <File Id="mod_ldap.so" Source="..\..\maint\apache2\modules\mod_ldap.so" />
+                <File Id="mod_log_config.so" Source="..\..\maint\apache2\modules\mod_log_config.so" />
+                <File Id="mod_log_debug.so" Source="..\..\maint\apache2\modules\mod_log_debug.so" />
+                <File Id="mod_log_forensic.so" Source="..\..\maint\apache2\modules\mod_log_forensic.so" />
+                <File Id="mod_logio.so" Source="..\..\maint\apache2\modules\mod_logio.so" />
+                <File Id="mod_lua.so" Source="..\..\maint\apache2\modules\mod_lua.so" />
+                <File Id="mod_macro.so" Source="..\..\maint\apache2\modules\mod_macro.so" />
+                <File Id="mod_mime.so" Source="..\..\maint\apache2\modules\mod_mime.so" />
+                <File Id="mod_mime_magic.so" Source="..\..\maint\apache2\modules\mod_mime_magic.so" />
+                <File Id="mod_negotiation.so" Source="..\..\maint\apache2\modules\mod_negotiation.so" />
+                <File Id="mod_proxy.so" Source="..\..\maint\apache2\modules\mod_proxy.so" />
+                <File Id="mod_proxy_ajp.so" Source="..\..\maint\apache2\modules\mod_proxy_ajp.so" />
+                <File Id="mod_proxy_balancer.so" Source="..\..\maint\apache2\modules\mod_proxy_balancer.so" />
+                <File Id="mod_proxy_connect.so" Source="..\..\maint\apache2\modules\mod_proxy_connect.so" />
+                <File Id="mod_proxy_express.so" Source="..\..\maint\apache2\modules\mod_proxy_express.so" />
+                <File Id="mod_proxy_fcgi.so" Source="..\..\maint\apache2\modules\mod_proxy_fcgi.so" />
+                <File Id="mod_proxy_ftp.so" Source="..\..\maint\apache2\modules\mod_proxy_ftp.so" />
+                <File Id="mod_proxy_html.so" Source="..\..\maint\apache2\modules\mod_proxy_html.so" />
+                <File Id="mod_proxy_http.so" Source="..\..\maint\apache2\modules\mod_proxy_http.so" />
+                <File Id="mod_proxy_scgi.so" Source="..\..\maint\apache2\modules\mod_proxy_scgi.so" />
+                <File Id="mod_proxy_wstunnel.so" Source="..\..\maint\apache2\modules\mod_proxy_wstunnel.so" />
+                <File Id="mod_ratelimit.so" Source="..\..\maint\apache2\modules\mod_ratelimit.so" />
+                <File Id="mod_reflector.so" Source="..\..\maint\apache2\modules\mod_reflector.so" />
+                <File Id="mod_remoteip.so" Source="..\..\maint\apache2\modules\mod_remoteip.so" />
+                <File Id="mod_reqtimeout.so" Source="..\..\maint\apache2\modules\mod_reqtimeout.so" />
+                <File Id="mod_request.so" Source="..\..\maint\apache2\modules\mod_request.so" />
+                <File Id="mod_rewrite.so" Source="..\..\maint\apache2\modules\mod_rewrite.so" />
+                <File Id="mod_sed.so" Source="..\..\maint\apache2\modules\mod_sed.so" />
+                <File Id="mod_session.so" Source="..\..\maint\apache2\modules\mod_session.so" />
+                <File Id="mod_session_cookie.so" Source="..\..\maint\apache2\modules\mod_session_cookie.so" />
+                <File Id="mod_session_crypto.so" Source="..\..\maint\apache2\modules\mod_session_crypto.so" />
+                <File Id="mod_session_dbd.so" Source="..\..\maint\apache2\modules\mod_session_dbd.so" />
+                <File Id="mod_setenvif.so" Source="..\..\maint\apache2\modules\mod_setenvif.so" />
+                <File Id="mod_slotmem_plain.so" Source="..\..\maint\apache2\modules\mod_slotmem_plain.so" />
+                <File Id="mod_slotmem_shm.so" Source="..\..\maint\apache2\modules\mod_slotmem_shm.so" />
+                <File Id="mod_socache_dbm.so" Source="..\..\maint\apache2\modules\mod_socache_dbm.so" />
+                <File Id="mod_socache_memcache.so" Source="..\..\maint\apache2\modules\mod_socache_memcache.so" />
+                <File Id="mod_socache_shmcb.so" Source="..\..\maint\apache2\modules\mod_socache_shmcb.so" />
+                <File Id="mod_speling.so" Source="..\..\maint\apache2\modules\mod_speling.so" />
+                <File Id="mod_ssl.so" Source="..\..\maint\apache2\modules\mod_ssl.so" />
+                <File Id="mod_status.so" Source="..\..\maint\apache2\modules\mod_status.so" />
+                <File Id="mod_substitute.so" Source="..\..\maint\apache2\modules\mod_substitute.so" />
+                <File Id="mod_unique_id.so" Source="..\..\maint\apache2\modules\mod_unique_id.so" />
+                <File Id="mod_userdir.so" Source="..\..\maint\apache2\modules\mod_userdir.so" />
+                <File Id="mod_usertrack.so" Source="..\..\maint\apache2\modules\mod_usertrack.so" />
+                <File Id="mod_version.so" Source="..\..\maint\apache2\modules\mod_version.so" />
+                <File Id="mod_vhost_alias.so" Source="..\..\maint\apache2\modules\mod_vhost_alias.so" />
+                <File Id="mod_watchdog.so" Source="..\..\maint\apache2\modules\mod_watchdog.so" />
+                <File Id="mod_xml2enc.so" Source="..\..\maint\apache2\modules\mod_xml2enc.so" />
+                <RemoveFile Id="RemoveApache2ModulesFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>
           </Directory>
         </Directory>
       </Directory>
@@ -81,12 +276,19 @@
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
-      <ComponentRef Id="Base" />
-      <ComponentRef Id="LogFolder" />
-      <ComponentRef Id="XIDFolder" />
+      <ComponentRef Id="Base" />    
       <ComponentRef Id="ConfigFolder" />
       <ComponentRef Id="DataFolder" />
-      <ComponentRef Id="DocRootFolder" />
+      <ComponentRef Id="XIDFolder" />
+      <ComponentRef Id="MaintFolder" />
+      <ComponentRef Id="WWWFolder" />
+      <ComponentRef Id="LogsFolder" />
+      <ComponentRef Id="ConfFolder" />
+      <ComponentRef Id="Apache2Folder" />
+      <ComponentRef Id="Apache2BinFolder" />
+      <ComponentRef Id="Apache2LibFolder" />
+      <ComponentRef Id="Apache2ConfFolder" />
+      <ComponentRef Id="Apache2ModulesFolder" />
       <!-- This ref should be last to ensure the service isn't started before everything is done. -->
       <ComponentRef Id="Service" />
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
@@ -97,7 +299,7 @@
 
     <!-- Immediate CA -->
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME]" />
-    <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD]"/>
+    <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD];INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
     <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />

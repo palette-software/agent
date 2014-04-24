@@ -21,6 +21,9 @@ class InstallerHelper
             case "hide-user":
                 HideUser();
                 break;
+            case "disable-uac":
+                DisableUAC();
+                break;
             default:
                 Usage();
                 return -1;
@@ -67,11 +70,43 @@ class InstallerHelper
                 if (key.Contains("Tableau Server")) return @"Software\Tableau\" + key;
             }
         }
-        catch
+        catch //catch all exceptions
+        {
+        }
+        return null;
+    }
+
+    public static string DisableUAC()
+    {
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", true);
+            object obj1 = rk.GetValue("EnableLUA");
+            bool uacEnabled = Convert.ToBoolean(obj1);
+
+            if (uacEnabled == true) rk.SetValue("EnableLUA", 0, RegistryValueKind.DWord);
+
+            return uacEnabled.ToString();
+        }
+        catch //catch all exceptions
         {
             return null;
         }
-        return null;
+    }
+
+    public static void EnableUAC()
+    {
+        try
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", true);
+            object obj1 = rk.GetValue("EnableLUA");
+            bool uacEnabled = Convert.ToBoolean(obj1);
+
+            if (uacEnabled == false) rk.SetValue("EnableLUA", 1, RegistryValueKind.DWord);
+        }
+        catch //catch all exceptions
+        {
+        }
     }
 
     public static void HideUser()
@@ -109,9 +144,8 @@ class InstallerHelper
                 }
             }
         }
-        catch (Exception ex)
+        catch //catch all exceptions
         {
-            Console.WriteLine(ex.ToString()); 
         }
     }
 }

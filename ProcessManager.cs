@@ -54,28 +54,9 @@ public class ProcessManager
     {
         Process process = new Process();
 
-        // FIXME: check validity of 'cmd' and 'xid'
-
         string dir = Path.Combine(xidDir, Convert.ToString(xid));
         Directory.CreateDirectory(dir);
-        // FIXME: check result
 
-        //string stdOutPath = Path.Combine(dir, "stdout");
-        //string stdErrPath = Path.Combine(dir, "stderr");
-        //string retPath = Path.Combine(dir, "returncode");
-        //string tmpPath = Path.Combine(dir, "tmp");
-
-        // Steps:
-        //  1. Call the command using cmd.exe.
-        //  2. Redirect stderr and stdout to respective file.
-        //  3. write the return code to 'tmp'.
-        //  4. rename 'tmp' to 'retval' (which should be an atomic FS operation.)
-        // Note: A single '&' in cmd.exe is equivalent to ';' in a BASH shell.
-        //string args = "/c call " + cmd + " 2>" + stdErrPath + " 1>" + stdOutPath;
-        //args += " & echo %ERRORLEVEL% >" + tmpPath;
-        //args += " & move " + tmpPath + " " + retPath;
-
-        //process.StartInfo.WorkingDirectory = binDir;
         process.StartInfo.WorkingDirectory = dir;
         process.StartInfo.FileName = binDir + "\\prun.exe";  //For some reason Path.Combine fails here
         process.StartInfo.Arguments = cmd;

@@ -66,6 +66,7 @@
     <Reference Include="System.ServiceModel.Web">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -80,6 +81,7 @@
   <ItemGroup>
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="..\Agent.cs" />
+    <Compile Include="..\Apache2.cs" />
     <Compile Include="..\IniFile.cs" />
     <Compile Include="..\PaletteHandler.cs" />
     <Compile Include="..\ProcessManager.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="..\http\HttpServer.cs">
       <Link>http\HttpServer.cs</Link>
     </Compile>
+    <Compile Include="FirewallUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +128,32 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NATUPNPLib">
+      <Guid>{1C565858-F302-471E-B409-F180AA4ABEC6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="NETCONLib">
+      <Guid>{43E734CA-043D-4A70-9A2C-A8F254063D91}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="NetFwTypeLib">
+      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -143,17 +172,16 @@ IF NOT EXIST "$(SolutionDir)build\Data"  (mkdir "$(SolutionDir)build\Data")
 
 IF NOT EXIST "$(SolutionDir)build\XID"  (mkdir "$(SolutionDir)build\XID")
 
-
 IF NOT EXIST "$(SolutionDir)build\apache2"  (mkdir "$(SolutionDir)build\apache2")
 XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
-
-
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
 
 IF NOT EXIST "$(SolutionDir)build\maint\conf"  (mkdir "$(SolutionDir)build\maint\conf")
 COPY /Y "$(SolutionDir)conf\archive-httpd.conf" "$(SolutionDir)build\conf"
+COPY /Y "$(SolutionDir)conf\archive.crt" "$(SolutionDir)build\conf"
+COPY /Y "$(SolutionDir)conf\archive.key" "$(SolutionDir)build\conf"
 
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"
