@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
+using System.Web;
 using log4net;
 using log4net.Config;
 
@@ -15,8 +17,8 @@ public class HttpRequest
     public string ProtocolVersion;
     public Dictionary<string, string> Headers = new Dictionary<string, string>();
 
-    public String QueryString = null;
-    public Dictionary<string, string> QUERY = new Dictionary<string,string>();
+    public String QueryString;
+    public NameValueCollection QUERY;
 
     public HttpResponse Response = null;
     public int ContentLength = 0;
@@ -25,7 +27,6 @@ public class HttpRequest
 
     public string data = null;
     public Dictionary<string, object> JSON = null;
-
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -107,13 +108,15 @@ public class HttpRequest
         if (tokens.Length == 1)
         {
             URI = Url;
+            QueryString = "";
+            QUERY = new NameValueCollection();
             return;
         }
         else if (tokens.Length == 2)
         {
             URI = tokens[0];
             QueryString = tokens[1];
-            ParseQueryString();
+            QUERY = HttpUtility.ParseQueryString(QueryString);
             return;
         }
         else if (tokens.Length == 2 || tokens.Length > 2)
@@ -121,29 +124,6 @@ public class HttpRequest
             throw new HttpBadRequest("invalid query string");
         }
         URI = tokens[0];
-    }
-
-    /// <summary>
-    /// Parses query string.  Populates QUERY dictionary
-    /// </summary>
-    private void ParseQueryString()
-    {
-        string[] tokens = QueryString.Split('&');
-        foreach (string token in tokens) {
-            string[] keyvalue = token.Split('=');
-            if (keyvalue.Length == 1)
-            {
-                QUERY[token] = "";
-            }
-            else if (keyvalue.Length == 2)
-            {
-                QUERY[keyvalue[0]] = keyvalue[1];
-            }
-            else
-            {
-                throw new HttpBadRequest("invalid query token");
-            }
-        }
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Collections.Generic;
 using fastJSON;
@@ -42,6 +43,8 @@ class PaletteHandler : HttpHandler
                 return HandleAuth(req);
             case "/cli":
                 return HandleCmd(req);
+            case "/file":
+                return HandleFile(req);
             case "/maint":
                 return HandleMaint(req);
             case "/ping":
@@ -271,6 +274,56 @@ class PaletteHandler : HttpHandler
 
         res.Write("{\"status\": \"ok\"}");
         return res;
+    }
+
+    private HttpResponse HandleFileGET(HttpRequest req, string path)
+    {
+        HttpResponse res = req.Response;
+
+        if (!File.Exists(path))
+        {
+            throw new HttpNotFound();
+        }
+
+        res.Write(File.ReadAllText(path));
+        return res;
+    }
+
+    private HttpResponse HandleFilePUT(HttpRequest req, string path)
+    {
+        HttpResponse res = req.Response;
+        File.WriteAllText(path, req.data);
+        return res;
+    }
+
+    private HttpResponse HandleFileDELETE(HttpRequest req, string path)
+    {
+        HttpResponse res = req.Response;
+        File.Delete(path);
+        return res;
+    }
+
+    private HttpResponse HandleFile(HttpRequest req)
+    {
+        string path = req.QUERY["path"];
+        if (path == null)
+        {
+            throw new HttpBadRequest("The 'path' must be specified in the query string.");
+        }
+
+        logger.Debug(req.Method + " /file : " + path);
+
+        switch (req.Method)
+        {
+            case "GET":
+                return HandleFileGET(req, path);
+            case "PUT":
+                return HandleFilePUT(req, path);
+            case "DELETE":
+                return HandleFileDELETE(req, path);
+            default:
+                throw new HttpMethodNotAllowed();
+        }
     }
 
     /// <summary>

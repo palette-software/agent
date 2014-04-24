@@ -315,4 +315,3 @@ public class Agent
         logger.Info(archiveServiceName + " stopped.");
     }
 }
-
