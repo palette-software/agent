@@ -104,6 +104,7 @@
     <Compile Include="..\http\HttpServer.cs">
       <Link>http\HttpServer.cs</Link>
     </Compile>
+    <Compile Include="FirewallUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
