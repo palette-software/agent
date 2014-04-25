@@ -247,8 +247,10 @@ class PaletteHandler : HttpHandler
                     }
                 }
 
+#if False
                 FirewallUtil fUtil = new FirewallUtil();
                 fUtil.OpenFirewall(portsToEnable);
+#endif
 
                 msg = msg.TrimEnd(',');
                 if (portsToEnable.Count > 0) logger.Info(msg);
@@ -260,12 +262,14 @@ class PaletteHandler : HttpHandler
         }
         else if (req.Method == "GET")
         {
+#if False
             FirewallUtil fUtil = new FirewallUtil();
             List<int> openPorts = fUtil.CheckPorts();
 
             string json = GetPortInformationInJSON(openPorts);
             logger.Info("JSON: " + json);
             res.Write(json);
+#endif
             return res;
         }
 

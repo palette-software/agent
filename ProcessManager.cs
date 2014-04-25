@@ -54,11 +54,13 @@ public class ProcessManager
     {
         Process process = new Process();
 
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        // FIXME: check validity of 'cmd' and 'xid'
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         Directory.CreateDirectory(dir);
+        // FIXME: check result
 
         process.StartInfo.WorkingDirectory = dir;
-        process.StartInfo.FileName = binDir + "\\prun.exe";  //For some reason Path.Combine fails here
+        process.StartInfo.FileName = StdPath.Combine(binDir, "prun.exe");
         process.StartInfo.Arguments = cmd;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
@@ -84,7 +86,7 @@ public class ProcessManager
     public void Cleanup(int xid)
     {
         // FIXME: check xid
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return;
@@ -100,7 +102,7 @@ public class ProcessManager
     /// <param name="pid">Windows process id</param>
     private void WritePid(string dir, int pid)
     {
-        string path = Path.Combine(dir, "pid");
+        string path = StdPath.Combine(dir, "pid");
 
         string[] tokens = System.Environment.CurrentDirectory.Split('\\');
 
@@ -114,12 +116,12 @@ public class ProcessManager
     /// <returns>true if complete, false otherwise</returns>
     private bool IsDone(int xid)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return false;
         }
-        string path = Path.Combine(dir, "returncode");
+        string path = StdPath.Combine(dir, "returncode");
         return File.Exists(path);
     }
 
@@ -131,12 +133,12 @@ public class ProcessManager
     /// <returns>Status code</returns>
     private int GetInt(int xid, string name)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return -1;
         }
-        string path = Path.Combine(dir, name);
+        string path = StdPath.Combine(dir, name);
         string val = File.ReadAllText(path).Trim();
         return Convert.ToInt32(val);
     }
@@ -169,12 +171,12 @@ public class ProcessManager
     /// <returns>Output text</returns>
     private string GetString(int xid, string name)
     {
-        string dir = Path.Combine(xidDir, Convert.ToString(xid));
+        string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
             return "";
         }
-        string path = Path.Combine(dir, name);
+        string path = StdPath.Combine(dir, name);
 
         if (File.Exists(path))
         {

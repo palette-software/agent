@@ -85,6 +85,7 @@
     <Compile Include="..\IniFile.cs" />
     <Compile Include="..\PaletteHandler.cs" />
     <Compile Include="..\ProcessManager.cs" />
+    <Compile Include="..\StdPath.cs" />
     <Compile Include="..\http\HttpException.cs">
       <Link>http\HttpException.cs</Link>
     </Compile>
@@ -103,7 +104,6 @@
     <Compile Include="..\http\HttpServer.cs">
       <Link>http\HttpServer.cs</Link>
     </Compile>
-    <Compile Include="FirewallUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

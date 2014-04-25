@@ -92,10 +92,10 @@ public class Agent
         }
 
         binDir = installDir;  
-        xidDir = Path.Combine(installDir, "XID");
-        dataDir = Path.Combine(installDir, "Data");
-        confDir = Path.Combine(installDir, "conf");
-        docRoot = Path.Combine(installDir, "DocRoot");
+        xidDir = StdPath.Combine(installDir, "XID");
+        dataDir = StdPath.Combine(installDir, "Data");
+        confDir = StdPath.Combine(installDir, "conf");
+        docRoot = StdPath.Combine(installDir, "DocRoot");
 
         // These variables are no longer needed by Apache2.
         Environment.SetEnvironmentVariable("TOPDIR", installDir);
@@ -120,10 +120,10 @@ public class Agent
 
         ipaddr = GetFirstIPAddr();
 
-        string path = Path.Combine(installDir, "maint/conf/httpd.conf");
+        string path = StdPath.Combine(installDir, "maint", "conf", "httpd.conf");
         maintServer = new Apache2(maintServiceName, path, installDir);
 
-        path = Path.Combine(installDir, "conf/archive-httpd.conf");
+        path = StdPath.Combine(installDir, "conf", "archive-httpd.conf");
         archiveServer = new Apache2(archiveServiceName, path, installDir);
     }
 
@@ -279,9 +279,7 @@ public class Agent
     /// </summary>
     public void startMaintServer()
     {
-        string path = Path.Combine(installDir, "maint");
-        path = Path.Combine(path, "conf");
-        path = Path.Combine(path, "vars.conf");
+        string path = StdPath.Combine(installDir, "maint", "conf", "vars.conf");
         File.WriteAllText(path, "Define MAINTENANCE_PORT " + Convert.ToString(maintPort) + "\r\n");
 
         maintServer.start();
@@ -302,7 +300,7 @@ public class Agent
     /// </summary>
     public void startArchiveServer()
     {
-        string path = Path.Combine(confDir, "archive-vars.conf");
+        string path = StdPath.Combine(confDir, "archive-vars.conf");
         File.WriteAllText(path, "Define ARCHIVE_PORT " + Convert.ToString(archivePort) + "\r\n");
 
         archiveServer.start();
