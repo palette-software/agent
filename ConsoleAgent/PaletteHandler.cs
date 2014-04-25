@@ -236,30 +236,43 @@ class PaletteHandler : HttpHandler
 
         if (req.Method == "POST")  //Enable ports
         {
-            Dictionary<int, string> portList = GetPortDictionaryfromJSON(req);
-            if (portList != null)
+            if (!req.JSON.ContainsKey("ports"))
             {
-                List<int> portsToEnable = new List<int>();
-                string msg = "Request to enable the following ports: ";
-                foreach (int portNum in portList.Keys)
+                throw new HttpBadRequest("Missing 'port' attribute in JSON body.");
+            }
+
+            List<int> portsToEnable = new List<int>();
+            List<int> portsToDisable = new List<int>();
+
+            // FIXME: try block and check for valid actions.
+            List<Object> portList = (List<Object>)req.JSON["ports"];
+            string msg = "Firewall:";
+            foreach (Object obj in portList)
+            {
+                Dictionary<string, object> d = (Dictionary<string, object>)obj;
+                int port = Convert.ToUInt16(d["num"]); // FIXME //
+                switch (d["action"].ToString().ToLower())
                 {
-                    if (portList[portNum] == "open")
-                    {
-                        portsToEnable.Add(portNum);
-                        msg += portNum + ",";
-                    }
+                    case "enable":
+                        portsToEnable.Add(port);
+                        msg += " enable:" + Convert.ToString(port);
+                        break;
+                    case "disable":
+                        portsToDisable.Add(port);
+                        msg += " disable:" + Convert.ToString(port);
+                        break;
                 }
-
-                FirewallUtil fUtil = new FirewallUtil();
-                fUtil.OpenFirewall(portsToEnable);
-
-                msg = msg.TrimEnd(',');
-                if (portsToEnable.Count > 0) logger.Info(msg);
             }
-            else
+
+            FirewallUtil fUtil = new FirewallUtil();
+            fUtil.OpenFirewall(portsToEnable);
+            fUtil.CloseFirewall(portsToDisable);
+
+            if (portsToEnable.Count + portsToDisable.Count == 0)
             {
-                logger.Error("Port list empty. Badly formed JSON?");
+                throw new HttpBadRequest("port list was empty.");
             }
+            logger.Info(msg);
         }
         else if (req.Method == "GET")
         {
@@ -361,7 +374,9 @@ class PaletteHandler : HttpHandler
     /// <returns>xid</returns>
     private Dictionary<int, string> GetPortDictionaryfromJSON(HttpRequest req)
     {
-        //if (req.JSON != null)
+        if (req.JSON == null) throw new ArgumentNullException();
+
+        
         //{
         //    object objList = fastJSON.JSON.Instance.ToObject<Dictionary<string, Dictionary<int, string>>>(req.JSON);
 
@@ -378,16 +393,19 @@ class PaletteHandler : HttpHandler
     /// <returns>JSON formatted string</returns>
     private string GetPortInformationInJSON(List<int> openPorts)
     {
-        Dictionary<string, Dictionary<int, string>> ports = new Dictionary<string, Dictionary<int, string>>();
-        Dictionary<int, string> sub = new Dictionary<int, string>();
+        Dictionary<string, Object> data = new Dictionary<string, Object>();
+        List<Object> list = new List<Object>();
 
         foreach (int portNum in openPorts)
         {
-            sub.Add(portNum, "open");
+            Dictionary<string, object> portInfo = new Dictionary<string, object>();
+            portInfo.Add("num", portNum);
+            portInfo.Add("state", "open");
+            list.Add(portInfo);
         }
-        ports.Add("ports", sub);
+        data.Add("ports", list);
 
-        string json = fastJSON.JSON.Instance.ToJSON(ports);
+        string json = fastJSON.JSON.Instance.ToJSON(data);
 
         return json;
     }

@@ -48,7 +48,7 @@ class FirewallUtil
         {
             INetFwOpenPort openport = (INetFwOpenPort)GetInstance("INetOpenPort");
             openport.Port = port;
-            openport.Protocol = NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_UDP;
+            openport.Protocol = NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP;
             openport.Name = "Palette Service Port " + port;
             openports.Add(openport);
         }
@@ -68,7 +68,7 @@ class FirewallUtil
         INetFwOpenPorts ports = fwProfile.GloballyOpenPorts;
         foreach (int port in portsToClose)
         {
-            ports.Remove(port, NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_UDP);
+            ports.Remove(port, NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP);
         }
         ports = null;
     }
