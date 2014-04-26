@@ -21,7 +21,7 @@ namespace PaletteInstallerCA
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool RemoveDirectory(string path);
- 
+
         [CustomAction]
         public static ActionResult CreatePaletteUser(Session session)
         {
@@ -44,8 +44,10 @@ namespace PaletteInstallerCA
                 string stdOut = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
             }
-            catch  //catch all exceptions
+            catch (Exception ex)  //catch all exceptions
             {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
             }
 
             try
@@ -53,7 +55,7 @@ namespace PaletteInstallerCA
                 string userName = "Palette";
                 DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
                 DirectoryEntry NewUser = AD.Children.Add(userName, "user");
-                string pwd = CreatePassword(10); 
+                string pwd = CreatePassword(10);
                 NewUser.Invoke("SetPassword", new object[] { pwd });
                 NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
                 NewUser.CommitChanges();
@@ -68,8 +70,10 @@ namespace PaletteInstallerCA
                 session["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session["SERVICEPASSWORD"] = pwd;
             }
-            catch  //catch all exceptions
+            catch (Exception ex)  //catch all exceptions
             {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
                 return ActionResult.Failure;
             }
 
@@ -98,8 +102,10 @@ namespace PaletteInstallerCA
                 string stdOut = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
             }
-            catch  //catch all exceptions
+            catch (Exception ex)  //catch all exceptions
             {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
                 return ActionResult.Failure;
             }
 
@@ -147,8 +153,10 @@ namespace PaletteInstallerCA
                 string inipath = Path.Combine(installDir, @"conf\agent.ini");
                 File.WriteAllText(inipath, Convert.ToString(output));
             }
-            catch
+            catch (Exception ex)  //catch all exceptions
             {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
                 return ActionResult.Failure;
             }
 
@@ -175,9 +183,10 @@ namespace PaletteInstallerCA
                 }
                 if (Directory.Exists(installDir)) Directory.Delete(installDir, true);
             }
-            catch //if this fails, delete by removing files first
+            catch (Exception ex) //if this fails, delete by removing files first
             {
-                if (Directory.Exists(installDir)) DeleteDirectory(installDir, true);  
+                session.Log("Custom Action Exception: " + ex.ToString());
+                if (Directory.Exists(installDir)) DeleteDirectoryWithKernel(installDir, true);
             }
 
             try
@@ -194,12 +203,35 @@ namespace PaletteInstallerCA
             {
                 try
                 {
-                    if (Directory.Exists(userDir)) DeleteDirectory(userDir, true);
+                    if (Directory.Exists(userDir)) DeleteDirectoryWithKernel(userDir, true);
                 }
-                catch  //Folders are still there?
+                catch (Exception ex) //Folder is still there?  Use an asynchronous delete
                 {
-                    if (Directory.Exists(installDir) || Directory.Exists(userDir))
-                    return ActionResult.Failure;
+                    session.Log("Custom Action Exception: " + ex.ToString());
+                    if (Directory.Exists(userDir))
+                    {
+                        try
+                        {
+                            string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+
+                            string path = binDir + @"\InstallerHelper.exe";
+
+                            Process process = new Process();
+
+                            process.StartInfo.FileName = path;
+                            process.StartInfo.Arguments = "delete-folder " + userDir;
+                            process.StartInfo.UseShellExecute = false;
+                            process.StartInfo.CreateNoWindow = true;
+                            process.StartInfo.RedirectStandardOutput = true;
+
+                            process.Start();
+                        }
+                        catch (Exception excep)  //catch all exceptions
+                        {
+                            //TODO: Write to StdOut, StdErr here, if not, write to Log
+                            session.Log("Custom Action Exception: " + excep.ToString());                            
+                        }
+                    }
                 }
             }
 
@@ -208,10 +240,12 @@ namespace PaletteInstallerCA
 
         /// <summary>
         /// Delete all files from directory before deleting directory.  Handles Read-Only attributes
+        /// OBSOLETE: Use DeleteFolderWithDelay method in InstallerHelper
         /// </summary>
         /// <param name="path">the folder path</param>
         /// <param name="recursive">true for recursive delete</param>
-       public static void DeleteDirectory(string path, bool recursive)
+        [Obsolete]
+        public static void DeleteDirectoryWithWait(string path, bool recursive)
         {
             // Delete all files and sub-folders?
             if (recursive)
@@ -220,40 +254,66 @@ namespace PaletteInstallerCA
                 var subfolders = Directory.GetDirectories(path);
                 foreach (var s in subfolders)
                 {
-                    DeleteDirectory(s, recursive);
+                    DeleteDirectoryWithWait(s, recursive);
                 }
             }
- 
+
             // Get all files of the folder
             var files = Directory.GetFiles(path);
             foreach (var f in files)
             {
                 // Get the attributes of the file
                 var attr = File.GetAttributes(f);
- 
+
                 // Is this file marked as 'read-only'?
                 if ((attr & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
                 {
                     // Yes... Remove the 'read-only' attribute, then
                     File.SetAttributes(f, attr ^ System.IO.FileAttributes.ReadOnly);
                 }
- 
-                // Delete the file
-                File.Delete(f);
+
+                int fileLoopCnt = 0;
+                while (File.Exists(f) && fileLoopCnt < 10)
+                {
+                    try
+                    {
+                        File.Delete(f);
+                    }
+                    catch 
+                    {
+                        Thread.Sleep(100);
+                        File.Delete(f);
+                    }
+                    fileLoopCnt += 1;
+                }
             }
- 
+
             // When we get here, all the files of the folder were
             // already deleted, so we just delete the empty folder
-            Directory.Delete(path);
+
+            int dirLoopCnt = 0;
+            while (Directory.Exists(path) && dirLoopCnt < 10)
+            {
+                try
+                {
+                    Directory.Delete(path);
+                }
+                catch
+                {
+                    Thread.Sleep(100);
+                    Directory.Delete(path);
+                }
+                dirLoopCnt += 1;
+            }
         }
 
-       /// <summary>
-       /// Delete all files from directory before deleting directory using methods from Windows kernal32.dll.  
-       /// Handles Read-Only attributes
-       /// </summary>
-       /// <param name="path">the folder path</param>
-       /// <param name="recursive">true for recursive delete</param>
-        public static void DeleteDirectoryWithKernal(string path, bool recursive)
+        /// <summary>
+        /// Delete all files from directory before deleting directory using methods from Windows kernel32.dll.  
+        /// Handles Read-Only attributes
+        /// </summary>
+        /// <param name="path">the folder path</param>
+        /// <param name="recursive">true for recursive delete</param>
+        public static void DeleteDirectoryWithKernel(string path, bool recursive)
         {
             // Delete all files and sub-folders?
             if (recursive)
@@ -262,28 +322,28 @@ namespace PaletteInstallerCA
                 var subfolders = Directory.GetDirectories(path);
                 foreach (var s in subfolders)
                 {
-                    DeleteDirectoryWithKernal(s, recursive);
+                    DeleteDirectoryWithKernel(s, recursive);
                 }
             }
- 
+
             // Get all files of the folder
             var files = Directory.GetFiles(path);
             foreach (var f in files)
             {
                 // Get the attributes of the file
                 var attr = File.GetAttributes(f);
- 
+
                 // Is this file marked as 'read-only'?
                 if ((attr & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
                 {
                     // Yes... Remove the 'read-only' attribute, then
                     File.SetAttributes(f, attr ^ System.IO.FileAttributes.ReadOnly);
                 }
- 
+
                 // Delete the file
                 DeleteFile(f);
             }
- 
+
             // When we get here, all the files of the folder were
             // already deleted, so we just delete the empty folder
             RemoveDirectory(path);
