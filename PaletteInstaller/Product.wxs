@@ -302,8 +302,8 @@
     <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD];INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
-    <CustomAction Id="CleanupAfterUnInstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
-    <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUnInstall" />
+    <CustomAction Id="CleanupAfterUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
+    <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     
     <!-- Deferred CA -->    
     <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />    
@@ -315,7 +315,7 @@
       <Custom Action="CreateIniFile" Sequence="5001">NOT Installed</Custom>
       <Custom Action="HidePaletteUserImmediate" Sequence="5002">NOT Installed</Custom>
       <Custom Action="HidePaletteUser" Sequence="5003">NOT Installed</Custom>
-      <Custom Action="CleanupAfterUnInstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
     </InstallExecuteSequence>
 	</Product>
