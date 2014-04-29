@@ -10,18 +10,12 @@ using System.ServiceProcess;
 using Microsoft.Deployment.WindowsInstaller;
 using System.DirectoryServices;
 using Microsoft.Win32;
-using System.Runtime.InteropServices;
+
 
 namespace PaletteInstallerCA
 {
     public class CustomActions
     {
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool DeleteFile(string path);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool RemoveDirectory(string path);
-
         [CustomAction]
         public static ActionResult CreatePaletteUser(Session session)
         {
@@ -164,11 +158,24 @@ namespace PaletteInstallerCA
         }
 
         [CustomAction]
-        public static ActionResult CleanupAfterUnInstall(Session session)
+        public static ActionResult CleanupAfterUninstall(Session session)
         {
-            session.Log("Begin CleanupAfterInstall");
+            session.Log("Begin CleanupAfterUninstall");
 
-            //First try the default installation path
+            //First shut down any related processes
+            Process[] runningProcess = Process.GetProcesses();
+            for (int i = 0; i < runningProcess.Length; i++)
+            {
+                // compare equivalent process by their name
+                if (runningProcess[i].ProcessName == "httpd")
+                {
+                    // kill  running process
+                    runningProcess[i].Kill();
+                }
+            }
+
+            //Then delete the Program files folder
+            //Try the default installation path
             string installDir = ProgramFilesx86() + "\\Palette\\";
             string userDir = ProgramFilesx86().ToString().Substring(0, 3) + "Users\\Palette";
 
@@ -185,13 +192,14 @@ namespace PaletteInstallerCA
             }
             catch (Exception ex) //if this fails, delete by removing files first
             {
+                session.Log("Failed to Palette Program Files folder on first attempt...");
                 session.Log("Custom Action Exception: " + ex.ToString());
-                if (Directory.Exists(installDir)) DeleteDirectoryWithKernel(installDir, true);
+                if (Directory.Exists(installDir)) DeleteDirectoryRecursively(installDir, true);
             }
 
             try
             {
-                //Now remove Palette User
+                //Now remove Palette User.  First try normal means
                 DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
                 DirectoryEntries users = localDirectory.Children;
                 DirectoryEntry user = users.Find("Palette");
@@ -199,39 +207,19 @@ namespace PaletteInstallerCA
 
                 if (Directory.Exists(userDir)) Directory.Delete(userDir, true);
             }
-            catch //Likely that directory was not removed because it was "not empty" (despite recursive = true)
+            catch (Exception outer) //Likely that directory was not removed because it was "not empty" (despite recursive = true)
             {
+                session.Log("Failed to delete Palette User Folder on first attempt...");
+                session.Log("Custom Action Exception: " + outer.ToString());
                 try
                 {
-                    if (Directory.Exists(userDir)) DeleteDirectoryWithKernel(userDir, true);
+                    if (Directory.Exists(userDir)) DeleteDirectoryRecursively(userDir, true);
                 }
-                catch (Exception ex) //Folder is still there?  Use an asynchronous delete
+                catch (Exception inner) //Folder is still there?  Try to delete with a sleep loop
                 {
-                    session.Log("Custom Action Exception: " + ex.ToString());
-                    if (Directory.Exists(userDir))
-                    {
-                        try
-                        {
-                            string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-
-                            string path = binDir + @"\InstallerHelper.exe";
-
-                            Process process = new Process();
-
-                            process.StartInfo.FileName = path;
-                            process.StartInfo.Arguments = "delete-folder " + userDir;
-                            process.StartInfo.UseShellExecute = false;
-                            process.StartInfo.CreateNoWindow = true;
-                            process.StartInfo.RedirectStandardOutput = true;
-
-                            process.Start();
-                        }
-                        catch (Exception excep)  //catch all exceptions
-                        {
-                            //TODO: Write to StdOut, StdErr here, if not, write to Log
-                            session.Log("Custom Action Exception: " + excep.ToString());                            
-                        }
-                    }
+                    session.Log("Failed to delete Palette User Folder on second attempt...");
+                    session.Log("Custom Action Exception: " + inner.ToString());
+                    DeleteDirectoryWithWait(userDir, true);
                 }
             }
 
@@ -244,7 +232,6 @@ namespace PaletteInstallerCA
         /// </summary>
         /// <param name="path">the folder path</param>
         /// <param name="recursive">true for recursive delete</param>
-        [Obsolete]
         public static void DeleteDirectoryWithWait(string path, bool recursive)
         {
             // Delete all files and sub-folders?
@@ -313,7 +300,7 @@ namespace PaletteInstallerCA
         /// </summary>
         /// <param name="path">the folder path</param>
         /// <param name="recursive">true for recursive delete</param>
-        public static void DeleteDirectoryWithKernel(string path, bool recursive)
+        public static void DeleteDirectoryRecursively(string path, bool recursive)
         {
             // Delete all files and sub-folders?
             if (recursive)
@@ -322,7 +309,7 @@ namespace PaletteInstallerCA
                 var subfolders = Directory.GetDirectories(path);
                 foreach (var s in subfolders)
                 {
-                    DeleteDirectoryWithKernel(s, recursive);
+                    DeleteDirectoryRecursively(s, recursive);
                 }
             }
 
@@ -341,12 +328,12 @@ namespace PaletteInstallerCA
                 }
 
                 // Delete the file
-                DeleteFile(f);
+                File.Delete(f);
             }
 
             // When we get here, all the files of the folder were
             // already deleted, so we just delete the empty folder
-            RemoveDirectory(path);
+            Directory.Delete(path);
         }
 
         /// <summary>
@@ -397,11 +384,21 @@ namespace PaletteInstallerCA
 
         private static string CreatePassword(int length)
         {
-            string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            if (length < 3) throw new SystemException("Password must be longer than 3 chars");
+            int subLength = length - 3;
+            string valid0 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            string valid1 = "abcdefghijklmnopqrstuvwxyz";
+            string valid2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string valid3 = "1234567890";
             string res = "";
             Random rnd = new Random();
-            while (0 < length--)
-                res += valid[rnd.Next(valid.Length)];
+
+            while (0 < subLength--)
+                res += valid0[rnd.Next(valid0.Length)];
+
+            res += valid1[rnd.Next(valid1.Length)];
+            res += valid2[rnd.Next(valid2.Length)];
+            res += valid3[rnd.Next(valid3.Length)];
             return res;
         }
 
