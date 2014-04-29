@@ -26,9 +26,6 @@ class InstallerHelper
             case "disable-uac":
                 DisableUAC();
                 break;
-            case "delete-folder":
-                DeleteFolderWithDelay(args[1]);
-                break;
             default:
                 Usage();
                 return -1;
@@ -125,65 +122,5 @@ class InstallerHelper
         catch //catch all exceptions
         {
         }
-    }
-
-    /// <summary>
-    /// Delete folder with a delay, meant for asynchrounous use on a locked folder
-    /// </summary>
-    /// <param name="folderPath">folder path</param>
-    public static void DeleteFolderWithDelay(string folderPath)
-    {
-        Thread.Sleep(20000);
-        try
-        {
-            //Now remove the folder
-            if (Directory.Exists(folderPath)) Directory.Delete(folderPath, true);
-        }
-        catch //Likely that directory was not removed because it was "not empty" (despite recursive = true)
-        {
-            DeleteDirectoryRecursively(folderPath, true);
-        }
-    }
-
-    /// <summary>
-    /// Delete all files from directory before deleting directory  
-    /// Handles Read-Only attributes
-    /// </summary>
-    /// <param name="path">the folder path</param>
-    /// <param name="recursive">true for recursive delete</param>
-    public static void DeleteDirectoryRecursively(string path, bool recursive)
-    {
-        // Delete all files and sub-folders?
-        if (recursive)
-        {
-            // Yep... Let's do this
-            var subfolders = Directory.GetDirectories(path);
-            foreach (var s in subfolders)
-            {
-                DeleteDirectoryRecursively(s, recursive);
-            }
-        }
-
-        // Get all files of the folder
-        var files = Directory.GetFiles(path);
-        foreach (var f in files)
-        {
-            // Get the attributes of the file
-            var attr = File.GetAttributes(f);
-
-            // Is this file marked as 'read-only'?
-            if ((attr & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
-            {
-                // Yes... Remove the 'read-only' attribute, then
-                File.SetAttributes(f, attr ^ System.IO.FileAttributes.ReadOnly);
-            }
-
-            // Delete the file
-            File.Delete(f);
-        }
-
-        // When we get here, all the files of the folder were
-        // already deleted, so we just delete the empty folder
-        Directory.Delete(path);
     }
 }
