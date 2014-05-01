@@ -19,6 +19,12 @@ namespace PaletteInstallerCA
         [CustomAction]
         public static ActionResult CreatePaletteUser(Session session)
         {
+            session.Log("Starting custom action CreatePaletteUser");
+
+            int result = DeleteUser("Palette", session);
+
+            if (result != 0) session.Log("Existing User Account not removed properly");
+
             try
             {
                 string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
@@ -64,19 +70,21 @@ namespace PaletteInstallerCA
                 session["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session["SERVICEPASSWORD"] = pwd;
             }
-            catch (Exception ex)  //catch all exceptions
+            catch (Exception ex)  //catch all exceptions.  These are show stoppers.
             {
                 //TODO: Write to StdOut, StdErr here, if not, write to Log
                 session.Log("Custom Action Exception: " + ex.ToString());
                 return ActionResult.Failure;
             }
 
+            session.Log("Successfully finished action CreatePaletteUser");
             return ActionResult.Success;
         }
 
         [CustomAction]
         public static ActionResult HidePaletteUser(Session session)
         {
+            session.Log("Starting custom action HidePaletteUser");
             try
             {
                 string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
@@ -103,12 +111,15 @@ namespace PaletteInstallerCA
                 return ActionResult.Failure;
             }
 
+            session.Log("Successfully finished action HidePaletteUser");
             return ActionResult.Success;
         }
 
         [CustomAction]
         public static ActionResult CreateIniFile(Session session)
         {
+            session.Log("Starting custom action CreateIniFile");
+
             //System.Diagnostics.Debugger.Launch();
 
             string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
@@ -154,13 +165,14 @@ namespace PaletteInstallerCA
                 return ActionResult.Failure;
             }
 
+            session.Log("Successfully finished custom action CreateIniFile");
             return ActionResult.Success;
         }
 
         [CustomAction]
         public static ActionResult CleanupAfterUninstall(Session session)
         {
-            session.Log("Begin CleanupAfterUninstall");
+            session.Log("Starting custom action CleanupAfterUninstall");
 
             //First shut down any related processes
             Process[] runningProcess = Process.GetProcesses();
@@ -176,8 +188,7 @@ namespace PaletteInstallerCA
 
             //Then delete the Program files folder
             //Try the default installation path
-            string installDir = ProgramFilesx86() + "\\Palette\\";
-            string userDir = ProgramFilesx86().ToString().Substring(0, 3) + "Users\\Palette";
+            string installDir = ProgramFilesx86() + "\\Palette\\";            
 
             try
             {
@@ -197,42 +208,115 @@ namespace PaletteInstallerCA
                 if (Directory.Exists(installDir)) DeleteDirectoryRecursively(installDir, true);
             }
 
-            try
-            {
-                //Now remove Palette User.  First try normal means
-                DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
-                DirectoryEntries users = localDirectory.Children;
-                DirectoryEntry user = users.Find("Palette");
-                users.Remove(user);
+            int result = DeleteUser("Palette", session);
 
-                if (Directory.Exists(userDir)) Directory.Delete(userDir, true);
-            }
-            catch (Exception outer) //Likely that directory was not removed because it was "not empty" (despite recursive = true)
+            if (result == 0)
             {
-                session.Log("Failed to delete Palette User Folder on first attempt...");
-                session.Log("Custom Action Exception: " + outer.ToString());
-                try
-                {
-                    if (Directory.Exists(userDir)) DeleteDirectoryRecursively(userDir, true);
-                }
-                catch (Exception inner) //Folder is still there?  Try to delete with a sleep loop
-                {
-                    session.Log("Failed to delete Palette User Folder on second attempt...");
-                    session.Log("Custom Action Exception: " + inner.ToString());
-                    DeleteDirectoryWithWait(userDir, true);
-                }
+                session.Log("Successfully finished custom action CleanupAfterUninstall");                
+            }
+            else
+            {
+                session.Log("CleanupAfterUninstall failed to remove Palette user");                
             }
 
             return ActionResult.Success;
         }
 
         /// <summary>
+        /// Delete the user from the system
+        /// </summary>
+        /// <param name="userName">the user's name</param>
+        private static int DeleteUser(string userName, Session session)
+        {
+            string userDir = ProgramFilesx86().ToString().Substring(0, 3) + "Users\\" + userName;
+
+            //Now remove Palette User.  First try normal means
+            DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
+            DirectoryEntries users = localDirectory.Children;
+            
+
+            session.Log("Attempting to delete user if it exists... ");
+
+            try
+            {
+                DirectoryEntry user = users.Find(userName);
+                try
+                {
+                    users.Remove(user);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    session.Log("Not authorized to remove user: " + ex.ToString());
+                }
+                catch (Exception ex)
+                {
+                    session.Log("Exception in removing user: " + ex.ToString());
+                }
+            }
+            catch (System.Runtime.InteropServices.COMException)  //User not found.  Try to delete user folder if it exists and quit
+            {
+                session.Log("User not found");
+                try
+                {
+                    if (Directory.Exists(userDir)) Directory.Delete(userDir, true);
+
+                    return 0;
+                }
+                catch (Exception outer)
+                {
+                    try
+                    {
+                        session.Log("Failed to delete Palette User Folder on first attempt...");
+                        session.Log("Custom Action Exception: " + outer.ToString());
+                        if (Directory.Exists(userDir)) DeleteDirectoryRecursively(userDir, true);
+
+                        return 0;
+                    }
+                    catch (Exception inner) //Folder is still there?  Try to delete with a sleep loop
+                    {
+                        session.Log("Failed to delete User Folder on second attempt...");
+                        session.Log("Custom Action Exception: " + inner.ToString());                        
+                        return -1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                session.Log("Custom Action Exception: " + ex.ToString());
+            }
+
+            try
+            {                
+                if (Directory.Exists(userDir)) Directory.Delete(userDir, true);
+
+                return 0;
+            }
+            catch (Exception outer)
+            {
+                try
+                {
+                    session.Log("Failed to delete Palette User Folder on first attempt...");
+                    session.Log("Custom Action Exception: " + outer.ToString());
+                    if (Directory.Exists(userDir)) DeleteDirectoryRecursively(userDir, true);
+
+                    return 0;
+                }
+                catch (Exception inner) //Folder is still there?  
+                {
+                    session.Log("Failed to delete User Folder on second attempt...");
+                    session.Log("Custom Action Exception: " + inner.ToString());
+                    return -1;
+                }
+            }
+        }
+        
+        /// <summary>
         /// Delete all files from directory before deleting directory.  Handles Read-Only attributes
         /// OBSOLETE: Use DeleteFolderWithDelay method in InstallerHelper
         /// </summary>
         /// <param name="path">the folder path</param>
         /// <param name="recursive">true for recursive delete</param>
-        public static void DeleteDirectoryWithWait(string path, bool recursive)
+        private static void DeleteDirectoryWithWait(string path, bool recursive)
         {
             // Delete all files and sub-folders?
             if (recursive)
@@ -269,7 +353,13 @@ namespace PaletteInstallerCA
                     catch 
                     {
                         Thread.Sleep(100);
-                        File.Delete(f);
+                        try
+                        {
+                            File.Delete(f);
+                        }
+                        catch
+                        {
+                        }
                     }
                     fileLoopCnt += 1;
                 }
@@ -288,7 +378,13 @@ namespace PaletteInstallerCA
                 catch
                 {
                     Thread.Sleep(100);
-                    Directory.Delete(path);
+                    try
+                    {
+                        Directory.Delete(path);
+                    }
+                    catch
+                    {
+                    }
                 }
                 dirLoopCnt += 1;
             }
@@ -300,7 +396,7 @@ namespace PaletteInstallerCA
         /// </summary>
         /// <param name="path">the folder path</param>
         /// <param name="recursive">true for recursive delete</param>
-        public static void DeleteDirectoryRecursively(string path, bool recursive)
+        private static void DeleteDirectoryRecursively(string path, bool recursive)
         {
             // Delete all files and sub-folders?
             if (recursive)
@@ -382,7 +478,7 @@ namespace PaletteInstallerCA
             return tableauPath;
         }
 
-        private static string CreatePassword(int length)
+        public static string CreatePassword(int length)
         {
             if (length < 3) throw new SystemException("Password must be longer than 3 chars");
             int subLength = length - 3;
