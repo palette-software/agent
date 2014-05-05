@@ -106,7 +106,7 @@ class PaletteHandler : HttpHandler
         Dictionary<string, string> d = new Dictionary<string, string>();
         Dictionary<string, object> outputBody = null;
 
-        int xid = -1;
+        UInt64 xid;
         if (req.Method == "POST")
         {
             xid = GetXidfromJSON(req);
@@ -117,7 +117,9 @@ class PaletteHandler : HttpHandler
                 string cmd = GetCmd(req);
                 logger.Info("CMD: " + cmd);
 
-                agent.processManager.Start(xid, cmd);
+                Dictionary<string, string> env = GetEnv(req);
+
+                agent.processManager.Start(xid, cmd, env);
                 outputBody = agent.processManager.GetInfo(xid);
             }
             else if (action == "cleanup")
@@ -128,7 +130,7 @@ class PaletteHandler : HttpHandler
             }
             else
             {
-                throw new SystemException("Invalid action value in JSON post");
+                throw new HttpBadRequest("Invalid action value in JSON POST");
             }
         }
         else if (req.Method == "GET")
@@ -344,27 +346,28 @@ class PaletteHandler : HttpHandler
     /// </summary>
     /// <param name="req">HttpRequest</param>
     /// <returns>xid</returns>
-    private int GetXidfromJSON(HttpRequest req)
+    private UInt64 GetXidfromJSON(HttpRequest req)
     {
-        if (req.JSON != null)
+        UInt64 xid;
+
+        if (req.JSON == null)
         {
-            long xid = (long)req.JSON["xid"];
-            return (int)xid;
+            throw new HttpBadRequest("Request must be JSON.\n");
         }
-        else
+
+        if (!req.JSON.ContainsKey("xid"))
         {
-            int xid = -1;
-            string[] tokens = req.Url.Split('?');
-            if (tokens[1].Contains("xid"))
-            {
-                string[] subtokens = tokens[1].Split('=');
-                if (subtokens.Length == 2)
-                {                    
-                    Int32.TryParse(subtokens[1], out xid);                    
-                }
-            }
-            return xid;
+            throw new HttpBadRequest("Missing 'xid' in JSON");
         }
+
+        try
+        {
+            xid = Convert.ToUInt64(req.JSON["xid"]);
+        } catch {
+            throw new HttpBadRequest("Invalid 'xid': "+req.JSON["xid"]);
+        }
+
+        return xid;
     }
 
     /// <summary>
@@ -413,10 +416,16 @@ class PaletteHandler : HttpHandler
     /// </summary>
     /// <param name="req">HttpRequest</param>
     /// <returns>xid</returns>
-    private int GetXidfromQueryString(HttpRequest req)
+    private UInt64 GetXidfromQueryString(HttpRequest req)
     {
-        // FIXME: test for XID existence.
-        return Convert.ToInt32(req.QUERY["xid"]);
+        try
+        {
+            return Convert.ToUInt64(req.QUERY["xid"]);
+        }
+        catch
+        {
+            throw new HttpBadRequest("Invalid 'xid' in QUERY_STRING\n");
+        }
     }
 
     /// <summary>
@@ -433,7 +442,7 @@ class PaletteHandler : HttpHandler
         }
         else
         {
-            throw new ArgumentException("missing parameter : \"action\"");
+            throw new HttpBadRequest("missing parameter : 'action'");
         }
     }
 
@@ -453,6 +462,37 @@ class PaletteHandler : HttpHandler
         {
             return null;
         }
+    }
+
+    /// <summary>
+    /// Return the process environment as a Dictionary - if specified.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
+    private Dictionary<string, string> GetEnv(HttpRequest req)
+    {
+        if ((req.JSON == null) || (!req.JSON.ContainsKey("env")))
+        {
+            return null;
+        }
+
+        Dictionary<string, string> result = new Dictionary<string, string>();
+
+        var obj = req.JSON["env"];
+        try
+        {
+            Dictionary<string, object> data = (Dictionary<string, object>)obj;
+            foreach (KeyValuePair<string, object> entry in data)
+            {
+                result.Add(entry.Key, entry.Value.ToString());
+            }
+        }
+        catch
+        {
+            throw new HttpBadRequest("Invalid 'env' specified : " + obj.ToString());
+        }
+
+        return result;
     }
 
     /// <summary>
