@@ -50,7 +50,7 @@ public class ProcessManager
     /// <param name="xid">agent process id</param>
     /// <param name="cmd">command string</param>
     /// <returns>a agent process</returns>
-    public Process Start(int xid, string cmd)
+    public Process Start(UInt64 xid, string cmd, Dictionary<string, string> env)
     {
         Process process = new Process();
 
@@ -64,6 +64,15 @@ public class ProcessManager
         process.StartInfo.Arguments = cmd;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
+
+        if (env != null)
+        {
+            foreach (KeyValuePair<string, string> entry in env)
+            {
+                process.StartInfo.EnvironmentVariables.Add(entry.Key, entry.Value);
+            }
+        }
+
 
         try
         {
@@ -79,11 +88,22 @@ public class ProcessManager
     }
 
     /// <summary>
+    /// Starts an agent process
+    /// </summary>
+    /// <param name="xid">agent process id</param>
+    /// <param name="cmd">command string</param>
+    /// <returns>a agent process</returns>
+    public Process Start(UInt64 xid, string cmd)
+    {
+        return Start(xid, cmd, null);
+    }
+
+    /// <summary>
     /// Removes the folder and file containing StdOut and StdErr for a given process id.  
     /// This is done after response is sent to controller verifying process completion
     /// </summary>
     /// <param name="xid">agent process id</param>
-    public void Cleanup(int xid)
+    public void Cleanup(UInt64 xid)
     {
         // FIXME: check xid
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
@@ -114,7 +134,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns>true if complete, false otherwise</returns>
-    private bool IsDone(int xid)
+    private bool IsDone(UInt64 xid)
     {
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
@@ -131,7 +151,7 @@ public class ProcessManager
     /// <param name="xid">Agent process id</param>
     /// <param name="name">File name</param>
     /// <returns>Status code</returns>
-    private int GetInt(int xid, string name)
+    private int GetInt(UInt64 xid, string name)
     {
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
@@ -148,7 +168,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns></returns>
-    private int GetPid(int xid)
+    private int GetPid(UInt64 xid)
     {
         return GetInt(xid, "pid");
     }
@@ -158,7 +178,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns>return code</returns>
-    private int GetReturnCode(int xid)
+    private int GetReturnCode(UInt64 xid)
     {
         return GetInt(xid, "returncode");
     }
@@ -169,7 +189,7 @@ public class ProcessManager
     /// <param name="xid">Agent process id</param>
     /// <param name="name">File name</param>
     /// <returns>Output text</returns>
-    private string GetString(int xid, string name)
+    private string GetString(UInt64 xid, string name)
     {
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
@@ -198,7 +218,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns>StdOut string</returns>
-    private string GetStdOut(int xid)
+    private string GetStdOut(UInt64 xid)
     {
         return GetString(xid, "stdout");
     }
@@ -208,7 +228,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns>StdErr string</returns>
-    private string GetStdErr(int xid)
+    private string GetStdErr(UInt64 xid)
     {
         return GetString(xid, "stderr");
     }
@@ -218,7 +238,7 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">Agent process id</param>
     /// <returns>A dictionary to be encoded into JSON</returns>
-    public Dictionary<string, object> GetInfo(int xid)
+    public Dictionary<string, object> GetInfo(UInt64 xid)
     {
         Dictionary<string, object> d = new Dictionary<string, object>();
 
