@@ -6,6 +6,9 @@ using fastJSON;
 using System.Text.RegularExpressions;
 using log4net;
 using log4net.Config;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Odbc;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -343,20 +346,61 @@ class PaletteHandler : HttpHandler
         }
     }
 
+    /// <summary>
+    /// Handles SQL Requests of type GET or POST.  For POST, must contain a JSON object with keys 'connectString' and 'queryString'.
+    ///  Sample working connection string: "DRIVER={PostgreSQL ANSI(x64)}; Server=127.0.0.1; Port=8060; Database=workgroup; Uid=tblwgadmin; Pwd=;"
+    ///  See www.ConnectionStrings.com for ODBC examples
+    /// </summary>
+    /// <param name="req">The HTTP Request</param>
+    /// <returns>For GET, returns possible data sources and sample connection string.  For POST, returns a DataTable serialized in JSON</returns>
     private HttpResponse HandleSQL(HttpRequest req)
     {
-        string sqlCmd = req.QUERY["sqlCmd"];
-        if (sqlCmd == null)
-        {
-            throw new HttpBadRequest("The SQL Command must be specified.");
-        }
-
-        logger.Debug(req.Method + " /sql : " + sqlCmd);
+        //SAMPLE JSON: {'dbtype': 'postgres', 'server': '127.0.0.1', 'port': '8060', 'database': 'workgroup', 'uid': 'tblwgadmin', 'pwd': '', 'statement': 'SELECT * FROM table'}
+        // use only connection string and statement
 
         HttpResponse res = req.Response;
-        res.ContentType = "application/json";
+        string json = "";
+        string connectString = "";
+        string queryString = "";
 
-        //TODO: Flesh this out based on requirements
+        if (req.Method == "POST")  //Return a Data table in JSON format, leave possibility of "PUT" to update or insert data
+        {
+            if (req.JSON == null)
+            {
+                throw new HttpBadRequest(@"SQL POST Request must contain JSON. \n");
+            }
+
+            if (req.JSON.ContainsKey("connectString") && req.JSON.ContainsKey("queryString"))
+            {
+                connectString = req.JSON["connectString"].ToString();
+                queryString = req.JSON["queryString"].ToString();
+            }
+            else
+            {
+                logger.Debug("Incoming JSON: " + req.JSON);
+                throw new HttpBadRequest(@"SQL Request must contain a JSON object with keys 'connectString' and 'queryString'.");
+            }
+
+            DataTable dt = GetDataTableFromPostgreSQLDB(connectString, queryString);
+
+            json = fastJSON.JSON.Instance.ToJSON(dt);
+        }
+        else if (req.Method == "GET")  //return data sources
+        {
+            string dataSources = @"ODBC Data Drivers = {PostgreSQL ANSI(x64)}, {PostgreSQL UNICODE(x64)}\n" +
+                "Sample Connection String: 'DRIVER={PostgreSQL ANSI(x64)}; Server=127.0.0.1; Port=8060; Database=workgroup; Uid=tblwgadmin; Pwd=;' \n";
+
+            res.Write(File.ReadAllText(dataSources));
+        }
+        else
+        {
+            throw new HttpMethodNotAllowed();
+        }
+
+        logger.Info("JSON: " + json);
+        
+        res.ContentType = "application/json";
+        res.Write(json);
 
         return res;
     }
@@ -513,6 +557,40 @@ class PaletteHandler : HttpHandler
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Returns a DataTable for a given query and connection string (ODBC)
+    /// </summary>
+    /// <param name="pgConnect">Connection String</param>
+    /// <param name="query">Query</param>
+    /// <returns>A DataTable</returns>
+    private static DataTable GetDataTableFromPostgreSQLDB(string pgConnect, string query)
+    {
+        // Attempt to open a connection
+        OdbcConnection con = new OdbcConnection(pgConnect);
+        DataTable dt = new DataTable();
+
+        try
+        {
+            con.Open(); 
+
+            OdbcCommand cmd = new OdbcCommand(query, con);
+
+            OdbcDataAdapter sqlDa = new OdbcDataAdapter(cmd);
+
+            sqlDa.Fill(dt);
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex.ToString());
+        }
+        finally
+        {
+            con.Close();
+        }
+
+        return dt;
     }
 
     /// <summary>
