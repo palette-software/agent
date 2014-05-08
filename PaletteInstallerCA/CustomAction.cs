@@ -275,7 +275,7 @@ namespace PaletteInstallerCA
                     catch (Exception inner) //Folder is still there?  Try to delete with a sleep loop
                     {
                         session.Log("Failed to delete User Folder on second attempt...");
-                        session.Log("Custom Action Exception: " + inner.ToString());                        
+                        session.Log("Custom Action Exception: " + inner.ToString());                         
                         return -1;
                     }
                 }

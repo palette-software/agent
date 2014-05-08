@@ -51,6 +51,8 @@ class PaletteHandler : HttpHandler
                 return HandlePing(req);
             case "/firewall":
                 return HandleFirewall(req);
+            case "/sql":
+                return HandleSQL(req);
             default:
                 throw new HttpNotFound();
         }
@@ -337,6 +339,24 @@ class PaletteHandler : HttpHandler
             default:
                 throw new HttpMethodNotAllowed();
         }
+    }
+
+    private HttpResponse HandleSQL(HttpRequest req)
+    {
+        string sqlCmd = req.QUERY["sqlCmd"];
+        if (sqlCmd == null)
+        {
+            throw new HttpBadRequest("The SQL Command must be specified.");
+        }
+
+        logger.Debug(req.Method + " /sql : " + sqlCmd);
+
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+
+        //TODO: Flesh this out based on requirements
+
+        return res;
     }
 
     /// <summary>
