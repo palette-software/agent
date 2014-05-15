@@ -55,7 +55,7 @@ namespace PaletteInstallerCA
                 string userName = "Palette";
                 DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
                 DirectoryEntry NewUser = AD.Children.Add(userName, "user");
-                string pwd = CreatePassword(10);
+                string pwd = CreatePassword(12);
                 NewUser.Invoke("SetPassword", new object[] { pwd });
                 NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
                 NewUser.CommitChanges();
@@ -486,6 +486,7 @@ namespace PaletteInstallerCA
             string valid1 = "abcdefghijklmnopqrstuvwxyz";
             string valid2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string valid3 = "1234567890";
+            string valid4 = "~!@#$%";
             string res = "";
             Random rnd = new Random();
 
@@ -495,6 +496,8 @@ namespace PaletteInstallerCA
             res += valid1[rnd.Next(valid1.Length)];
             res += valid2[rnd.Next(valid2.Length)];
             res += valid3[rnd.Next(valid3.Length)];
+            res += valid4[rnd.Next(valid4.Length)];
+            res += valid4[rnd.Next(valid4.Length)];
             return res;
         }
 
