@@ -57,7 +57,7 @@ class pget
             client.DownloadFile(uri, tmpFileName);
 
             File.Move(tmpFileName, fileName);
-            Console.WriteLine("Download of file " + fileName + " completed.");
+            Console.Error.WriteLine("Download of file " + fileName + " completed.");
 
             return 0;
         }
