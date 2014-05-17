@@ -147,16 +147,35 @@ public class PRunProcess
                     }
                 };
 
-                process.Start();
+                exitCode = 0;
+                try
+                {
+                    process.Start();
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.Error.WriteLine("InvalidOperationException" +
+                      e.ToString());
+                    exitCode = -1;
+                }
+                catch (Win32Exception e)
+                {
+                    Console.Error.WriteLine("ObjectDisposedException" + 
+                      e.ToString());
+                    exitCode = -1;
+                }
 
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
+                if (exitCode == 0)
+                {
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
-                process.WaitForExit();
-                outputWaitHandle.WaitOne();
-                errorWaitHandle.WaitOne();
+                    process.WaitForExit();
+                    outputWaitHandle.WaitOne();
+                    errorWaitHandle.WaitOne();
 
-                exitCode = process.ExitCode;
+                    exitCode = process.ExitCode;
+                }
             }
         }
 
