@@ -44,7 +44,7 @@ class pinfo
             }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
-            Console.Out.WriteLine(json);
+            Console.Error.WriteLine(json);
         }
         catch
         {
