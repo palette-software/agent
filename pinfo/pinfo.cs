@@ -6,6 +6,7 @@ using System.IO;
 using fastJSON;
 using System.Reflection;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 class pinfo
 {
@@ -20,13 +21,20 @@ class pinfo
 
         try
         {
-            PerformanceCounter ramInMB = new PerformanceCounter("Memory", "Available MBytes");
+            UInt64 installedMemory = 0;
+            MEMORYSTATUSEX memStatus = new MEMORYSTATUSEX();
+
+            if (GlobalMemoryStatusEx(memStatus))
+            {
+                installedMemory = memStatus.ullTotalPhys;
+            }
+
             List<Dictionary<string, object>> driveData = GetDriveInfo();
 
             allData.Add("os-version", System.Environment.OSVersion.ToString());
             allData.Add("processor-type", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
             allData.Add("processor-count", System.Environment.ProcessorCount.ToString());
-            allData.Add("installed-memory", Convert.ToUInt64(ramInMB.NextValue()) * 1024 * 1024);
+            allData.Add("installed-memory", installedMemory);
             allData.Add("machine-name", System.Environment.MachineName);
             allData.Add("user-name", System.Environment.UserName);            
             allData.Add("volumes", driveData);
@@ -44,7 +52,7 @@ class pinfo
             }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
-            Console.Error.WriteLine(json);
+            Console.WriteLine(json);
         }
         catch
         {
@@ -98,4 +106,27 @@ class pinfo
         string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
         return path;
     }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    private class MEMORYSTATUSEX
+    {
+        public uint dwLength;
+        public uint dwMemoryLoad;
+        public ulong ullTotalPhys;
+        public ulong ullAvailPhys;
+        public ulong ullTotalPageFile;
+        public ulong ullAvailPageFile;
+        public ulong ullTotalVirtual;
+        public ulong ullAvailVirtual;
+        public ulong ullAvailExtendedVirtual;
+        public MEMORYSTATUSEX()
+        {
+            this.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+        }
+    }
+
+
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    static extern bool GlobalMemoryStatusEx([In, Out] MEMORYSTATUSEX lpBuffer);
 }
