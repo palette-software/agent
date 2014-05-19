@@ -347,7 +347,7 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
-    /// Handles SQL Requests of type GET or POST.  For POST, must contain a JSON object with keys 'connectString' and 'queryString'.
+    /// Handles SQL Requests of type GET or POST.  For POST, must contain a JSON object with keys 'connection' and 'select-statement'.
     ///  Sample working connection string: "DRIVER={PostgreSQL ANSI(x64)}; Server=127.0.0.1; Port=8060; Database=workgroup; Uid=tblwgadmin; Pwd=;"
     ///  See www.ConnectionStrings.com for ODBC examples
     /// </summary>
@@ -360,8 +360,8 @@ class PaletteHandler : HttpHandler
 
         HttpResponse res = req.Response;
         string json = "";
-        string connectString = "";
-        string queryString = "";
+        string connectionString = "";
+        string selectStatement = "";
 
         if (req.Method == "POST")  //Return a Data table in JSON format, leave possibility of "PUT" to update or insert data
         {
@@ -370,10 +370,10 @@ class PaletteHandler : HttpHandler
                 throw new HttpBadRequest(@"SQL POST Request must contain JSON. \n");
             }
 
-            if (req.JSON.ContainsKey("connectString") && req.JSON.ContainsKey("queryString"))
+            if (req.JSON.ContainsKey("connection") && req.JSON.ContainsKey("select-statement"))
             {
-                connectString = req.JSON["connectString"].ToString();
-                queryString = req.JSON["queryString"].ToString();
+                connectionString = req.JSON["connection"].ToString();
+                selectStatement = req.JSON["select-statement"].ToString();
             }
             else
             {
@@ -381,9 +381,19 @@ class PaletteHandler : HttpHandler
                 throw new HttpBadRequest(@"SQL Request must contain a JSON object with keys 'connectString' and 'queryString'.");
             }
 
-            DataTable dt = GetDataTableFromPostgreSQLDB(connectString, queryString);
-
-            json = fastJSON.JSON.Instance.ToJSON(dt);
+            try
+            {
+                DataTable dt = GetDataTableFromPostgreSQLDB(connectionString, selectStatement);
+                json = fastJSON.JSON.Instance.ToJSON(dt);
+            }
+            catch (OdbcException ex)
+            {
+                string errMsg = ex.ToString();
+                logger.Error(errMsg);
+                Dictionary<string, object> d = new Dictionary<string, object>();
+                d["error"] = errMsg;
+                json = fastJSON.JSON.Instance.ToJSON(d);
+            }
         }
         else if (req.Method == "GET")  //return data sources
         {
@@ -398,7 +408,7 @@ class PaletteHandler : HttpHandler
         }
 
         logger.Info("JSON: " + json);
-        
+
         res.ContentType = "application/json";
         res.Write(json);
 
@@ -565,25 +575,20 @@ class PaletteHandler : HttpHandler
     /// <param name="pgConnect">Connection String</param>
     /// <param name="query">Query</param>
     /// <returns>A DataTable</returns>
-    private static DataTable GetDataTableFromPostgreSQLDB(string pgConnect, string query)
+    private static DataTable GetDataTableFromPostgreSQLDB(string connectionString, string query)
     {
         // Attempt to open a connection
-        OdbcConnection con = new OdbcConnection(pgConnect);
+        OdbcConnection con = new OdbcConnection(connectionString);
         DataTable dt = new DataTable();
 
         try
         {
-            con.Open(); 
-
+            con.Open();
             OdbcCommand cmd = new OdbcCommand(query, con);
 
             OdbcDataAdapter sqlDa = new OdbcDataAdapter(cmd);
 
             sqlDa.Fill(dt);
-        }
-        catch (Exception ex)
-        {
-            logger.Error(ex.ToString());
         }
         finally
         {
