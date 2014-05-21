@@ -49,6 +49,7 @@ class pinfo
             if (dataDir != null && dataDir.Length > 0)
             {
                 allData.Add("tableau-data-dir", dataDir);
+                allData.Add("tableau-data-size", DirSize(dataDir));
             }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
@@ -105,6 +106,29 @@ class pinfo
         string root = Path.GetPathRoot(installDir);
         string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
         return path;
+    }
+
+    public static long DirSize(DirectoryInfo d)
+    {
+        long Size = 0;
+        // Add file sizes.
+        FileInfo[] fis = d.GetFiles();
+        foreach (FileInfo fi in fis)
+        {
+            Size += fi.Length;
+        }
+        // Add subdirectory sizes.
+        DirectoryInfo[] dis = d.GetDirectories();
+        foreach (DirectoryInfo di in dis)
+        {
+            Size += DirSize(di);
+        }
+        return (Size);
+    }
+
+    public static long DirSize(string path)
+    {
+        return DirSize(new DirectoryInfo(path));
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
