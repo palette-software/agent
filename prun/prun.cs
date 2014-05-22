@@ -81,6 +81,14 @@ public class PRunProcess
         startInfo.CreateNoWindow = true;
         startInfo.RedirectStandardOutput = true;
         startInfo.RedirectStandardError = true;
+
+        // Windows doesn't explicitly use the PWD environment variable, so it can be used to pass the working directory.
+        string pwd = Environment.GetEnvironmentVariable("PWD");
+        if (pwd != null)
+        {
+            startInfo.WorkingDirectory = pwd;
+        }
+
         // Environment variables are inherited from the agent.
         // The XID directory is the working directory from the agent call.
 
