@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -162,11 +162,15 @@ XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
-
 IF NOT EXIST "$(SolutionDir)build\maint\conf"  (mkdir "$(SolutionDir)build\maint\conf")
-COPY /Y "$(SolutionDir)conf\archive-httpd.conf" "$(SolutionDir)build\conf"
-COPY /Y "$(SolutionDir)conf\archive.crt" "$(SolutionDir)build\conf"
-COPY /Y "$(SolutionDir)conf\archive.key" "$(SolutionDir)build\conf"
+
+IF NOT EXIST "$(SolutionDir)build\conf\archive"  (mkdir "$(SolutionDir)build\conf\archive")
+COPY /Y "$(SolutionDir)conf\archive\httpd.conf" "$(SolutionDir)build\conf\archive"
+COPY /Y "$(SolutionDir)conf\archive\htpasswd" "$(SolutionDir)build\conf\archive"
+COPY /Y "$(SolutionDir)conf\archive\server.crt" "$(SolutionDir)build\conf\archive"
+COPY /Y "$(SolutionDir)conf\archive\server.key" "$(SolutionDir)build\conf\archive"
+IF NOT EXIST "$(SolutionDir)\build\conf\archive\vars.conf" (ECHO Define ARCHIVE_PORT 8889 &gt; "$(SolutionDir)build\conf\archive\vars.conf")
+IF NOT EXIST "$(SolutionDir)\build\conf\archive\routes.txt" (ECHO $(SolutionDir)build\data &gt; "$(SolutionDir)build\conf\archive\routes.txt")
 
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"

@@ -123,7 +123,7 @@ public class Agent
         string path = StdPath.Combine(installDir, "maint", "conf", "httpd.conf");
         maintServer = new Apache2(maintServiceName, path, installDir);
 
-        path = StdPath.Combine(installDir, "conf", "archive-httpd.conf");
+        path = StdPath.Combine(installDir, "conf", "archive", "httpd.conf");
         archiveServer = new Apache2(archiveServiceName, path, installDir);
     }
 
@@ -300,7 +300,7 @@ public class Agent
     /// </summary>
     public void startArchiveServer()
     {
-        string path = StdPath.Combine(confDir, "archive-vars.conf");
+        string path = StdPath.Combine(confDir, "archive", "vars.conf");
         File.WriteAllText(path, "Define ARCHIVE_PORT " + Convert.ToString(archivePort) + "\r\n");
 
         archiveServer.start();

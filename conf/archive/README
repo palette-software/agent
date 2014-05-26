@@ -1,0 +1,10 @@
+TO RUN MANUALLY:
+
+cd ../../build/apache2
+./bin/httpd.exe -f ../conf/archive/httpd.conf
+
+* if needed, create 'conf/archive/vars.conf' as (from Agent.cs):
+Define ARCHIVE_PORT 8889
+
+* if needed, create 'conf/archive/routes.txt' with a single line:
+C:/path/to/Data
