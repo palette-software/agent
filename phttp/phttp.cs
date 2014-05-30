@@ -94,7 +94,7 @@ class phttp
 
             while (length > 0)
             {
-                int count = reader.Read(buffer, 0, (int)Math.Max(length, buffer.Length));
+                int count = reader.Read(buffer, 0, (int)Math.Min(length, buffer.Length));
                 stream.Write(buffer, 0, count);
                 length -= count;
             }
