@@ -39,6 +39,13 @@
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
             <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="Palette" Wait="no" />            
           </Component>
+          <Directory Id="cgibin" Name="cgi-bin">
+            <Component Id="CgiBinFolder" Guid="0a408718-b9ab-4fa7-aa01-7dd00a64527d">
+              <CreateFolder />
+              <File Id="pCGI.exe" Source="..\pCGI\bin\Debug\pCGI.exe" />
+              <RemoveFile Id="RemoveCgiBinFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
           <Directory Id="conf1" Name="conf">
             <Component Id="ConfigFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f269">
               <CreateFolder />
@@ -46,9 +53,20 @@
               <File Id="archive.key" Source="..\conf\archive.key" />
               <File Id="archive_httpd.conf" Source="..\conf\archive-httpd.conf" />
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
-            </Component>
+            </Component>            
+            <Directory Id="archive" Name="archive">
+              <Component Id="ArchiveFolder" Guid="4b93cbc3-a338-44a5-ab41-e4d6a8027894">
+                <CreateFolder />
+                <File Id="htpasswd" Source="..\conf\archive\htpasswd" />
+                <File Id="httpd.conf" Source="..\conf\archive\httpd.conf" />
+                <File Id="README" Source="..\conf\archive\README" />
+                <File Id="server.crt" Source="..\conf\archive\server.crt" />
+                <File Id="server.key" Source="..\conf\archive\server.key" />
+                <RemoveFile Id="RemoveArchiveFolder" Name="*.*" On="uninstall" />
+              </Component>
+            </Directory>            
           </Directory>
-          <Directory Id="data" Name="Data">
+          <Directory Id="data" Name="data">
             <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
               <CreateFolder />
             </Component>
@@ -90,7 +108,7 @@
             <Directory Id="conf" Name="conf">
               <Component Id="ConfFolder" Guid="6adfeb8f-8135-4a2c-98cb-3eb162e315cd">
                 <CreateFolder />
-                <File Id="httpd.conf" Source="..\..\maint\conf\httpd.conf" />
+                <File Id="httpd.conf2" Source="..\..\maint\conf\httpd.conf" />
                 <RemoveFile Id="RemoveConfFolder" Name="*.*" On="uninstall" />
               </Component>
             </Directory>
@@ -276,7 +294,9 @@
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
-      <ComponentRef Id="Base" />    
+      <ComponentRef Id="Base" />
+      <ComponentRef Id="ArchiveFolder" />
+      <ComponentRef Id="CgiBinFolder" />
       <ComponentRef Id="ConfigFolder" />
       <ComponentRef Id="DataFolder" />
       <ComponentRef Id="XIDFolder" />
