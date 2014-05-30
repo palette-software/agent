@@ -168,7 +168,7 @@ class pCGI
 
                 while (length > 0)
                 {
-                    int count = reader.Read(buffer, 0, (int)Math.Max(length, buffer.Length));
+                    int count = reader.Read(buffer, 0, (int)Math.Min(length, buffer.Length));
                     console.Write(buffer, 0, count);
                     length -= count;
                 }
@@ -197,7 +197,7 @@ class pCGI
             {
                 while (length > 0)
                 {
-                    int count = stream.Read(buffer, 0, (int)Math.Max(length, (ulong)buffer.Length));
+                    int count = stream.Read(buffer, 0, (int)Math.Min(length, (ulong)buffer.Length));
                     writer.Write(buffer, 0, count);
                     length -= (ulong)count;
                 }
