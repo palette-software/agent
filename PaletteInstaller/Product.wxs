@@ -22,7 +22,7 @@
             <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
             <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>            
-            <File Id="pget.exe" Source="..\ConsoleAgent\bin\Debug\pget.exe"></File>
+            <File Id="phttp.exe" Source="..\ConsoleAgent\bin\Debug\phttp.exe"></File>
             <File Id="prun.exe" Source="..\ConsoleAgent\bin\Debug\prun.exe"></File>
             <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\Debug\pinfo.exe"></File>
             <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\Debug\InstallerHelper.exe"></File>
@@ -53,7 +53,7 @@
               <File Id="archive.key" Source="..\conf\archive.key" />
               <File Id="archive_httpd.conf" Source="..\conf\archive-httpd.conf" />
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
-            </Component>            
+            </Component>
             <Directory Id="archive" Name="archive">
               <Component Id="ArchiveFolder" Guid="4b93cbc3-a338-44a5-ab41-e4d6a8027894">
                 <CreateFolder />
@@ -64,7 +64,7 @@
                 <File Id="server.key" Source="..\conf\archive\server.key" />
                 <RemoveFile Id="RemoveArchiveFolder" Name="*.*" On="uninstall" />
               </Component>
-            </Directory>            
+            </Directory>
           </Directory>
           <Directory Id="data" Name="data">
             <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
