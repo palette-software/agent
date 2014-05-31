@@ -33,18 +33,18 @@
         <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="132"
                  Property="SERVERNAME" />
 
-        <!--Control Type="Text" Id="AdminAcctNameTxt" Width="290" Height="10" X="20" Y="150"
-         Text="Admin Account Name (e.g. SERVERNAME\USERNAME)" />
-        <Control Type="Edit" Id="AdminAcctNameEdit" Width="250" Height="17" X="20" Y="162"
-                 Property="SERVICEACCOUNT" /-->
+        <Control Type="Text" Id="ControllerAcctNameTxt" Width="290" Height="10" X="20" Y="150"
+         Text="Controller Account Name: " />
+        <Control Type="Edit" Id="ControllerNameEdit" Width="250" Height="17" X="20" Y="162"
+                 Property="CONTROLLERNAME" />
 
-        <!--Control Type="Text" Id="AdminAcctPwdTxt" Width="290" Height="10" X="20" Y="180"
-         Text="Admin Account Password:" />
-        <Control Type="Edit" Id="AdminAcctPwdEdit" Width="250" Height="17" X="20" Y="192"
-                 Property="SERVICEPASSWORD" Password="yes" /-->
+        <Control Type="Text" Id="ControllerPwdTxt" Width="290" Height="10" X="20" Y="180"
+         Text="Controller Account Password:" />
+        <Control Type="Edit" Id="ControllerPwdEdit" Width="250" Height="17" X="20" Y="192"
+                 Property="CONTROLLERPASSWORD" Password="yes" />
 
         <Control Type="Text" Id="InfoText1" Width="350" Height="17" X="10" Y="55"
-                 Text="Please enter the Server Name for the Palette Controller." />
+                 Text="Please enter the Server Name, Account Name, and Password for the Palette Controller." />
       </Dialog>
     </UI>
   </Fragment>

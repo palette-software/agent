@@ -157,6 +157,12 @@ namespace PaletteInstallerCA
 
                 string inipath = Path.Combine(installDir, @"conf\agent.ini");
                 File.WriteAllText(inipath, Convert.ToString(output));
+
+                //Write the Controller username and password to a file
+                string credentialsPath = Path.Combine(installDir, @"conf\_passwd");
+                string controllerCredentials = session.CustomActionData["CONTROLLERNAME"].ToString() + "," 
+                    + session.CustomActionData["CONTROLLERPASSWORD"].ToString();
+                File.WriteAllText(credentialsPath, controllerCredentials);
             }
             catch (Exception ex)  //catch all exceptions
             {
