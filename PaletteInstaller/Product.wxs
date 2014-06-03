@@ -21,7 +21,8 @@
             <!-- TODO: Insert files, registry keys, and other resources here. -->
             <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
-            <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>            
+            <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>
+            <File Id="Interop.NetFwTypeLib.dll" Source="..\ConsoleAgent\bin\Debug\Interop.NetFwTypeLib.dll"></File>
             <File Id="phttp.exe" Source="..\ConsoleAgent\bin\Debug\phttp.exe"></File>
             <File Id="prun.exe" Source="..\ConsoleAgent\bin\Debug\prun.exe"></File>
             <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\Debug\pinfo.exe"></File>
