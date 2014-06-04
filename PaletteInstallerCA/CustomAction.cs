@@ -162,7 +162,9 @@ namespace PaletteInstallerCA
                 string credentialsPath = Path.Combine(installDir, @"conf\_passwd");
                 string controllerCredentials = session.CustomActionData["CONTROLLERNAME"].ToString() + "," 
                     + session.CustomActionData["CONTROLLERPASSWORD"].ToString();
-                File.WriteAllText(credentialsPath, controllerCredentials);
+
+                string hashedCreds = SHA1Util.SHA1HashStringForUTF8String(controllerCredentials);
+                File.WriteAllText(credentialsPath, hashedCreds);
             }
             catch (Exception ex)  //catch all exceptions
             {

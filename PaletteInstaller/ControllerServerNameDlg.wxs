@@ -11,9 +11,9 @@
     <UI>
       <Dialog Id="ControllerServerNameDlg" Width="370" Height="270" Title="Palette Agent Setup">
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17"
-                 Default="yes" Text="!(loc.WixUINext)">
-          <Condition Action="disable">SERVERNAME = ""</Condition>
-          <Condition Action="enable"><![CDATA[SERVERNAME = ""]]></Condition>
+                 Default="yes" Text="!(loc.WixUINext)">          
+          <Condition Action="disable"><![CDATA[(CONTROLLERPASSWORD <> CONTROLLERPASSWORDCONFIRM) OR (SERVERNAME = "") OR (CONTROLLERNAME = "") OR (CONTROLLERPASSWORD = "")]]></Condition>
+          <Condition Action="enable"><![CDATA[(CONTROLLERPASSWORD = CONTROLLERPASSWORDCONFIRM) AND (SERVERNAME <> "") AND (CONTROLLERNAME <> "") AND (CONTROLLERPASSWORD <> "")]]></Condition>
         </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17"
                  Text="!(loc.WixUIBack)" />
@@ -28,20 +28,25 @@
         <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 
-        <Control Type="Text" Id="ServerNameTxt" Width="290" Height="10" X="20" Y="120"
+        <Control Type="Text" Id="ServerNameTxt" Width="290" Height="10" X="20" Y="100"
                  Text="Controller Host Name:" />
-        <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="132"
+        <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="112"
                  Property="SERVERNAME" />
 
-        <Control Type="Text" Id="ControllerAcctNameTxt" Width="290" Height="10" X="20" Y="150"
+        <Control Type="Text" Id="ControllerAcctNameTxt" Width="290" Height="10" X="20" Y="130"
          Text="Controller Account Name: " />
-        <Control Type="Edit" Id="ControllerNameEdit" Width="250" Height="17" X="20" Y="162"
+        <Control Type="Edit" Id="ControllerNameEdit" Width="250" Height="17" X="20" Y="142"
                  Property="CONTROLLERNAME" />
 
-        <Control Type="Text" Id="ControllerPwdTxt" Width="290" Height="10" X="20" Y="180"
+        <Control Type="Text" Id="ControllerPwdTxt" Width="290" Height="10" X="20" Y="160"
          Text="Controller Account Password:" />
-        <Control Type="Edit" Id="ControllerPwdEdit" Width="250" Height="17" X="20" Y="192"
+        <Control Type="Edit" Id="ControllerPwdEdit" Width="250" Height="17" X="20" Y="172"
                  Property="CONTROLLERPASSWORD" Password="yes" />
+
+        <Control Type="Text" Id="ControllerPwdConfirmTxt" Width="290" Height="10" X="20" Y="190"
+         Text="Confirm Password:" />
+        <Control Type="Edit" Id="ControllerPwdConfirmEdit" Width="250" Height="17" X="20" Y="202"
+                 Property="CONTROLLERPASSWORDCONFIRM" Password="yes" />
 
         <Control Type="Text" Id="InfoText1" Width="350" Height="17" X="10" Y="55"
                  Text="Please enter the Server Name, Account Name, and Password for the Palette Controller." />
