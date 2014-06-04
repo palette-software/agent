@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.IO;
 using fastJSON;
@@ -38,6 +40,8 @@ class pinfo
             allData.Add("machine-name", System.Environment.MachineName);
             allData.Add("user-name", System.Environment.UserName);            
             allData.Add("volumes", driveData);
+            allData.Add("ip-address", GetFirstIPAddr());
+            allData.Add("fqdn", GetFQDN());
 
             string installDir = RegistryUtil.GetTableauInstallPath();
             if (installDir != null && installDir.Length > 0)
@@ -95,6 +99,19 @@ class pinfo
         return allData;
     }
 
+    public static string GetFQDN()
+    {
+        string domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+        string hostName = Dns.GetHostName();
+
+        if(!hostName.Contains(domainName))            // if the hostname does not already include the domain name
+        {
+            hostName = hostName + "." + domainName;   // add the domain name part
+        }
+
+        return hostName;                              // return the fully qualified domain name
+    }
+
     public static string GetTableauDataPath()
     {
         string installDir = RegistryUtil.GetTableauInstallPath();
@@ -149,6 +166,23 @@ class pinfo
         }
     }
 
+    /// <summary>
+    /// Return the first IPv4 address of this system.
+    /// FIXME: copied from Agent.cs
+    /// </summary>
+    /// <returns></returns>
+    public static string GetFirstIPAddr()
+    {
+        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() == "InterNetwork")
+            {
+                return ip.ToString();
+            }
+        }
+        return "127.0.0.1";
+    }
 
     [return: MarshalAs(UnmanagedType.Bool)]
     [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
