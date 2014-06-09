@@ -123,8 +123,9 @@ class PaletteHandler : HttpHandler
                 logger.Info("CMD: " + cmd);
 
                 Dictionary<string, string> env = GetEnv(req);
+                bool immediate = GetImmediate(req);
 
-                agent.processManager.Start(xid, cmd, env);
+                agent.processManager.Start(xid, cmd, env, immediate);
                 outputBody = agent.processManager.GetInfo(xid);
             }
             else if (action == "cleanup")
@@ -567,6 +568,19 @@ class PaletteHandler : HttpHandler
         }
 
         return result;
+    }
+
+    private bool GetImmediate(HttpRequest req)
+    {
+        if ((req.JSON == null) || (!req.JSON.ContainsKey("immediate")))
+        {
+            return false;
+        }
+
+        try {
+            return (bool)(req.JSON["immediate"]);
+        } catch {}
+        return false;
     }
 
     /// <summary>

@@ -50,7 +50,7 @@ public class ProcessManager
     /// <param name="xid">agent process id</param>
     /// <param name="cmd">command string</param>
     /// <returns>a agent process</returns>
-    public Process Start(UInt64 xid, string cmd, Dictionary<string, string> env)
+    public Process Start(UInt64 xid, string cmd, Dictionary<string, string> env, bool immediate)
     {
         Process process = new Process();
 
@@ -84,18 +84,12 @@ public class ProcessManager
             logger.Error("Error launching process: " + exc.Message);
         }
 
-        return process;
-    }
+        if (immediate)
+        {
+            process.WaitForExit();
+        }
 
-    /// <summary>
-    /// Starts an agent process
-    /// </summary>
-    /// <param name="xid">agent process id</param>
-    /// <param name="cmd">command string</param>
-    /// <returns>a agent process</returns>
-    public Process Start(UInt64 xid, string cmd)
-    {
-        return Start(xid, cmd, null);
+        return process;
     }
 
     /// <summary>
