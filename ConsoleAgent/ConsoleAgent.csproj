@@ -177,6 +177,7 @@ XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"
 COPY /Y "$(SolutionDir)..\maint\conf\httpd.conf"  "$(SolutionDir)build\maint\conf\"
 
 COPY /Y "$(SolutionDir)..\lib\$(Configuration)\*.dll"  "$(SolutionDir)build\"
+COPY /Y "$(TargetDir)Interop.NetFwTypeLib.dll" "$(SolutionDir)build\"
 
 COPY /Y "$(TargetPath)" "$(SolutionDir)build\"</PostBuildEvent>
   </PropertyGroup>
