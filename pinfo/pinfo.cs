@@ -37,8 +37,6 @@ class pinfo
             allData.Add("processor-type", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
             allData.Add("processor-count", System.Environment.ProcessorCount.ToString());
             allData.Add("installed-memory", installedMemory);
-            allData.Add("machine-name", System.Environment.MachineName);
-            allData.Add("user-name", System.Environment.UserName);
             allData.Add("volumes", driveData);
             allData.Add("ip-address", GetFirstIPAddr());
             allData.Add("fqdn", GetFQDN());
