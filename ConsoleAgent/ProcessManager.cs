@@ -69,6 +69,10 @@ public class ProcessManager
         {
             foreach (KeyValuePair<string, string> entry in env)
             {
+                if (process.StartInfo.EnvironmentVariables.ContainsKey(entry.Key))
+                {
+                    process.StartInfo.EnvironmentVariables.Remove(entry.Key);
+                }
                 process.StartInfo.EnvironmentVariables.Add(entry.Key, entry.Value);
             }
         }
