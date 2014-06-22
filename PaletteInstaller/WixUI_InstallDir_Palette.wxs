@@ -66,7 +66,7 @@ Patch dialog sequence:
             <!-- Custom: Enter Controller Server Name -->
             <Publish Dialog="ControllerServerNameDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
             <!--Publish Dialog="ControllerServerNameDlg" Control="Next" Event="DoAction" Value="UpdateIniWithServerName" Order="1">1</Publish-->
-            <Publish Dialog="ControllerServerNameDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+            <!--<Publish Dialog="ControllerServerNameDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>-->
           
             <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="ControllerServerNameDlg">1</Publish>
             <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
