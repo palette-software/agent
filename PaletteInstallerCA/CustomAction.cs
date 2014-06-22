@@ -127,6 +127,8 @@ namespace PaletteInstallerCA
             string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
             string path = installDir;
 
+            string licenseKey = session.CustomActionData["LICENSEKEY"].ToString();
+
             string tableauPath = GetTableauPath(installDir);
             if (tableauPath != null)
                 path += Path.PathSeparator.ToString() + Path.Combine(tableauPath, "bin");
@@ -150,6 +152,7 @@ namespace PaletteInstallerCA
                 output += "host=" + serverName + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
+                output += "license-key=" + licenseKey + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
                 output += "location=" + installDir + @"logs\agent.log" + Environment.NewLine;
@@ -158,13 +161,13 @@ namespace PaletteInstallerCA
                 string inipath = Path.Combine(installDir, @"conf\agent.ini");
                 File.WriteAllText(inipath, Convert.ToString(output));
 
-                //Write the Controller username and password to a file
-                string credentialsPath = Path.Combine(installDir, @"conf\_passwd");
-                string controllerCredentials = session.CustomActionData["CONTROLLERNAME"].ToString() + "," 
-                    + session.CustomActionData["CONTROLLERPASSWORD"].ToString();
+                ////Write the Controller username and password to a file
+                //string credentialsPath = Path.Combine(installDir, @"conf\_passwd");
+                //string controllerCredentials = session.CustomActionData["CONTROLLERNAME"].ToString() + "," 
+                //    + session.CustomActionData["CONTROLLERPASSWORD"].ToString();
 
-                string hashedCreds = SHA1Util.SHA1HashStringForUTF8String(controllerCredentials);
-                File.WriteAllText(credentialsPath, hashedCreds);
+                //string hashedCreds = SHA1Util.SHA1HashStringForUTF8String(controllerCredentials);
+                //File.WriteAllText(credentialsPath, hashedCreds);
             }
             catch (Exception ex)  //catch all exceptions
             {
