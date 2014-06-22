@@ -62,10 +62,8 @@ public class Agent
     
     public ProcessManager processManager;
 
-    // testing only.
-    public string username = "palette";
-    public string password = "unknown";
-
+    public string licenseKey;
+    
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -245,6 +243,8 @@ public class Agent
 
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
         archiveServiceName = conf.Read("name", "archive", DEFAULT_ARCHIVE_SERVICE_NAME);
+
+        licenseKey = conf.Read("license-key", DEFAULT_SECTION, null);
     }
 
     /// <summary>

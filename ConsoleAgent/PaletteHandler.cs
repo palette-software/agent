@@ -93,8 +93,7 @@ class PaletteHandler : HttpHandler
         }
 
         Dictionary<string, object> data = new Dictionary<string, object>();
-        data["username"] = agent.username;
-        data["password"] = agent.password;
+        data["license-key"] = agent.licenseKey;
         data["version"] = Agent.VERSION;
         data["os-version"] = System.Environment.OSVersion.ToString();
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
