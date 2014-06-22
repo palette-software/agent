@@ -9,16 +9,19 @@
     <EnsureTable Id="ComboBox"/>
     <Property Id="SERVERNAME" Value=".palette-software.com"/>
     <UI>
-      <Dialog Id="ControllerServerNameDlg" Width="370" Height="270" Title="Palette Agent Setup">
-        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17"
-                 Default="yes" Text="!(loc.WixUINext)">          
-          <Condition Action="disable"><![CDATA[(CONTROLLERPASSWORD <> CONTROLLERPASSWORDCONFIRM) OR (SERVERNAME = "") OR (CONTROLLERNAME = "") OR (CONTROLLERPASSWORD = "")]]></Condition>
-          <Condition Action="enable"><![CDATA[(CONTROLLERPASSWORD = CONTROLLERPASSWORDCONFIRM) AND (SERVERNAME <> "") AND (CONTROLLERNAME <> "") AND (CONTROLLERPASSWORD <> "")]]></Condition>
+      <Dialog Id="LicenseErrorDlg" Width="260" Height="85" NoMinimize="yes" Title="Invalid License Key">
+        <Control Type="Text" Id="ErrorText" Width="350" Height="17" X="60" Y="25" Text="The License Key entered was invalid." />
+        <Control Id="Ok" Type="PushButton" X="97" Y="57" Width="66" Height="17" Text="OK">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
         </Control>
-        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17"
-                 Text="!(loc.WixUIBack)" />
-        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17"
-                 Cancel="yes" Text="!(loc.WixUICancel)">
+      </Dialog>
+      <Dialog Id="ControllerServerNameDlg" Width="370" Height="270" Title="Palette Agent Setup">
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="no" Text="!(loc.WixUINext)">
+          <Publish Event="SpawnDialog" Value="LicenseErrorDlg">LICENSEKEY = ""</Publish>
+          <Publish Event="NewDialog" Value="InstallDirDlg" Order="2">NOT LICENSEKEY = ""</Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
           <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
         </Control>
         <Control Id="Title" Type="Text" X="15" Y="6" Width="219" Height="28" Transparent="yes"
@@ -33,23 +36,11 @@
         <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="112"
                  Property="SERVERNAME" />
 
-        <Control Type="Text" Id="ControllerAcctNameTxt" Width="290" Height="10" X="20" Y="130"
-         Text="Controller Account Name: " />
-        <Control Type="Edit" Id="ControllerNameEdit" Width="250" Height="17" X="20" Y="142"
-                 Property="CONTROLLERNAME" />
-
-        <Control Type="Text" Id="ControllerPwdTxt" Width="290" Height="10" X="20" Y="160"
-         Text="Controller Account Password:" />
-        <Control Type="Edit" Id="ControllerPwdEdit" Width="250" Height="17" X="20" Y="172"
-                 Property="CONTROLLERPASSWORD" Password="yes" />
-
-        <Control Type="Text" Id="ControllerPwdConfirmTxt" Width="290" Height="10" X="20" Y="190"
-         Text="Confirm Password:" />
-        <Control Type="Edit" Id="ControllerPwdConfirmEdit" Width="250" Height="17" X="20" Y="202"
-                 Property="CONTROLLERPASSWORDCONFIRM" Password="yes" />
+        <Control Type="Text" Id="LicenseTxt" Width="290" Height="10" X="20" Y="160" Text="License Key: " />
+        <Control Type="Edit" Id="LicenseEdit" Width="250" Height="17" X="20" Y="172" Property="LICENSEKEY" />
 
         <Control Type="Text" Id="InfoText1" Width="350" Height="17" X="10" Y="55"
-                 Text="Please enter the Server Name, Account Name, and Password for the Palette Controller." />
+                 Text="Please enter the Server Name and License Key for the Palette Controller." />
       </Dialog>
     </UI>
   </Fragment>
