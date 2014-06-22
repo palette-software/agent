@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Configuration;
 using log4net;
@@ -19,9 +20,8 @@ using Microsoft.Win32;
 /// </summary>
 public class Agent
 {
-    public const string VERSION = "0.1";
+    public const string VERSION = "X.Y";
 
-    public const string DEFAULT_TYPE = "primary";
     public const string DEFAULT_SECTION = "DEFAULT";
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
@@ -32,7 +32,6 @@ public class Agent
     public const string DEFAULT_ARCHIVE_SERVICE_NAME = "Palette Archive HTTPS Server";
 
     public IniFile conf = null;
-    public string type;  // Agent type (primary, worker, other)
 
     public string uuid;
     public string hostname = "localhost";
@@ -229,13 +228,6 @@ public class Agent
     {
         envPath = conf.Read("path", DEFAULT_SECTION, null);
 
-        type = conf.Read("type", DEFAULT_SECTION, DEFAULT_TYPE);
-        type = type.ToLower();
-        if (type != "primary" && type != "worker" && type != "other")
-        {
-            throw new ArgumentException("DEFAULT:type");
-        }
-
         // intentionally raise exception if these are not set.
         uuid = conf.Read("uuid", DEFAULT_SECTION);
         installDir = conf.Read("install-dir", DEFAULT_SECTION);
@@ -313,5 +305,19 @@ public class Agent
     {
         archiveServer.stop();
         logger.Info(archiveServiceName + " stopped.");
+    }
+
+    //
+    public string GetFQDN()
+    {
+        string domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+        string hostName = Dns.GetHostName();
+
+        if (!hostName.Contains(domainName))            // if the hostname does not already include the domain name
+        {
+            hostName = hostName + "." + domainName;   // add the domain name part
+        }
+
+        return hostName;                              // return the fully qualified domain name
     }
 }
