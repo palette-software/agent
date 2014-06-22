@@ -36,7 +36,6 @@ public class Agent
     public string uuid;
     public string hostname = "localhost";
     public string ipaddr;
-    public string displayName = "unknown";
 
     // Values to pre-pend to the environment variable 'PATH' for child processes.
     public string envPath;
@@ -80,7 +79,6 @@ public class Agent
     {
         //Set some Agent defaults (may be overridden by the INI file)
         hostname = Dns.GetHostName();
-        displayName = Dns.GetHostName();
 
         conf = new IniFile(inifile);
         ParseIniFile();
