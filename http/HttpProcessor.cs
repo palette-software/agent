@@ -17,6 +17,7 @@ public class HttpProcessor
     protected string host;
     protected int port;
     protected bool ssl = false;
+    protected int timeout = 0; // infinite
     protected Stream stream = null;
     protected string ipaddress = null;
     public bool isConnected = false;
@@ -48,6 +49,19 @@ public class HttpProcessor
     }
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="host">host name (i.e. "localhost")</param>
+    /// <param name="port">port (i.e. "8080")</param>
+    /// <param name="ssl">use ssl</param>
+    /// <param name="timeout">socket send/recv timeout in milliseconds</param>
+    public HttpProcessor(string host, int port, bool ssl, int timeout)
+        : this(host, port, ssl)
+    {
+        this.timeout = timeout;
+    }
+
+    /// <summary>
     /// Connects a socket to a specified host
     /// </summary>
     public void Connect()
@@ -60,6 +74,8 @@ public class HttpProcessor
         try
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.ReceiveTimeout = timeout;
+            socket.SendTimeout = timeout;
 
             IPEndPoint remoteEP = new IPEndPoint(addr, port);
             socket.Connect(remoteEP);         

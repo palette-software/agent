@@ -27,6 +27,7 @@ public class Agent
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_PORT = 8889;
     public const int DEFAULT_MAINTENANCE_PORT = 80;
+    public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
     public const string DEFAULT_MAINTENANCE_SERVICE_NAME = "Palette Maintenance Webserver";
     public const string DEFAULT_ARCHIVE_SERVICE_NAME = "Palette Archive HTTPS Server";
@@ -44,6 +45,7 @@ public class Agent
     public int controllerPort;
     public IPAddress controllerAddr;
     public bool controllerSsl;
+    public int controllerTimeoutMilliseconds;
 
     public string installDir;
     public string binDir;
@@ -191,7 +193,7 @@ public class Agent
 
         while (true)
         {
-            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl);
+            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl, controllerTimeoutMilliseconds);
 
             try
             {
@@ -237,6 +239,7 @@ public class Agent
         controllerHost = conf.Read("host", "controller", DEFAULT_CONTROLLER_HOST);
         controllerPort = conf.ReadInt("port", "controller", DEFAULT_CONTROLLER_PORT);
         controllerSsl = conf.ReadBool("ssl", "controller", false);
+        controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
 
         maintPort = conf.ReadInt("port", "maintenance", DEFAULT_MAINTENANCE_PORT);
         maintServiceName = conf.Read("name", "maintenance", DEFAULT_MAINTENANCE_SERVICE_NAME);
