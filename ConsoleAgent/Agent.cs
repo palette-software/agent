@@ -244,7 +244,7 @@ public class Agent
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
         archiveServiceName = conf.Read("name", "archive", DEFAULT_ARCHIVE_SERVICE_NAME);
 
-        licenseKey = conf.Read("license-key", DEFAULT_SECTION, null);
+        licenseKey = conf.Read("license-key", DEFAULT_SECTION, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX");
     }
 
     /// <summary>

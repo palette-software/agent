@@ -136,14 +136,7 @@ namespace PaletteInstallerCA
             try
             {
                 string output = "[DEFAULT]" + Environment.NewLine;
-                if (tableauPath != null)
-                {
-                    output += "type=primary" + Environment.NewLine;
-                }
-                else
-                {
-                    output += "type=other" + Environment.NewLine;
-                }
+                output += "license-key=" + licenseKey + Environment.NewLine;
                 output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
                 output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
@@ -152,7 +145,6 @@ namespace PaletteInstallerCA
                 output += "host=" + serverName + Environment.NewLine;
                 output += "# port=8888" + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
-                output += "license-key=" + licenseKey + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logging]" + Environment.NewLine;
                 output += "location=" + installDir + @"logs\agent.log" + Environment.NewLine;
