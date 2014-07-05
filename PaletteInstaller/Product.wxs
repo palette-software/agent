@@ -26,6 +26,7 @@
             <File Id="phttp.exe" Source="..\ConsoleAgent\bin\Debug\phttp.exe"></File>
             <File Id="prun.exe" Source="..\ConsoleAgent\bin\Debug\prun.exe"></File>
             <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\Debug\pinfo.exe"></File>
+            <File Id="pgcs.exe" Source="..\ConsoleAgent\bin\Debug\pgcs.exe"></File>
             <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\Debug\InstallerHelper.exe"></File>
           </Component>
           <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
