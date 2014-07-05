@@ -8,6 +8,7 @@ class RegistryUtil
 {
     public static string GetTableauKey()
     {
+        string value = null;
         try
         {
             RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"Software\Tableau");  //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList
@@ -15,8 +16,9 @@ class RegistryUtil
 
             foreach (string key in sk)
             {
-                if (key.Contains("Tableau Server")) return @"Software\Tableau\" + key;
+                if (key.Contains("Tableau Server")) value = @"Software\Tableau\" + key;
             }
+            return value;
         }
         catch //catch all exceptions
         {
