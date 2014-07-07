@@ -130,8 +130,8 @@ class PaletteHandler : HttpHandler
             string action = GetAction(req);
             if (action == "start")
             {
-                string cmd = GetCmd(req);
-                logger.Info("CMD: " + cmd);
+                String cmd = GetCmd(req);
+                logger.Info(String.Format("CMD[{0}]: {1}", xid, cmd));
 
                 Dictionary<string, string> env = GetEnv(req);
                 bool immediate = GetImmediate(req);
@@ -160,7 +160,14 @@ class PaletteHandler : HttpHandler
             throw new HttpMethodNotAllowed();
         }
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
-        logger.Info("JSON: " + json);
+        if (outputBody.ContainsKey("run-status") && ((string)(outputBody["run-status"]) == "finished"))
+        {
+            logger.Info("JSON: " + json);
+        }
+        else
+        {
+            logger.Debug("JSON: " + json);
+        }
         res.Write(json);
         return res;
     }

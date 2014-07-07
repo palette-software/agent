@@ -127,7 +127,7 @@ public class HttpProcessor
 
                     while ((req = HttpRequest.Get(reader)) != null)
                     {
-                        logger.Info(req.ToString());
+                        logger.Debug(req.ToString());
 
                         // This could be cleaner.
                         HttpResponse res = new HttpResponse(writer);
