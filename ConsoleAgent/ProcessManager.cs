@@ -82,6 +82,7 @@ public class ProcessManager
         {
             process.Start();
             WritePid(dir, process.Id);
+            WriteCmd(dir, cmd);
         }
         catch(Exception exc)
         {
@@ -114,17 +115,25 @@ public class ProcessManager
     }
 
     /// <summary>
-    /// Writes windows process id to file
+    /// Writes the Windows process id to file
     /// </summary>
     /// <param name="dir">Folder</param>
     /// <param name="pid">Windows process id</param>
     private void WritePid(string dir, int pid)
     {
         string path = StdPath.Combine(dir, "pid");
-
-        string[] tokens = System.Environment.CurrentDirectory.Split('\\');
-
         File.WriteAllText(path, Convert.ToString(pid));     
+    }
+
+    /// <summary>
+    /// Writes the Windows process id to file
+    /// </summary>
+    /// <param name="dir">Folder</param>
+    /// <param name="pid">Windows process id</param>
+    private void WriteCmd(string dir, string cmd)
+    {
+        string path = StdPath.Combine(dir, "cmd");
+        File.WriteAllText(path, cmd);
     }
 
     /// <summary>
