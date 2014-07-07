@@ -26,6 +26,9 @@ class InstallerHelper
             case "disable-uac":
                 DisableUAC();
                 break;
+            case "uuid":
+                printUUID();
+                break;
             default:
                 Usage();
                 return -1;
@@ -48,6 +51,15 @@ class InstallerHelper
         if (path != null)
         {
             Console.WriteLine(path);
+        }
+    }
+
+    private static void printUUID()
+    {
+        string uuid = RegistryUtil.GetPaletteUUID();
+        if (uuid != null)
+        {
+            Console.WriteLine(uuid);
         }
     }
 

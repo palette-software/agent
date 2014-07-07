@@ -137,7 +137,7 @@ namespace PaletteInstallerCA
             {
                 string output = "[DEFAULT]" + Environment.NewLine;
                 output += "license-key=" + licenseKey + Environment.NewLine;
-                output += "uuid=" + System.Guid.NewGuid().ToString() + Environment.NewLine;
+                output += "uuid=" + GetPaletteUUID(installDir) + Environment.NewLine;
                 output += "install-dir=" + installDir + Environment.NewLine;
                 output += "path=" + path + Environment.NewLine;
                 output += Environment.NewLine;
@@ -452,10 +452,11 @@ namespace PaletteInstallerCA
         }
 
         /// <summary>
-        /// Finds out if Tableau is installed by querying the registry.
+        /// Run InstallerHelper.exe with the given arguments.
         /// </summary>
-        /// <returns>the install path or null if not found.</returns>
-        public static string GetTableauPath(string binDir)
+        /// <param name="args"></param>
+        /// <returns>Standard Ouput of the command as a trimmed string or null</returns>
+        private static string InstallerHelper(string binDir, string args)
         {
             //System.Diagnostics.Debugger.Launch();
             string path = binDir + @"\InstallerHelper.exe";
@@ -463,7 +464,7 @@ namespace PaletteInstallerCA
             Process process = new Process();
 
             process.StartInfo.FileName = path;
-            process.StartInfo.Arguments = "tableau-install-path";
+            process.StartInfo.Arguments = args;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardOutput = true;
@@ -473,12 +474,30 @@ namespace PaletteInstallerCA
             string stdOut = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
 
-            string tableauPath = stdOut.Trim();
-            if (tableauPath.Length == 0)
+            string value = stdOut.Trim();
+            if (value.Length == 0)
             {
                 return null;
             }
-            return tableauPath;
+            return value;
+        }
+
+        /// <summary>
+        /// Finds out if Tableau is installed by querying the registry.
+        /// </summary>
+        /// <returns>the install path or null if not found.</returns>
+        public static string GetTableauPath(string binDir)
+        {
+            return InstallerHelper(binDir, "tableau-install-path");
+        }
+
+        /// <summary>
+        /// Get or Create a UUID and note its value in the registry.
+        /// </summary>
+        /// <returns>the UUID or null if not found.</returns>
+        public static string GetPaletteUUID(string binDir)
+        {
+            return InstallerHelper(binDir, "uuid");
         }
 
         public static string CreatePassword(int length)
