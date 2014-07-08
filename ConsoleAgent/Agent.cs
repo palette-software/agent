@@ -130,7 +130,7 @@ public class Agent
     public void SetupLogging()
     {
         Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
-        const string LOGGING_SECTION = "logging";
+        const string LOGGING_SECTION = "logger";
 
         PatternLayout patternLayout = new PatternLayout();
         patternLayout.ConversionPattern = "%date [%thread] %level %logger - %message%newline";
