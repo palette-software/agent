@@ -72,9 +72,12 @@ class pgcs
         }
         catch (WebException e)
         {
-            using (StreamReader reader = new StreamReader(e.Response.GetResponseStream()))
+            if (e.Response != null)
             {
-                Console.Error.WriteLine(reader.ReadToEnd());
+                using (StreamReader reader = new StreamReader(e.Response.GetResponseStream()))
+                {
+                    Console.Error.WriteLine(reader.ReadToEnd());
+                }
             }
             throw(e);
         }

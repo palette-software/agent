@@ -6,10 +6,12 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Security.Cryptography;
+using System.Threading;
 
 class GCS
 {
     public const string DEFAULT_TARGET = "commondatastorage.googleapis.com";
+    public const int BUFFER_SIZE = 1024 * 1024; // 1M
 
     private string accessKey;
     private string secretKey;
@@ -40,7 +42,42 @@ class GCS
         string requestUri = "http://" + bucketName + "." + target + "/" + objectName;
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(requestUri);
         req.Method = requestType;
+        req.Timeout = Timeout.Infinite;
+        req.ReadWriteTimeout = Timeout.Infinite;
         return req;
+    }
+
+    private void copyFromReaderToFile(BinaryReader reader, string filePath, long contentLength)
+    {
+        int bytesRead;
+        byte[] buffer = new byte[BUFFER_SIZE];
+
+        using (Stream source = File.OpenWrite(filePath))
+        {
+            
+            while (contentLength > 0)
+            {
+                bytesRead = reader.Read(buffer, 0, (int)Math.Min(contentLength, buffer.Length));
+                source.Write(buffer, 0, bytesRead);
+                contentLength -= bytesRead;
+            }
+        }
+    }
+
+    private void copyFromFileToWriter(string filePath, BinaryWriter writer, long contentLength)
+    {
+        int bytesRead;
+        byte[] buffer = new byte[BUFFER_SIZE];
+
+        using (Stream source = File.OpenRead(filePath))
+        {
+            while (contentLength > 0)
+            {
+                bytesRead = source.Read(buffer, 0, (int)Math.Min(contentLength, buffer.Length));
+                writer.Write(buffer, 0, bytesRead);
+                contentLength -= bytesRead;
+            }
+        }
     }
 
     public int GET(string bucketName, string objectName, string path)
@@ -59,11 +96,11 @@ class GCS
 
         long contentLength = res.ContentLength;
 
-        BinaryReader reader = new BinaryReader(res.GetResponseStream());
-        byte[] data = reader.ReadBytes((int)contentLength);
-        reader.Close();
-
-        File.WriteAllBytes(path, data);
+        using (BinaryReader reader = new BinaryReader(res.GetResponseStream()))
+        {
+            copyFromReaderToFile(reader, path, contentLength);
+        }
+        
         return (int)res.StatusCode;
     }
 
@@ -74,7 +111,6 @@ class GCS
         FileInfo fi = new FileInfo(filePath);
         long contentLength = fi.Length;
 
-
         HttpWebRequest req = createWebRequest("PUT", bucketName, objectName);
         req.ContentType = "application/octet-stream";
         req.ContentLength = fi.Length;
@@ -83,9 +119,10 @@ class GCS
         setDate(req, auth.dateTime);
         req.Headers.Add("Authorization: " + auth.ToString());
 
-        BinaryWriter writer = new BinaryWriter(req.GetRequestStream());
-        writer.Write(File.ReadAllBytes(filePath));
-        writer.Close();
+        using (BinaryWriter writer = new BinaryWriter(req.GetRequestStream()))
+        {
+            copyFromFileToWriter(filePath, writer, fi.Length);
+        }
 
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
         return (int)res.StatusCode;
