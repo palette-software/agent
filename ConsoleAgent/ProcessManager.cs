@@ -146,7 +146,7 @@ public class ProcessManager
         string dir = StdPath.Combine(xidDir, Convert.ToString(xid));
         if (!Directory.Exists(dir))
         {
-            return false;
+            return true;
         }
         string path = StdPath.Combine(dir, "returncode");
         return File.Exists(path);
@@ -250,7 +250,6 @@ public class ProcessManager
         Dictionary<string, object> d = new Dictionary<string, object>();
 
         d["xid"] = xid;
-        d["run-status"] = "unknown";
         d["pid"] = GetPid(xid);
         
         if (IsDone(xid)) {

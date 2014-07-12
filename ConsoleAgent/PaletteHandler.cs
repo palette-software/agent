@@ -324,6 +324,7 @@ class PaletteHandler : HttpHandler
             throw new HttpNotFound();
         }
 
+        // FIXME: buffered copy
         res.Write(File.ReadAllText(path));
         return res;
     }
@@ -331,6 +332,7 @@ class PaletteHandler : HttpHandler
     private HttpResponse HandleFilePUT(HttpRequest req, string path)
     {
         HttpResponse res = req.Response;
+        // FIXME: buffered copy
         File.WriteAllText(path, req.data);
         return res;
     }
@@ -640,6 +642,11 @@ class PaletteHandler : HttpHandler
 
         public static ServerControlInfo parse(HttpRequest req)
         {
+            if (req.Method != "POST")
+            {
+                throw new HttpMethodNotAllowed();
+            }
+
             ServerControlInfo info = new ServerControlInfo();
             foreach (string key in req.JSON.Keys)
             {

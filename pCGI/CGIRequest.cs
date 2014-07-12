@@ -31,6 +31,16 @@ class CGIRequest
         {
             environ[entry.Key.ToString()] = entry.Value.ToString();
         }
+        SetTOPDIR();
+    }
+
+    private void SetTOPDIR()
+    {
+        // Just assume that cgi-bin is at the same directory level as 'conf'.
+        string script = environ["SCRIPT_FILENAME"];
+        string path = Path.GetDirectoryName(script);
+        path = StdPath.Combine(path, "..");
+        environ["TOPDIR"] = Path.GetFullPath(path);
     }
 
     public string[] ParsedURI()
@@ -41,15 +51,6 @@ class CGIRequest
             uri = uri.Substring(1);
         }
         return uri.Split('/');
-    }
-
-    public void SetServerRoot()
-    {
-        // Just assume that cgi-bin is at the same directory level as 'conf'.
-        string script = environ["SCRIPT_FILENAME"];
-        string path = Path.GetDirectoryName(script);
-        path = StdPath.Combine(path, "..");
-        environ["SERVER_ROOT"] = Path.GetFullPath(path);
     }
 
     public void PrintEnv()

@@ -90,9 +90,8 @@ public class Agent
 
         binDir = installDir;  
         xidDir = StdPath.Combine(installDir, "XID");
-        dataDir = StdPath.Combine(installDir, "Data");
+        dataDir = StdPath.Combine(installDir, "data");
         confDir = StdPath.Combine(installDir, "conf");
-        docRoot = StdPath.Combine(installDir, "DocRoot");
 
         // These variables are no longer needed by Apache2.
         Environment.SetEnvironmentVariable("TOPDIR", installDir);

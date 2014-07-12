@@ -32,8 +32,6 @@ class pCGI
 
     static int Handle(CGIRequest req)
     {
-        req.SetServerRoot();
-
         string routerPath = null;
         if (req.environ.ContainsKey("ROUTES_FILENAME"))
         {
@@ -43,20 +41,12 @@ class pCGI
                 throw new HttpInternalServerError("ROUTE_FILENAME directive invalid : " + routerPath);
             }
         }
-        else
-        {
-            routerPath = StdPath.Combine(req.environ["SERVER_ROOT"], "conf", "routes.txt");
-            if (!File.Exists(routerPath))
-            {
-                throw new HttpInternalServerError("Routing configuration file not found : " + routerPath);
-            }
-        }
 
         CGIRouter router = new CGIRouter(routerPath);
 
         string[] uri = req.ParsedURI();
 
-        if (uri.Length == 1 && uri[0].Length == 0)
+        if (req.uri == "/" || req.uri == "/ENV")
         {
             Console.Write("Content-Type: text/plain\n\n");
             foreach (KeyValuePair<string, string> entry in router.routes.OrderBy(key => key.Key))
@@ -135,14 +125,15 @@ class pCGI
         DirectoryInfo[] dis = di.GetDirectories();
         if (dis.Length > 0)
         {
-            Console.Write("{0} Directoris:\n", dis.Length);
+            Console.Write("{0} Directories:\n", dis.Length);
             foreach (DirectoryInfo d in dis)
             {
                 Console.Write(d.Name + '\n');
             }
             Console.Write("\n");
         }
-        Console.Write("--------\n");
+
+        Console.Write(new String('-', path.Length) + '\n');
         req.PrintEnv();
         return 0;
     }

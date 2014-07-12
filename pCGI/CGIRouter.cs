@@ -10,7 +10,28 @@ class CGIRouter
     public CGIRouter(string path)
     {
         this.path = path;
+        if (path != null) {
+            Parse(path);
+        } else {
+            // Create a default route to the 'Data' subdirectory.
+            AddRoute(GetDataDir());
+        }
+    }
 
+    private string GetDataDir()
+    {
+        string path = Path.GetDirectoryName(Environment.GetEnvironmentVariable("SCRIPT_FILENAME"));
+        path = StdPath.Combine(path, "..", "data");
+        return Path.GetFullPath(path);
+    }
+
+    private void AddRoute(string path)
+    {
+        string drive = path.Substring(0, 1).ToUpper();
+        routes[drive] = path;
+    }
+
+    private void Parse(string path) {
         string line;
         using (StreamReader reader = new StreamReader(path)) {
             while ((line = reader.ReadLine()) != null)
@@ -21,11 +42,10 @@ class CGIRouter
                     continue;
                 }
                 // FIXME: support UNC Paths
-                string drive = line.Substring(0, 1).ToUpper();
-                routes[drive] = line;
+                AddRoute(line);
             }
         }
-    }
+}
 
     public string Get(string key)
     {

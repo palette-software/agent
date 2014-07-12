@@ -32,14 +32,7 @@ class pinfo
             }
 
             List<Dictionary<string, object>> driveData = GetDriveInfo();
-
-            allData.Add("os-version", System.Environment.OSVersion.ToString());
-            allData.Add("processor-type", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
-            allData.Add("processor-count", System.Environment.ProcessorCount.ToString());
-            allData.Add("installed-memory", installedMemory);
             allData.Add("volumes", driveData);
-            allData.Add("ip-address", GetFirstIPAddr());
-            allData.Add("fqdn", GetFQDN());
 
             string installDir = RegistryUtil.GetTableauInstallPath();
             if (installDir != null && installDir.Length > 0)
@@ -95,19 +88,6 @@ class pinfo
         }
 
         return allData;
-    }
-
-    public static string GetFQDN()
-    {
-        string domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
-        string hostName = Dns.GetHostName();
-
-        if(!hostName.Contains(domainName))            // if the hostname does not already include the domain name
-        {
-            hostName = hostName + "." + domainName;   // add the domain name part
-        }
-
-        return hostName;                              // return the fully qualified domain name
     }
 
     public static string GetTableauDataPath()
