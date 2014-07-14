@@ -146,6 +146,7 @@ namespace PaletteInstallerCA
                 output += "# port=8888" + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
+                output += "[logger]" + Environment.NewLine;
                 output += "location=" + installDir + @"logs\agent.log" + Environment.NewLine;
                 output += "maxsize=10MB" + Environment.NewLine;
 

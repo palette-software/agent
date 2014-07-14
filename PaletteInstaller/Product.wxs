@@ -19,18 +19,18 @@
           <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
           <Component Id="Base" Guid="f8e03674-4769-4971-8180-75e968e3064f">
             <!-- TODO: Insert files, registry keys, and other resources here. -->
-            <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\Debug\ConsoleAgent.exe"></File>
-            <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\Debug\fastJSON.dll"></File>
-            <File Id="log4net.dll" Source="..\ConsoleAgent\bin\Debug\log4net.dll"></File>
-            <File Id="Interop.NetFwTypeLib.dll" Source="..\ConsoleAgent\bin\Debug\Interop.NetFwTypeLib.dll"></File>
-            <File Id="phttp.exe" Source="..\ConsoleAgent\bin\Debug\phttp.exe"></File>
-            <File Id="prun.exe" Source="..\ConsoleAgent\bin\Debug\prun.exe"></File>
-            <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\Debug\pinfo.exe"></File>
-            <File Id="pgcs.exe" Source="..\ConsoleAgent\bin\Debug\pgcs.exe"></File>
-            <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\Debug\InstallerHelper.exe"></File>
+            <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\ConsoleAgent.exe"></File>
+            <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\fastJSON.dll"></File>
+            <File Id="log4net.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\log4net.dll"></File>
+            <File Id="Interop.NetFwTypeLib.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\Interop.NetFwTypeLib.dll"></File>
+            <File Id="phttp.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\phttp.exe"></File>
+            <File Id="prun.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\prun.exe"></File>
+            <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\pinfo.exe"></File>
+            <File Id="pgcs.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\pgcs.exe"></File>
+            <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\$(var.Configuration)\InstallerHelper.exe"></File>
           </Component>
           <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
-            <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\Debug\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
+            <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\$(var.Configuration)\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
             <ServiceInstall Id="Palette" Type="ownProcess" Name="palette" DisplayName="Palette Agent"
                     Description="Service for Palette Agent" Start="auto" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal">
             </ServiceInstall>
@@ -40,14 +40,8 @@
           <Directory Id="cgibin" Name="cgi-bin">
             <Component Id="CgiBinFolder" Guid="0a408718-b9ab-4fa7-aa01-7dd00a64527d">
               <CreateFolder />
-              <File Id="pCGI.exe" Source="..\pCGI\bin\Debug\pCGI.exe" />
+              <File Id="pCGI.exe" Source="..\pCGI\bin\$(var.Configuration)\pCGI.exe" />
               <RemoveFile Id="RemoveCgiBinFolder" Name="*.*" On="uninstall" />
-            </Component>
-          </Directory>
-          <Directory Id="log" Name="log">
-            <Component Id="LogFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f268">
-              <CreateFolder />
-              <RemoveFile Id="RemoveLogFolder" Name="*.*" On="uninstall" />
             </Component>
           </Directory>
           <Directory Id="conf" Name="conf">
@@ -299,7 +293,6 @@
     <Feature Id="ProductFeature" Title="Palette" Level="1">
       <!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
       <ComponentRef Id="Base" />
-      <ComponentRef Id="LogFolder" />
       <ComponentRef Id="ArchiveFolder" />
       <ComponentRef Id="CgiBinFolder" />
       <ComponentRef Id="ConfigFolder" />
@@ -320,7 +313,7 @@
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
 
-    <Binary Id="PaletteInstallerCA" SourceFile="..\PaletteInstallerCA\bin\Debug\PaletteInstallerCA.CA.dll" />
+    <Binary Id="PaletteInstallerCA" SourceFile="..\PaletteInstallerCA\bin\$(var.Configuration)\PaletteInstallerCA.CA.dll" />
 
     <!-- Immediate CA -->
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
