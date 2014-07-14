@@ -1,73 +1,59 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Timers;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading;
-using System.Reflection;
 
-
-namespace ServiceAgent
+class ServiceAgent : ServiceBase
 {
-    public partial class ServiceAgent : ServiceBase
+    string installDir;
+    string iniFile;
+
+    public ServiceAgent()
     {
-        public ServiceAgent()
-        {
-            ServiceName = "Service Agent";
+        ServiceName = "Palette Agent";
 
-            InitializeComponent();
+        installDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        string confDir = Path.Combine(installDir, "conf");
+        iniFile = Path.Combine(confDir, "agent.ini");
+        
+        // Configure the level of control available on the service.
+        CanStop = true;
+        CanPauseAndContinue = false;
+        CanHandleSessionChangeEvent = false;
 
-            // Configure the level of control available on the service.
-            CanStop = true;
-            CanPauseAndContinue = false;
-            CanHandleSessionChangeEvent = false;
+        // Configure the service to log important events to the 
+        // Application event log automatically.
+        AutoLog = true;
+    }
 
-            // Configure the service to log important events to the 
-            // Application event log automatically.
-            AutoLog = true;
+    protected override void OnStart(string[] args)
+    {
+        EventLog.WriteEntry(this.ServiceName + " starting...");
 
-            if (!System.Diagnostics.EventLog.SourceExists("ServiceAgentSource"))
-            {
-                System.Diagnostics.EventLog.CreateEventSource(
-                   "ServiceAgentSource", "ServiceAgentLog");
-            }
-            eventLog1.Source = "ServiceAgentSource";
-            eventLog1.Log = "ServiceAgentLog";
-        }
+        //Kick off the Agent as a thread so it doesn't halt the onStart() method
+        Thread t = new Thread(new ThreadStart(this.ThreadRun));
+        t.Start();
+    }
 
-        // The method executed when the timer expires and writes an entry to the Application event log.
-        private void WriteLogEntry(object sender, ElapsedEventArgs e)
-        {
-            // Use the EventLog object automatically configured by the ServiceBase class to write to the event log. 
-            EventLog.WriteEntry("ServiceAgent Service active : " + e.SignalTime);
-        }
+    private void ThreadRun()
+    {
+        Agent agent = new Agent(iniFile);
+        agent.Run();
+    }
 
-        protected override void OnStart(string[] args)
-        {
-            EventLog.WriteEntry("ServiceAgent Service starting...");   
+    protected override void OnStop()
+    {
+        EventLog.WriteEntry(this.ServiceName + " stopping...");
+    }
 
-            //Kick off the Agent as a thread so it doesn't halt the onStart() method
-            Thread t = new Thread(new ThreadStart(this.InitAgent));
-            t.Start();
-        }
-
-        private void InitAgent()
-        {            
-            string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string inifile = Path.Combine(assemblyPath, "conf\\agent.ini");
-
-            Agent agent = new Agent(inifile);
-            agent.Run();
-        }
-
-        protected override void OnStop()
-        {
-            EventLog.WriteEntry("ServiceAgent Service stopping...");
-        }
+    /// <summary>
+    /// The main entry point for the application.
+    /// </summary>
+    static void Main()
+    {
+        ServiceBase.Run(new ServiceAgent());
     }
 }
