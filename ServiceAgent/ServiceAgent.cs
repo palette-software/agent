@@ -11,6 +11,13 @@ class ServiceAgent : ServiceBase
 {
     public const string CONSOLE_EXE = "ConsoleAgent.exe";
 
+    /* state */
+    public bool running = false;
+    /* The ConsoleAgent process handle */
+    public Process process = null;
+    /* Watcher thread for the process */
+    public Thread thread = null;
+
     /* Main installation directory */
     string installDir;
     /* Path of the console agent executable */
@@ -44,10 +51,11 @@ class ServiceAgent : ServiceBase
     protected override void OnStart(string[] args)
     {
         EventLog.WriteEntry(this.ServiceName + " starting from '" + installDir + "'");
+        running = true;
 
         //Kick off the Agent as a thread so it doesn't halt the onStart() method
-        Thread t = new Thread(new ThreadStart(this.ThreadRun));
-        t.Start();
+        thread = new Thread(new ThreadStart(this.ThreadRun));
+        thread.Start();
     }
 
     private string appendInfo(string message)
@@ -61,7 +69,7 @@ class ServiceAgent : ServiceBase
 
     private void ThreadRun()
     {
-        while (true)
+        while (running)
         {
             /* UPGRADE */
             if (File.Exists(upgradePath))
@@ -71,7 +79,7 @@ class ServiceAgent : ServiceBase
             }
 
             /* RUN */
-            Process process = new Process();
+            process = new Process();
 
             string arguments = "\"" + iniFile + "\"";
             process.StartInfo.FileName = agentPath;
@@ -112,6 +120,22 @@ class ServiceAgent : ServiceBase
     protected override void OnStop()
     {
         EventLog.WriteEntry(this.ServiceName + " stopping...");
+        running = false;
+
+        try
+        {
+            if (process != null)
+            {
+                process.Kill();
+            }
+        }
+        catch (Exception) { }
+
+        try
+        {
+            thread.Join();
+        }
+        catch (Exception) { }
     }
 
     /// <summary>

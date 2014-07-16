@@ -174,15 +174,25 @@ public class Agent
     /// <returns>0 if process completes regularly</returns>
     public int Run()
     {
+        /* FIXME: remove this initial cleanup */
         System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
 
         foreach (FileInfo file in xidContents.GetFiles())
         {
-            file.Delete();
+            try
+            {
+                file.Delete();
+            }
+            catch (IOException) { }
         }
         foreach (DirectoryInfo dir in xidContents.GetDirectories())
         {
-            dir.Delete(true);
+
+            try
+            {
+                dir.Delete();
+            }
+            catch (IOException) { }
         }
         
         PaletteHandler handler = new PaletteHandler(this);

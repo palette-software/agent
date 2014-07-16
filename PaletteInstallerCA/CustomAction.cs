@@ -187,6 +187,11 @@ namespace PaletteInstallerCA
                     // kill  running process
                     runningProcess[i].Kill();
                 }
+
+                if (runningProcess[i].ProcessName == "ConsoleAgent.exe")
+                {
+                    runningProcess[i].Kill();
+                }
             }
 
             //Then delete the Program files folder
@@ -206,7 +211,7 @@ namespace PaletteInstallerCA
             }
             catch (Exception ex) //if this fails, delete by removing files first
             {
-                session.Log("Failed to Palette Program Files folder on first attempt...");
+                session.Log("Failed to delete Palette Program Files folder on first attempt...");
                 session.Log("Custom Action Exception: " + ex.ToString());
                 if (Directory.Exists(installDir)) DeleteDirectoryRecursively(installDir, true);
             }
