@@ -83,15 +83,15 @@ public class ProcessManager
             process.Start();
             WritePid(dir, process.Id);
             WriteCmd(dir, cmd);
+
+            if (immediate)
+            {
+                process.WaitForExit();
+            }
         }
         catch(Exception exc)
         {
             logger.Error("Error launching process: " + exc.Message);
-        }
-
-        if (immediate)
-        {
-            process.WaitForExit();
         }
 
         return process;

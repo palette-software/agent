@@ -10,6 +10,7 @@ using log4net.Config;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Odbc;
+using System.Security.Cryptography;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -33,6 +34,27 @@ class PaletteHandler : HttpHandler
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="req"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public string GetRequiredJSONString(HttpRequest req, string name)
+    {
+        if (req.JSON == null) {
+            throw new HttpBadRequest("Request must contain valid JSON.");
+        }
+        if (!req.JSON.ContainsKey(name)) {
+            throw new HttpBadRequest("Missing JSON parameter '" + name + "'.");
+        }
+        try {
+            return (string)req.JSON[name];
+        } catch (Exception e) {
+            throw new HttpBadRequest(e.ToString());
+        }
+    }
+
+    /// <summary>
     /// Sorts requests based on URI
     /// </summary>
     /// <param name="req">HttpRequest</param>
@@ -49,6 +71,8 @@ class PaletteHandler : HttpHandler
                 return HandleCmd(req);
             case "/file":
                 return HandleFile(req);
+            case "/hup":
+                return HandleHUP(req);
             case "/maint":
                 return HandleMaint(req);
             case "/ping":
@@ -329,6 +353,117 @@ class PaletteHandler : HttpHandler
         return res;
     }
 
+    private string ComputeSHA256(byte [] data)
+    {
+        byte[] hash = SHA256.Create().ComputeHash(data);
+        
+        string hashString = string.Empty;
+        foreach (byte x in hash)
+        {
+            hashString += String.Format("{0:x2}", x);
+        }
+        return hashString;
+    }
+
+    private Dictionary<string, object> HandleSHA256(HttpRequest req)
+    {
+        string path = GetRequiredJSONString(req, "path");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+        if (!File.Exists(path))
+        {
+            d["status"] = "FAILED";
+            d["error"] = "File does not exist: " + path;
+            return d;
+        }
+        byte[] data = File.ReadAllBytes(path);
+        string hash = ComputeSHA256(data);
+
+        d["status"] = "OK";
+        d["hash"] = hash;
+        return d;
+    }
+
+    private Dictionary<string, object> HandleMOVE(HttpRequest req)
+    {
+        string src = GetRequiredJSONString(req, "source");
+        string dst = GetRequiredJSONString(req, "destination");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+
+        try {
+            File.Move(src, dst);
+        } catch (Exception e){
+            d["status"] = "FAILED";
+            d["error"] = e.ToString();
+            return d;
+        }
+        d["status"] = "OK";
+        return d;
+    }
+
+    private Dictionary<string, object> HandleLISTDIR(HttpRequest req)
+    {
+        string path = GetRequiredJSONString(req, "path");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+        if (!Directory.Exists(path))
+        {
+            d["status"] = "FAILED";
+            d["error"] = "Not a valid directory: " + path;
+            return d;
+        }
+
+        DirectoryInfo di = new DirectoryInfo(path);
+        
+        FileInfo[] fis = di.GetFiles();
+        string[] files = new string[fis.Length];
+        for (int i = 0; i < fis.Length; i++)
+        {
+            files[i] = fis[i].Name;
+        }
+
+        DirectoryInfo[] dis = di.GetDirectories();
+        string[] dirs = new string[dis.Length];
+        for (int i = 0; i < dis.Length; i++)
+        {
+            dirs[i] = dis[i].Name;
+        }
+        d["status"] = "OK";
+        d["files"] = files;
+        d["directories"] = dirs;
+        return d;
+    }
+
+    private HttpResponse HandleFilePOST(HttpRequest req)
+    {
+        Dictionary<string, object> outputBody = null;
+        HttpResponse res = req.Response;
+
+        string action = GetRequiredJSONString(req, "action").ToUpper();
+        logger.Debug(req.Method + " /file : " + action);
+
+        switch (action)
+        {
+            case "SHA256":
+                outputBody = HandleSHA256(req);
+                break;
+            case "MOVE":
+                outputBody = HandleMOVE(req);
+                break;
+            case "LISTDIR":
+                outputBody = HandleLISTDIR(req);
+                break;
+            default:
+                throw new HttpBadRequest("Invalid action : " + action);
+        }
+
+        string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+        logger.Debug("JSON: " + json);
+        res.Write(json);
+        return res;
+    }
+
     private HttpResponse HandleFilePUT(HttpRequest req, string path)
     {
         HttpResponse res = req.Response;
@@ -346,6 +481,12 @@ class PaletteHandler : HttpHandler
 
     private HttpResponse HandleFile(HttpRequest req)
     {
+        /* POST is unique in that it doesn't get 'path' from the query string. */
+        if (req.Method == "POST")
+        {
+            return HandleFilePOST(req);
+        }
+
         string path = req.QUERY["path"];
         if (path == null)
         {
@@ -365,6 +506,18 @@ class PaletteHandler : HttpHandler
             default:
                 throw new HttpMethodNotAllowed();
         }
+    }
+
+    private HttpResponse HandleHUP(HttpRequest req)
+    {
+        if (req.Method != "POST")
+        {
+            throw new HttpMethodNotAllowed();
+        }
+
+        HttpResponse res = req.Response;
+        res.needRestart = true;
+        return req.Response;
     }
 
     /// <summary>

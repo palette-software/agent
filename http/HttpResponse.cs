@@ -17,6 +17,9 @@ public class HttpResponse
     public Hashtable Headers = new Hashtable();
     public string ContentType = "text/plain";
 
+    public bool needClose = false;
+    public bool needRestart = false;
+
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

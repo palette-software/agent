@@ -21,6 +21,7 @@ public class HttpProcessor
     protected Stream stream = null;
     protected string ipaddress = null;
     public bool isConnected = false;
+    protected bool needRestart = false;
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -137,27 +138,18 @@ public class HttpProcessor
                         {
                             res = handler.Handle(req);
                         }
-                        catch (HttpBadRequest exc)
-                        {
-                            // forcible close the socket.
-                            if (exc.Body != null)
-                            {
-                                logger.Error(exc.ToString());
-                            }
-                            else
-                            {
-                                logger.Error(exc.ToString());
-                            }
-                            return;
-                        }
                         catch (HttpException exc)
                         {
+                            logger.Error(exc.ToString());
+                            
                             res.StatusCode = exc.StatusCode;
                             res.StatusDescription = exc.Reason;
                             if (exc.Body != null)
                             {
+                                logger.Error(exc.Body);
                                 res.Write(exc.Body);
                             }
+                            res.needClose = true;
                         }
                         catch (Exception exc)
                         {
@@ -165,16 +157,24 @@ public class HttpProcessor
                             res.StatusDescription = "Internal Server Error";
                             res.Write(exc.ToString() + "\r\n");
                             res.Write(exc.StackTrace);
-                            // FIXME: log this.
+
+                            logger.Error("500 Internal Server Error");
+                            logger.Error(exc.ToString());
+                            logger.Error(exc.StackTrace);
                         }
-#if False
-                        catch (Exception exc)
-                        {
-                            logger.Error("General Exception: " + exc.Message + " Source: " + exc.Source);
-                        }
-#endif
 
                         res.Flush();
+
+                        // FIXME: find a cleaner way to shutdown the agent.
+                        if (res.needRestart)
+                        {
+                            Environment.Exit(0);
+                        }
+
+                        if (res.needClose)
+                        {
+                            return;
+                        }
                     }
                 }
             }
