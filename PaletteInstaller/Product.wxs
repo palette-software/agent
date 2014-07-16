@@ -37,6 +37,12 @@
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
             <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="Palette" Wait="no" />            
           </Component>
+          <Directory Id="logs" Name="logs">
+            <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
+              <CreateFolder />
+              <RemoveFile Id="RemoveLogsFolder" Name="*.*" On="uninstall" />
+            </Component>
+          </Directory>
           <Directory Id="cgibin" Name="cgi-bin">
             <Component Id="CgiBinFolder" Guid="0a408718-b9ab-4fa7-aa01-7dd00a64527d">
               <CreateFolder />
@@ -95,12 +101,6 @@
                 <File Id="favicon120.ico" Source="..\..\maint\www\favicon-120.png" />
                 <File Id="favicon152.ico" Source="..\..\maint\www\favicon-152.png" />
                 <RemoveFile Id="RemoveWWWFolder" Name="*.*" On="uninstall" />
-              </Component>
-            </Directory>
-            <Directory Id="logs" Name="logs">
-              <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
-                <CreateFolder />
-                <RemoveFile Id="RemoveLogsFolder" Name="*.*" On="uninstall" />
               </Component>
             </Directory>
             <Directory Id="MaintConf" Name="conf">
