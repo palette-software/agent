@@ -129,6 +129,7 @@ class PaletteHandler : HttpHandler
         data["listen-port"] = agent.archivePort;
         data["uuid"] = agent.uuid;
         data["install-dir"] = agent.installDir;
+        data["data-dir"] = agent.programDataDir;
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
     }
@@ -410,7 +411,7 @@ class PaletteHandler : HttpHandler
         if (!Directory.Exists(path))
         {
             d["status"] = "FAILED";
-            d["error"] = "Not a valid directory: " + path;
+            d["error"] = "Not a valid directory: '" + path + "'";
             return d;
         }
 
@@ -435,6 +436,23 @@ class PaletteHandler : HttpHandler
         return d;
     }
 
+    private Dictionary<string, object> HandleFILESIZE(HttpRequest req)
+    {
+        string path = GetRequiredJSONString(req, "path");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+        if (!File.Exists(path))
+        {
+            d["status"] = "FAILED";
+            d["error"] = "Invalid path: '" + path + "'";
+            return d;
+        }
+
+        FileInfo fi = new FileInfo(path);
+        d["size"] = fi.Length;
+        return d;
+    }
+
     private HttpResponse HandleFilePOST(HttpRequest req)
     {
         Dictionary<string, object> outputBody = null;
@@ -453,6 +471,9 @@ class PaletteHandler : HttpHandler
                 break;
             case "LISTDIR":
                 outputBody = HandleLISTDIR(req);
+                break;
+            case "FILESIZE":
+                outputBody = HandleFILESIZE(req);
                 break;
             default:
                 throw new HttpBadRequest("Invalid action : " + action);

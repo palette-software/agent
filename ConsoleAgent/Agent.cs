@@ -18,7 +18,7 @@ using Microsoft.Win32;
 /// The class that needs to be instantiated by a Console app or Windows service 
 /// to run an agent
 /// </summary>
-public class Agent
+public class Agent : Base
 {
     public const string VERSION = "X.Y";
 
@@ -28,9 +28,6 @@ public class Agent
     public const int DEFAULT_ARCHIVE_PORT = 8889;
     public const int DEFAULT_MAINTENANCE_PORT = 80;
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
-
-    public const string DEFAULT_MAINTENANCE_SERVICE_NAME = "Palette Maintenance Webserver";
-    public const string DEFAULT_ARCHIVE_SERVICE_NAME = "Palette Archive HTTPS Server";
 
     public IniFile conf = null;
 
@@ -48,18 +45,13 @@ public class Agent
     public int controllerTimeoutMilliseconds;
 
     public string installDir;
-    public string binDir;
+    public string programDataDir;
     public string xidDir;
-    public string dataDir;
-    public string confDir;
-    public string docRoot;
 
     public int archivePort;
-    public string archiveServiceName;
     private Apache2 archiveServer;
 
     public int maintPort;
-    public string maintServiceName;
     private Apache2 maintServer;
     
     public ProcessManager processManager;
@@ -88,10 +80,11 @@ public class Agent
             throw new DirectoryNotFoundException(installDir);
         }
 
-        binDir = installDir;  
-        xidDir = StdPath.Combine(installDir, "XID");
-        dataDir = StdPath.Combine(installDir, "data");
-        confDir = StdPath.Combine(installDir, "conf");
+        /* If these calls throw an exception then exit since nothing can be done. */
+        Directory.CreateDirectory(programDataDir);
+
+        xidDir = StdPath.Combine(programDataDir, "XID");
+        Directory.CreateDirectory(programDataDir);
 
         // These variables are no longer needed by Apache2.
         Environment.SetEnvironmentVariable("TOPDIR", installDir);
@@ -112,15 +105,17 @@ public class Agent
 
         HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
-        processManager = new ProcessManager(xidDir, binDir, envPath);
+        processManager = new ProcessManager(xidDir, installDir, envPath);
 
         ipaddr = GetFirstIPAddr();
 
         string path = StdPath.Combine(installDir, "maint", "conf", "httpd.conf");
-        maintServer = new Apache2(maintServiceName, path, installDir);
+        string logDir = StdPath.Combine(programDataDir, "logs", "maint");
+        maintServer = new Apache2(MAINTENANCE_SERVICE_NAME, path, installDir, logDir);
 
         path = StdPath.Combine(installDir, "conf", "archive", "httpd.conf");
-        archiveServer = new Apache2(archiveServiceName, path, installDir);
+        logDir = StdPath.Combine(programDataDir, "logs", "archive");
+        archiveServer = new Apache2(ARCHIVE_SERVICE_NAME, path, installDir, logDir);
     }
 
     /// <summary>
@@ -174,27 +169,6 @@ public class Agent
     /// <returns>0 if process completes regularly</returns>
     public int Run()
     {
-        /* FIXME: remove this initial cleanup */
-        System.IO.DirectoryInfo xidContents = new DirectoryInfo(xidDir);
-
-        foreach (FileInfo file in xidContents.GetFiles())
-        {
-            try
-            {
-                file.Delete();
-            }
-            catch (IOException) { }
-        }
-        foreach (DirectoryInfo dir in xidContents.GetDirectories())
-        {
-
-            try
-            {
-                dir.Delete();
-            }
-            catch (IOException) { }
-        }
-        
         PaletteHandler handler = new PaletteHandler(this);
 
         // FIXME: make this configurable in the INI file.
@@ -203,7 +177,6 @@ public class Agent
         while (true)
         {
             HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl, controllerTimeoutMilliseconds);
-
             try
             {
                 processor.Connect();
@@ -238,6 +211,15 @@ public class Agent
         // intentionally raise exception if these are not set.
         uuid = conf.Read("uuid", DEFAULT_SECTION);
         installDir = conf.Read("install-dir", DEFAULT_SECTION);
+        programDataDir = conf.Read("data-dir", DEFAULT_SECTION, null);
+        if (programDataDir == null)
+        {
+            /*
+             * programDataDir == installDir primarily for debugging.
+             * For production, data-dir will be specified by the installer.
+             */
+            programDataDir = installDir;
+        }
         
         // allow overriding the hostname in the INI file so that multiple agents may be run on the same system for development.
         if (conf.KeyExists("hostname", DEFAULT_SECTION))
@@ -251,10 +233,7 @@ public class Agent
         controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
 
         maintPort = conf.ReadInt("port", "maintenance", DEFAULT_MAINTENANCE_PORT);
-        maintServiceName = conf.Read("name", "maintenance", DEFAULT_MAINTENANCE_SERVICE_NAME);
-
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
-        archiveServiceName = conf.Read("name", "archive", DEFAULT_ARCHIVE_SERVICE_NAME);
 
         licenseKey = conf.Read("license-key", DEFAULT_SECTION, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX");
     }
@@ -281,11 +260,11 @@ public class Agent
     /// </summary>
     public void startMaintServer()
     {
-        string path = StdPath.Combine(installDir, "maint", "conf", "vars.conf");
-        File.WriteAllText(path, "Define MAINTENANCE_PORT " + Convert.ToString(maintPort) + "\r\n");
+        string path = StdPath.Combine(programDataDir, "maint", "vars.conf");
+        File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(maintPort) + "\r\n");
 
         maintServer.start();
-        logger.Info(maintServiceName + " started on port " + Convert.ToString(maintPort));
+        logger.Info(MAINTENANCE_SERVICE_NAME + " started on port " + Convert.ToString(maintPort));
     }
 
     /// <summary>
@@ -294,7 +273,7 @@ public class Agent
     public void stopMaintServer()
     {
         maintServer.stop();
-        logger.Info(maintServiceName + " stopped.");
+        logger.Info(MAINTENANCE_SERVICE_NAME + " stopped.");
     }
 
     /// <summary>
@@ -302,11 +281,11 @@ public class Agent
     /// </summary>
     public void startArchiveServer()
     {
-        string path = StdPath.Combine(confDir, "archive", "vars.conf");
-        File.WriteAllText(path, "Define ARCHIVE_PORT " + Convert.ToString(archivePort) + "\r\n");
+        string path = StdPath.Combine(programDataDir, "archive", "vars.conf");
+        File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(archivePort) + "\r\n");
 
         archiveServer.start();
-        logger.Info(archiveServiceName + " started on port " + Convert.ToString(archivePort));
+        logger.Info(ARCHIVE_SERVICE_NAME + " started on port " + Convert.ToString(archivePort));
     }
 
     /// <summary>
@@ -314,7 +293,7 @@ public class Agent
     public void stopArchiveServer()
     {
         archiveServer.stop();
-        logger.Info(archiveServiceName + " stopped.");
+        logger.Info(ARCHIVE_SERVICE_NAME + " stopped.");
     }
 
     //

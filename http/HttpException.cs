@@ -49,13 +49,13 @@ class HttpNotFound : HttpException
 }
 
 /// <summary>
-/// HttpMethodNotAllowed exception (status code 404)
+/// HttpMethodNotAllowed exception (status code 405)
 /// </summary>
 class HttpMethodNotAllowed : HttpException
 {
     public HttpMethodNotAllowed(): base()
     {
-        StatusCode = 404;
+        StatusCode = 405;
         Reason = "Method Not Allowed";
     }
 }

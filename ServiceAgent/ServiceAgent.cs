@@ -32,11 +32,9 @@ class ServiceAgent : ServiceBase
         ServiceName = "Palette Agent";
 
         installDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        agentPath = Path.Combine(installDir, CONSOLE_EXE);
-        string upgradeDir = Path.Combine(installDir, "upgrade");
-        upgradePath = Path.Combine(upgradeDir, CONSOLE_EXE);
-        string confDir = Path.Combine(installDir, "conf");
-        iniFile = Path.Combine(confDir, "agent.ini");
+        agentPath = StdPath.Combine(installDir, CONSOLE_EXE);
+        upgradePath = StdPath.Combine(installDir, "upgrade", CONSOLE_EXE);
+        iniFile = StdPath.Combine(installDir, "conf", "agent.ini");
         
         // Configure the level of control available on the service.
         CanStop = true;

@@ -36,6 +36,7 @@ class pCGI
         if (req.environ.ContainsKey("ROUTES_FILENAME"))
         {
             routerPath = req.environ["ROUTES_FILENAME"];
+            routerPath = StdPath.Normalize(routerPath);
             if (!File.Exists(routerPath))
             {
                 throw new HttpInternalServerError("ROUTE_FILENAME directive invalid : " + routerPath);
@@ -60,6 +61,7 @@ class pCGI
 
         if (uri[0].Length != 1)
         {
+            Console.Error.Write("INVALID URI");
             throw new HttpNotFound();
         }
 
@@ -68,6 +70,7 @@ class pCGI
 
         if (path == null)
         {
+            Console.Error.Write("NOT FOUND: " + path + "\n");
             throw new HttpNotFound();
         }
 

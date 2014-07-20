@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base.cs" />
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="Apache2.cs" />
@@ -150,12 +151,13 @@
 IF NOT EXIST "$(SolutionDir)build\conf"  (mkdir "$(SolutionDir)build\conf")
 IF NOT EXIST "$(SolutionDir)build\logs"  (mkdir "$(SolutionDir)build\logs")
 
-IF NOT EXIST "$(SolutionDir)build\Data"  (mkdir "$(SolutionDir)build\Data")
+IF NOT EXIST "$(SolutionDir)build\data"  (mkdir "$(SolutionDir)build\data")
 
 IF NOT EXIST "$(SolutionDir)build\XID"  (mkdir "$(SolutionDir)build\XID")
 
 IF NOT EXIST "$(SolutionDir)build\apache2"  (mkdir "$(SolutionDir)build\apache2")
 XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
+IF NOT EXIST "$(SolutionDir)\build\apache2\conf\env.conf" (ECHO Define INSTALLDIR "$(SolutionDir)build" &gt; "$(SolutionDir)build\apache2\conf\env.conf" &amp;&amp; ECHO Define DATADIR "$(SolutionDir)build" &gt;&gt; "$(SolutionDir)build\apache2\conf\env.conf")
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
@@ -166,8 +168,9 @@ COPY /Y "$(SolutionDir)conf\archive\httpd.conf" "$(SolutionDir)build\conf\archiv
 COPY /Y "$(SolutionDir)conf\archive\htpasswd" "$(SolutionDir)build\conf\archive"
 COPY /Y "$(SolutionDir)conf\archive\server.crt" "$(SolutionDir)build\conf\archive"
 COPY /Y "$(SolutionDir)conf\archive\server.key" "$(SolutionDir)build\conf\archive"
-IF NOT EXIST "$(SolutionDir)\build\conf\archive\vars.conf" (ECHO Define ARCHIVE_PORT 8889 &gt; "$(SolutionDir)build\conf\archive\vars.conf")
-IF NOT EXIST "$(SolutionDir)\build\conf\archive\routes.txt" (ECHO $(SolutionDir)build\data &gt; "$(SolutionDir)build\conf\archive\routes.txt")
+
+IF NOT EXIST "$(SolutionDir)build\archive"  (mkdir "$(SolutionDir)build\archive")
+IF NOT EXIST "$(SolutionDir)build\archive\logs"  (mkdir "$(SolutionDir)build\archive\logs")
 
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"

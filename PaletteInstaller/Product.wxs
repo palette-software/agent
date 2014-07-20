@@ -36,14 +36,10 @@
                     Description="Service for Palette Agent" Start="auto" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal">
             </ServiceInstall>
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
-            <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="Palette" Wait="no" />            
+            <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="palette" Wait="no" />
+            <ServiceControl Id="PaletteArchive" Stop="both" Remove="uninstall" Name="PaletteArchiveServer" Wait="no" />
+            <ServiceControl Id="PaletteMaint" Stop="both" Remove="uninstall" Name="PaletteMaintenanceWebserver" Wait="no" />
           </Component>
-          <Directory Id="logs" Name="logs">
-            <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
-              <CreateFolder />
-              <RemoveFile Id="RemoveLogsFolder" Name="*.*" On="uninstall" />
-            </Component>
-          </Directory>
           <Directory Id="cgibin" Name="cgi-bin">
             <Component Id="CgiBinFolder" Guid="0a408718-b9ab-4fa7-aa01-7dd00a64527d">
               <CreateFolder />
@@ -56,7 +52,6 @@
               <CreateFolder />
               <File Id="archive.crt" Source="..\conf\archive.crt" />
               <File Id="archive.key" Source="..\conf\archive.key" />
-              <File Id="archive_httpd.conf" Source="..\conf\archive-httpd.conf" />
               <RemoveFile Id="RemoveConfigFolder" Name="*.*" On="uninstall" />
             </Component>
             <Directory Id="archive" Name="archive">
@@ -70,18 +65,6 @@
                 <RemoveFile Id="RemoveArchiveFolder" Name="*.*" On="uninstall" />
               </Component>
             </Directory>
-          </Directory>
-          <Directory Id="data" Name="data">
-            <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
-              <CreateFolder />
-            </Component>
-          </Directory>
-          <Directory Id="XID" Name="XID">
-            <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f270">
-              <CreateFolder />
-              <!-- TODO: Unfortunately does not delete files recursively. -->
-              <RemoveFile Id="RemoveXIDFolder" Name="*.*" On="uninstall" />
-            </Component>
           </Directory>
           <Directory Id="maint" Name="maint">
             <Component Id="MaintFolder" Guid="040d8e73-2cd1-4884-88c3-8a24436fcbc1">
@@ -111,6 +94,11 @@
                 <RemoveFile Id="RemoveConfFolder" Name="*.*" On="uninstall" />
               </Component>
             </Directory>
+          </Directory>
+          <Directory Id="Upgrade" Name="upgrade">
+            <Component Id="UpgradeFolder" Guid="ddd42a57-83c2-443c-aad6-1ee8d5baf566">
+              <CreateFolder />
+            </Component>
           </Directory>
           <Directory Id="apache2" Name="apache2">
             <Component Id="Apache2Folder" Guid="a6db6273-4f31-4c9b-8a8b-d3f688853231">
@@ -289,6 +277,45 @@
           </Directory>
         </Directory>
       </Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="DATALOCATION" Name="Palette">
+          <Directory Id="logs" Name="logs">
+            <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
+              <CreateFolder />
+            </Component>
+            <Directory Id="archiveLogs" Name="archive">
+              <Component Id="ArchiveLogsFolder" Guid="dc1658b7-1886-467a-8bb0-ac05d098f584">
+                <CreateFolder />
+              </Component>
+            </Directory>
+            <Directory Id="maintLogs" Name="maint">
+              <Component Id="MaintLogsFolder" Guid="bfd10da7-a4dc-4105-9a57-67a99a028ff4">
+                <CreateFolder />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id="data" Name="data">
+            <Component Id="DataFolder" Guid="52fa459d-03d6-42ea-bba2-c12036d79162">
+              <CreateFolder />
+            </Component>
+          </Directory>
+          <Directory Id="archiveData" Name="archive">
+            <Component Id="ArchiveDataFolder" Guid="f2574b9d-6df3-4e86-afa3-5563f6117f52">
+              <CreateFolder />
+            </Component>
+          </Directory>
+          <Directory Id="maintData" Name="maint">
+            <Component Id="MaintDataFolder" Guid="">
+              <CreateFolder />
+            </Component>
+          </Directory>
+          <Directory Id="XID" Name="XID">
+            <Component Id="XIDFolder" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f270">
+              <CreateFolder />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
     </Directory>
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
@@ -298,11 +325,16 @@
       <ComponentRef Id="CgiBinFolder" />
       <ComponentRef Id="ConfigFolder" />
       <ComponentRef Id="DataFolder" />
+      <ComponentRef Id="ArchiveDataFolder" />
+      <ComponentRef Id="MaintDataFolder" />
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="MaintFolder" />
       <ComponentRef Id="WWWFolder" />
       <ComponentRef Id="LogsFolder" />
+      <ComponentRef Id="ArchiveLogsFolder" />
+      <ComponentRef Id="MaintLogsFolder" />
       <ComponentRef Id="ConfFolder" />
+      <ComponentRef Id="UpgradeFolder" />
       <ComponentRef Id="Apache2Folder" />
       <ComponentRef Id="Apache2BinFolder" />
       <ComponentRef Id="Apache2LibFolder" />
@@ -318,6 +350,7 @@
 
     <!-- Immediate CA -->
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
+    <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD];INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
@@ -325,15 +358,18 @@
     <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     
     <!-- Deferred CA -->    
-    <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />    
+    <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
+    <CustomAction Id="CreateEnvConf" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateEnvConf" Return="check" HideTarget="yes" Impersonate="no" />
     <CustomAction Id="HidePaletteUser" Return="check" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="HidePaletteUser"/>
     
     <InstallExecuteSequence>
       <Custom Action="CreatePaletteUser" Before="LaunchConditions">NOT Installed</Custom>
       <Custom Action="CreateIniFileImmediate" Sequence="5000">NOT Installed</Custom>
       <Custom Action="CreateIniFile" Sequence="5001">NOT Installed</Custom>
-      <Custom Action="HidePaletteUserImmediate" Sequence="5002">NOT Installed</Custom>
-      <Custom Action="HidePaletteUser" Sequence="5003">NOT Installed</Custom>
+      <Custom Action="CreateEnvConfImmediate" Sequence="5002">NOT Installed</Custom>
+      <Custom Action="CreateEnvConf" Sequence="5003">NOT Installed</Custom>
+      <Custom Action="HidePaletteUserImmediate" Sequence="5004">NOT Installed</Custom>
+      <Custom Action="HidePaletteUser" Sequence="5005">NOT Installed</Custom>
       <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
     </InstallExecuteSequence>

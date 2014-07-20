@@ -8,21 +8,21 @@ class Apache2
 {
     protected string name;
     protected string conf;
-    protected string topDir;
+    protected string installDir;
     protected string srvRootDir;
     protected string logDir;
     protected string baseArgs;
     protected string fileName;
 
-    public Apache2(string name, string conf, string topDir)
+    public Apache2(string name, string conf, string installDir, string logDir)
     {
         this.name = name;
         this.conf = conf;
-        this.topDir = topDir;
-        this.srvRootDir = StdPath.Combine(topDir, "apache2");
-        this.logDir = StdPath.Combine(topDir, "logs");
-        string binDir = StdPath.Combine(srvRootDir, "bin");
-        fileName = StdPath.Combine(binDir, "httpd.exe");
+        this.installDir = installDir;
+        this.logDir = logDir;
+
+        this.srvRootDir = StdPath.Combine(installDir, "apache2");
+        fileName = StdPath.Combine(srvRootDir, "bin", "httpd.exe");
         string startupLog = StdPath.Combine(logDir, "startup.log");
         baseArgs = "-f \"" + conf + "\" -n \"" + name + "\" -E \"" + startupLog;
     }

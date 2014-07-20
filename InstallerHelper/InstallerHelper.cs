@@ -18,22 +18,17 @@ class InstallerHelper
         switch (action)
         {
             case "tableau-install-path":
-                printTableauInstallPath();
-                break;
+                return printTableauInstallPath();
             case "hide-user":
-                HideUser();
-                break;
+                return HideUser();
             case "disable-uac":
-                DisableUAC();
-                break;
+                return DisableUAC();
             case "uuid":
-                printUUID();
-                break;
-            default:
-                Usage();
-                return -1;
+                return printUUID();
         }
-        return 0;
+
+        Usage();
+        return -1;
     }
 
     /// <summary>
@@ -45,25 +40,27 @@ class InstallerHelper
         // FIXME: fill in the options.
     }
 
-    private static void printTableauInstallPath()
+    private static int printTableauInstallPath()
     {
         string path = RegistryUtil.GetTableauInstallPath();
         if (path != null)
         {
             Console.WriteLine(path);
         }
+        return 0;
     }
 
-    private static void printUUID()
+    private static int printUUID()
     {
         string uuid = RegistryUtil.GetPaletteUUID();
         if (uuid != null)
         {
             Console.WriteLine(uuid);
         }
+        return 0;
     }
 
-    public static string DisableUAC()
+    public static int DisableUAC()
     {
         try
         {
@@ -71,17 +68,21 @@ class InstallerHelper
             object obj1 = rk.GetValue("EnableLUA");
             bool uacEnabled = Convert.ToBoolean(obj1);
 
-            if (uacEnabled == true) rk.SetValue("EnableLUA", 0, RegistryValueKind.DWord);
-
-            return uacEnabled.ToString();
+            if (uacEnabled == true)
+            {
+                rk.SetValue("EnableLUA", 0, RegistryValueKind.DWord);
+                return -1;
+            }
         }
-        catch //catch all exceptions
+        catch (Exception e) //catch all exceptions
         {
-            return null;
+            Console.Error.WriteLine(e.ToString());
+            return -1;
         }
+        return 0;
     }
 
-    public static void EnableUAC()
+    public static int EnableUAC()
     {
         try
         {
@@ -89,14 +90,21 @@ class InstallerHelper
             object obj1 = rk.GetValue("EnableLUA");
             bool uacEnabled = Convert.ToBoolean(obj1);
 
-            if (uacEnabled == false) rk.SetValue("EnableLUA", 1, RegistryValueKind.DWord);
+            if (uacEnabled == false)
+            {
+                rk.SetValue("EnableLUA", 1, RegistryValueKind.DWord);
+                return -1;
+            }
         }
-        catch //catch all exceptions
+        catch (Exception e) //catch all exceptions
         {
+            Console.Error.WriteLine(e.ToString());
+            return -1;
         }
+        return 0;
     }
 
-    public static void HideUser()
+    public static int HideUser()
     {
         string userName = "Palette";
 
@@ -131,8 +139,11 @@ class InstallerHelper
                 }
             }
         }
-        catch //catch all exceptions
+        catch (Exception e)//catch all exceptions
         {
+            Console.Error.WriteLine(e.ToString());
+            return -1;
         }
+        return 0;
     }
 }
