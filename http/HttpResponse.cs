@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections;
+using System.Text;
 
 /// <summary>
 /// Encapsulates an HTTP response object
@@ -10,8 +11,9 @@ public class HttpResponse
     public const string VERSION = "1.1";
     public const string SERVER = "Palette/0.0";
 
-    protected StreamWriter writer;
-    public StringWriter body = new StringWriter();
+    protected HttpStreamWriter writer;
+
+    public MemoryStream body = new MemoryStream();
     public int StatusCode = 200;
     public string StatusDescription = "OK";
     public Hashtable Headers = new Hashtable();
@@ -28,9 +30,18 @@ public class HttpResponse
     /// Constructor
     /// </summary>
     /// <param name="writer">a StreamWriter</param>
-    public HttpResponse(StreamWriter writer)
+    public HttpResponse(HttpStreamWriter writer)
     {
         this.writer = writer;
+    }
+
+    /// <summary>
+    /// Writes response body
+    /// </summary>
+    /// <param name="bytes"></param>
+    public void Write(byte[] bytes)
+    {
+        body.Write(bytes, 0, bytes.Length);
     }
 
     /// <summary>
@@ -39,7 +50,8 @@ public class HttpResponse
     /// <param name="s"></param>
     public void Write(string s)
     {
-        body.Write(s);
+        byte[] bytes = Encoding.ASCII.GetBytes(s);
+        Write(bytes);
     }
 
     /// <summary>
@@ -47,15 +59,14 @@ public class HttpResponse
     /// </summary>
     public void Flush()
     {
-        string body = this.body.ToString();
-
         writer.WriteLine("HTTP/" + VERSION + " " + Convert.ToString(StatusCode) + " " + StatusDescription);
         writer.WriteLine("Server: " + SERVER);
         writer.WriteLine("Content-Length: " + Convert.ToString(body.Length));
         writer.WriteLine("");
         if (body.Length > 0)
         {
-            writer.Write(body);
+            byte[] bytes = body.GetBuffer();
+            writer.Write(bytes, 0, (int)body.Length);
         }
 
         writer.Flush();

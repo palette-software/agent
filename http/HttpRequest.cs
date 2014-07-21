@@ -25,7 +25,7 @@ public class HttpRequest
 
     public string ContentType = "text/plain";
 
-    public string data = null;
+    public byte[] data;
     public Dictionary<string, object> JSON = null;
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -45,7 +45,7 @@ public class HttpRequest
     /// </summary>
     /// <param name="reader"></param>
     /// <returns></returns>
-    public static HttpRequest Get(StreamReader reader)
+    public static HttpRequest Get(HttpStreamReader reader)
     {
         HttpRequest req = new HttpRequest();
 
@@ -69,13 +69,12 @@ public class HttpRequest
 
         if (req.ContentLength != 0)
         {
-            char[] data = new char[req.ContentLength];
-            reader.Read(data, 0, req.ContentLength);
-            req.data = new string(data);
-
-            if (req.ContentType == "application/json")
+            if (req.ContentType == "text/json" || req.ContentType == "application/json")
             {
-                req.JSON = fastJSON.JSON.Instance.Parse(req.data) as Dictionary<string, object>;
+                string data = reader.ReadText(req.ContentLength); 
+                req.JSON = fastJSON.JSON.Instance.Parse(data) as Dictionary<string, object>;
+            } else {
+                req.data = reader.Read(req.ContentLength);
             }
         }
 
@@ -99,7 +98,7 @@ public class HttpRequest
 
         ProtocolVersion = tokens[2];
 
-        if (!ProtocolVersion.Contains("1.1"))
+        if (ProtocolVersion != "HTTP/1.1")
         {
             throw new HttpBadRequest("Invalid HTTP version.  Use version 1.1");
         }
@@ -129,8 +128,8 @@ public class HttpRequest
     /// <summary>
     /// Reads the HTTP Header line
     /// </summary>
-    /// <param name="reader">StreamReader</param>
-    private void ReadHeaders(StreamReader reader)
+    /// <param name="reader">HttpStreamReader</param>
+    private void ReadHeaders(HttpStreamReader reader)
     {
         String line;
         while ((line = reader.ReadLine()) != null)

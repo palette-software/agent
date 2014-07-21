@@ -350,7 +350,7 @@ class PaletteHandler : HttpHandler
         }
 
         // FIXME: buffered copy
-        res.Write(File.ReadAllText(path));
+        res.Write(File.ReadAllBytes(path));
         return res;
     }
 
@@ -489,7 +489,7 @@ class PaletteHandler : HttpHandler
     {
         HttpResponse res = req.Response;
         // FIXME: buffered copy
-        File.WriteAllText(path, req.data);
+        File.WriteAllBytes(path, req.data);
         return res;
     }
 

@@ -32,9 +32,11 @@ class ServiceAgent : ServiceBase
         ServiceName = "Palette Agent";
 
         installDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        agentPath = StdPath.Combine(installDir, CONSOLE_EXE);
-        upgradePath = StdPath.Combine(installDir, "upgrade", CONSOLE_EXE);
-        iniFile = StdPath.Combine(installDir, "conf", "agent.ini");
+        agentPath = Path.Combine(installDir, CONSOLE_EXE);
+        string upgradeDir = Path.Combine(installDir, "upgrade");
+        upgradePath = Path.Combine(upgradeDir, CONSOLE_EXE);
+        string confDir = Path.Combine(installDir, "conf");
+        iniFile = Path.Combine(confDir, "agent.ini");
         
         // Configure the level of control available on the service.
         CanStop = true;
@@ -111,6 +113,7 @@ class ServiceAgent : ServiceBase
                 string message = "ConsoleAgent Exception" + Environment.NewLine + e.ToString();
                 EventLog.WriteEntry(appendInfo(message), EventLogEntryType.Error);
             }
+            process.Close();
             Thread.Sleep(10 * 1000);
         }
     }

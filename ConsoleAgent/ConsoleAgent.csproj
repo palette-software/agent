@@ -90,6 +90,9 @@
     <Compile Include="..\http\HttpException.cs">
       <Link>http\HttpException.cs</Link>
     </Compile>
+    <Compile Include="..\http\HttpStream.cs">
+      <Link>http\HttpStream.cs</Link>
+    </Compile>
     <Compile Include="..\http\HttpHandler.cs">
       <Link>http\HttpHandler.cs</Link>
     </Compile>
@@ -150,6 +153,8 @@
 
 IF NOT EXIST "$(SolutionDir)build\conf"  (mkdir "$(SolutionDir)build\conf")
 IF NOT EXIST "$(SolutionDir)build\logs"  (mkdir "$(SolutionDir)build\logs")
+IF NOT EXIST "$(SolutionDir)build\logs\archive"  (mkdir "$(SolutionDir)build\logs\archive")
+IF NOT EXIST "$(SolutionDir)build\logs\maint"  (mkdir "$(SolutionDir)build\logs\maint")
 
 IF NOT EXIST "$(SolutionDir)build\data"  (mkdir "$(SolutionDir)build\data")
 

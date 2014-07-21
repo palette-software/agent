@@ -21,8 +21,7 @@ public class HttpProcessor
     protected Stream stream = null;
     protected string ipaddress = null;
     public bool isConnected = false;
-    protected bool needRestart = false;
-
+    
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -120,9 +119,9 @@ public class HttpProcessor
         for ( ; ; )  //Loop infinitely here
         {
             //cannot put two different types in same using statement but you can nest them
-            using (StreamWriter writer = new StreamWriter(stream))
+            using (HttpStreamWriter writer = new HttpStreamWriter(stream))
             {
-                using (StreamReader reader = new StreamReader(stream))
+                using (HttpStreamReader reader = new HttpStreamReader(stream))
                 {
                     HttpRequest req;
 
@@ -168,11 +167,13 @@ public class HttpProcessor
                         // FIXME: find a cleaner way to shutdown the agent.
                         if (res.needRestart)
                         {
+                            stream.Close();
                             Environment.Exit(0);
                         }
 
                         if (res.needClose)
                         {
+                            stream.Close();
                             return;
                         }
                     }

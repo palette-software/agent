@@ -186,13 +186,21 @@ public class Agent : Base
                     processor.Run(handler);
                 }
             }
-            catch (Exception exc)
+            catch (HttpException e)
             {
-                logger.Error(exc.ToString());
+                if (e.Body.Length > 0)
+                {
+                    logger.Error(e.Body.ToString());
+                }
+                logger.Error(e.ToString());
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.ToString());
             }
 
-            Thread.Sleep(reconnectInterval * 1000);
             processor.Close();
+            Thread.Sleep(reconnectInterval * 1000);
         }
         #if false
                         // FIXME: implement clean shutdown (currently unreachable).
