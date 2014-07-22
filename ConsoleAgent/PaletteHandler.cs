@@ -11,6 +11,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Odbc;
 using System.Security.Cryptography;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -63,6 +65,8 @@ class PaletteHandler : HttpHandler
     {
         switch (req.URI)
         {
+            case "/ad":
+                return HandleActiveDirectory(req);
             case "/archive":
                 return HandleArchive(req);
             case "/auth":
@@ -233,6 +237,64 @@ class PaletteHandler : HttpHandler
         }
 
         res.Write("{\"status\": \"ok\", \"port\": " + Convert.ToString(agent.maintPort) + "}");
+        return res;
+    }
+
+    /// <summary>
+    /// Gets the user's status in Active Directory
+    /// </summary>
+    /// <param name="userName">user name in domain</param>
+    /// <param name="password">password in domain</param>
+    /// <returns>True or False (exception if no domain)</returns>
+    static bool ActiveDirectoryValidate(string userName, string password)
+    {
+        System.DirectoryServices.ActiveDirectory.Domain domain = System.DirectoryServices.ActiveDirectory.Domain.GetCurrentDomain();
+
+        if (domain != null)
+        {
+            throw new System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException();
+        }
+        // create a "principal context" - e.g. your domain (could be machine, too)
+        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain.Name))
+        {
+            // validate the credentials                    
+            return pc.ValidateCredentials(userName, password);
+        }
+        // Current security context is not associated with an Active Directory domain or forest
+        // throws System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException
+        // return false;
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
+    private HttpResponse HandleActiveDirectory(HttpRequest req)
+    {
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+
+        string userName = GetRequiredJSONString(req, "username");
+        string password = GetRequiredJSONString(req, "password");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+
+        bool status;
+        try
+        {
+            status = ActiveDirectoryValidate(userName, password);
+            d["status"] = status ? "OK" : "FAILED";
+        }
+        catch (System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException)
+        {
+            d["error"] = "Current security context is not associated with an Active Directory domain";
+        }
+
+        string json = fastJSON.JSON.Instance.ToJSON(d);
+        logger.Debug("JSON: " + json);
+        res.Write(json);
         return res;
     }
 
