@@ -349,27 +349,32 @@
     <Binary Id="PaletteInstallerCA" SourceFile="..\PaletteInstallerCA\bin\$(var.Configuration)\PaletteInstallerCA.CA.dll" />
 
     <!-- Immediate CA -->
+    <CustomAction Id="DeletePaletteUserImmediate" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="DeletePaletteUser" />
+    <CustomAction Id="CreatePaletteUser" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser" />
+    <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
-    <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
-    <CustomAction Id="CreatePaletteUserImmediate" Property="CreatePaletteUser" Value="SERVICEACCOUNT=[SERVICEACCOUNT];SERVICEPASSWORD=[SERVICEPASSWORD];INSTALLLOCATION=[INSTALLLOCATION]"/>
-    <CustomAction Id="CreatePaletteUser" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser"/>
+    <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />       
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
     <CustomAction Id="CleanupAfterUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     
-    <!-- Deferred CA -->    
+    <!-- Deferred CA -->
+    <CustomAction Id="DisableUAC" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="DisableUAC" Return="check" />
     <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
     <CustomAction Id="CreateEnvConf" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateEnvConf" Return="check" HideTarget="yes" Impersonate="no" />
-    <CustomAction Id="HidePaletteUser" Return="check" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="HidePaletteUser"/>
+    <CustomAction Id="HidePaletteUser" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="HidePaletteUser" Return="check" />
     
     <InstallExecuteSequence>
-      <Custom Action="CreatePaletteUser" Before="LaunchConditions">NOT Installed</Custom>
-      <Custom Action="CreateIniFileImmediate" Sequence="5000">NOT Installed</Custom>
-      <Custom Action="CreateIniFile" Sequence="5001">NOT Installed</Custom>
-      <Custom Action="CreateEnvConfImmediate" Sequence="5002">NOT Installed</Custom>
-      <Custom Action="CreateEnvConf" Sequence="5003">NOT Installed</Custom>
-      <Custom Action="HidePaletteUserImmediate" Sequence="5004">NOT Installed</Custom>
-      <Custom Action="HidePaletteUser" Sequence="5005">NOT Installed</Custom>
+      <Custom Action="DeletePaletteUserImmediate" Before="LaunchConditions">NOT Installed</Custom>
+      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>      
+      <Custom Action="DisableUACImmediate" Sequence="5001">NOT Installed</Custom>
+      <Custom Action="DisableUAC" Sequence="5002">NOT Installed</Custom>
+      <Custom Action="CreateIniFileImmediate" Sequence="5004">NOT Installed</Custom>
+      <Custom Action="CreateIniFile" Sequence="5005">NOT Installed</Custom>
+      <Custom Action="CreateEnvConfImmediate" Sequence="5006">NOT Installed</Custom>
+      <Custom Action="CreateEnvConf" Sequence="5007">NOT Installed</Custom>
+      <Custom Action="HidePaletteUserImmediate" Sequence="5008">NOT Installed</Custom>
+      <Custom Action="HidePaletteUser" Sequence="5009">NOT Installed</Custom>
       <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
     </InstallExecuteSequence>

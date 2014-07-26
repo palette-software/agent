@@ -17,15 +17,12 @@ namespace PaletteInstallerCA
     public class CustomActions
     {
         [CustomAction]
-        public static ActionResult CreatePaletteUser(Session session)
+        public static ActionResult DisableUAC(Session session)
         {
-            session.Log("Starting custom action CreatePaletteUser");
+            session.Log("Starting custom action DisableUAC with Session Variables INSTALLOCATION: "
+                    + session.CustomActionData["INSTALLLOCATION"].ToString());
 
             //System.Diagnostics.Debugger.Launch();
-
-            int result = DeleteUser("Palette", session);
-
-            if (result != 0) session.Log("Existing User Account not removed properly");
 
             try
             {
@@ -50,7 +47,43 @@ namespace PaletteInstallerCA
             {
                 //TODO: Write to StdOut, StdErr here, if not, write to Log
                 session.Log("Custom Action Exception: " + ex.ToString());
+                return ActionResult.Failure;
             }
+
+            session.Log("Successfully finished custom action DisableUAC");
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult DeletePaletteUser(Session session)
+        {
+            session.Log("Starting custom action DeletePaletteUser");
+            //System.Diagnostics.Debugger.Launch();            
+
+            try
+            {
+                int result = DeleteUser("Palette", session);
+
+                if (result != 0) session.Log("Existing User Account not removed properly");
+            }
+            catch (Exception ex)  //catch all exceptions
+            {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
+
+                return ActionResult.Failure;
+            }
+
+            session.Log("Successfully finished action DeletePaletteUser");
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult CreatePaletteUser(Session session)
+        {
+            session.Log("Starting custom action CreatePaletteUser");
+
+            //System.Diagnostics.Debugger.Launch();
 
             try
             {
