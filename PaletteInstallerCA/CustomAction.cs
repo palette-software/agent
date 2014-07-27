@@ -58,7 +58,7 @@ namespace PaletteInstallerCA
         public static ActionResult DeletePaletteUser(Session session)
         {
             session.Log("Starting custom action DeletePaletteUser");
-            //System.Diagnostics.Debugger.Launch();            
+            //System.Diagnostics.Debugger.Launch();
 
             try
             {

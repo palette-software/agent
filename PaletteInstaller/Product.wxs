@@ -353,7 +353,7 @@
     <CustomAction Id="CreatePaletteUser" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser" />
     <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]"/>
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
-    <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />       
+    <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
     <CustomAction Id="CleanupAfterUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
@@ -366,7 +366,7 @@
     
     <InstallExecuteSequence>
       <Custom Action="DeletePaletteUserImmediate" Before="LaunchConditions">NOT Installed</Custom>
-      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>      
+      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>
       <Custom Action="DisableUACImmediate" Sequence="5001">NOT Installed</Custom>
       <Custom Action="DisableUAC" Sequence="5002">NOT Installed</Custom>
       <Custom Action="CreateIniFileImmediate" Sequence="5004">NOT Installed</Custom>
