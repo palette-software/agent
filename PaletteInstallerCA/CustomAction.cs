@@ -116,38 +116,79 @@ namespace PaletteInstallerCA
             return ActionResult.Success;
         }
 
+
         [CustomAction]
         public static ActionResult HidePaletteUser(Session session)
         {
             session.Log("Starting custom action HidePaletteUser");
-            try
+
+            string drive = Directory.GetDirectoryRoot(ProgramFilesx86());
+            string startDir = StdPath.Combine(drive, "Users", "Palette");
+
+            session.Log("Hiding folders and files in " + startDir);
+
+            if (Directory.Exists(startDir))
             {
-                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
-
-                string path = StdPath.Combine(binDir, "InstallerHelper.exe");
-
-                Process process = new Process();
-
-                process.StartInfo.FileName = path;
-                process.StartInfo.Arguments = "hide-user";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.RedirectStandardOutput = true;
-
-                process.Start();
-
-                string stdOut = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
+                if (HideFolders(startDir, false))
+                {
+                    session.Log("Exception in method Hidefolders()");
+                }
+                else
+                {
+                    session.Log("Successfully finished action HidePaletteUser");
+                }
             }
-            catch (Exception ex)  //catch all exceptions
+            else
             {
-                //TODO: Write to StdOut, StdErr here, if not, write to Log
-                session.Log("Custom Action Exception: " + ex.ToString());
-                return ActionResult.Failure;
+                session.Log("No Palette user folder found");
             }
-
-            session.Log("Successfully finished action HidePaletteUser");
             return ActionResult.Success;
+        }
+
+
+        /// <summary>
+        /// Recursively makes a folder and its contents hidden
+        /// </summary>
+        /// <param name="startDir">the top level directory to make hidden</param>
+        public static bool HideFolders(string startDir, bool error)
+        {
+            Process process = new Process();
+
+            DirectoryInfo dir = new DirectoryInfo(startDir);
+
+            // First, set hidden flag on the current directory (if needed)
+            if ((dir.Attributes & System.IO.FileAttributes.Hidden) == 0)
+            {
+                try
+                {
+                    File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
+                }
+                catch
+                {
+                    error = true;
+                }
+            }
+
+            // Second, recursively go into all sub directories
+            foreach (var subDir in dir.GetDirectories()) HideFolders(subDir.FullName, error);
+
+            // Third, fix all hidden files in the current folder
+            foreach (var file in dir.GetFiles())
+            {
+                if ((file.Attributes & System.IO.FileAttributes.Hidden) == 0)
+                {
+                    try
+                    {
+                        File.SetAttributes(file.FullName, File.GetAttributes(file.FullName) | System.IO.FileAttributes.Hidden);
+                    }
+                    catch
+                    {
+                        error = true;
+                    }
+                }
+            }
+
+            return error;
         }
 
         public static string GetDataDir(string installDir)
@@ -286,6 +327,7 @@ namespace PaletteInstallerCA
             process.WaitForExit();
             return process.ExitCode;
         }
+
 
         /// <summary>
         /// Delete the user from the system
