@@ -23,6 +23,7 @@
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\fastJSON.dll"></File>
             <File Id="log4net.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\log4net.dll"></File>
             <File Id="Interop.NetFwTypeLib.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\Interop.NetFwTypeLib.dll"></File>
+            <File Id="AWSSDK.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\AWSSDK.dll"></File>
             <File Id="phttp.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\phttp.exe"></File>
             <File Id="prun.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\prun.exe"></File>
             <File Id="pinfo.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\pinfo.exe"></File>
