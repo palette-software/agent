@@ -511,7 +511,18 @@ class PaletteHandler : HttpHandler
         }
 
         FileInfo fi = new FileInfo(path);
+        d["status"] = "OK";
         d["size"] = fi.Length;
+        return d;
+    }
+
+    private Dictionary<string, object> HandleMKDIRS(HttpRequest req)
+    {
+        string path = GetRequiredJSONString(req, "path");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+        Directory.CreateDirectory(path);
+        d["status"] = "OK";
         return d;
     }
 
@@ -536,6 +547,9 @@ class PaletteHandler : HttpHandler
                 break;
             case "FILESIZE":
                 outputBody = HandleFILESIZE(req);
+                break;
+            case "MKDIRS":
+                outputBody = HandleMKDIRS(req);
                 break;
             default:
                 throw new HttpBadRequest("Invalid action : " + action);
