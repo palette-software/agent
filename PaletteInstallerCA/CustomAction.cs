@@ -194,49 +194,6 @@ namespace PaletteInstallerCA
             return error;
         }
 
-        /// <summary>
-        /// Recursively makes a folder and its contents hidden
-        /// </summary>
-        /// <param name="startDir">the top level directory to make hidden</param>
-        public static bool HideFolders(string startDir, bool error)
-        {
-            DirectoryInfo dir = new DirectoryInfo(startDir);
-
-            // First, set hidden flag on the current directory (if needed)
-            if ((dir.Attributes & System.IO.FileAttributes.Hidden) == 0)
-            {
-                try
-                {
-                    File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
-                }
-                catch
-                {
-                    error = true;
-                }
-            }
-
-            // Second, recursively go into all sub directories
-            foreach (var subDir in dir.GetDirectories()) HideFolders(subDir.FullName, error);
-
-            // Third, fix all hidden files in the current folder
-            foreach (var file in dir.GetFiles())
-            {
-                if ((file.Attributes & System.IO.FileAttributes.Hidden) == 0)
-                {
-                    try
-                    {
-                        File.SetAttributes(file.FullName, File.GetAttributes(file.FullName) | System.IO.FileAttributes.Hidden);
-                    }
-                    catch
-                    {
-                        error = true;
-                    }
-                }
-            }
-
-            return error;
-        }
-
         public static string GetDataDir(string installDir)
         {
             string drive = Directory.GetDirectoryRoot(installDir);
