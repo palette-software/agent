@@ -112,6 +112,31 @@ namespace PaletteInstallerCA
                 return ActionResult.Failure;
             }
 
+            //session.Log("Attempting to hide Palette user folder");
+
+            //string drive = Directory.GetDirectoryRoot(ProgramFilesx86());
+            //string startDir = StdPath.Combine(drive, "Users", "Palette");
+
+            //session.Log("Hiding folders and files in " + startDir);
+
+            //if (!Directory.Exists(startDir)) Thread.Sleep(60000);
+
+            //if (Directory.Exists(startDir))
+            //{
+            //    if (HideFolders(startDir, false))
+            //    {
+            //        session.Log("Exception in method Hidefolders()");
+            //    }
+            //    else
+            //    {
+            //        session.Log("Successfully finished action HidePaletteUser");
+            //    }
+            //}
+            //else
+            //{
+            //    session.Log("No Palette user folder found");
+            //}
+
             session.Log("Successfully finished action CreatePaletteUser");
             return ActionResult.Success;
         }
@@ -129,7 +154,7 @@ namespace PaletteInstallerCA
 
             if (Directory.Exists(startDir))
             {
-                if (HideFolders(startDir, false))
+                if (HideTopLevelFolder(startDir, false))
                 {
                     session.Log("Exception in method Hidefolders()");
                 }
@@ -145,6 +170,29 @@ namespace PaletteInstallerCA
             return ActionResult.Success;
         }
 
+        /// <summary>
+        /// Makes a folder and its contents hidden
+        /// </summary>
+        /// <param name="startDir">the top level directory to make hidden</param>
+        public static bool HideTopLevelFolder(string startDir, bool error)
+        {
+            DirectoryInfo dir = new DirectoryInfo(startDir);
+
+            // First, set hidden flag on the current directory (if needed)
+            if ((dir.Attributes & System.IO.FileAttributes.Hidden) == 0)
+            {
+                try
+                {
+                    File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
+                }
+                catch
+                {
+                    error = true;
+                }
+            }
+
+            return error;
+        }
 
         /// <summary>
         /// Recursively makes a folder and its contents hidden
@@ -152,8 +200,6 @@ namespace PaletteInstallerCA
         /// <param name="startDir">the top level directory to make hidden</param>
         public static bool HideFolders(string startDir, bool error)
         {
-            Process process = new Process();
-
             DirectoryInfo dir = new DirectoryInfo(startDir);
 
             // First, set hidden flag on the current directory (if needed)
