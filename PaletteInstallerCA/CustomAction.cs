@@ -58,7 +58,7 @@ namespace PaletteInstallerCA
         public static ActionResult DeletePaletteUser(Session session)
         {
             session.Log("Starting custom action DeletePaletteUser");
-            //System.Diagnostics.Debugger.Launch();            
+            //System.Diagnostics.Debugger.Launch();
 
             try
             {
@@ -251,6 +251,15 @@ namespace PaletteInstallerCA
             //System.Diagnostics.Debugger.Launch();
 
             string serverName = session.CustomActionData["SERVERNAME"].ToString().Trim();
+            int port = 22;
+
+            char[] separator = { ':' };
+            string[] tokens = serverName.Split(separator, 2);
+            if (tokens.Length == 2)
+            {
+                serverName = tokens[0];
+                port = Convert.ToInt32(tokens[1]);
+            }
 
             string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
             string path = installDir;
@@ -275,7 +284,7 @@ namespace PaletteInstallerCA
                 output += Environment.NewLine;
                 output += "[controller]" + Environment.NewLine;
                 output += "host=" + serverName + Environment.NewLine;
-                output += "# port=8888" + Environment.NewLine;
+                output += "port=" + port.ToString() + Environment.NewLine;
                 output += "ssl=true" + Environment.NewLine;
                 output += Environment.NewLine;
                 output += "[logger]" + Environment.NewLine;

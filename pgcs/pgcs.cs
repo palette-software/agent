@@ -70,6 +70,11 @@ class pgcs
                     return usage();
             }
         }
+        catch (IOException e)
+        {
+            Console.Error.WriteLine(e.ToString());
+            return -1;
+        }
         catch (WebException e)
         {
             if (e.Response != null)
@@ -79,7 +84,8 @@ class pgcs
                     Console.Error.WriteLine(reader.ReadToEnd());
                 }
             }
-            throw(e);
+            Console.Error.WriteLine(e.ToString());
+            return -1;
         }
     }
 }
