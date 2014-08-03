@@ -201,6 +201,27 @@ namespace PaletteInstallerCA
         }
 
         [CustomAction]
+        public static ActionResult StopPaletteService(Session session)
+        {
+            ServiceController service = new ServiceController("palette");
+            try
+            {
+                TimeSpan timeout = TimeSpan.FromMilliseconds(5000);
+
+                service.Stop();
+                service.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+            }
+            catch(Exception ex)
+            {
+                // Probably a timeout
+                session.Log("Exception in Action StopPaletteService: " + ex.ToString());
+            }
+
+            session.Log("Successfully finished custom action StopPaletteService");
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult CreateIniFile(Session session)
         {
             session.Log("Starting custom action CreateIniFile");
