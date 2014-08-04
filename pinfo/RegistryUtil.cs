@@ -42,15 +42,7 @@ class RegistryUtil
 
     public static string GetTableauDataDir(string installPath)
     {
-        string value = GetTableauValueByKey("Data");
-        if (value == null)
-        {
-            string root = Path.GetPathRoot(installPath);
-            return Path.Combine(Path.Combine(root, "ProgramData"), "Tableau");
-        }
-
-        string relative = Path.Combine(value, "..");
-        return Path.GetFullPath(relative);
+        return GetTableauValueByKey("Data");
     }
 
     public static string GetPaletteUUID()

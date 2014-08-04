@@ -39,9 +39,12 @@ class pinfo
             {
                 allData.Add("tableau-install-dir", installDir);
 
-                string dataDir = RegistryUtil.GetTableauDataDir(installDir);
+                string dataDir = GetTableauData(installDir);
                 allData.Add("tableau-data-dir", dataDir);
-                allData.Add("tableau-data-size", DirSize(dataDir));
+                if (Directory.Exists(dataDir))
+                {
+                    allData.Add("tableau-data-size", DirSize(dataDir));
+                }
             }
 
             string json = fastJSON.JSON.Instance.ToJSON(allData);
@@ -108,6 +111,25 @@ class pinfo
     public static long DirSize(string path)
     {
         return DirSize(new DirectoryInfo(path));
+    }
+
+    public static string GetTableauData(string installPath)
+    {
+        string value = RegistryUtil.GetTableauDataDir(installPath);
+        if (value != null)
+        {
+            // return the parent of directory of the returned value. //
+            string relative = Path.Combine(value, "..");
+            return Path.GetFullPath(relative);
+        }
+
+        string root = Path.GetPathRoot(installPath);
+        string path = StdPath.Combine(root, "ProgramData", "Tableau");
+        if (Directory.Exists(path))
+        {
+            return path;
+        }
+        return installPath;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
