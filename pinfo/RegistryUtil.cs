@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.Win32;
@@ -16,6 +17,7 @@ class RegistryUtil
         {
             if (key.Contains("Tableau Server")) value = @"Software\Tableau\" + key;
         }
+        rk.Close();
         return value;
     }
 
@@ -28,14 +30,27 @@ class RegistryUtil
         if (rk == null) return null;
 
         object value = rk.GetValue(key);
-        if (value == null) return null;
+        rk.Close();
 
-        return value.ToString();
+        return value != null ? value.ToString() : null;
     }
 
     public static string GetTableauInstallPath()
     {
         return GetTableauValueByKey("AppVersion");
+    }
+
+    public static string GetTableauDataDir(string installPath)
+    {
+        string value = GetTableauValueByKey("Data");
+        if (value == null)
+        {
+            string root = Path.GetPathRoot(installPath);
+            return Path.Combine(Path.Combine(root, "ProgramData"), "Tableau");
+        }
+
+        string relative = Path.Combine(value, "..");
+        return Path.GetFullPath(relative);
     }
 
     public static string GetPaletteUUID()

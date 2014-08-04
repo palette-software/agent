@@ -38,11 +38,8 @@ class pinfo
             if (installDir != null && installDir.Length > 0)
             {
                 allData.Add("tableau-install-dir", installDir);
-            }
 
-            string dataDir = GetTableauDataPath();
-            if (dataDir != null && dataDir.Length > 0)
-            {
+                string dataDir = RegistryUtil.GetTableauDataDir(installDir);
                 allData.Add("tableau-data-dir", dataDir);
                 allData.Add("tableau-data-size", DirSize(dataDir));
             }
@@ -88,19 +85,6 @@ class pinfo
         }
 
         return allData;
-    }
-
-    public static string GetTableauDataPath()
-    {
-        string installDir = RegistryUtil.GetTableauInstallPath();
-        if (installDir == null)
-        {
-            return null;
-        }
-
-        string root = Path.GetPathRoot(installDir);
-        string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
-        return path;
     }
 
     public static long DirSize(DirectoryInfo d)
