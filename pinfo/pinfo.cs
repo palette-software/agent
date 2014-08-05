@@ -115,20 +115,28 @@ class pinfo
 
     public static string GetTableauData(string installPath)
     {
+        string root = Path.GetPathRoot(installPath).ToUpper();
+
+        /* If installed in C: and C:/ProgramData/Tableau exists, use that regardless of registry. */
+        if (root == @"C:\")
+        {
+            string path = StdPath.Combine(root, "ProgramData", "Tableau");
+            if (Directory.Exists(path))
+            {
+                return path;
+            }
+        }
+
+        /* Look for a registry value. */
         string value = RegistryUtil.GetTableauDataDir(installPath);
         if (value != null)
         {
-            // return the parent of directory of the returned value. //
+            /* return the parent of directory of the returned value. */
             string relative = Path.Combine(value, "..");
             return Path.GetFullPath(relative);
         }
 
-        string root = Path.GetPathRoot(installPath);
-        string path = StdPath.Combine(root, "ProgramData", "Tableau");
-        if (Directory.Exists(path))
-        {
-            return path;
-        }
+        /* Default to the install path. */
         return installPath;
     }
 
