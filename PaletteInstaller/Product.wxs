@@ -29,6 +29,7 @@
             <File Id="pinfo.exe" Source="..\pinfo\bin\$(var.Configuration)\pinfo.exe"></File>
             <File Id="pgcs.exe" Source="..\pgcs\bin\$(var.Configuration)\pgcs.exe"></File>
             <File Id="ps3.exe" Source="..\ps3\bin\$(var.Configuration)\ps3.exe"></File>
+            <File Id="pok.exe" Source="..\pok\bin\$(var.Configuration)\pok.exe"></File>
             <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\$(var.Configuration)\InstallerHelper.exe"></File>
           </Component>
           <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
