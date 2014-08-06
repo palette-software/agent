@@ -90,6 +90,7 @@
     <Compile Include="IniFile.cs" />
     <Compile Include="PaletteHandler.cs" />
     <Compile Include="ProcessManager.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="StdPath.cs" />
     <Compile Include="..\http\HttpException.cs">
       <Link>http\HttpException.cs</Link>
