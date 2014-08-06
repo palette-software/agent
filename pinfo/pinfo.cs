@@ -117,10 +117,10 @@ class pinfo
     {
         string root = Path.GetPathRoot(installPath).ToUpper();
 
-        /* If installed in C: and C:/ProgramData/Tableau exists, use that regardless of registry. */
+        /* If installed in C: and "C:/ProgramData/Tableau/Tableau Server" exists, use that regardless of registry. */
         if (root == @"C:\")
         {
-            string path = StdPath.Combine(root, "ProgramData", "Tableau");
+            string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
             if (Directory.Exists(path))
             {
                 return path;
