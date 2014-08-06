@@ -103,7 +103,7 @@ public class Agent : Base
             logger.Error("Starting Agent with default settings");
         }
 
-        HttpProcessor.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
+        NetUtil.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         processManager = new ProcessManager(xidDir, installDir, envPath);
 
