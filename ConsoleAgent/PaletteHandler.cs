@@ -124,6 +124,7 @@ class PaletteHandler : HttpHandler
         data["license-key"] = agent.licenseKey;
         data["version"] = Agent.VERSION;
         data["os-version"] = System.Environment.OSVersion.ToString();
+        data["os-bitness"] = Program.Is64BitOperatingSystem() ? 64 : 32;
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
         data["processor-count"] = System.Environment.ProcessorCount.ToString();
         data["installed-memory"] = installedMemory;
