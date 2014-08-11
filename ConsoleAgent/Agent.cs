@@ -11,7 +11,6 @@ using log4net.Repository.Hierarchy;
 using log4net.Core;
 using log4net.Appender;
 using log4net.Layout;
-//using log4net.Config;
 using Microsoft.Win32;
 
 /// <summary>
@@ -131,7 +130,18 @@ public class Agent : Base
         patternLayout.ActivateOptions();
 
         string location = conf.Read("location", LOGGING_SECTION, null);
+        string levelName = conf.Read("level", LOGGING_SECTION, "INFO");
         string maxsize = conf.Read("maxsize", LOGGING_SECTION, null);
+
+        Level level = hierarchy.LevelMap[levelName];
+        if (level != null)
+        {
+            hierarchy.Root.Level = level;
+        }
+        else
+        {
+            hierarchy.Root.Level = Level.Info;
+        }
         
         if (location != null)
         {
@@ -156,10 +166,10 @@ public class Agent : Base
             ConsoleAppender console = new ConsoleAppender();
             console.Layout = patternLayout;
             console.ActivateOptions();
+            console.Threshold = level;
             hierarchy.Root.AddAppender(console);
         }
 
-        hierarchy.Root.Level = Level.Info;
         hierarchy.Configured = true;
     }
 
