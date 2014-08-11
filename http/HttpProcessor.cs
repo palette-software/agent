@@ -148,7 +148,6 @@ public class HttpProcessor
                                 logger.Error(exc.Body);
                                 res.Write(exc.Body);
                             }
-                            res.needClose = true;
                         }
                         catch (Exception exc)
                         {
@@ -156,6 +155,7 @@ public class HttpProcessor
                             res.StatusDescription = "Internal Server Error";
                             res.Write(exc.ToString() + "\r\n");
                             res.Write(exc.StackTrace);
+                            res.needClose = true;
 
                             logger.Error("500 Internal Server Error");
                             logger.Error(exc.ToString());

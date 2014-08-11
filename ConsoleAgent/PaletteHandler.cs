@@ -135,6 +135,10 @@ class PaletteHandler : HttpHandler
         data["uuid"] = agent.uuid;
         data["install-dir"] = agent.installDir;
         data["data-dir"] = agent.programDataDir;
+
+        logger.Info("/auth");
+        logger.Debug(data.ToString());
+
         res.Write(fastJSON.JSON.Instance.ToJSON(data));
         return res;
     }
@@ -409,7 +413,7 @@ class PaletteHandler : HttpHandler
 
         if (!File.Exists(path))
         {
-            throw new HttpNotFound();
+            throw new HttpGone();
         }
 
         // FIXME: buffered copy
@@ -533,7 +537,7 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
 
         string action = GetRequiredJSONString(req, "action").ToUpper();
-        logger.Debug(req.Method + " /file : " + action);
+        logger.Info(req.Method + " /file : " + action);
 
         switch (action)
         {
@@ -591,7 +595,7 @@ class PaletteHandler : HttpHandler
             throw new HttpBadRequest("The 'path' must be specified in the query string.");
         }
 
-        logger.Debug(req.Method + " /file : " + path);
+        logger.Info(req.Method + " /file : " + path);
 
         switch (req.Method)
         {

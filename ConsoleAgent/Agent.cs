@@ -186,16 +186,13 @@ public class Agent : Base
                     processor.Run(handler);
                 }
             }
-            catch (HttpException e)
-            {
-                if (e.Body.Length > 0)
-                {
-                    logger.Error(e.Body.ToString());
-                }
-                logger.Error(e.ToString());
-            }
             catch (Exception e)
             {
+                /*
+                 * HTTP exceptions are explicity caught in HttpProcessor.Run - as are most other exceptions.  If this point is reached,
+                 * then there is no other option but log the error and re-establish communication with the contoller.  The most likely
+                 * cause of getting here is the socket is closed and a received request can't be sent a response.
+                 */
                 logger.Error(e.ToString());
             }
 

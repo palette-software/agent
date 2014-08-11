@@ -53,13 +53,29 @@ class HttpNotFound : HttpException
 /// </summary>
 class HttpMethodNotAllowed : HttpException
 {
-    public HttpMethodNotAllowed(): base()
+    public HttpMethodNotAllowed() : base()
     {
         StatusCode = 405;
         Reason = "Method Not Allowed";
     }
 }
 
+/// <summary>
+/// HttpGone exception (status code 410)
+/// </summary>
+class HttpGone : HttpException
+{
+    public HttpGone() : base()
+    {
+        StatusCode = 410;
+        Reason = "Gone";
+    }
+}
+
+/// <summary>
+/// HttpInternalServerError (status code 500)
+/// NOTE: this exception forces the connection to be re-established.
+/// </summary>
 class HttpInternalServerError : HttpException
 {
     public HttpInternalServerError(string body) : base(body)
