@@ -251,16 +251,10 @@ class PaletteHandler : HttpHandler
     /// <param name="userName">user name in domain</param>
     /// <param name="password">password in domain</param>
     /// <returns>True or False (exception if no domain)</returns>
-    static bool ActiveDirectoryValidate(string userName, string password)
+    static bool ActiveDirectoryValidate(string domain, string userName, string password)
     {
-        System.DirectoryServices.ActiveDirectory.Domain domain = System.DirectoryServices.ActiveDirectory.Domain.GetCurrentDomain();
-
-        if (domain != null)
-        {
-            throw new System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException();
-        }
         // create a "principal context" - e.g. your domain (could be machine, too)
-        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain.Name))
+        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
         {
             // validate the credentials                    
             return pc.ValidateCredentials(userName, password);
@@ -281,20 +275,31 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
+        string domain = GetRequiredJSONString(req, "domain");
         string userName = GetRequiredJSONString(req, "username");
         string password = GetRequiredJSONString(req, "password");
+
+        logger.Info("activedirectory : " + userName);
 
         Dictionary<string, object> d = new Dictionary<string, object>();
 
         bool status;
         try
         {
-            status = ActiveDirectoryValidate(userName, password);
-            d["status"] = status ? "OK" : "FAILED";
+            status = ActiveDirectoryValidate(domain, userName, password);
+            if (status)
+            {
+                d["status"] = "OK";
+            } else {
+                d["status"] = "FAILED";
+                d["error"] = "Login failed; Invalid userID or password.";
+            }
         }
-        catch (System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException)
+        catch (System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException e)
         {
-            d["error"] = "Current security context is not associated with an Active Directory domain";
+            d["status"] = "FAILED";
+            //d["error"] = "Current security context is not associated with an Active Directory domain";
+            d["error"] = e.ToString();
         }
 
         string json = fastJSON.JSON.Instance.ToJSON(d);
