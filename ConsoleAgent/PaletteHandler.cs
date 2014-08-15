@@ -172,11 +172,30 @@ class PaletteHandler : HttpHandler
 
                 agent.processManager.Start(xid, cmd, env, immediate);
                 outputBody = agent.processManager.GetInfo(xid);
+                if (immediate)
+                {
+                    /* Cleanup immediate commands to avoid an additional call from the controller. */
+                    try
+                    {
+                        agent.processManager.Cleanup(xid);
+                    }
+                    catch (IOException e)
+                    {
+                        logger.Error(e.ToString());
+                    }
+                }
             }
             else if (action == "cleanup")
             {
-                agent.processManager.Cleanup(xid);
                 outputBody = new Dictionary<string, object>();
+                try
+                {
+                    agent.processManager.Cleanup(xid);
+                }
+                catch (Exception e)
+                {
+                    throw new HttpConflict(e.ToString());
+                }
                 outputBody.Add("xid", xid);
             }
             else
@@ -582,7 +601,20 @@ class PaletteHandler : HttpHandler
     private HttpResponse HandleFileDELETE(HttpRequest req, string path)
     {
         HttpResponse res = req.Response;
-        File.Delete(path);
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            else if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+        } catch (Exception e)
+        {
+            throw new HttpConflict(e.ToString());
+        }
         return res;
     }
 
