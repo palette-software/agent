@@ -98,7 +98,7 @@ namespace PaletteInstallerCA
                 grp = AD.Children.Find("Administrators", "group");
                 if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
 
-                GrantLogonAsServiceRight(userName);
+                GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
 
                 session.CustomActionData["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session.CustomActionData["SERVICEPASSWORD"] = pwd;
@@ -111,31 +111,6 @@ namespace PaletteInstallerCA
                 session.Log("Custom Action Exception: " + ex.ToString());
                 return ActionResult.Failure;
             }
-
-            //session.Log("Attempting to hide Palette user folder");
-
-            //string drive = Directory.GetDirectoryRoot(ProgramFilesx86());
-            //string startDir = StdPath.Combine(drive, "Users", "Palette");
-
-            //session.Log("Hiding folders and files in " + startDir);
-
-            //if (!Directory.Exists(startDir)) Thread.Sleep(60000);
-
-            //if (Directory.Exists(startDir))
-            //{
-            //    if (HideFolders(startDir, false))
-            //    {
-            //        session.Log("Exception in method Hidefolders()");
-            //    }
-            //    else
-            //    {
-            //        session.Log("Successfully finished action HidePaletteUser");
-            //    }
-            //}
-            //else
-            //{
-            //    session.Log("No Palette user folder found");
-            //}
 
             session.Log("Successfully finished action CreatePaletteUser");
             return ActionResult.Success;
