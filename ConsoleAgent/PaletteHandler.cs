@@ -153,7 +153,6 @@ class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
-        Dictionary<string, string> d = new Dictionary<string, string>();
         Dictionary<string, object> outputBody = null;
 
         UInt64 xid;
@@ -182,6 +181,7 @@ class PaletteHandler : HttpHandler
                     catch (IOException e)
                     {
                         logger.Error(e.ToString());
+                        outputBody.Add("error", e.ToString());
                     }
                 }
             }
@@ -194,7 +194,8 @@ class PaletteHandler : HttpHandler
                 }
                 catch (Exception e)
                 {
-                    throw new HttpConflict(e.ToString());
+                    logger.Error(e.ToString());
+                    outputBody.Add("error", e.ToString());
                 }
                 outputBody.Add("xid", xid);
             }
@@ -600,7 +601,10 @@ class PaletteHandler : HttpHandler
 
     private HttpResponse HandleFileDELETE(HttpRequest req, string path)
     {
+        
         HttpResponse res = req.Response;
+
+        Dictionary<string, object> outputBody = new Dictionary<string, object>();
         try
         {
             if (File.Exists(path))
@@ -613,8 +617,12 @@ class PaletteHandler : HttpHandler
             }
         } catch (Exception e)
         {
-            throw new HttpConflict(e.ToString());
+            logger.Error(e.ToString());
+            outputBody.Add("error", e.ToString());
         }
+
+        string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+        res.Write(json);
         return res;
     }
 
