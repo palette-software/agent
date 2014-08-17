@@ -60,6 +60,21 @@ class HttpMethodNotAllowed : HttpException
     }
 }
 
+
+/// <summary>
+/// HttpConflict exception (status code 409)
+/// </summary>
+class HttpConflict : HttpException
+{
+    public HttpConflict(string body): base(body)
+    {
+        StatusCode = 409;
+        Reason = "Conflict";
+    }
+
+    public HttpConflict() : base(null) {}
+}
+
 /// <summary>
 /// HttpGone exception (status code 410)
 /// </summary>
