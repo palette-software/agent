@@ -325,9 +325,9 @@ namespace PaletteInstallerCA
         {
             Process process = new Process();
 
-            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.FileName = Path.Combine(Environment.SystemDirectory, "cmd.exe");
             process.StartInfo.Arguments = "/C \"rmdir /S /Q " + path + "\"";
-            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardError = false;
 
