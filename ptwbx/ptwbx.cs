@@ -32,6 +32,11 @@ class ptwbx
 
         string name = Path.GetFileNameWithoutExtension(path);
         string dirPath = Path.GetDirectoryName(path);
+        if (dirPath == null)
+        {
+            dirPath = Path.GetPathRoot(path);
+        }
+        bool found = false;
 
         /* .NET 3.5 doesn't provide 'ZipFile' so use the thirdparty ZipStorer. */
         // Open an existing zip file for reading
@@ -49,9 +54,16 @@ class ptwbx
             }
 
             zip.ExtractFile(entry, Path.Combine(dirPath, name + ".twb"));
+            found = true;
             break;
         }
         zip.Close();
+
+        if (!found)
+        {
+            Console.Error.WriteLine("The zipfile does not contain a .twb file.");
+            return -1;
+        }
 
         return 0;
     }
