@@ -10,8 +10,6 @@
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
     <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
       <![CDATA[Installed OR Privileged]]></Condition>
-    <Property Id="SERVICEACCOUNT" Secure="yes"></Property>
-    <Property Id="SERVICEPASSWORD" Secure="yes"></Property>
     <UIRef Id="WixUI_InstallDir_Palette" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
@@ -354,7 +352,7 @@
     <!-- Immediate CA -->
     <CustomAction Id="DeletePaletteUserImmediate" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="DeletePaletteUser" />
     <CustomAction Id="CreatePaletteUser" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser" />
-    <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]"/>
+    <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
     <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
@@ -362,7 +360,7 @@
     <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     <CustomAction Id="StopPaletteServiceOnUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="StopPaletteService" />
     
-    <!-- Deferred CA -->
+    <!-- Deferred CA -->    
     <CustomAction Id="DisableUAC" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="DisableUAC" Return="check" />
     <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
     <CustomAction Id="CreateEnvConf" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateEnvConf" Return="check" HideTarget="yes" Impersonate="no" />
@@ -370,7 +368,7 @@
     
     <InstallExecuteSequence>
       <Custom Action="DeletePaletteUserImmediate" Before="LaunchConditions">NOT Installed</Custom>
-      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>
+      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>      
       <Custom Action="DisableUACImmediate" Sequence="5001">NOT Installed</Custom>
       <Custom Action="DisableUAC" Sequence="5002">NOT Installed</Custom>
       <Custom Action="CreateIniFileImmediate" Sequence="5004">NOT Installed</Custom>

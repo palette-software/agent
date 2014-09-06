@@ -87,18 +87,34 @@ namespace PaletteInstallerCA
 
             try
             {
-                string userName = "Palette";
-                DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
-                DirectoryEntry NewUser = AD.Children.Add(userName, "user");
-                string pwd = CreatePassword(12);
-                NewUser.Invoke("SetPassword", new object[] { pwd });
-                NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
-                NewUser.CommitChanges();
-                DirectoryEntry grp;
-                grp = AD.Children.Find("Administrators", "group");
-                if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
+                string userName = "";
+                string pwd = "";
 
-                GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
+                session.Log("USEEXISTINGACCT = " + session["USEEXISTINGACCT"].ToString());
+
+                if (session["USEEXISTINGACCT"].ToString() == "1")
+                {
+                    session.Log("Case 1: USEEXISTINGACCT == 1");
+                    userName = session["SERVICEACCOUNT"].ToString();
+                    pwd = session["SERVICEPASSWORD"].ToString();
+                    GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
+                }
+                else
+                {
+                    session.Log("Case 2: USEEXISTINGACCT != 1");
+                    userName = "Palette";
+                    DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
+                    DirectoryEntry NewUser = AD.Children.Add(userName, "user");
+                    pwd = CreatePassword(12);
+                    NewUser.Invoke("SetPassword", new object[] { pwd });
+                    NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
+                    NewUser.CommitChanges();
+                    DirectoryEntry grp;
+                    grp = AD.Children.Find("Administrators", "group");
+                    if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
+
+                    GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
+                }
 
                 session.CustomActionData["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
                 session.CustomActionData["SERVICEPASSWORD"] = pwd;
