@@ -17,6 +17,25 @@ namespace PaletteInstallerCA
     public class CustomActions
     {
         [CustomAction]
+        public static ActionResult SetupPaths(Session session)
+        {
+            //System.Diagnostics.Debugger.Launch();
+
+            String installDir = session["INSTALLLOCATION"].ToString();
+            session.Log("SetupPaths INSTALLLOCATION: " + installDir);
+
+            String dataDir = GetDataDir(installDir);
+            if (!Directory.Exists(dataDir))
+            {
+                /* All of the subdirectories *could* be created here. */
+                Directory.CreateDirectory(dataDir);
+            }
+
+            session["DATALOCATION"] = dataDir;
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult DisableUAC(Session session)
         {
             session.Log("Starting custom action DisableUAC with Session Variables INSTALLOCATION: "

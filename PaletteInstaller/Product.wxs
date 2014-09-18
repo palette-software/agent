@@ -8,6 +8,7 @@
       <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+    <Property Id="DATALOCATION" Value="C:\"/>
     <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
       <![CDATA[Installed OR Privileged]]></Condition>
     <UIRef Id="WixUI_InstallDir_Palette" />
@@ -78,8 +79,6 @@
                 <CreateFolder />
                 <File Id="index.html" Source="..\..\maint\www\index.html" />
                 <File Id="style.css" Source="..\..\maint\www\style.css" />
-                <File Id="palette_logo_600dpi_2.png" Source="..\..\maint\www\palette_logo_600dpi-2.png" />
-                <File Id="bg.png" Source="..\..\maint\www\bg.png" />
                 <File Id="favicon.ico" Source="..\..\maint\www\favicon.ico" />
                 <File Id="favicon60.ico" Source="..\..\maint\www\favicon-60.png" />
                 <File Id="favicon76.ico" Source="..\..\maint\www\favicon-76.png" />
@@ -87,6 +86,64 @@
                 <File Id="favicon152.ico" Source="..\..\maint\www\favicon-152.png" />
                 <RemoveFile Id="RemoveWWWFolder" Name="*.*" On="uninstall" />
               </Component>
+              <Directory Id="image" Name="image">
+                <Component Id="ImageFolder" Guid="43ca9fce-6a82-455b-8432-df741fcb1f15">
+                  <CreateFolder />
+                  <File Id="palette_logo.png" Source="..\..\maint\www\image\palette_logo.png" />
+                </Component>
+              </Directory>
+              <Directory Id="fonts" Name="fonts">
+                <Component Id="FontsFolder" Guid="b0b7f691-9ff2-455d-a969-2a0a832e931b">
+                  <CreateFolder />
+                </Component>
+                <Directory Id="webfonts" Name="webfonts">
+                  <Component Id="WebFontsFolder" Guid="06cbede7-e85d-439e-8510-2c9af73d03ff">
+                    <CreateFolder />
+                    <File Id="_2B4065_0_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_0_0.eot" />
+                    <File Id="_2B4065_0_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_0_0.ttf" />
+                    <File Id="_2B4065_0_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_0_0.woff" />
+                    <File Id="_2B4065_1_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_1_0.eot" />
+                    <File Id="_2B4065_1_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_1_0.ttf" />
+                    <File Id="_2B4065_1_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_1_0.woff" />
+                    <File Id="_2B4065_2_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_2_0.eot" />
+                    <File Id="_2B4065_2_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_2_0.ttf" />
+                    <File Id="_2B4065_2_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_2_0.woff" />
+                    <File Id="_2B4065_3_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_3_0.eot" />
+                    <File Id="_2B4065_3_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_3_0.ttf" />
+                    <File Id="_2B4065_3_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_3_0.woff" />
+                    <File Id="_2B4065_4_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_4_0.eot" />  
+                    <File Id="_2B4065_4_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_4_0.ttf" />  
+                    <File Id="_2B4065_4_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_4_0.woff" />
+                    <File Id="_2B4065_5_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_5_0.eot" />
+                    <File Id="_2B4065_5_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_5_0.ttf" />
+                    <File Id="_2B4065_5_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_5_0.woff" />
+                    <File Id="_2B4065_6_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_6_0.eot" />
+                    <File Id="_2B4065_6_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_6_0.ttf" />
+                    <File Id="_2B4065_6_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_6_0.woff" />
+                    <File Id="_2B4065_7_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_7_0.eot" />
+                    <File Id="_2B4065_7_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_7_0.ttf" />
+                    <File Id="_2B4065_7_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_7_0.woff" />
+                    <File Id="_2B4065_8_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_8_0.eot" />
+                    <File Id="_2B4065_8_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_8_0.ttf" />
+                    <File Id="_2B4065_8_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_8_0.woff" />
+                    <File Id="_2B4065_9_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_9_0.eot" />
+                    <File Id="_2B4065_9_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_9_0.ttf" />
+                    <File Id="_2B4065_9_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_9_0.woff" />
+                    <File Id="_2B4065_A_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_A_0.eot" />
+                    <File Id="_2B4065_A_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_A_0.ttf" />
+                    <File Id="_2B4065_A_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_A_0.woff" />
+                    <File Id="_2B4065_B_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_B_0.eot" />
+                    <File Id="_2B4065_B_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_B_0.ttf" />
+                    <File Id="_2B4065_B_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B4065_B_0.woff" />
+                    <File Id="_2B42CD_0_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_0_0.eot" />
+                    <File Id="_2B42CD_0_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_0_0.ttf" />
+                    <File Id="_2B42CD_0_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_0_0.woff" />
+                    <File Id="_2B42CD_1_0.eot" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_1_0.eot" />
+                    <File Id="_2B42CD_1_0.ttf" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_1_0.ttf" />
+                    <File Id="_2B42CD_1_0.woff" Source="..\..\..\..\maint\www\fonts\webfonts\2B42CD_1_0.woff"/>
+                  </Component>
+                </Directory>
+              </Directory>
             </Directory>
             <Directory Id="MaintConf" Name="conf">
               <Component Id="ConfFolder" Guid="6adfeb8f-8135-4a2c-98cb-3eb162e315cd">
@@ -278,8 +335,7 @@
           </Directory>
         </Directory>
       </Directory>
-      <Directory Id="CommonAppDataFolder">
-        <Directory Id="DATALOCATION" Name="Palette">
+      <Directory Id="DATALOCATION">
           <Directory Id="logs" Name="logs">
             <Component Id="LogsFolder" Guid="e70781ff-c5b9-47c9-acc7-c83ea3c4b315">
               <CreateFolder />
@@ -316,7 +372,6 @@
             </Component>
           </Directory>
         </Directory>
-      </Directory>
     </Directory>
 
     <Feature Id="ProductFeature" Title="Palette" Level="1">
@@ -331,6 +386,9 @@
       <ComponentRef Id="XIDFolder" />
       <ComponentRef Id="MaintFolder" />
       <ComponentRef Id="WWWFolder" />
+      <ComponentRef Id="ImageFolder"/>
+      <ComponentRef Id="FontsFolder"/>
+      <ComponentRef Id="WebFontsFolder"/>
       <ComponentRef Id="LogsFolder" />
       <ComponentRef Id="ArchiveLogsFolder" />
       <ComponentRef Id="MaintLogsFolder" />
@@ -351,6 +409,7 @@
 
     <!-- Immediate CA -->
     <CustomAction Id="DeletePaletteUserImmediate" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="DeletePaletteUser" />
+    <CustomAction Id="SetupPaths" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="SetupPaths"/>
     <CustomAction Id="CreatePaletteUser" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser" />
     <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
@@ -368,7 +427,8 @@
     
     <InstallExecuteSequence>
       <Custom Action="DeletePaletteUserImmediate" Before="LaunchConditions">NOT Installed</Custom>
-      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>      
+      <Custom Action="CreatePaletteUser" After="DeletePaletteUserImmediate">NOT Installed</Custom>
+      <Custom Action="SetupPaths" After="CreatePaletteUser">NOT Installed</Custom>
       <Custom Action="DisableUACImmediate" Sequence="5001">NOT Installed</Custom>
       <Custom Action="DisableUAC" Sequence="5002">NOT Installed</Custom>
       <Custom Action="CreateIniFileImmediate" Sequence="5004">NOT Installed</Custom>
