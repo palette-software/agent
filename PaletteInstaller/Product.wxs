@@ -11,6 +11,11 @@
     <Property Id="DATALOCATION" Value="C:\"/>
     <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
       <![CDATA[Installed OR Privileged]]></Condition>
+    <WixVariable Id="WixUIBannerBmp" Value="images\493x58.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="images\493x312.bmp" />
+    <Icon Id="palette.exe" SourceFile="images\palette.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="palette.exe" />
+    <Property Id="ALLUSERS" Value="1" />
     <UIRef Id="WixUI_InstallDir_Palette" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">

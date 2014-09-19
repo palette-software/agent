@@ -939,6 +939,7 @@ class PaletteHandler : HttpHandler
     {
         public string action = null;
         public int port = -1;
+        public bool https = false;
 
         public static ServerControlInfo parse(HttpRequest req)
         {
@@ -962,6 +963,9 @@ class PaletteHandler : HttpHandler
                         break;
                     case "port":
                         info.port = Convert.ToInt32(val);
+                        break;
+                    case "https":
+                        info.https = Convert.ToBoolean(val);
                         break;
                     default:
                         throw new ArgumentException("invalid parameter : " + key);
