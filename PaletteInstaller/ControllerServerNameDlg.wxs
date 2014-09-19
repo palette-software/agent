@@ -27,8 +27,8 @@
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
           <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
         </Control>
-        <Control Id="Title" Type="Text" X="15" Y="6" Width="219" Height="28" Transparent="yes"
-                 NoPrefix="yes" Text="Please enter the Server Name and License Key for the Palette Controller" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="219" Height="38" Transparent="yes"
+                 NoPrefix="yes" Text="Please enter the Server Name and License Key for the Palette Controller.  Agent will temporarily disable UAC on installation" />
         <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44"
                  TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
         <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
