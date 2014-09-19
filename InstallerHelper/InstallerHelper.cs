@@ -23,6 +23,8 @@ class InstallerHelper
                 return HideUser();
             case "disable-uac":
                 return DisableUAC();
+            case "enable-uac":
+                return EnableUAC();
             case "uuid":
                 return printUUID();
         }
