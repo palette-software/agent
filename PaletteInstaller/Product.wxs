@@ -417,6 +417,7 @@
     <CustomAction Id="SetupPaths" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="SetupPaths"/>
     <CustomAction Id="CreatePaletteUser" Return="check" BinaryKey="PaletteInstallerCA" DllEntry="CreatePaletteUser" />
     <CustomAction Id="DisableUACImmediate" Property="DisableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
+    <CustomAction Id="EnableUACImmediate" Property="EnableUAC" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
     <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
@@ -426,6 +427,7 @@
     
     <!-- Deferred CA -->    
     <CustomAction Id="DisableUAC" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="DisableUAC" Return="check" />
+    <CustomAction Id="EnableUAC" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="EnableUAC" Return="check" />
     <CustomAction Id="CreateIniFile" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateIniFile" Return="check" HideTarget="yes" Impersonate="no" />
     <CustomAction Id="CreateEnvConf" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="CreateEnvConf" Return="check" HideTarget="yes" Impersonate="no" />
     <CustomAction Id="HidePaletteUser" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="HidePaletteUser" Return="check" />
@@ -442,6 +444,8 @@
       <Custom Action="CreateEnvConf" Sequence="5007">NOT Installed</Custom>
       <Custom Action="HidePaletteUserImmediate" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="HidePaletteUser" Before="InstallFinalize">NOT Installed</Custom>
+      <Custom Action="EnableUACImmediate" Sequence="6401">NOT Installed</Custom>
+      <Custom Action="EnableUAC" Sequence="6401">NOT Installed</Custom>
       <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
       <Custom Action="StopPaletteServiceOnUninstall" Before="LaunchConditions">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>

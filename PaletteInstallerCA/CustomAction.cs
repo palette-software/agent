@@ -74,6 +74,45 @@ namespace PaletteInstallerCA
         }
 
         [CustomAction]
+        public static ActionResult EnableUAC(Session session)
+        {
+            session.Log("Starting custom action EnableUAC with Session Variables INSTALLOCATION: "
+                    + session.CustomActionData["INSTALLLOCATION"].ToString());
+
+            //System.Diagnostics.Debugger.Launch();
+
+            try
+            {
+                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+
+                string path = StdPath.Combine(binDir, "InstallerHelper.exe");
+
+                Process process = new Process();
+
+                process.StartInfo.FileName = path;
+                process.StartInfo.Arguments = "enable-uac";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+
+                process.Start();
+
+                string stdOut = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+            }
+            catch (Exception ex)  //catch all exceptions
+            {
+                //TODO: Write to StdOut, StdErr here, if not, write to Log
+                session.Log("Custom Action Exception: " + ex.ToString());
+                return ActionResult.Failure;
+            }
+
+            session.Log("Successfully finished custom action DisableUAC");
+            return ActionResult.Success;
+        }
+
+
+        [CustomAction]
         public static ActionResult DeletePaletteUser(Session session)
         {
             session.Log("Starting custom action DeletePaletteUser");
