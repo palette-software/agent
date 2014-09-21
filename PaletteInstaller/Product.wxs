@@ -445,7 +445,7 @@
       <Custom Action="HidePaletteUserImmediate" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="HidePaletteUser" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="EnableUACImmediate" Sequence="6401">NOT Installed</Custom>
-      <Custom Action="EnableUAC" Sequence="6401">NOT Installed</Custom>
+      <Custom Action="EnableUAC" Sequence="6402">NOT Installed</Custom>
       <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
       <Custom Action="StopPaletteServiceOnUninstall" Before="LaunchConditions">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
