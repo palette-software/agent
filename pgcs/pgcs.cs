@@ -41,6 +41,7 @@ class pgcs
             return usage();
         }
 
+        /*
         string accessKey = Environment.GetEnvironmentVariable("ACCESS_KEY");
         if (accessKey == null)
         {
@@ -54,6 +55,9 @@ class pgcs
             Console.Error.WriteLine("[ERROR] The environment variable SECRET_KEY is required.");
             return -1;
         }
+        */
+        string accessKey = "GOOGIRXW5QQR7UIOLTDC";
+        string secretKey = "HEuAvgq6WGjxm94BSdS8gEynM8jgNyytB9Pmz/13";
 
         GCS gcs = new GCS(accessKey, secretKey);
 

@@ -114,6 +114,7 @@ class GCS
         HttpWebRequest req = createWebRequest("PUT", bucketName, objectName);
         req.ContentType = "application/octet-stream";
         req.ContentLength = fi.Length;
+        req.AllowWriteStreamBuffering = false;
 
         GCSAuthorization auth = new GCSAuthorization(this, req, bucketName, objectName);
         setDate(req, auth.dateTime);
