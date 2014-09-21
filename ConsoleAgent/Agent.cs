@@ -19,8 +19,6 @@ using Microsoft.Win32;
 /// </summary>
 public class Agent : Base
 {
-    public const string VERSION = "X.Y";
-
     public const string DEFAULT_SECTION = "DEFAULT";
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;

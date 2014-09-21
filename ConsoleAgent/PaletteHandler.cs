@@ -13,6 +13,7 @@ using System.Data.Odbc;
 using System.Security.Cryptography;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Reflection;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -122,7 +123,7 @@ public class PaletteHandler : HttpHandler
 
         Dictionary<string, object> data = new Dictionary<string, object>();
         data["license-key"] = agent.licenseKey;
-        data["version"] = Agent.VERSION;
+        data["version"] = Assembly.GetExecutingAssembly().GetName().Version;
         data["os-version"] = System.Environment.OSVersion.ToString();
         data["os-bitness"] = Program.Is64BitOperatingSystem() ? 64 : 32;
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
