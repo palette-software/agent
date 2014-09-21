@@ -17,7 +17,7 @@ using System.DirectoryServices.AccountManagement;
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
 /// </summary>
-class PaletteHandler : HttpHandler
+public class PaletteHandler : HttpHandler
 {
     private Agent agent;
 
@@ -246,22 +246,17 @@ class PaletteHandler : HttpHandler
             throw new HttpBadRequest(e.Message);
         }
 
-        if (info.port != -1)
-        {
-            agent.maintPort = info.port;
-        }
-
         switch (info.action)
         {
             case "start":
-                agent.startMaintServer();
+                agent.startMaintServer(info);
                 break;
             case "stop":
                 agent.stopMaintServer();
                 break;
         }
 
-        res.Write("{\"status\": \"ok\", \"port\": " + Convert.ToString(agent.maintPort) + "}");
+        res.Write("{\"status\": \"ok\"}");
         return res;
     }
 
@@ -348,9 +343,9 @@ class PaletteHandler : HttpHandler
             throw new HttpBadRequest(e.Message);
         }
 
-        if (info.port != -1)
+        if (info.listen_port != -1)
         {
-            agent.archivePort = info.port;
+            agent.archivePort = info.listen_port;
         }
     
         switch (info.action)
@@ -935,11 +930,15 @@ class PaletteHandler : HttpHandler
     /// <summary>
     /// Helper class for /maint and /archive URIs.
     /// </summary>
-    private class ServerControlInfo
+    public class ServerControlInfo
     {
         public string action = null;
-        public int port = -1;
-        public bool https = false;
+        public string server_name = null;
+        public int listen_port = -1;
+        public int ssl_listen_port = -1;
+        public string ssl_cert_file = null;
+        public string ssl_cert_key_file = null;
+        public string ssl_cert_chain_file = null;
 
         public static ServerControlInfo parse(HttpRequest req)
         {
@@ -962,10 +961,21 @@ class PaletteHandler : HttpHandler
                         }
                         break;
                     case "port":
-                        info.port = Convert.ToInt32(val);
+                    case "listen-port":
+                        info.listen_port = Convert.ToInt32(val);
                         break;
-                    case "https":
-                        info.https = Convert.ToBoolean(val);
+                    case "ssl-port":
+                    case "ssl-listen-port":
+                        info.ssl_listen_port = Convert.ToInt32(val);
+                        break;
+                    case "ssl-cert-key-file":
+                        info.ssl_cert_key_file = val.ToString();
+                        break;
+                    case "ssl-cert-file":
+                        info.ssl_cert_file = val.ToString();
+                        break;
+                    case "ssl-cert-chain-file":
+                        info.ssl_cert_chain_file = val.ToString();
                         break;
                     default:
                         throw new ArgumentException("invalid parameter : " + key);

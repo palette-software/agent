@@ -25,7 +25,6 @@ public class Agent : Base
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
     public const int DEFAULT_CONTROLLER_PORT = 8888;
     public const int DEFAULT_ARCHIVE_PORT = 8889;
-    public const int DEFAULT_MAINTENANCE_PORT = 80;
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
     public IniFile conf = null;
@@ -50,7 +49,6 @@ public class Agent : Base
     public int archivePort;
     private Apache2 archiveServer;
 
-    public int maintPort;
     private Apache2 maintServer;
     
     public ProcessManager processManager;
@@ -84,11 +82,6 @@ public class Agent : Base
 
         xidDir = StdPath.Combine(programDataDir, "XID");
         Directory.CreateDirectory(programDataDir);
-
-        // These variables are no longer needed by Apache2.
-        Environment.SetEnvironmentVariable("TOPDIR", installDir);
-        Environment.SetEnvironmentVariable("MAINTENANCE_PORT", Convert.ToString(maintPort));
-        Environment.SetEnvironmentVariable("ARCHIVE_PORT", Convert.ToString(archivePort));
 
         SetupLogging();
 
@@ -247,7 +240,6 @@ public class Agent : Base
         controllerSsl = conf.ReadBool("ssl", "controller", false);
         controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
 
-        maintPort = conf.ReadInt("port", "maintenance", DEFAULT_MAINTENANCE_PORT);
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
 
         licenseKey = conf.Read("license-key", DEFAULT_SECTION, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX");
@@ -273,14 +265,48 @@ public class Agent : Base
     /// <summary>
     /// Turn on the maintenace webserver.
     /// </summary>
-    public void startMaintServer()
+    public void startMaintServer(PaletteHandler.ServerControlInfo info)
     {
         string path = StdPath.Combine(programDataDir, "maint", "vars.conf");
-        File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(maintPort) + "\r\n");
+
+        if (info.server_name != null)
+        {
+            File.WriteAllText(path, "Define SERVER_NAME " + info.server_name + "\r\n");
+        }
+        else
+        {
+            File.WriteAllText(path, "Define SERVER_NAME localhost\r\n");
+        }
+
+        if (info.listen_port > 0)
+        {
+            File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(info.listen_port) + "\r\n");
+        }
+
+        if (info.ssl_listen_port > 0)
+        {
+            File.WriteAllText(path, "Define SSL_LISTEN_PORT " + Convert.ToString(info.ssl_listen_port) + "\r\n");
+        }
+
+        if (info.ssl_cert_key_file != null)
+        {
+            File.WriteAllText(path, "Define SSL_CERT_KEY_FILE " + info.ssl_cert_key_file + "\r\n");
+        }
+
+        if (info.ssl_cert_file != null)
+        {
+            File.WriteAllText(path, "Define SSL_CERT_FILE " + info.ssl_cert_file + "\r\n");
+        }
+
+        if (info.ssl_cert_chain_file != null)
+        {
+            File.WriteAllText(path, "Define SSL_CERT_CHAIN_FILE " + info.ssl_cert_chain_file + "\r\n");
+        }
 
         maintServer.start();
-        logger.Info(MAINTENANCE_SERVICE_NAME + " started on port " + Convert.ToString(maintPort));
+        logger.Info(MAINTENANCE_SERVICE_NAME + " started.");
     }
+
 
     /// <summary>
     /// Shutdown the maintenance webserver (if running).

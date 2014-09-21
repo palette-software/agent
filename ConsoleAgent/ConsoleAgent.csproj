@@ -168,7 +168,8 @@ IF NOT EXIST "$(SolutionDir)build\XID"  (mkdir "$(SolutionDir)build\XID")
 
 IF NOT EXIST "$(SolutionDir)build\apache2"  (mkdir "$(SolutionDir)build\apache2")
 XCOPY /Y /S "$(SolutionDir)..\maint\apache2\*"  "$(SolutionDir)build\apache2\"
-IF NOT EXIST "$(SolutionDir)\build\apache2\conf\env.conf" (ECHO Define INSTALLDIR "$(SolutionDir)build" &gt; "$(SolutionDir)build\apache2\conf\env.conf" &amp;&amp; ECHO Define DATADIR "$(SolutionDir)build" &gt;&gt; "$(SolutionDir)build\apache2\conf\env.conf")
+ECHO Define INSTALLDIR "$(SolutionDir)build" &gt; "$(SolutionDir)build\apache2\conf\env.conf"
+ECHO Define DATADIR "$(SolutionDir)build" &gt;&gt; "$(SolutionDir)build\apache2\conf\env.conf"
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
 IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
