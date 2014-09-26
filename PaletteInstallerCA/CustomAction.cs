@@ -149,8 +149,11 @@ namespace PaletteInstallerCA
                 string pwd = "";
 
                 session.Log("USEEXISTINGACCT = " + session["USEEXISTINGACCT"].ToString());
+                session.Log("ISDOMAINCONTROLLER = " + session["ISDOMAINCONTROLLER"].ToString());
 
-                if (session["USEEXISTINGACCT"].ToString() == "1")
+                //ISDOMAINCONTROLLER comes from registry key SYSTEM\CurrentControlSet\Control\ProductOptions\ProductType
+                //Can be "WinNT", "ServerNT" (for client/server) or "LanmanNT" (for domain controllers)
+                if (session["USEEXISTINGACCT"].ToString() == "1" || session["ISDOMAINCONTROLLER"].ToString() == "LanmanNT")
                 {
                     session.Log("Case 1: USEEXISTINGACCT == 1");
                     userName = session["SERVICEACCOUNT"].ToString();

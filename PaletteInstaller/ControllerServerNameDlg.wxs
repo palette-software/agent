@@ -8,7 +8,9 @@
   <Fragment>
     <EnsureTable Id="ComboBox"/>
     <Property Id="SERVERNAME" Value=".palette-software.com"/>
-
+    <Property Id="ISDOMAINCONTROLLER">
+      <RegistrySearch Id="IsDomainController" Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\ProductOptions" Name="ProductType" Type="raw" />
+    </Property>
     <UI>
       <Dialog Id="LicenseErrorDlg" Width="260" Height="85" NoMinimize="yes" Title="Invalid License Key">
         <Control Type="Text" Id="ErrorText" Width="350" Height="17" X="60" Y="25" Text="The License Key entered was invalid." />
@@ -39,30 +41,38 @@
         <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="72"
                  Property="SERVERNAME" />
 
+        <!--<Control Type="Text" Id="MustCreateUserTxt" Width="290" Height="10" X="20" Y="130" Text ="Value for ISDOMAINCONTROLLER: [ISDOMAINCONTROLLER]">
+          <Condition Action="show" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
+          <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
+        </Control>-->
+
         <Control Type="Text" Id="LicenseTxt" Width="290" Height="10" X="20" Y="100" Text="License Key: " />
         <Control Type="Edit" Id="LicenseEdit" Width="250" Height="17" X="20" Y="112" Property="LICENSEKEY" />
 
-        <Control Id="EnableCheckBox" Property="USEEXISTINGACCT" Type="CheckBox" X="20" Y="130" Width="290" Height="30" Text="Use Existing Administrator Account" CheckBoxValue="1" />
+        <Control Id="EnableCheckBox" Property="USEEXISTINGACCT" Type="CheckBox" X="20" Y="130" Width="290" Height="30" Text="Use Existing Administrator Account" CheckBoxValue="1">
+          <Condition Action="hide" >ISDOMAINCONTROLLER = "LanmanNT"</Condition>
+          <Condition Action="show" >ISDOMAINCONTROLLER = "WinNT" OR ISDOMAINCONTROLLER = "ServerNT"</Condition>
+        </Control>
 
         <Control Type="Text" Id="AdminAcctNameTxt" Width="290" Height="10" X="20" Y="160" Text="Administrator Account Name">
-          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1</Condition>
-          <Condition Action="show" >USEEXISTINGACCT=1</Condition>
-        </Control> 
+          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
+          <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
+        </Control>
         <Control Type="Edit" Id="AdminAcctNameEdit" Width="250" Height="17" X="20" Y="172" Property="SERVICEACCOUNT" >
-          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1</Condition>
-          <Condition Action="show" >USEEXISTINGACCT=1</Condition>
+          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
+          <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
         </Control>
 
         <Control Type="Text" Id="AdminAcctPwdTxt" Width="290" Height="10" X="20" Y="200"
          Text="Admin Account Password:" >
-          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1</Condition>
-          <Condition Action="show" >USEEXISTINGACCT=1</Condition>
+          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
+          <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
         </Control>
         <Control Type="Edit" Id="AdminAcctPwdEdit" Width="250" Height="17" X="20" Y="212" Property="SERVICEPASSWORD" Password="yes">
-          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1</Condition>
-          <Condition Action="show" >USEEXISTINGACCT=1</Condition>
+          <Condition Action="hide" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
+          <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
         </Control>
-        
+
       </Dialog>
     </UI>
   </Fragment>
