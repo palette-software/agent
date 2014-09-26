@@ -111,71 +111,68 @@ public class HttpProcessor
     }
 
     /// <summary>
-    /// Loops infintely to handle incoming HTTP requests
+    /// Continuously read HTTP requests as long as the socket is open.
     /// </summary>
     /// <param name="handler">HttpHandler</param>
     public void Run(HttpHandler handler)
     {
-        for ( ; ; )  //Loop infinitely here
+        //cannot put two different types in same using statement but you can nest them
+        using (HttpStreamWriter writer = new HttpStreamWriter(stream))
         {
-            //cannot put two different types in same using statement but you can nest them
-            using (HttpStreamWriter writer = new HttpStreamWriter(stream))
+            using (HttpStreamReader reader = new HttpStreamReader(stream))
             {
-                using (HttpStreamReader reader = new HttpStreamReader(stream))
+                HttpRequest req;
+
+                while ((req = HttpRequest.Get(reader)) != null)
                 {
-                    HttpRequest req;
+                    logger.Debug(req.ToString());
 
-                    while ((req = HttpRequest.Get(reader)) != null)
+                    // This could be cleaner.
+                    HttpResponse res = new HttpResponse(writer);
+                    req.Response = res;
+
+                    try
                     {
-                        logger.Debug(req.ToString());
+                        res = handler.Handle(req);
+                    }
+                    catch (HttpException exc)
+                    {
+                        logger.Error(exc.ToString());
 
-                        // This could be cleaner.
-                        HttpResponse res = new HttpResponse(writer);
-                        req.Response = res;
-
-                        try
+                        res.StatusCode = exc.StatusCode;
+                        res.StatusDescription = exc.Reason;
+                        if (exc.Body != null)
                         {
-                            res = handler.Handle(req);
+                            logger.Error(exc.Body);
+                            res.Write(exc.Body);
                         }
-                        catch (HttpException exc)
-                        {
-                            logger.Error(exc.ToString());
-                            
-                            res.StatusCode = exc.StatusCode;
-                            res.StatusDescription = exc.Reason;
-                            if (exc.Body != null)
-                            {
-                                logger.Error(exc.Body);
-                                res.Write(exc.Body);
-                            }
-                        }
-                        catch (Exception exc)
-                        {
-                            res.StatusCode = 500;
-                            res.StatusDescription = "Internal Server Error";
-                            res.Write(exc.ToString() + "\r\n");
-                            res.Write(exc.StackTrace);
-                            res.needClose = true;
+                    }
+                    catch (Exception exc)
+                    {
+                        res.StatusCode = 500;
+                        res.StatusDescription = "Internal Server Error";
+                        res.Write(exc.ToString() + "\r\n");
+                        res.Write(exc.StackTrace);
+                        res.needClose = true;
 
-                            logger.Error("500 Internal Server Error");
-                            logger.Error(exc.ToString());
-                            logger.Error(exc.StackTrace);
-                        }
+                        logger.Error("500 Internal Server Error");
+                        logger.Error(exc.ToString());
+                        logger.Error(exc.StackTrace);
+                    }
 
-                        res.Flush();
+                    res.Flush();
 
-                        // FIXME: find a cleaner way to shutdown the agent.
-                        if (res.needRestart)
-                        {
-                            stream.Close();
-                            Environment.Exit(0);
-                        }
+                    // FIXME: find a cleaner way to shutdown the agent.
+                    if (res.needRestart)
+                    {
+                        stream.Close();
+                        Environment.Exit(0);
+                    }
 
-                        if (res.needClose)
-                        {
-                            stream.Close();
-                            return;
-                        }
+                    if (res.needClose)
+                    {
+                        stream.Close();
+                        return;
                     }
                 }
             }

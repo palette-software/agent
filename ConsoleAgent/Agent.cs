@@ -198,6 +198,7 @@ public class Agent : Base
             }
 
             processor.Close();
+            logger.Info(String.Format("Connection closed, waiting {0} seconds to reconnect.", reconnectInterval));
             Thread.Sleep(reconnectInterval * 1000);
         }
         #if false

@@ -52,7 +52,7 @@ public class HttpRequest
         try
         {
             string line = reader.ReadLine();
-            if (line == null)
+            if (line == null || line.Length == 0)
             {
                 // This prevents mis-leading exceptions when the controller gracefully closes the socket.
                 logger.Error("The first line of the HTTP request was null");

@@ -123,7 +123,7 @@ public class PaletteHandler : HttpHandler
 
         Dictionary<string, object> data = new Dictionary<string, object>();
         data["license-key"] = agent.licenseKey;
-        data["version"] = Assembly.GetExecutingAssembly().GetName().Version;
+        data["version"] = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         data["os-version"] = System.Environment.OSVersion.ToString();
         data["os-bitness"] = Program.Is64BitOperatingSystem() ? 64 : 32;
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
@@ -373,6 +373,8 @@ public class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         res.ContentType = "application/json";
 
+        Dictionary<string, object> resData = new Dictionary<string, object>();
+
         if (req.Method == "POST")  //Enable ports
         {
             if (!req.JSON.ContainsKey("ports"))
@@ -403,15 +405,34 @@ public class PaletteHandler : HttpHandler
                 }
             }
 
-            FirewallUtil fUtil = new FirewallUtil();
-            fUtil.OpenFirewall(portsToEnable);
-            fUtil.CloseFirewall(portsToDisable);
-
             if (portsToEnable.Count + portsToDisable.Count == 0)
             {
                 throw new HttpBadRequest("port list was empty.");
             }
             logger.Info(msg);
+
+            FirewallUtil fUtil = new FirewallUtil();
+            try
+            {
+                fUtil.OpenFirewall(portsToEnable);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                resData["error"] = "[OpenFirewall] " + ex.ToString();
+            }
+
+            if (!resData.ContainsKey("error"))
+            {
+                try
+                {
+                    fUtil.CloseFirewall(portsToDisable);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    res.Write("{\"status\": \"FAILED\", \"error\": \"[CloseFirewall] " + ex.ToString() + "\"}");
+                    return res;
+                }
+            }
         }
         else if (req.Method == "GET")
         {
@@ -424,7 +445,13 @@ public class PaletteHandler : HttpHandler
             return res;
         }
 
-        res.Write("{\"status\": \"ok\"}");
+        if (!resData.ContainsKey("error")) {
+            resData["status"] = "OK";
+        } else {
+            resData["status"] = "FAILED";
+        }
+
+        res.Write(fastJSON.JSON.Instance.ToJSON(resData));
         return res;
     }
 
