@@ -73,7 +73,22 @@ class InstallerHelper
             if (uacEnabled == true)
             {
                 rk.SetValue("EnableLUA", 0, RegistryValueKind.DWord);
+
+                //Note in registry that setting has been changed
+                string userRoot = "HKEY_CURRENT_USER";
+                string subkey = "SOFTWARE\\Palette\\UAC";
+                string keyName = userRoot + "\\" + subkey;
+                Registry.SetValue(keyName, "UACChanged", 1);
+
                 return -1;
+            }
+            else
+            {
+                //Note in registry that setting has NOT been changed
+                string userRoot = "HKEY_CURRENT_USER";
+                string subkey = "SOFTWARE\\Palette\\UAC";
+                string keyName = userRoot + "\\" + subkey;
+                Registry.SetValue(keyName, "UACChanged", 0);
             }
         }
         catch (Exception e) //catch all exceptions
@@ -88,11 +103,22 @@ class InstallerHelper
     {
         try
         {
+            //First find out if UAC Registry setting was changed
+            RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Palette\\UAC", true);
+            int wasChanged = Convert.ToInt16(reg.GetValue("UACChanged"));
+
+            //Delete Keys. Cannot be done recursively
+            string subkey = "SOFTWARE\\Palette\\UAC";
+            Registry.CurrentUser.DeleteSubKey(subkey);
+
+            string superkey = "SOFTWARE\\Palette";
+            Registry.CurrentUser.DeleteSubKey(superkey);
+
             RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", true);
             object obj1 = rk.GetValue("EnableLUA");
             bool uacEnabled = Convert.ToBoolean(obj1);
 
-            if (uacEnabled == false)
+            if (uacEnabled == false && wasChanged == 1)
             {
                 rk.SetValue("EnableLUA", 1, RegistryValueKind.DWord);
                 return -1;
