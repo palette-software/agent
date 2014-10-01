@@ -126,6 +126,7 @@ public class PaletteHandler : HttpHandler
         data["version"] = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         data["os-version"] = System.Environment.OSVersion.ToString();
         data["os-bitness"] = Program.Is64BitOperatingSystem() ? 64 : 32;
+        data["utc-offset"] = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
         data["processor-count"] = System.Environment.ProcessorCount.ToString();
         data["installed-memory"] = installedMemory;
@@ -138,9 +139,11 @@ public class PaletteHandler : HttpHandler
         data["data-dir"] = agent.programDataDir;
 
         logger.Info("/auth");
-        logger.Debug(data.ToString());
 
-        res.Write(fastJSON.JSON.Instance.ToJSON(data));
+        string json = fastJSON.JSON.Instance.ToJSON(data);
+        logger.Debug(json);
+
+        res.Write(json);
         return res;
     }
 
