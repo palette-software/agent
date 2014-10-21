@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Configuration;
+using System.Collections.Generic;
 using log4net;
 using log4net.Repository.Hierarchy;
 using log4net.Core;
@@ -262,45 +263,62 @@ public class Agent : Base
     }
 
     /// <summary>
+    /// If the passed in string contains a space, return a quoted versions, otherwise return the original string.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private string quote(string s)
+    {
+        if (s.Contains(" "))
+        {
+            return '"' + s + '"';
+        }
+        return s;
+    }
+
+    /// <summary>
     /// Turn on the maintenace webserver.
     /// </summary>
     public void startMaintServer(PaletteHandler.ServerControlInfo info)
     {
         string path = StdPath.Combine(programDataDir, "maint", "vars.conf");
+        List<string> contents = new List<string>();
 
         if (info.server_name != null)
         {
-            File.WriteAllText(path, "Define SERVER_NAME " + info.server_name + "\r\n");
+            contents.Add("Define SERVER_NAME " + info.server_name);
         }
         else
         {
-            File.WriteAllText(path, "Define SERVER_NAME localhost\r\n");
+            contents.Add("Define SERVER_NAME localhost");
         }
 
         if (info.listen_port > 0)
         {
-            File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(info.listen_port) + "\r\n");
+            contents.Add("Define LISTEN_PORT " + Convert.ToString(info.listen_port));
         }
 
         if (info.ssl_listen_port > 0)
         {
-            File.WriteAllText(path, "Define SSL_LISTEN_PORT " + Convert.ToString(info.ssl_listen_port) + "\r\n");
+            contents.Add("Define SSL_LISTEN_PORT " + Convert.ToString(info.ssl_listen_port));
         }
 
         if (info.ssl_cert_key_file != null)
         {
-            File.WriteAllText(path, "Define SSL_CERT_KEY_FILE " + info.ssl_cert_key_file + "\r\n");
+            contents.Add("Define SSL_CERT_KEY_FILE " + quote(info.ssl_cert_key_file));
         }
 
         if (info.ssl_cert_file != null)
         {
-            File.WriteAllText(path, "Define SSL_CERT_FILE " + info.ssl_cert_file + "\r\n");
+            contents.Add("Define SSL_CERT_FILE " + quote(info.ssl_cert_file));
         }
 
         if (info.ssl_cert_chain_file != null)
         {
-            File.WriteAllText(path, "Define SSL_CERT_CHAIN_FILE " + info.ssl_cert_chain_file + "\r\n");
+            contents.Add("Define SSL_CERT_CHAIN_FILE " + quote(info.ssl_cert_chain_file));
         }
+
+        File.WriteAllLines(path, contents.ToArray());
 
         maintServer.start();
         logger.Info(MAINTENANCE_SERVICE_NAME + " started.");
