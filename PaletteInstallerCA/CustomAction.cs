@@ -9,6 +9,7 @@ using System.Threading;
 using System.ServiceProcess;
 using Microsoft.Deployment.WindowsInstaller;
 using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
 using Microsoft.Win32;
 
 
@@ -175,6 +176,14 @@ namespace PaletteInstallerCA
                     if (grp != null) { grp.Invoke("Add", new object[] { NewUser.Path.ToString() }); }
 
                     GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
+                }
+
+                // set up machine-level context
+                using (PrincipalContext ctx = new PrincipalContext(ContextType.Machine))
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(ctx, userName);
+                    user.PasswordNeverExpires = true;
+                    user.Save();
                 }
 
                 session.CustomActionData["SERVICEACCOUNT"] = Environment.MachineName + "\\" + userName;
