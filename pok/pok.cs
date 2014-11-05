@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -33,11 +34,21 @@ class pok
             Console.Error.WriteLine(exc.ToString());
             return -1;
         }
+        
+        Dictionary<string, object> data = new Dictionary<string,object>();
+
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
 
         IPAddress addr;
         bool success = NetUtil.GetResolvedConnectionIPAddress(server, out addr);
         if (!success)
         {
+            sw.Stop();
+            data["status"] = "FAILED";
+            data["error"] = "Failed to resolve address: " + server;
+            data["milliseconds"] = sw.ElapsedMilliseconds;
+            Console.WriteLine(fastJSON.JSON.Instance.ToJSON(data));
             return 1;
         }
 
@@ -45,10 +56,31 @@ class pok
 
         IAsyncResult result = s.BeginConnect(addr, port, null, null);
         result.AsyncWaitHandle.WaitOne(pok.TIMEOUT, true);
+        sw.Stop();
 
         int returnCode = s.Connected ? 0 : 1;
         s.Close();
 
+        data["milliseconds"] = sw.ElapsedMilliseconds;
+        if (returnCode == 0)
+        {
+            data["status"] = "OK";
+        }
+        else
+        {
+            data["status"] = "FAILED";
+            if (!result.IsCompleted)
+            {
+                data["error"] = "Timeout";
+            }
+            else
+            {
+                data["error"] = "Unknown connection error";
+            }
+        }
+
+        string json = fastJSON.JSON.Instance.ToJSON(data);
+        Console.WriteLine(json);
         return returnCode;
     }
 }
