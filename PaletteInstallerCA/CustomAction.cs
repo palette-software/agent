@@ -51,6 +51,21 @@ namespace PaletteInstallerCA
 
                 Process process = new Process();
 
+                //Before turning UAC back on, set user password to never expire
+                process.StartInfo.FileName = path;
+                process.StartInfo.Arguments = "set-never-expire";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.Verb = "runas";
+
+                process.Start();
+
+                string stdOut = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                //Now turn UAC back on
+                process = new Process();
                 process.StartInfo.FileName = path;
                 process.StartInfo.Arguments = "disable-uac";
                 process.StartInfo.UseShellExecute = false;
@@ -59,7 +74,7 @@ namespace PaletteInstallerCA
 
                 process.Start();
 
-                string stdOut = process.StandardOutput.ReadToEnd();
+                stdOut = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
             }
             catch (Exception ex)  //catch all exceptions
@@ -158,7 +173,7 @@ namespace PaletteInstallerCA
                     session.Log("Case 1: USEEXISTINGACCT == 1");
                     userName = session["SERVICEACCOUNT"].ToString();
                     pwd = session["SERVICEPASSWORD"].ToString();
-                    GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
+                    if (session["ISDOMAINCONTROLLER"].ToString() != "LanmanNT") GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
                 }
                 else
                 {
@@ -219,6 +234,34 @@ namespace PaletteInstallerCA
             {
                 session.Log("No Palette user folder found");
             }
+
+            ////Now set password to never expire
+            //try
+            //{
+            //    string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+            //    string path = StdPath.Combine(binDir, "InstallerHelper.exe");
+
+            //    Process process = new Process();
+
+            //    process.StartInfo.FileName = path;
+            //    process.StartInfo.Arguments = "set-never-expire";
+            //    process.StartInfo.UseShellExecute = false;
+            //    process.StartInfo.CreateNoWindow = true;
+            //    process.StartInfo.RedirectStandardOutput = true;
+            //    process.StartInfo.Verb = "runas";
+
+            //    process.Start();
+
+            //    string stdOut = process.StandardOutput.ReadToEnd();
+            //    process.WaitForExit();
+            //}
+            //catch (Exception ex)  //catch all exceptions
+            //{
+            //    //TODO: Write to StdOut, StdErr here, if not, write to Log
+            //    session.Log("Custom Action Exception: " + ex.ToString());
+            //    return ActionResult.Failure;
+            //}
+
             return ActionResult.Success;
         }
 

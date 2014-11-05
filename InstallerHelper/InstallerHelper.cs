@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.Threading;
 using System.IO;
+using System.DirectoryServices.AccountManagement;
 
 class InstallerHelper
 {
@@ -21,6 +22,8 @@ class InstallerHelper
                 return printTableauInstallPath();
             case "hide-user":
                 return HideUser();
+            case "set-never-expire":
+                return SetPasswordToNeverExpire();
             case "disable-uac":
                 return DisableUAC();
             case "enable-uac":
@@ -131,6 +134,34 @@ class InstallerHelper
         }
         return 0;
     }
+
+    //Set password to never expire
+    public static int SetPasswordToNeverExpire()
+    {
+        string userName = "Palette";
+
+        try
+        {
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Machine))
+            {
+                UserPrincipal user = UserPrincipal.FindByIdentity(ctx, userName);
+
+                if (user != null)
+                {
+                    user.PasswordNeverExpires = true;
+
+                    user.Save();
+                }
+            }
+        }
+        catch (Exception e)//catch all exceptions
+        {
+            Console.Error.WriteLine(e.ToString());
+            return -1;
+        }
+        return 0;
+    }
+
 
     public static int HideUser()
     {
