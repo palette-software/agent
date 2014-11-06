@@ -19,7 +19,6 @@ public class HttpProcessor
     protected bool ssl = false;
     protected int timeout = 0; // infinite
     protected Stream stream = null;
-    protected string ipaddress = null;
     public bool isConnected = false;
     
     //This has to be put in each class for logging purposes
@@ -66,16 +65,16 @@ public class HttpProcessor
     /// </summary>
     public void Connect()
     {
-        IPAddress addr;
-        NetUtil.GetResolvedConnectionIPAddress(host, out addr);  // FIXME: check return status
-
-        this.ipaddress = addr.ToString();
 
         try
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.ReceiveTimeout = timeout;
             socket.SendTimeout = timeout;
+
+            /* resolve the remote address on each connection in case the IP changes. */
+            IPAddress addr;
+            NetUtil.GetResolvedConnectionIPAddress(host, out addr);
 
             IPEndPoint remoteEP = new IPEndPoint(addr, port);
             socket.Connect(remoteEP);         

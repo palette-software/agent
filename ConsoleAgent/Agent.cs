@@ -37,7 +37,6 @@ public class Agent : Base
 
     public string controllerHost;
     public int controllerPort;
-    public IPAddress controllerAddr;
     public bool controllerSsl;
     public int controllerTimeoutMilliseconds;
 
@@ -93,8 +92,6 @@ public class Agent : Base
             logger.Error("agent.ini file not found: " + inifile);
             logger.Error("Starting Agent with default settings");
         }
-
-        NetUtil.GetResolvedConnectionIPAddress(controllerHost, out controllerAddr);
 
         processManager = new ProcessManager(xidDir, installDir, envPath);
 
