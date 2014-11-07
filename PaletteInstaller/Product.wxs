@@ -388,9 +388,9 @@
     <CustomAction Id="CreateIniFileImmediate" Property="CreateIniFile" Value="INSTALLLOCATION=[INSTALLLOCATION];SERVERNAME=[SERVERNAME];LICENSEKEY=[LICENSEKEY]" />
     <CustomAction Id="CreateEnvConfImmediate" Property="CreateEnvConf" Value="INSTALLLOCATION=[INSTALLLOCATION]" />
     <CustomAction Id="HidePaletteUserImmediate" Property="HidePaletteUser" Value="INSTALLLOCATION=[INSTALLLOCATION];"/>
+    <CustomAction Id="StopPaletteServiceOnUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="StopPaletteService" />
     <CustomAction Id="CleanupAfterUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
     <CustomAction Id="CleanupOnRollback" Return="check" Execute="rollback" BinaryKey="PaletteInstallerCA" DllEntry="CleanupAfterUninstall" />
-    <CustomAction Id="StopPaletteServiceOnUninstall" Return="check" Execute="immediate" BinaryKey="PaletteInstallerCA" DllEntry="StopPaletteService" />
     
     <!-- Deferred CA -->    
     <CustomAction Id="DisableUAC" Execute="deferred" BinaryKey="PaletteInstallerCA" DllEntry="DisableUAC" Return="check" />
@@ -413,9 +413,9 @@
       <Custom Action="HidePaletteUser" Before="InstallFinalize">NOT Installed</Custom>
       <Custom Action="EnableUACImmediate" Sequence="6401">NOT Installed</Custom>
       <Custom Action="EnableUAC" Sequence="6402">NOT Installed</Custom>
-      <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
-      <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
       <Custom Action="StopPaletteServiceOnUninstall" Before="LaunchConditions">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+      <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>      
     </InstallExecuteSequence>
 	</Product>
 </Wix>

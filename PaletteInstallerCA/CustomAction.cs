@@ -427,20 +427,41 @@ namespace PaletteInstallerCA
             session.Log("Starting custom action CleanupAfterUninstall");
             //System.Diagnostics.Debugger.Launch();
 
-            int result = DeleteUser("Palette", session);
+            int delUserResult = DeleteUser("Palette", session);
 
-            if (result == 0)
+            if (delUserResult == 0)
             {
-                session.Log("Successfully finished custom action CleanupAfterUninstall");                
+                session.Log("Successfully deleted Palette user folder");                
             }
             else
             {
                 session.Log("CleanupAfterUninstall failed to remove Palette user");                
             }
 
+            string progFolder = session["INSTALLLOCATION"].ToString();
+
+            session.Log("Attempting to delete folder " + progFolder);
+
+            int delProgFolderResult = DeleteFolderWithLooping(progFolder, session);
+
+            if (delProgFolderResult == 0)
+            {
+                session.Log("Successfully deleted folder " + progFolder);
+            }
+
+            if (delUserResult == 0 && delProgFolderResult == 0)
+            {
+                session.Log("Successfully finished custom action CleanupAfterUninstall");
+            }
+            else
+            {
+                session.Log("CleanupAfterUninstall failed to remove a folder");
+            }
+
             return ActionResult.Success;
         }
 
+        //Used by DeleteFolderWithLooping()
         private static int rmdir(string path, Session session)
         {
             Process process = new Process();
@@ -454,6 +475,53 @@ namespace PaletteInstallerCA
             process.Start();
             process.WaitForExit();
             return process.ExitCode;
+        }
+
+        /// <summary>
+        /// Delete the application folder and contents from program files using looping
+        /// </summary>
+        /// <param name="folder">the program folder name</param>
+        private static int DeleteFolderWithLooping(string folder, Session session)
+        {
+            int i, tries = 10;
+            for (i = 0; i < tries; i++)
+            {
+                if (Directory.Exists(folder))
+                {
+                    try
+                    {
+                        rmdir(folder, session);
+                    }
+                    catch (Exception e)
+                    {
+                        session.Log(e.ToString());
+                    }
+                }
+                else
+                {
+                    break;
+                }
+
+                if (Directory.Exists(folder))
+                {
+                    if (i < 10) Thread.Sleep(1000);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (Directory.Exists(folder))
+            {
+                session.Log("Failed to delete Palette User Folder: {0} tries", tries);
+                return -1;
+            }
+            else
+            {
+                session.Log("Deleted Palette User folder : {0} of {1} tries", i, tries);
+            }
+            return 0;
         }
 
 
@@ -493,52 +561,11 @@ namespace PaletteInstallerCA
                 session.Log("User not found");
             }
 
-            int i, tries = 10;
-            for (i = 0; i < tries; i++)
-            {
-                if (Directory.Exists(userDir))
-                {
-                    try
-                    {
-                        rmdir(userDir, session);
-                        //DeleteFileSystemInfo(new DirectoryInfo(userDir), session);
-                    }
-                    catch (Exception e)
-                    {
-                        session.Log(e.ToString());
-                    }
-                }
-                else
-                {
-                    break;
-                }
+            DeleteFolderWithLooping(userDir, session);
 
-                if (Directory.Exists(userDir))
-                {
-                    if (i < 10) Thread.Sleep(1000);
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            if (Directory.Exists(userDir))
-            {
-                session.Log("Failed to delete Palette User Folder: {0} tries", tries);
-                return -1;
-            }
-            else
-            {
-                session.Log("Deleted Palette User folder : {0} of {1} tries", i, tries);
-            }
             return 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileSystemInfo"></param>
         private static int DeleteFileSystemInfo(FileSystemInfo fileSystemInfo, Session session)
         {
             int returnCode = 0;
