@@ -10,6 +10,7 @@ using log4net.Config;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Odbc;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
@@ -21,6 +22,7 @@ using System.Reflection;
 public class PaletteHandler : HttpHandler
 {
     private Agent agent;
+    private List<PerformanceCounter> counters = new List<PerformanceCounter>();
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -34,6 +36,14 @@ public class PaletteHandler : HttpHandler
     {
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
+        counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
+        counters.Add(new PerformanceCounter("Memory", "Available MBytes"));
+        //counters["Paging File"] = new PerformanceCounter("Paging FIle", "% Usage", "_Total");
+        foreach (PerformanceCounter counter in counters)
+        {
+            /* The first value is always 0, so throw it away. */
+            counter.NextValue();
+        }
     }
 
     /// <summary>
@@ -93,13 +103,33 @@ public class PaletteHandler : HttpHandler
 
     /// <summary>
     /// Handles a request to /ping
-    /// returns no data, only a 200 OK
+    /// Returns performance counter data in the response body.
     /// </summary>
     /// <param name="req">Http request</param>
     /// <returns>HttpResponse</returns>
     private HttpResponse HandlePing(HttpRequest req)
     {
+        logger.Debug("/ping");
+        
+        List<object> list = new List<object>();
+        foreach (PerformanceCounter counter in counters)
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data["category-name"] = counter.CategoryName;
+            data["counter-name"] = counter.CounterName;
+            data["instance-name"] = counter.InstanceName;
+            data["value"] = counter.NextValue();
+            list.Add(data);
+        }
+
+        Dictionary<string, object> allData = new Dictionary<string, object>();
+        allData["counters"] = list;
+
         HttpResponse res = req.Response;
+        string json = fastJSON.JSON.Instance.ToJSON(allData);
+        logger.Debug(json);
+
+        res.Write(json);
         return res;
     }
 
