@@ -61,6 +61,7 @@ class pok
         int returnCode = s.Connected ? 0 : 1;
         s.Close();
 
+        data["ip"] = addr.ToString();
         data["milliseconds"] = sw.ElapsedMilliseconds;
         if (returnCode == 0)
         {
