@@ -566,6 +566,7 @@ namespace PaletteInstallerCA
             return 0;
         }
 
+        //Deletes files using FileSystemInfo class
         private static int DeleteFileSystemInfo(FileSystemInfo fileSystemInfo, Session session)
         {
             int returnCode = 0;
