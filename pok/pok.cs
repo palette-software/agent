@@ -12,7 +12,8 @@ class pok
 
     static int usage()
     {
-        Console.Error.WriteLine("usage: pok <host-or-IP> <port>");
+        Console.Error.WriteLine("usage: pok <host-or-IP> <port> [timeout]");
+        Console.Error.WriteLine("  'timeout' defaults to " + pok.TIMEOUT.ToString() + " milliseconds.");
         return -1;
     }
 
@@ -20,19 +21,34 @@ class pok
     {
         //System.Diagnostics.Debugger.Launch();
 
-        if (args.Length != 2)
+        if (args.Length < 2 || args.Length > 3)
         {
             return usage();
         }
 
         string server = args[0];
         int port;
-        try {
+        try
+        {
             port = Convert.ToInt16(args[1]);
         } catch (Exception exc) 
         {
             Console.Error.WriteLine(exc.ToString());
             return -1;
+        }
+
+        int timeout = pok.TIMEOUT;
+        if (args.Length > 2)
+        {
+            try
+            {
+                timeout = Convert.ToInt32(args[2]);
+            }
+            catch (Exception exc)
+            {
+                Console.Error.WriteLine(exc.ToString());
+                return -1;
+            }
         }
         
         Dictionary<string, object> data = new Dictionary<string,object>();
@@ -55,7 +71,7 @@ class pok
         Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         IAsyncResult result = s.BeginConnect(addr, port, null, null);
-        result.AsyncWaitHandle.WaitOne(pok.TIMEOUT, true);
+        result.AsyncWaitHandle.WaitOne(timeout, true);
         sw.Stop();
 
         int returnCode = s.Connected ? 0 : 1;
