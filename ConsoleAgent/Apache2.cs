@@ -90,18 +90,19 @@ class Apache2
         run(args);
     }
 
-    public void start()
+    public bool start()
     {
         DoInstall();
         try
         {
             DoStart();
+            return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             DoUninstall();
-            throw e;
         }
+        return false;
     }
 
     public void stop()

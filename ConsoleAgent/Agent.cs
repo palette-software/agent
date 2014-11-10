@@ -276,7 +276,7 @@ public class Agent : Base
     /// <summary>
     /// Turn on the maintenace webserver.
     /// </summary>
-    public void startMaintServer(PaletteHandler.ServerControlInfo info)
+    public bool startMaintServer(PaletteHandler.ServerControlInfo info)
     {
         string path = StdPath.Combine(programDataDir, "maint", "vars.conf");
         List<string> contents = new List<string>();
@@ -317,8 +317,16 @@ public class Agent : Base
 
         File.WriteAllLines(path, contents.ToArray());
 
-        maintServer.start();
-        logger.Info(MAINTENANCE_SERVICE_NAME + " started.");
+        bool result = maintServer.start();
+        if (result)
+        {
+            logger.Info(MAINTENANCE_SERVICE_NAME + " started.");
+        }
+        else
+        {
+            logger.Warn(MAINTENANCE_SERVICE_NAME + " failed to start (see startup.log for details).");
+        }
+        return result;
     }
 
 
@@ -332,15 +340,23 @@ public class Agent : Base
     }
 
     /// <summary>
-    /// Turn on the archive webserver.
+    /// Start or stop the archive webserver.
     /// </summary>
-    public void startArchiveServer()
+    public bool startArchiveServer()
     {
         string path = StdPath.Combine(programDataDir, "archive", "vars.conf");
         File.WriteAllText(path, "Define LISTEN_PORT " + Convert.ToString(archivePort) + "\r\n");
 
-        archiveServer.start();
-        logger.Info(ARCHIVE_SERVICE_NAME + " started on port " + Convert.ToString(archivePort));
+        bool result = archiveServer.start();
+        if (result)
+        {
+            logger.Info(ARCHIVE_SERVICE_NAME + " started on port " + Convert.ToString(archivePort));
+        }
+        else
+        {
+            logger.Warn(ARCHIVE_SERVICE_NAME + " failed to start (see startup.log for details).");
+        }
+        return result;
     }
 
     /// <summary>

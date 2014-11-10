@@ -280,17 +280,31 @@ public class PaletteHandler : HttpHandler
             throw new HttpBadRequest(e.Message);
         }
 
+        bool result = true;
+
         switch (info.action)
         {
             case "start":
-                agent.startMaintServer(info);
+                result = agent.startMaintServer(info);
                 break;
             case "stop":
                 agent.stopMaintServer();
                 break;
         }
 
-        res.Write("{\"status\": \"ok\"}");
+        Dictionary<string, string> outputBody = new Dictionary<string, string>();
+
+        if (result)
+        {
+            outputBody["status"] = "OK";
+        }
+        else
+        {
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = "The maintenance webserver failed to start.  (see startup.log for details)";
+        }
+
+        res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
         return res;
     }
 
@@ -381,18 +395,33 @@ public class PaletteHandler : HttpHandler
         {
             agent.archivePort = info.listen_port;
         }
+
+        bool result = true;
     
         switch (info.action)
         {
             case "start":
-                agent.startArchiveServer();
+                result = agent.startArchiveServer();
                 break;
             case "stop":
                 agent.stopArchiveServer();
                 break;
         }
-        
-        res.Write("{\"status\": \"ok\", \"port\": " + Convert.ToString(agent.archivePort) + "}");
+
+        Dictionary<string, object> outputBody = new Dictionary<string, object>();
+        outputBody["port"] = agent.archivePort;
+
+        if (result)
+        {
+            outputBody["status"] = "OK";
+        }
+        else
+        {
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = "The maintenance webserver failed to start.  (see startup.log for details)";
+        }
+
+        res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
         return res;
     }
 
