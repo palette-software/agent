@@ -22,8 +22,8 @@ class ServiceAgent : ServiceBase
     string installDir;
     /* Path of the console agent executable */
     string agentPath;
-    /* Path of agent upgrade file. */
-    string upgradePath;
+    /* Upgrade directory. */
+    string upgradeDir;
     /* Configuration file */
     string iniFile;
 
@@ -33,10 +33,8 @@ class ServiceAgent : ServiceBase
 
         installDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         agentPath = Path.Combine(installDir, CONSOLE_EXE);
-        string upgradeDir = Path.Combine(installDir, "upgrade");
-        upgradePath = Path.Combine(upgradeDir, CONSOLE_EXE);
-        string confDir = Path.Combine(installDir, "conf");
-        iniFile = Path.Combine(confDir, "agent.ini");
+        upgradeDir = Path.Combine(installDir, "upgrade");
+        iniFile = Path.Combine(Path.Combine(installDir, "conf"), "agent.ini");
         
         // Configure the level of control available on the service.
         CanStop = true;
@@ -46,6 +44,31 @@ class ServiceAgent : ServiceBase
         // Configure the service to log important events to the 
         // Application event log automatically.
         AutoLog = true;
+    }
+
+    protected void upgrade()
+    {
+        string upgradePath = Path.Combine(upgradeDir, CONSOLE_EXE);
+
+        /* Only ConsoleAgent.exe */
+        if (File.Exists(upgradePath))
+        {
+            File.Delete(agentPath);
+            File.Move(upgradePath, agentPath);
+        }
+
+        /* Any DLLs that ConsoleAgent may depend upon. */
+        try
+        {
+            foreach (string sourceFileName in Directory.GetFiles(upgradeDir, "*.dll"))
+            {
+                string baseName = Path.GetFileName(sourceFileName);
+                string destFileName = Path.Combine(installDir, baseName);
+                File.Delete(destFileName);
+                File.Move(sourceFileName, destFileName);
+            }
+        }
+        catch (Exception) { };  /* best effort to upgrade... */
     }
 
     protected override void OnStart(string[] args)
@@ -72,11 +95,7 @@ class ServiceAgent : ServiceBase
         while (running)
         {
             /* UPGRADE */
-            if (File.Exists(upgradePath))
-            {
-                File.Delete(agentPath);
-                File.Move(upgradePath, agentPath);
-            }
+            upgrade();
 
             /* RUN */
             process = new Process();
