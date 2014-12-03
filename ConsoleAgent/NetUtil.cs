@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 
@@ -63,5 +64,57 @@ class NetUtil
             resolvedIPAddress = resolvIP;
         }
         return isResolved;
+    }
+
+    /// <summary>
+    /// Return the first IPv4 address of this system.
+    /// </summary>
+    /// <returns></returns>
+    public static string GetFirstIPAddr()
+    {
+        return GetFirstIPAddr(Dns.GetHostName());
+    }
+
+    /// <summary>
+    /// Return the first IPv4 address of the specified system.
+    /// </summary>
+    /// <returns></returns>
+    public static string GetFirstIPAddr(string hostname)
+    {
+        IPHostEntry host = Dns.GetHostEntry(hostname);
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() == "InterNetwork")
+            {
+                return ip.ToString();
+            }
+        }
+        return "127.0.0.1";
+    }
+
+    /// <summary>
+    /// Return the FQDN of the specified host.
+    /// </summary>
+    /// <param name="hostname"></param>
+    /// <returns></returns>
+    public static string GetFQDN(string hostname)
+    {
+        string domainname = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+
+        if (!hostname.Contains(domainname))            // if the hostname does not already include the domain name
+        {
+            hostname = hostname + "." + domainname;   // add the domain name part
+        }
+
+        return hostname;                              // return the fully qualified domain name
+    }
+
+    /// <summary>
+    /// Gets the FQDN of this host.
+    /// </summary>
+    /// <returns></returns>
+    public static string GetFQDN()
+    {
+        return GetFQDN(Dns.GetHostName());
     }
 }

@@ -34,8 +34,11 @@ class pinfo
                 installedMemory = memStatus.ullTotalPhys;
             }
 
-            List<Dictionary<string, object>> driveData = GetDriveInfo();
-            allData.Add("volumes", driveData);
+            string hostname = Dns.GetHostName();
+            allData.Add("hostname", hostname);
+            allData.Add("fqdn", NetUtil.GetFQDN(hostname));
+            allData.Add("ip-address", NetUtil.GetFirstIPAddr(hostname));
+            allData.Add("volumes", GetDriveInfo());
 
             string installDir = RegistryUtil.GetTableauInstallPath();
             if (installDir != null && installDir.Length > 0)

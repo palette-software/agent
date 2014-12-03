@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Web;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -160,9 +161,11 @@ public class PaletteHandler : HttpHandler
         data["processor-type"] = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
         data["processor-count"] = System.Environment.ProcessorCount.ToString();
         data["installed-memory"] = installedMemory;
-        data["hostname"] = agent.hostname;
-        data["fqdn"] = agent.GetFQDN();
-        data["ip-address"] = agent.ipaddr;
+
+        string hostname = Dns.GetHostName();
+        data["hostname"] = hostname;
+        data["fqdn"] = NetUtil.GetFQDN(hostname);
+        data["ip-address"] = NetUtil.GetFirstIPAddr(hostname);
         data["listen-port"] = agent.archivePort;
         data["uuid"] = agent.uuid;
         data["install-dir"] = agent.installDir;

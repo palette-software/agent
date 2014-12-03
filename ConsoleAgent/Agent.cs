@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Net;
-using System.Net.NetworkInformation;
+
 using System.Threading;
 using System.Configuration;
 using System.Collections.Generic;
@@ -30,7 +30,6 @@ public class Agent : Base
 
     public string uuid;
     public string hostname = "localhost";
-    public string ipaddr;
 
     // Values to pre-pend to the environment variable 'PATH' for child processes.
     public string envPath;
@@ -94,9 +93,6 @@ public class Agent : Base
         }
 
         processManager = new ProcessManager(xidDir, installDir, envPath);
-
-        ipaddr = GetFirstIPAddr();
-
         string path = StdPath.Combine(installDir, "maint", "conf", "httpd.conf");
         string logDir = StdPath.Combine(programDataDir, "logs", "maint");
         maintServer = new Apache2(MAINTENANCE_SERVICE_NAME, path, installDir, logDir);
@@ -243,23 +239,6 @@ public class Agent : Base
     }
 
     /// <summary>
-    /// Return the first IPv4 address of this system.
-    /// </summary>
-    /// <returns></returns>
-    protected string GetFirstIPAddr()
-    {
-        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach (IPAddress ip in host.AddressList)
-        {
-            if (ip.AddressFamily.ToString() == "InterNetwork")
-            {
-                return ip.ToString();
-            }
-        }
-        return "127.0.0.1";
-    }
-
-    /// <summary>
     /// If the passed in string contains a space, return a quoted versions, otherwise return the original string.
     /// </summary>
     /// <param name="s"></param>
@@ -365,19 +344,5 @@ public class Agent : Base
     {
         archiveServer.stop();
         logger.Info(ARCHIVE_SERVICE_NAME + " stopped.");
-    }
-
-    //
-    public string GetFQDN()
-    {
-        string domainName = IPGlobalProperties.GetIPGlobalProperties().DomainName;
-        string hostName = Dns.GetHostName();
-
-        if (!hostName.Contains(domainName))            // if the hostname does not already include the domain name
-        {
-            hostName = hostName + "." + domainName;   // add the domain name part
-        }
-
-        return hostName;                              // return the fully qualified domain name
     }
 }
