@@ -727,17 +727,32 @@ public class PaletteHandler : HttpHandler
 
         logger.Info(req.Method + " /file : " + path);
 
-        switch (req.Method)
+        Dictionary<string, object> d = new Dictionary<string, object>();
+        try
         {
-            case "GET":
-                return HandleFileGET(req, path);
-            case "PUT":
-                return HandleFilePUT(req, path);
-            case "DELETE":
-                return HandleFileDELETE(req, path);
-            default:
-                throw new HttpMethodNotAllowed();
+            switch (req.Method)
+            {
+                case "GET":
+                    return HandleFileGET(req, path);
+                case "PUT":
+                    return HandleFilePUT(req, path);
+                case "DELETE":
+                    return HandleFileDELETE(req, path);
+                default:
+                    throw new HttpMethodNotAllowed();
+            }
         }
+        catch (IOException exc)
+        {
+            d["status"] = "FAILED";
+            d["error"] = exc.ToString();
+            logger.Error(d["error"]);
+        }
+
+        // Getting here means an exception was thrown.
+        HttpResponse res = req.Response;
+        res.Write(fastJSON.JSON.Instance.ToJSON(d));
+        return res;
     }
 
     private HttpResponse HandleHUP(HttpRequest req)
@@ -749,7 +764,7 @@ public class PaletteHandler : HttpHandler
 
         HttpResponse res = req.Response;
         res.needRestart = true;
-        return req.Response;
+        return res;
     }
 
     /// <summary>
