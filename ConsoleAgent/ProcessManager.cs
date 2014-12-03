@@ -115,7 +115,7 @@ public class ProcessManager
     }
 
     /// <summary>
-    /// Writes the Windows process id to file
+    /// Writes the Windows process id to a file
     /// </summary>
     /// <param name="dir">Folder</param>
     /// <param name="pid">Windows process id</param>
@@ -126,10 +126,10 @@ public class ProcessManager
     }
 
     /// <summary>
-    /// Writes the Windows process id to file
+    /// Writes the Windows command being run to a file
     /// </summary>
     /// <param name="dir">Folder</param>
-    /// <param name="pid">Windows process id</param>
+    /// <param name="pid">The executing command</param>
     private void WriteCmd(string dir, string cmd)
     {
         string path = StdPath.Combine(dir, "cmd");
@@ -251,14 +251,21 @@ public class ProcessManager
 
         d["xid"] = xid;
         d["pid"] = GetPid(xid);
-        
-        if (IsDone(xid)) {
-            d["run-status"] = "finished";
-            d["exit-status"] = GetReturnCode(xid);
-            d["stdout"] = GetStdOut(xid).Replace("\r", "");
-            d["stderr"] = GetStdErr(xid).Replace("\r", "");
-        } else {
-            d["run-status"] = "running";
+
+        /* always set the state to 'running' in case an exception - e.g. file busy - is thrown. */
+        d["run-status"] = "running";
+
+        try {
+            if (IsDone(xid))
+            {
+                d["exit-status"] = GetReturnCode(xid);
+                d["stdout"] = GetStdOut(xid).Replace("\r", "");
+                d["stderr"] = GetStdErr(xid).Replace("\r", "");
+                d["run-status"] = "finished";
+            }
+        } catch (IOException exc) {
+            /* This exception is assumed to be correctable/temporary. */
+            d["ioerror"] = exc.ToString();
         }
 
         return d;

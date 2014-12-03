@@ -212,10 +212,11 @@ public class PaletteHandler : HttpHandler
                     {
                         agent.processManager.Cleanup(xid);
                     }
-                    catch (IOException e)
+                    catch (IOException exc)
                     {
-                        logger.Error(e.ToString());
-                        outputBody.Add("error", e.ToString());
+                        /* don't report cleanup failures as errors (since the command commpeted otherwise. */
+                        logger.Error(exc.ToString());
+                        outputBody.Add("ioerror", exc.ToString());
                     }
                 }
             }
@@ -226,7 +227,7 @@ public class PaletteHandler : HttpHandler
                 {
                     agent.processManager.Cleanup(xid);
                 }
-                catch (Exception e)
+                catch (IOException e)
                 {
                     logger.Error(e.ToString());
                     outputBody.Add("error", e.ToString());

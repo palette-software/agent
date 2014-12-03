@@ -105,7 +105,6 @@ public class PRunProcess
     private void WriteReturnCode(int returnCode)
     {
         File.WriteAllText(returnCdTmpPath, Convert.ToString(returnCode));
-
         File.Move(returnCdTmpPath, returnCdPath);
     }
 
@@ -187,20 +186,7 @@ public class PRunProcess
             }
         }
 
-        try
-        {
-            WriteReturnCode(exitCode);
-        }
-        catch (IOException e)
-        {
-            Console.Error.WriteLine(e.ToString());
-        }
-
-        if (File.Exists(returnCdTmpPath))
-        {
-            File.Delete(returnCdTmpPath);
-        }
-
+        WriteReturnCode(exitCode);
         return exitCode;
     }
 }
