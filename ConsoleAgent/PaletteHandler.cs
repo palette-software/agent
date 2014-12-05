@@ -357,16 +357,22 @@ public class PaletteHandler : HttpHandler
             if (status)
             {
                 d["status"] = "OK";
-            } else {
+            }
+            else
+            {
                 d["status"] = "FAILED";
                 d["error"] = "Login failed; Invalid userID or password.";
             }
         }
-        catch (System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException e)
+        catch (System.DirectoryServices.ActiveDirectory.ActiveDirectoryOperationException exc)
         {
             d["status"] = "FAILED";
-            //d["error"] = "Current security context is not associated with an Active Directory domain";
-            d["error"] = e.ToString();
+            d["error"] = exc.ToString();
+        }
+        catch (System.DirectoryServices.AccountManagement.PrincipalException exc)
+        {
+            d["status"] = "FAILED";
+            d["error"] = exc.ToString();
         }
 
         string json = fastJSON.JSON.Instance.ToJSON(d);
