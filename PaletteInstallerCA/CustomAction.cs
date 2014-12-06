@@ -362,18 +362,11 @@ namespace PaletteInstallerCA
                 output += Environment.NewLine;
                 output += "[logger]" + Environment.NewLine;
                 output += "location=" + logLocation + Environment.NewLine;
-                output += "maxsize=10MB" + Environment.NewLine;
+                output += "maxsize=20MB" + Environment.NewLine;
+                output += "maxbackups=20" + Environment.NewLine;
 
                 string inipath = StdPath.Combine(installDir, "conf", "agent.ini");
                 File.WriteAllText(inipath, Convert.ToString(output));
-
-                ////Write the Controller username and password to a file
-                //string credentialsPath = Path.Combine(installDir, @"conf\_passwd");
-                //string controllerCredentials = session.CustomActionData["CONTROLLERNAME"].ToString() + "," 
-                //    + session.CustomActionData["CONTROLLERPASSWORD"].ToString();
-
-                //string hashedCreds = SHA1Util.SHA1HashStringForUTF8String(controllerCredentials);
-                //File.WriteAllText(credentialsPath, hashedCreds);
             }
             catch (Exception ex)  //catch all exceptions
             {

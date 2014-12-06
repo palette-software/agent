@@ -26,6 +26,8 @@ public class Agent : Base
     public const int DEFAULT_ARCHIVE_PORT = 8889;
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
+    public const int DEFAULT_ROLLER_MAXBACKUPS = 5;
+
     public IniFile conf = null;
 
     public string uuid;
@@ -116,6 +118,7 @@ public class Agent : Base
 
         string location = conf.Read("location", LOGGING_SECTION, null);
         string levelName = conf.Read("level", LOGGING_SECTION, "INFO");
+        string maxbackups = conf.Read("maxbackups", LOGGING_SECTION, null);
         string maxsize = conf.Read("maxsize", LOGGING_SECTION, null);
 
         Level level = hierarchy.LevelMap[levelName];
@@ -134,12 +137,23 @@ public class Agent : Base
             roller.AppendToFile = true;
             roller.File = location;
             roller.Layout = patternLayout;
-            // FIXME: MaxSizeRollBackups should be INI configurable.
-            roller.MaxSizeRollBackups = 5;
+
+            roller.MaxSizeRollBackups = DEFAULT_ROLLER_MAXBACKUPS;
+            if (maxbackups != null)
+            {
+                int maxSizeRollBackups;
+                Int32.TryParse(maxbackups, out maxSizeRollBackups);
+                if (maxSizeRollBackups != 0)
+                {
+                    roller.MaxSizeRollBackups = maxSizeRollBackups;
+                }
+            }
+
             if (maxsize != null)
             {
                 roller.MaximumFileSize = maxsize;
             }
+
             roller.RollingStyle = RollingFileAppender.RollingMode.Size;
             roller.StaticLogFileName = true;
             roller.LockingModel = new FileAppender.MinimalLock();
