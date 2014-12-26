@@ -659,25 +659,36 @@ public class PaletteHandler : HttpHandler
         string action = GetRequiredJSONString(req, "action").ToUpper();
         logger.Info(req.Method + " /file : " + action);
 
-        switch (action)
+        try
         {
-            case "SHA256":
-                outputBody = HandleSHA256(req);
-                break;
-            case "MOVE":
-                outputBody = HandleMOVE(req);
-                break;
-            case "LISTDIR":
-                outputBody = HandleLISTDIR(req);
-                break;
-            case "FILESIZE":
-                outputBody = HandleFILESIZE(req);
-                break;
-            case "MKDIRS":
-                outputBody = HandleMKDIRS(req);
-                break;
-            default:
-                throw new HttpBadRequest("Invalid action : " + action);
+            switch (action)
+            {
+                case "SHA256":
+                    outputBody = HandleSHA256(req);
+                    break;
+                case "MOVE":
+                    outputBody = HandleMOVE(req);
+                    break;
+                case "LISTDIR":
+                    outputBody = HandleLISTDIR(req);
+                    break;
+                case "FILESIZE":
+                    outputBody = HandleFILESIZE(req);
+                    break;
+                case "MKDIRS":
+                    outputBody = HandleMKDIRS(req);
+                    break;
+                default:
+                    throw new HttpBadRequest("Invalid action : " + action);
+            }
+        }
+        catch (IOException exc)
+        {
+            outputBody = new Dictionary<string, object>();
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = exc.Message;
+            outputBody["exception"] = exc.ToString();
+            logger.Error(outputBody["error"]);
         }
 
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
@@ -755,7 +766,8 @@ public class PaletteHandler : HttpHandler
         catch (IOException exc)
         {
             d["status"] = "FAILED";
-            d["error"] = exc.ToString();
+            d["error"] = exc.Message;
+            d["exception"] = exc.ToString();
             logger.Error(d["error"]);
         }
 
