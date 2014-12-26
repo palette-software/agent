@@ -688,7 +688,7 @@ public class PaletteHandler : HttpHandler
             outputBody["status"] = "FAILED";
             outputBody["error"] = exc.Message;
             outputBody["exception"] = exc.ToString();
-            logger.Error(outputBody["error"]);
+            logger.Error(outputBody["exception"]);
         }
 
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
@@ -721,10 +721,19 @@ public class PaletteHandler : HttpHandler
             {
                 Directory.Delete(path, true);
             }
-        } catch (Exception e)
+            else
+            {
+                outputBody["status"] = "FAILED";
+                outputBody["error"] = "Path Not Found: '" + path + "'";
+                logger.Error(outputBody["error"]);
+            }
+        } catch (IOException exc)
         {
-            logger.Error(e.ToString());
-            outputBody.Add("error", e.ToString());
+
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = exc.Message;
+            outputBody["exception"] = exc.ToString();
+            logger.Error(outputBody["exception"]);
         }
 
         string json = fastJSON.JSON.Instance.ToJSON(outputBody);
@@ -768,7 +777,7 @@ public class PaletteHandler : HttpHandler
             d["status"] = "FAILED";
             d["error"] = exc.Message;
             d["exception"] = exc.ToString();
-            logger.Error(d["error"]);
+            logger.Error(d["exception"]);
         }
 
         // Getting here means an exception was thrown.
