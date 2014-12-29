@@ -23,7 +23,7 @@
           <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
           <Component Id="Base" Guid="f8e03674-4769-4971-8180-75e968e3064f">
             <!-- TODO: Insert files, registry keys, and other resources here. -->
-            <File Id="ConsoleAgent.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\ConsoleAgent.exe"></File>
+            <File Id="PaletteConsoleAgent.exe" Source="..\ConsoleAgent\bin\$(var.Configuration)\PaletteConsoleAgent.exe"></File>
             <File Id="fastJSON.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\fastJSON.dll"></File>
             <File Id="log4net.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\log4net.dll"></File>
             <File Id="Interop.NetFwTypeLib.dll" Source="..\ConsoleAgent\bin\$(var.Configuration)\Interop.NetFwTypeLib.dll"></File>
@@ -38,9 +38,10 @@
             <File Id="InstallerHelper.exe" Source="..\InstallerHelper\bin\$(var.Configuration)\InstallerHelper.exe"></File>
           </Component>
           <Component Id="Service" Guid="a2bcbb04-d079-4423-bfa3-66ce4321f266">
-            <File Id="ServiceAgent.exe" Name="ServiceAgent.exe" Source="..\ServiceAgent\bin\$(var.Configuration)\ServiceAgent.exe" DiskId='1' KeyPath='yes' />
+            <File Id="PaletteServiceAgent.exe" Source="..\ServiceAgent\bin\$(var.Configuration)\PaletteServiceAgent.exe"
+                  DiskId='1' KeyPath='yes' />
             <ServiceInstall Id="Palette" Type="ownProcess" Name="palette" DisplayName="Palette Agent"
-                    Description="Service for Palette Agent" Start="auto" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal">
+                            Description="Service for Palette Agent" Start="auto" Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal">
             </ServiceInstall>
             <!--ServiceControl Id="Palette" Start="install" Stop="both" Remove="both" Name="Palette" Wait="no" /-->
             <ServiceControl Id="Palette" Stop="both" Start="install" Remove="uninstall" Name="palette" Wait="no" />
