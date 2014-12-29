@@ -9,7 +9,7 @@ using System.Threading;
 
 class ServiceAgent : ServiceBase
 {
-    public const string CONSOLE_EXE = "ConsoleAgent.exe";
+    public const string CONSOLE_EXE = "PaletteConsoleAgent.exe";
 
     /* state */
     public bool running = false;

@@ -21,7 +21,7 @@ namespace PaletteInstallerCA
         {
             //System.Diagnostics.Debugger.Launch();
 
-            String installDir = session["INSTALLLOCATION"].ToString();
+            String installDir = GetInstallDir(session["INSTALLLOCATION"]);
             session.Log("SetupPaths INSTALLLOCATION: " + installDir);
 
             String dataDir = GetDataDir(installDir);
@@ -45,7 +45,7 @@ namespace PaletteInstallerCA
 
             try
             {
-                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+                string binDir = GetInstallDir(session.CustomActionData["INSTALLLOCATION"]);
 
                 string path = StdPath.Combine(binDir, "InstallerHelper.exe");
 
@@ -98,7 +98,7 @@ namespace PaletteInstallerCA
 
             try
             {
-                string binDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+                string binDir = GetInstallDir(session.CustomActionData["INSTALLLOCATION"]);
 
                 string path = StdPath.Combine(binDir, "InstallerHelper.exe");
 
@@ -289,6 +289,16 @@ namespace PaletteInstallerCA
             return error;
         }
 
+        /// <summary>
+        /// Convert the installlocation (from the session) into the actual install directory.
+        /// </summary>
+        /// <param name="installLocation"></param>
+        /// <returns></returns>
+        public static string GetInstallDir(string installLocation)
+        {
+            return StdPath.Combine(installLocation, "Palette");
+        }
+
         public static string GetDataDir(string installDir)
         {
             string drive = Directory.GetDirectoryRoot(installDir);
@@ -334,7 +344,7 @@ namespace PaletteInstallerCA
                 port = Convert.ToInt32(tokens[1]);
             }
 
-            string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+            string installDir = GetInstallDir(session.CustomActionData["INSTALLLOCATION"]);
             string path = installDir;
 
             string dataDir = GetDataDir(installDir);
@@ -385,7 +395,7 @@ namespace PaletteInstallerCA
 
             //System.Diagnostics.Debugger.Launch();
 
-            string installDir = session.CustomActionData["INSTALLLOCATION"].ToString();
+            string installDir = GetInstallDir(session.CustomActionData["INSTALLLOCATION"]);
 
             while (installDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
@@ -431,7 +441,7 @@ namespace PaletteInstallerCA
                 session.Log("CleanupAfterUninstall failed to remove Palette user");                
             }
 
-            string progFolder = session["INSTALLLOCATION"].ToString();
+            string progFolder = GetInstallDir(session["INSTALLLOCATION"]);
 
             session.Log("Attempting to delete folder " + progFolder);
 
@@ -557,48 +567,6 @@ namespace PaletteInstallerCA
             DeleteFolderWithLooping(userDir, session);
 
             return 0;
-        }
-
-        //Deletes files using FileSystemInfo class
-        private static int DeleteFileSystemInfo(FileSystemInfo fileSystemInfo, Session session)
-        {
-            int returnCode = 0;
-
-            try
-            {
-                fileSystemInfo.Attributes = System.IO.FileAttributes.Normal;
-            }
-            catch (Exception e)
-            {
-                session.Log(e.ToString());
-                return 1;
-            }
-            
-            var directoryInfo = fileSystemInfo as DirectoryInfo;
-            if (directoryInfo != null)
-            {
-                try
-                {
-                    foreach (var childInfo in directoryInfo.GetFileSystemInfos())
-                    {
-                        returnCode = DeleteFileSystemInfo(childInfo, session);
-                    }
-                }
-                catch (Exception e)
-                {
-                    session.Log(e.ToString());
-                    return 1;
-                }
-            }
-
-            try
-            {     
-                fileSystemInfo.Delete();
-            } catch (Exception e) {
-                session.Log(e.ToString());
-                returnCode++;
-            }
-            return returnCode;
         }
 
         /// <summary>
