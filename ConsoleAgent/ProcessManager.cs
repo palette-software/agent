@@ -81,7 +81,7 @@ public class ProcessManager
         try
         {
             process.Start();
-            WritePid(dir, process.Id);
+            //WritePid(dir, process.Id);
             WriteCmd(dir, cmd);
 
             if (immediate)
@@ -101,7 +101,7 @@ public class ProcessManager
     /// Removes the folder and file containing StdOut and StdErr for a given process id.  
     /// This is done after response is sent to controller verifying process completion
     /// </summary>
-    /// <param name="xid">agent process id</param>
+    /// <param name="xid"></param>
     public void Cleanup(UInt64 xid)
     {
         // FIXME: check xid
@@ -112,6 +112,31 @@ public class ProcessManager
         }
         DirectoryInfo dirInfo = new DirectoryInfo(dir);
         dirInfo.Delete(true);
+    }
+    /// <summary>
+    /// Try to kill the process with a given XID.
+    /// </summary>
+    /// <param name="xid"></param>
+    public void Kill(UInt64 xid)
+    {
+        int pid = GetPid(xid);
+        if (pid == -1)
+        {
+            logger.Warn("XID '" + xid.ToString() + "' Not Found.");
+            return;
+        }
+
+        try
+        {
+            Process process = Process.GetProcessById(pid);
+            process.Kill();
+            logger.Info("Killed XID '" + xid.ToString() + "', PID '" + pid.ToString() + "'");
+        }
+        catch (SystemException ex)
+        {
+            logger.Warn(ex.Message);
+            return;
+        }
     }
 
     /// <summary>
@@ -177,7 +202,15 @@ public class ProcessManager
     /// <returns></returns>
     private int GetPid(UInt64 xid)
     {
-        return GetInt(xid, "pid");
+        try
+        {
+            return GetInt(xid, "pid");
+        }
+        catch (SystemException ex)
+        {
+            //logger.Warn(ex.Message);
+            return -1;
+        }
     }
 
     /// <summary>

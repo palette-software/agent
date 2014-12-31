@@ -64,6 +64,7 @@ public class PRunProcess
     private string stdErrPath;
     private string returnCdTmpPath;
     private string returnCdPath;
+    private string pidPath;
     ProcessStartInfo startInfo;
 
     /// <summary>
@@ -95,7 +96,8 @@ public class PRunProcess
         stdOutPath = Path.Combine(localOutputFolder, "stdout");
         stdErrPath = Path.Combine(localOutputFolder, "stderr");
         returnCdPath = Path.Combine(localOutputFolder, "returncode");
-        returnCdTmpPath = Path.Combine(localOutputFolder, "tmp"); 
+        returnCdTmpPath = Path.Combine(localOutputFolder, "tmp");
+        pidPath = Path.Combine(localOutputFolder, "pid");
     }
 
     /// <summary>
@@ -106,6 +108,15 @@ public class PRunProcess
     {
         File.WriteAllText(returnCdTmpPath, Convert.ToString(returnCode));
         File.Move(returnCdTmpPath, returnCdPath);
+    }
+
+    /// <summary>
+    /// Write the pid of the child process to the pid file in the current directory.
+    /// </summary>
+    /// <param name="pid"></param>
+    private void WritePid(int pid)
+    {
+        File.WriteAllText(pidPath, Convert.ToString(pid));
     }
 
     /// <summary>
@@ -158,6 +169,7 @@ public class PRunProcess
                 try
                 {
                     process.Start();
+                    WritePid(process.Id);
                 }
                 catch (InvalidOperationException e)
                 {

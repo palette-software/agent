@@ -237,6 +237,12 @@ public class PaletteHandler : HttpHandler
                 }
                 outputBody.Add("xid", xid);
             }
+            else if (action == "kill")
+            {
+                outputBody = new Dictionary<string, object>();
+                agent.processManager.Kill(xid);
+                outputBody.Add("xid", xid);
+            }
             else
             {
                 throw new HttpBadRequest("Invalid action value in JSON POST");
