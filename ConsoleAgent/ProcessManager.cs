@@ -206,7 +206,7 @@ public class ProcessManager
         {
             return GetInt(xid, "pid");
         }
-        catch (SystemException ex)
+        catch (IOException)
         {
             //logger.Warn(ex.Message);
             return -1;
