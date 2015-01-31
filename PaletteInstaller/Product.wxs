@@ -13,6 +13,7 @@
       <![CDATA[Installed OR Privileged]]></Condition>
     <WixVariable Id="WixUIBannerBmp" Value="images\493x58.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="images\493x312.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <Icon Id="palette.exe" SourceFile="images\palette.ico"/>
     <Property Id="ARPPRODUCTICON" Value="palette.exe" />
     <Property Id="ALLUSERS" Value="1" />
