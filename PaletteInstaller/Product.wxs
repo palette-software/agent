@@ -5,8 +5,8 @@
     <Package InstallerVersion="200" Compressed="yes" />
 		<Media Id="1" Cabinet="palette.cab" EmbedCab="yes" />
     <PropertyRef Id="NETFRAMEWORK35"/>
-    <!--<Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>-->
+    <Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
     <Property Id="DATALOCATION" Value="C:\"/>
