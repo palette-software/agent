@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="d03dd71e-a3c6-4950-b35c-3e518908f9d6" Name="Palette Agent" Language="1033" Version="1.0.1" Manufacturer="Palette Software" UpgradeCode="ab39a1ce-7e04-42c6-8abe-d30f22fa3eda">
-		<Package InstallerVersion="200" Compressed="yes" />
+	<Product Id="d03dd71e-a3c6-4950-b35c-3e518908f9d6" Name="Palette Agent" Language="1033" Version="1.1" Manufacturer="Palette Software" UpgradeCode="ab39a1ce-7e04-42c6-8abe-d30f22fa3eda">
+    
+    <Package InstallerVersion="200" Compressed="yes" />
 		<Media Id="1" Cabinet="palette.cab" EmbedCab="yes" />
     <PropertyRef Id="NETFRAMEWORK35"/>
-    <Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>
+    <!--<Condition Message="This application requires .NET Framework 3.5 or greater. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK35]]></Condition>-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
     <Property Id="DATALOCATION" Value="C:\"/>
-    <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these and then run the installer again.">
+    <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these, restart the server and then run the installer again.">
       <![CDATA[Installed OR Privileged]]></Condition>
     <WixVariable Id="WixUIBannerBmp" Value="images\493x58.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="images\493x312.bmp" />
@@ -419,7 +420,7 @@
       <Custom Action="EnableUAC" Sequence="6402">NOT Installed</Custom>
       <Custom Action="StopPaletteServiceOnUninstall" Before="LaunchConditions">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
       <Custom Action="CleanupAfterUninstall" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
-      <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>      
+      <Custom Action="CleanupOnRollback" After="InstallInitialize">REMOVE="ALL"</Custom>
     </InstallExecuteSequence>
 	</Product>
 </Wix>

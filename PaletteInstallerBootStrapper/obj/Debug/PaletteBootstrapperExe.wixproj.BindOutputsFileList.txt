@@ -1,0 +1,2 @@
+C:\Palette_Dev\agent\PaletteInstallerBootStrapper\bin\Debug\PaletteSetup.exe
+C:\Palette_Dev\agent\PaletteInstallerBootStrapper\bin\Debug\PaletteSetup.wixpdb
