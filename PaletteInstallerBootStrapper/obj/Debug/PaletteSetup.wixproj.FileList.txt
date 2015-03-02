@@ -1,0 +1,6 @@
+C:\Palette_Dev\agent\PaletteInstallerBootStrapper\bin\Debug\PaletteInstallerBootStrapper.exe
+C:\Palette_Dev\agent\PaletteInstallerBootStrapper\bin\Debug\PaletteInstallerBootStrapper.wixpdb
+obj\Debug\Bundle.wixobj
+obj\Debug\PaletteSetup.wixproj.BindContentsFileList.txt
+obj\Debug\PaletteSetup.wixproj.BindOutputsFileList.txt
+obj\Debug\PaletteSetup.wixproj.BindBuiltOutputsFileList.txt

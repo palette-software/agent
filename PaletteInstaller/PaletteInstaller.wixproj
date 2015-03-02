@@ -1,5 +1,6 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <EnableProjectHarvesting>True</EnableProjectHarvesting> <!--See http://stackoverflow.com/questions/12386211/lght0094-unresolved-reference-to-symbol-wixcomponentgroupproduct-generated-i/12386738#12386738 --> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.5</ProductVersion>

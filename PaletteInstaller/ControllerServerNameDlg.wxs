@@ -7,7 +7,7 @@
   </Fragment>
   <Fragment>
     <EnsureTable Id="ComboBox"/>
-    <Property Id="SERVERNAME" Value=".palette-software.com"/>
+    <Property Id="SERVERNAME" Value=" "/>
     <Property Id="ISDOMAINCONTROLLER">
       <RegistrySearch Id="IsDomainController" Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\ProductOptions" Name="ProductType" Type="raw" />
     </Property>
@@ -37,19 +37,23 @@
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 
         <Control Type="Text" Id="ServerNameTxt" Width="290" Height="10" X="20" Y="60"
-                 Text="Controller Host Name:" />
+                 Text="Your Palette Server Address:" />
         <Control Type="Edit" Id="ServerNameEdit" Width="250" Height="17" X="20" Y="72"
                  Property="SERVERNAME" />
+        <Control Type="Text" Id="ServerNameInfoTxt1" Width="290" Height="10" X="20" Y="88"
+                 Text="This is the address your Tableau Server can access your Palette Server, which"/>
+        <Control Type="Text" Id="ServerNameInfoTxt2" Width="290" Height="10" X="20" Y="98"
+         Text="is not always the same address that your Users access your Tableau Server." />
 
         <!--<Control Type="Text" Id="MustCreateUserTxt" Width="290" Height="10" X="20" Y="130" Text ="Value for ISDOMAINCONTROLLER: [ISDOMAINCONTROLLER]">
           <Condition Action="show" >USEEXISTINGACCT&lt;&gt;1 AND ISDOMAINCONTROLLER &lt;&gt;"LanmanNT"</Condition>
           <Condition Action="show" >USEEXISTINGACCT = 1 OR ISDOMAINCONTROLLER = "LanmanNT"</Condition>
         </Control>-->
 
-        <Control Type="Text" Id="LicenseTxt" Width="290" Height="10" X="20" Y="100" Text="License Key: " />
-        <Control Type="Edit" Id="LicenseEdit" Width="250" Height="17" X="20" Y="112" Property="LICENSEKEY" />
+        <Control Type="Text" Id="LicenseTxt" Width="290" Height="10" X="20" Y="118" Text="Your Palette Server License Key: " />
+        <Control Type="Edit" Id="LicenseEdit" Width="250" Height="17" X="20" Y="130" Property="LICENSEKEY" />
 
-        <Control Id="EnableCheckBox" Property="USEEXISTINGACCT" Type="CheckBox" X="20" Y="130" Width="290" Height="30" Text="Use Existing Administrator Account" CheckBoxValue="1">
+        <Control Id="EnableCheckBox" Property="USEEXISTINGACCT" Type="CheckBox" X="20" Y="142" Width="290" Height="30" Text="Use Existing Administrator Account" CheckBoxValue="1">
           <Condition Action="hide" >ISDOMAINCONTROLLER = "LanmanNT"</Condition>
           <Condition Action="show" >ISDOMAINCONTROLLER = "WinNT" OR ISDOMAINCONTROLLER = "ServerNT"</Condition>
         </Control>
