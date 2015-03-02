@@ -657,6 +657,61 @@ public class PaletteHandler : HttpHandler
         return d;
     }
 
+    // poor man's 'file' command
+    private Dictionary<string, object> HandleTYPE(HttpRequest req)
+    {
+        string path = GetRequiredJSONString(req, "path");
+
+        Dictionary<string, object> d = new Dictionary<string, object>();
+
+        FileInfo fileInfo = new FileInfo(path);
+        if (!fileInfo.Exists)
+        {
+            d["status"] = "FAILED";
+            d["error"] = "File Not Found or Invalid";
+            return d;
+        }
+
+        /* Use the first 12 bytes as the signature. */
+        long length = fileInfo.Length;
+        if (length > 12)
+        {
+            length = 12;
+        }
+        List<byte> list = new List<byte>((int)length);
+
+        try
+        {
+            using (FileStream fileStream = fileInfo.OpenRead())
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    list.Add((byte)fileStream.ReadByte());
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            d["status"] = "FAILED";
+            d["error"] = ex.Message;
+            return d;
+        }
+
+        d["signature"] = list;
+        // Starts with "PK" - 80 and 75 decimal, respectively //
+        if (list.Count >= 2 && list[0] == 80 && list[1] == 75)
+        {
+            d["type"] = "ZIP";
+        }
+        else
+        {
+            d["type"] = "OTHER";
+        }
+
+        d["status"] = "OK";
+        return d;
+    }
+
     private HttpResponse HandleFilePOST(HttpRequest req)
     {
         Dictionary<string, object> outputBody = null;
@@ -683,6 +738,9 @@ public class PaletteHandler : HttpHandler
                     break;
                 case "MKDIRS":
                     outputBody = HandleMKDIRS(req);
+                    break;
+                case "TYPE":
+                    outputBody = HandleTYPE(req);
                     break;
                 default:
                     throw new HttpBadRequest("Invalid action : " + action);
