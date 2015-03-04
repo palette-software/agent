@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+	<Bundle Name="Palette" Version="1.1" Manufacturer="Palette Software" UpgradeCode="59f5fcd9-629d-4af5-af13-6a9a49dfe836" IconSourceFile="images\palette.ico" SplashScreenSourceFile="images\493x312.bmp" AboutUrl="www.palette-software.com" >
+		<!--Default License-->
+    <!--<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />-->
+    <!--No License-->
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense" >
+      <!--The below launch argument puts the log file in c:/users/[username]/AppData/Local/Temp/*PaletteInstallerMSI.log-->
+      <bal:WixStandardBootstrapperApplication LicenseUrl="http://www.palette-software.com/terms" LogoFile="images\62x58.bmp" LaunchArguments="msiexec -i" />
+    </BootstrapperApplicationRef>
+    <!--<WixVariable Id="WixStdbaLicenseUrl" Value="http://www.palette-software.com/terms" />-->
+    <!--Custom License-->
+    <!--<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+      <Payload SourceFile="Resource\License.htm" />
+    </BootstrapperApplicationRef>
+    <WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />-->
+
+    <!--<Variable Name="runVariable1" bal:Overridable="no" Type="string" Value="-i ..\PaletteInstallerMSI\bin\$(var.Configuration)\PaletteInstaller.msi /L*V c:/temp/install.log" />-->
+
+    <Chain>
+      <!-- TODO: Define the list of chained packages. -->
+      <!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <!--<MsiPackage Id="DotNet35" SourceFile="..\dotnet35\NETCFSetupv35.msi" 
+                  InstallCondition="NOT Installed AND NOT NETFRAMEWORK35"
+                  ForcePerMachine="yes"/>-->
+      <!--<PackageGroupRef Id="Netfx35" />-->
+      <MsiPackage Id="PaletteInstallerMSI" SourceFile="..\PaletteInstallerMSI\bin\$(var.Configuration)\PaletteInstaller.msi" DisplayInternalUI="yes" DisplayName="Palette Setup" Visible="yes" LogPathVariable="c:/temp/install.log" Permanent="no">
+        <!--<MsiProperty Name="runProperty1" Value="[runVariable1]" />-->
+      </MsiPackage>
+    </Chain>
+    
+  </Bundle>
+  <Fragment>
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v3.5" Value="Version" Variable="Netfx35Version" />
+    <PackageGroup Id="Netfx35">
+      <ExePackage Id="Netfx35"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Vital="yes"
+        Name="NETCFSetupv35.msi"
+        SourceFile="..\dotnet35\NETCFSetupv35.msi"
+        InstallCommand="/q /norestart /lang:ENU"
+        RepairCommand="/q /norestart /lang:ENU"
+        UninstallCommand="/q /norestart /lang:ENU"
+        InstallCondition="NOT Netfx35Version OR (Netfx35Version &lt; v3.5.30729.1)"
+        DetectCondition="Netfx35Version AND (Netfx35Version &gt;= v3.5.30729.1)">
+        <ExitCode Value ="3010" Behavior="forceReboot" />
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>  
+</Wix>

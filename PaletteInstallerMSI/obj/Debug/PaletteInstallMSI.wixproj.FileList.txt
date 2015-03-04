@@ -1,0 +1,11 @@
+C:\Palette_Dev\agent\PaletteInstaller\bin\Debug\PaletteInstaller.msi
+C:\Palette_Dev\agent\PaletteInstaller\bin\Debug\PaletteInstaller.wixpdb
+obj\Debug\ControllerServerNameDlg.wixobj
+obj\Debug\Product.wixobj
+obj\Debug\WixUI_InstallDir_Palette.wixobj
+obj\Debug\Product.Generated.wixobj
+obj\Debug\PaletteInstallMSI.wixproj.BindContentsFileListnull.txt
+obj\Debug\PaletteInstallMSI.wixproj.BindOutputsFileListnull.txt
+obj\Debug\PaletteInstallMSI.wixproj.BindBuiltOutputsFileListnull.txt
+C:\Palette_Dev\agent\PaletteInstallerMSI\bin\Debug\PaletteInstaller.msi
+C:\Palette_Dev\agent\PaletteInstallerMSI\bin\Debug\PaletteInstaller.wixpdb

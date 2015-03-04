@@ -1,0 +1,1 @@
+C:\Palette_Dev\agent\PaletteInstallerMSI\bin\Debug\PaletteInstaller.msi
