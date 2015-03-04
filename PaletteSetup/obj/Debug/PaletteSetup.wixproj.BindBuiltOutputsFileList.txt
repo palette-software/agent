@@ -1,2 +1,0 @@
-C:\Palette_Dev\agent\PaletteSetup\bin\Debug\PaletteSetup.exe
-C:\Palette_Dev\agent\PaletteSetup\bin\Debug\PaletteSetup.wixpdb

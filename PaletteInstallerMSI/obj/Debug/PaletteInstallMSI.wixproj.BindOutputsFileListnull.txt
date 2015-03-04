@@ -1,2 +1,0 @@
-C:\Palette_Dev\agent\PaletteInstallerMSI\bin\Debug\PaletteInstaller.msi
-C:\Palette_Dev\agent\PaletteInstallerMSI\bin\Debug\PaletteInstaller.wixpdb
