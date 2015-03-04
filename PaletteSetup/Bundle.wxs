@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
-	<Bundle Name="Palette" Version="1.1" Manufacturer="Palette Software" UpgradeCode="59f5fcd9-629d-4af5-af13-6a9a49dfe836" IconSourceFile="images\palette.ico" SplashScreenSourceFile="images\493x312.bmp" AboutUrl="www.palette-software.com" >
+	<Bundle Name="Palette" Version="1.1" Manufacturer="Palette Software" UpgradeCode="59f5fcd9-629d-4af5-af13-6a9a49dfe836" IconSourceFile="images\palette.ico" SplashScreenSourceFile="images\493x312.bmp" AboutUrl="http://www.palette-software.com" >
 		<!--Default License-->
     <!--<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />-->
     <!--No License-->
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense" >
       <!--The below launch argument puts the log file in c:/users/[username]/AppData/Local/Temp/*PaletteInstallerMSI.log-->
-      <bal:WixStandardBootstrapperApplication LicenseUrl="http://www.palette-software.com/terms" LogoFile="images\62x58.bmp" LaunchArguments="msiexec -i" />
+      <bal:WixStandardBootstrapperApplication LicenseUrl="http://kb.palette-software.com/palette-end-user-license-agreement" LogoFile="images\62x58.bmp" LaunchArguments="msiexec -i"  SuppressOptionsUI="yes"/>
     </BootstrapperApplicationRef>
-    <!--<WixVariable Id="WixStdbaLicenseUrl" Value="http://www.palette-software.com/terms" />-->
     <!--Custom License-->
     <!--<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
       <Payload SourceFile="Resource\License.htm" />
