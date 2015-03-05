@@ -57,14 +57,14 @@ Patch dialog sequence:
 
             <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
 
-            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg">NOT Installed</Publish>
+            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="ControllerServerNameDlg">NOT Installed</Publish>
             <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">Installed AND PATCH</Publish>
 
-            <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
-            <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="ControllerServerNameDlg">LicenseAccepted = "1"</Publish>
+            <!--<Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+            <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="ControllerServerNameDlg">LicenseAccepted = "1"</Publish>-->
 
             <!-- Custom: Enter Controller Server Name -->
-            <Publish Dialog="ControllerServerNameDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
+            <Publish Dialog="ControllerServerNameDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="1">1</Publish>
             <!--Publish Dialog="ControllerServerNameDlg" Control="Next" Event="DoAction" Value="UpdateIniWithServerName" Order="1">1</Publish-->
             <!--<Publish Dialog="ControllerServerNameDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>-->
           
