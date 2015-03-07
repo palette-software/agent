@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="d03dd71e-a3c6-4950-b35c-3e518908f9d6" Name="Palette Agent" Language="1033" Version="1.1" Manufacturer="Palette Software" UpgradeCode="ab39a1ce-7e04-42c6-8abe-d30f22fa3eda">
-    
+	<Product Id="d03dd71e-a3c6-4950-b35c-3e518908f9d6" Name="Palette Agent" Language="1033" Version="1.1" Manufacturer="Palette Software" UpgradeCode="ab39a1ce-7e04-42c6-8abe-d30f22fa3eda">    
     <Package InstallerVersion="200" Compressed="yes" />
 		<Media Id="1" Cabinet="palette.cab" EmbedCab="yes" />
     <PropertyRef Id="NETFRAMEWORK35"/>
@@ -11,7 +10,7 @@
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
     <Property Id="DATALOCATION" Value="C:\"/>
     <Condition Message="This application requires Admin privileges to install and User Account Control set to minimum.  Please check these, restart the server and then run the installer again.">
-      <![CDATA[Installed OR Privileged]]></Condition>
+      <![CDATA[Installed OR Privileged]]></Condition>    
     <WixVariable Id="WixUIBannerBmp" Value="images\493x58.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="images\493x312.bmp" />
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />

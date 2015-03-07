@@ -34,6 +34,12 @@
       <Name>WixBalExtension</Name>
     </WixExtension>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HyperlinkTheme.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HyperlinkTheme.xml" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
