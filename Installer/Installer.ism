@@ -125,6 +125,32 @@
 		<col def="I4">ISControlId</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="S72">Binary_</col>
+		<row><td>DialogId_10205</td><td>ControlId_1</td><td>PushButton</td><td>215</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_10205_ControlId_1##</td><td>ControlId_9</td><td/><td>131072</td><td>1</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_12</td><td>PushButton</td><td>165</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_10205_ControlId_12##</td><td>ControlId_1300</td><td/><td>0</td><td>12</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_1200</td><td>Text</td><td>10</td><td>10</td><td>84</td><td>36</td><td>3</td><td/><td>##IDS__DialogId_10205_ControlId_1200##</td><td>ControlId_202</td><td/><td>131072</td><td>1200</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_1300</td><td>Line</td><td>0</td><td>186</td><td>332</td><td>1</td><td>3</td><td/><td/><td>ControlId_551</td><td/><td>131079</td><td>1300</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_2</td><td>PushButton</td><td>164</td><td>225</td><td>50</td><td>14</td><td>2</td><td/><td>##IDS__DialogId_10205_ControlId_2##</td><td/><td/><td>131072</td><td>2</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_202</td><td>Text</td><td>127</td><td>50</td><td>185</td><td>40</td><td>196611</td><td/><td>##IDS__DialogId_10205_ControlId_202##</td><td>ControlId_1</td><td/><td>131072</td><td>202</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_50</td><td>Text</td><td>127</td><td>19</td><td>185</td><td>16</td><td>65539</td><td/><td>##IDS__DialogId_10205_ControlId_50##</td><td>ControlId_1200</td><td/><td>131072</td><td>50</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_52</td><td>Text</td><td>110</td><td>0</td><td>221</td><td>185</td><td>3</td><td/><td/><td>ControlId_50</td><td/><td>131072</td><td>52</td><td/><td/></row>
+		<row><td>DialogId_10205</td><td>ControlId_551</td><td>Bitmap</td><td>0</td><td>0</td><td>110</td><td>185</td><td>262147</td><td/><td/><td>ControlId_52</td><td/><td>64</td><td>551</td><td/><td>NewBinary3</td></row>
+		<row><td>DialogId_10205</td><td>ControlId_9</td><td>PushButton</td><td>272</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_10205_ControlId_9##</td><td>ControlId_12</td><td/><td>0</td><td>9</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_1</td><td>PushButton</td><td>215</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_12001_ControlId_1##</td><td>ControlId_9</td><td/><td>0</td><td>1</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_12</td><td>PushButton</td><td>165</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_12001_ControlId_12##</td><td>ControlId_1</td><td/><td>131072</td><td>12</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_1200</td><td>Text</td><td>0</td><td>0</td><td>332</td><td>36</td><td>65539</td><td/><td>##IDS__DialogId_12001_ControlId_1200##</td><td>ControlId_1300</td><td/><td>131072</td><td>1200</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_1300</td><td>Line</td><td>42</td><td>186</td><td>289</td><td>1</td><td>3</td><td/><td/><td>ControlId_7</td><td/><td>131079</td><td>1300</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_1301</td><td>Line</td><td>0</td><td>36</td><td>332</td><td>1</td><td>3</td><td/><td/><td>ControlId_52</td><td/><td>131088</td><td>1301</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_2</td><td>PushButton</td><td>164</td><td>225</td><td>50</td><td>14</td><td>2</td><td/><td>##IDS__DialogId_12001_ControlId_2##</td><td/><td/><td>0</td><td>2</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_301</td><td>Edit</td><td>17</td><td>85</td><td>298</td><td>13</td><td>16777219</td><td/><td/><td>ControlId_Negative1_2</td><td/><td>131072</td><td>301</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_302</td><td>Edit</td><td>17</td><td>120</td><td>298</td><td>13</td><td>16777219</td><td/><td/><td>ControlId_12</td><td/><td>131072</td><td>302</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_50</td><td>Text</td><td>10</td><td>3</td><td>220</td><td>8</td><td>65539</td><td/><td>##IDS__DialogId_12001_ControlId_50##</td><td>ControlId_51</td><td/><td>131072</td><td>50</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_51</td><td>Text</td><td>17</td><td>15</td><td>213</td><td>19</td><td>65539</td><td/><td>##IDS__DialogId_12001_ControlId_51##</td><td>ControlId_1301</td><td/><td>131072</td><td>51</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_52</td><td>Text</td><td>0</td><td>0</td><td>332</td><td>36</td><td>3</td><td/><td/><td>ControlId_710</td><td/><td>131072</td><td>52</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_7</td><td>Text</td><td>2</td><td>182</td><td>40</td><td>10</td><td>2</td><td/><td/><td>ControlId_50</td><td/><td>131072</td><td>7</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_710</td><td>Text</td><td>17</td><td>40</td><td>282</td><td>24</td><td>131075</td><td/><td>##IDS__DialogId_12001_ControlId_710##</td><td>ControlId_Negative1_1</td><td/><td>131072</td><td>710</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_9</td><td>PushButton</td><td>272</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_12001_ControlId_9##</td><td>ControlId_1200</td><td/><td>0</td><td>9</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_Negative1_1</td><td>Text</td><td>17</td><td>72</td><td>74</td><td>9</td><td>3</td><td/><td>##IDS__DialogId_12001_ControlId_Negative1_1##</td><td>ControlId_301</td><td/><td>131072</td><td>-1</td><td/><td/></row>
+		<row><td>DialogId_12001</td><td>ControlId_Negative1_2</td><td>Text</td><td>17</td><td>107</td><td>87</td><td>9</td><td>3</td><td/><td>##IDS__DialogId_12001_ControlId_Negative1_2##</td><td>ControlId_302</td><td/><td>131072</td><td>-1</td><td/><td/></row>
 		<row><td>DialogId_12006</td><td>ControlId_1</td><td>PushButton</td><td>215</td><td>196</td><td>50</td><td>14</td><td>3</td><td/><td>##IDS__DialogId_12006_ControlId_1##</td><td>ControlId_9</td><td/><td>131072</td><td>1</td><td/><td/></row>
 		<row><td>DialogId_12006</td><td>ControlId_12</td><td>PushButton</td><td>165</td><td>196</td><td>50</td><td>14</td><td>1</td><td/><td>##IDS__DialogId_12006_ControlId_12##</td><td>ControlId_710</td><td/><td>0</td><td>12</td><td/><td/></row>
 		<row><td>DialogId_12006</td><td>ControlId_1300</td><td>Line</td><td>0</td><td>186</td><td>332</td><td>1</td><td>3</td><td/><td/><td>ControlId_52</td><td/><td>131079</td><td>1300</td><td/><td/></row>
@@ -171,6 +197,8 @@
 		<col def="S72">TextStyle_</col>
 		<col def="I4">ISWindowStyle</col>
 		<col def="I4">ISResourceId</col>
+		<row><td>DialogId_10205</td><td>0</td><td>0</td><td>332</td><td>218</td><td>1</td><td>##IDS__DialogId_10205##</td><td>ControlId_202</td><td>ControlId_1</td><td>ControlId_2</td><td/><td>Tahoma8</td><td>-2134376256</td><td>10205</td></row>
+		<row><td>DialogId_12001</td><td>0</td><td>0</td><td>332</td><td>218</td><td>1</td><td>##IDS__DialogId_12001##</td><td>ControlId_52</td><td>ControlId_1</td><td>ControlId_2</td><td/><td>Tahoma8</td><td>-2134376256</td><td>12001</td></row>
 		<row><td>DialogId_12006</td><td>0</td><td>0</td><td>332</td><td>218</td><td>1</td><td>##IDS__DialogId_12006##</td><td>ControlId_1</td><td>ControlId_1</td><td>ControlId_2</td><td/><td>Tahoma8</td><td>-2134376256</td><td>12006</td></row>
 		<row><td>DialogId_12032</td><td>0</td><td>0</td><td>332</td><td>218</td><td>1</td><td>##IDS__DialogId_12032##</td><td>ControlId_52</td><td>ControlId_1</td><td/><td/><td>Tahoma8</td><td>-2134900544</td><td>12032</td></row>
 		<row><td>DialogId_12060</td><td>0</td><td>0</td><td>332</td><td>218</td><td>1</td><td>##IDS__DialogId_12060##</td><td>ControlId_52</td><td>ControlId_1</td><td/><td/><td>Tahoma8</td><td>-2134900544</td><td>12060</td></row>
@@ -254,7 +282,7 @@
 		<col def="S255">Data</col>
 		<row><td>BiildCDROMEnabled</td><td/></row>
 		<row><td>BiildInternetEnabled</td><td/></row>
-		<row><td>BiildSingleExeEnabled</td><td/></row>
+		<row><td>BiildSingleExeEnabled</td><td>Yes</td></row>
 		<row><td>BiildSingleMSIEnabled</td><td/></row>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>Selectable</td></row>
@@ -466,6 +494,7 @@
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
 		<row><td>PATH_TO_IMAGES_FILES</td><td>&lt;ISPROJECTDIR&gt;\..\images</td><td/><td>2</td></row>
+		<row><td>PATH_TO_IMAGES_FILES1</td><td>C:\Users\Matthew\Projects\palette\agent\PaletteSetup\images</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
@@ -534,6 +563,7 @@
 		<col def="I4">ISSetupPrerequisiteLocation</col>
 		<row><td>Debug</td><td>Media</td><td/><td>PackageName</td><td>0</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>12</td><td/><td/><td/><td/></row>
 		<row><td>Release</td><td>Media</td><td/><td>PackageName</td><td>0</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>12</td><td/><td/><td/><td/></row>
+		<row><td>SINGLE_EXE_IMAGE</td><td>Media</td><td/><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>33554445</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISReleasePro">
@@ -560,6 +590,7 @@
 		<col def="S255">CertPassword</col>
 		<row><td>Debug</td><td>Media</td><td/><td/><td>{47324F63-22B7-42C9-9951-F45ACB1D7113}</td><td/><td/><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
 		<row><td>Release</td><td>Media</td><td/><td/><td>{FBBD2520-563F-447E-8765-E8C0B474AAF6}</td><td/><td/><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
+		<row><td>SINGLE_EXE_IMAGE</td><td>Media</td><td/><td/><td>{4462BEAF-70E3-41CC-87BA-18B799FA0E64}</td><td>Palette.exe</td><td>&lt;PATH_TO_IMAGES_FILES&gt;\palette.ico,0</td><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
 	</table>
 
 	<table name="ISReleaseProDataAsFiles">
@@ -797,14 +828,25 @@
 		<row><td>IDPROP_SETUPTYPE_CUSTOM_DESC_PRO</td><td>1033</td><td>Custom</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDS_SQLSCRIPT_INSTALLING</td><td>1033</td><td>Executing SQL Install Script...</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDS_SQLSCRIPT_UNINSTALLING</td><td>1033</td><td>Executing SQL Uninstall Script...</td><td>0</td><td/><td>-1910351247</td></row>
-		<row><td>IDS__DialogId_10205</td><td>1033</td><td>InstallShield Wizard</td><td>0</td><td/><td>1512259371</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_1</td><td>1033</td><td>&amp;Next &gt;</td><td>0</td><td/><td>1512259371</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_12</td><td>1033</td><td>&lt; &amp;Back</td><td>0</td><td/><td>1512261419</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_1200</td><td>1033</td><td>@@10554;200</td><td>0</td><td/><td>1512261419</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_2</td><td>1033</td><td>C</td><td>0</td><td/><td>1512261419</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_202</td><td>1033</td><td>The InstallShield Wizard will install %P on your computer.  To continue, click Next.</td><td>0</td><td/><td>1512259371</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_50</td><td>1033</td><td>Welcome to the InstallShield Wizard for %P</td><td>0</td><td/><td>1512261419</td></row>
-		<row><td>IDS__DialogId_10205_ControlId_9</td><td>1033</td><td>Cancel</td><td>0</td><td/><td>1512261419</td></row>
+		<row><td>IDS__DialogId_10205</td><td>1033</td><td>InstallShield Wizard</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_1</td><td>1033</td><td>&amp;Next &gt;</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_12</td><td>1033</td><td>&lt; &amp;Back</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_1200</td><td>1033</td><td>@@10554;200</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_2</td><td>1033</td><td>C</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_202</td><td>1033</td><td>The InstallShield Wizard will install %P on your computer.  To continue, click Next.</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_50</td><td>1033</td><td>Welcome to the InstallShield Wizard for %P</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_10205_ControlId_9</td><td>1033</td><td>Cancel</td><td>0</td><td/><td>1512270318</td></row>
+		<row><td>IDS__DialogId_12001</td><td>1033</td><td>InstallShield Wizard</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_1</td><td>1033</td><td>&amp;Next &gt;</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_12</td><td>1033</td><td>&lt; &amp;Back</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_1200</td><td>1033</td><td>@@10552;200</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_2</td><td>1033</td><td>C</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_50</td><td>1033</td><td>Customer Information</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_51</td><td>1033</td><td>Please enter your information.</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_710</td><td>1033</td><td>Please enter your name and the name of the company for which you work.</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_9</td><td>1033</td><td>Cancel</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_Negative1_1</td><td>1033</td><td>&amp;User Name:</td><td>0</td><td/><td>1512272238</td></row>
+		<row><td>IDS__DialogId_12001_ControlId_Negative1_2</td><td>1033</td><td>&amp;Company Name:</td><td>0</td><td/><td>1512272238</td></row>
 		<row><td>IDS__DialogId_12006</td><td>1033</td><td>InstallShield Wizard</td><td>0</td><td/><td>1512285995</td></row>
 		<row><td>IDS__DialogId_12006_ControlId_1</td><td>1033</td><td>&amp;Next &gt;</td><td>0</td><td/><td>1512285995</td></row>
 		<row><td>IDS__DialogId_12006_ControlId_12</td><td>1033</td><td>&lt; &amp;Back</td><td>0</td><td/><td>1512285995</td></row>
@@ -916,6 +958,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;PATH_TO_IMAGE_FILES&gt;\palette.ico</td><td>0</td></row>
 	</table>
 
 	<table name="InstallShield">
@@ -923,8 +966,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="588ca2d9d1211e8e3ffd950823eb2e81">
-UgBlAGwAZQBhAHMAZQABAE0AZQBkAGkAYQA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="bda357a34262bb9777365025e93dc2dd">
+UwBJAE4ARwBMAEUAXwBFAFgARQBfAEkATQBBAEcARQABAE0AZQBkAGkAYQA=
 			</td></row>
 		<row><td>DialogSizeType</td><td>1</td></row>
 		<row><td>DoMaintenance</td><td>1</td></row>
@@ -1004,6 +1047,7 @@ UgBlAGwAZQBhAHMAZQABAE0AZQBkAGkAYQA=
 		<col key="yes" def="s72">Property</col>
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
+		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>http://www.palette-software.com</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DefaultUIFont</td><td>Tahoma8</td><td/></row>

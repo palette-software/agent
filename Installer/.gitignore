@@ -1,3 +1,7 @@
+Media
+*.dll
+*.res
+*.rc
 *.obs
 *.dbg
 
