@@ -1,3 +1,4 @@
+/UpgradeLog.htm
 /build
 bin
 obj
@@ -6,3 +7,5 @@ Release
 *.suo
 *.user
 /*.ini
+app.config
+
