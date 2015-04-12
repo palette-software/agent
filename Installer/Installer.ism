@@ -105,7 +105,21 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>AssemblyFiles</td><td>{5A1CAE19-CC53-453D-BEDE-1602607B2470}</td><td>TARGETDIR</td><td>0</td><td/><td>paletteserviceagent.exe</td><td>52753</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>AssemblyFiles1</td><td>{C2C32518-5FE3-454B-89E3-D90CA37A2684}</td><td>CGI_BIN</td><td>0</td><td/><td>pcgi.exe</td><td>52753</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DefaultComponent</td><td>{E34E1525-11A6-4071-A4EF-DF3EA7D3DCA2}</td><td>TARGETDIR</td><td>0</td><td/><td/><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files</td><td>{8EED5A02-877C-466E-BC74-753E3D6DACD6}</td><td>CONF</td><td>8</td><td/><td>archive.crt</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files1</td><td>{D7855EF3-1032-40EC-B2FD-3A55E6626837}</td><td>CONF</td><td>0</td><td/><td>archive.key</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files10</td><td>{106D9375-D2AE-4566-9A74-AE790DE69E56}</td><td>LIB</td><td>0</td><td/><td>xml.lib</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files11</td><td>{A8579B73-992E-4C25-A7FA-5318443DA24B}</td><td>MODULES</td><td>0</td><td/><td>mod_xml2enc.so</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files2</td><td>{F49C7D55-8A82-4C29-ACCD-5FEBDFFF4E4D}</td><td>ARCHIVE</td><td>0</td><td/><td>server.key</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files3</td><td>{257AF7D4-3381-49DA-B485-15549051B3CB}</td><td>WWW1</td><td>0</td><td/><td>style.css</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files4</td><td>{372B3E11-C8B6-4DF6-8A7F-471D9E21E246}</td><td>IMAGE</td><td>0</td><td/><td>palette_logo.png</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files5</td><td>{D2D33B77-7C6A-4DEC-B6CF-039C251ED00A}</td><td>WEBFONTS</td><td>0</td><td/><td>_b4065_a_0.woff</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files6</td><td>{8B246D76-230F-4100-95B8-08DE5384EED8}</td><td>CONF1</td><td>8</td><td/><td>httpd.conf1</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files7</td><td>{9A990B25-E4E7-4467-94CC-E9A528733DC4}</td><td>BIN</td><td>8</td><td/><td>ab.exe</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files8</td><td>{0C2734C5-AF26-4E8F-8877-6A516C28CED9}</td><td>BIN</td><td>0</td><td/><td>zlib1.dll</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files9</td><td>{FAC29698-017F-4A7C-B516-8F46EB690101}</td><td>CONF2</td><td>0</td><td/><td>mime.types</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Control">
@@ -212,11 +226,23 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S255">ISFolderName</col>
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
+		<row><td>APACHE2</td><td>TARGETDIR</td><td>apache2</td><td/><td>0</td><td/></row>
+		<row><td>ARCHIVE</td><td>CONF</td><td>archive</td><td/><td>0</td><td/></row>
+		<row><td>BIN</td><td>APACHE2</td><td>bin</td><td/><td>0</td><td/></row>
+		<row><td>CGI_BIN</td><td>TARGETDIR</td><td>cgi-bin</td><td/><td>0</td><td/></row>
 		<row><td>COMMONFILES</td><td>PROGRAMFILES</td><td>Common Files</td><td/><td>0</td><td/></row>
 		<row><td>COMMONFILES64</td><td>PROGRAMFILES64</td><td>Common Files (64-bit)</td><td/><td>0</td><td/></row>
+		<row><td>CONF</td><td>TARGETDIR</td><td>conf</td><td/><td>0</td><td/></row>
+		<row><td>CONF1</td><td>MAINT</td><td>conf</td><td/><td>0</td><td/></row>
+		<row><td>CONF2</td><td>APACHE2</td><td>conf</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td/><td>Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FOLDER_FONTS</td><td>WINDIR</td><td>Fonts Folder</td><td/><td>0</td><td/></row>
+		<row><td>FONTS</td><td>WWW1</td><td>fonts</td><td/><td>0</td><td/></row>
+		<row><td>IMAGE</td><td>WWW1</td><td>image</td><td/><td>0</td><td/></row>
 		<row><td>ISRUNTIMETEXTSUBS</td><td/><td>Script-defined Folders</td><td/><td>0</td><td/></row>
+		<row><td>LIB</td><td>APACHE2</td><td>lib</td><td/><td>0</td><td/></row>
+		<row><td>MAINT</td><td>TARGETDIR</td><td>maint</td><td/><td>0</td><td/></row>
+		<row><td>MODULES</td><td>APACHE2</td><td>modules</td><td/><td>0</td><td/></row>
 		<row><td>PROGRAMFILES</td><td/><td>Program Files</td><td/><td>0</td><td/></row>
 		<row><td>PROGRAMFILES64</td><td/><td>Program Files (64-bit)</td><td/><td>0</td><td/></row>
 		<row><td>ProgramMenuFolder</td><td/><td>Programs</td><td/><td>3</td><td/></row>
@@ -224,10 +250,15 @@
 		<row><td>StartMenuFolder</td><td/><td>Start Menu</td><td/><td>3</td><td/></row>
 		<row><td>StartupFolder</td><td/><td>Startup</td><td/><td>3</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>Application Target Folder</td><td/><td>0</td><td/></row>
+		<row><td>UPGRADE</td><td>TARGETDIR</td><td>upgrade</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
+		<row><td>WEBFONTS</td><td>FONTS</td><td>webfonts</td><td/><td>0</td><td/></row>
 		<row><td>WINDIR</td><td/><td>Windows</td><td/><td>0</td><td/></row>
 		<row><td>WINSYSDIR</td><td>WINDIR</td><td>Windows System</td><td/><td>0</td><td/></row>
 		<row><td>WINSYSDIR64</td><td>WINDIR</td><td>Windows System (64-bit)</td><td/><td>0</td><td/></row>
+		<row><td>WWW1</td><td>MAINT</td><td>www</td><td/><td>0</td><td/></row>
+		<row><td>palette</td><td>palette_software</td><td>Palette</td><td/><td>1</td><td>palette</td></row>
+		<row><td>palette_software</td><td>ProgramMenuFolder</td><td>Palette Software</td><td/><td>1</td><td>palette_software</td></row>
 	</table>
 
 	<table name="Feature">
@@ -243,13 +274,27 @@
 		<col def="S255">ISComments</col>
 		<col def="S255">ISFeatureCabName</col>
 		<col def="S255">ISProFeatureName</col>
-		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td/><td>DefaultFeature</td><td/><td>2</td><td>1</td><td>TARGETDIR</td><td>0</td><td/><td/><td/><td>DefaultFeature</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td/><td>##ID_STRING3##</td><td/><td>2</td><td>1</td><td>TARGETDIR</td><td>0</td><td/><td/><td/><td>ProgramFiles</td></row>
 	</table>
 
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>AssemblyFiles</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>AssemblyFiles1</td></row>
 		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>DefaultComponent</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files1</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files10</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files11</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files2</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files3</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files4</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files5</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files6</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files7</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files8</td></row>
+		<row><td>{002D061B-CE63-434E-80DD-10C7486C4595}</td><td>Files9</td></row>
 	</table>
 
 	<table name="File">
@@ -264,11 +309,200 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>_b4065_8_0.eot</td><td>Files5</td><td>2B4065_8_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_8_0.ttf</td><td>Files5</td><td>2B4065_8_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_8_0.woff</td><td>Files5</td><td>2B4065_8_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.woff</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.eot</td><td>Files5</td><td>2B4065_9_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.ttf</td><td>Files5</td><td>2B4065_9_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.woff</td><td>Files5</td><td>2B4065_9_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.woff</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.eot</td><td>Files5</td><td>2B4065_A_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.ttf</td><td>Files5</td><td>2B4065_A_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.woff</td><td>Files5</td><td>2B4065_A_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.woff</td><td>1</td><td/></row>
+		<row><td>ab.exe</td><td>Files7</td><td>ab.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\ab.exe</td><td>1</td><td/></row>
+		<row><td>abs.exe</td><td>Files8</td><td>abs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\abs.exe</td><td>1</td><td/></row>
+		<row><td>apachemonitor.exe</td><td>Files8</td><td>ApacheMonitor.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\ApacheMonitor.exe</td><td>1</td><td/></row>
+		<row><td>apr_1.lib</td><td>Files10</td><td>apr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\apr-1.lib</td><td>1</td><td/></row>
+		<row><td>apr_crypto_openssl_1.dll</td><td>Files8</td><td>apr_crypto_openssl-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\apr_crypto_openssl-1.dll</td><td>1</td><td/></row>
+		<row><td>apr_dbd_mysql_1.dll</td><td>Files8</td><td>apr_dbd_mysql-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\apr_dbd_mysql-1.dll</td><td>1</td><td/></row>
+		<row><td>apr_dbd_odbc_1.dll</td><td>Files8</td><td>apr_dbd_odbc-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\apr_dbd_odbc-1.dll</td><td>1</td><td/></row>
+		<row><td>apr_ldap_1.dll</td><td>Files8</td><td>apr_ldap-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\apr_ldap-1.dll</td><td>1</td><td/></row>
+		<row><td>aprutil_1.lib</td><td>Files10</td><td>aprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\aprutil-1.lib</td><td>1</td><td/></row>
+		<row><td>archive.crt</td><td>Files</td><td>archive.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.crt</td><td>1</td><td/></row>
+		<row><td>archive.key</td><td>Files1</td><td>archive.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.key</td><td>1</td><td/></row>
+		<row><td>awssdk.dll</td><td>AssemblyFiles</td><td>AWSSDK.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ps3\bin\Debug\AWSSDK.dll</td><td>1</td><td/></row>
+		<row><td>dbmmanage.pl</td><td>Files8</td><td>dbmmanage.pl</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\dbmmanage.pl</td><td>1</td><td/></row>
+		<row><td>fastjson.dll</td><td>AssemblyFiles</td><td>fastJSON.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ConsoleAgent\bin\Debug\fastJSON.dll</td><td>1</td><td/></row>
+		<row><td>favicon.ico</td><td>Files3</td><td>favicon.ico</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\favicon.ico</td><td>1</td><td/></row>
+		<row><td>favicon_120.png</td><td>Files3</td><td>favicon-120.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\favicon-120.png</td><td>1</td><td/></row>
+		<row><td>favicon_152.png</td><td>Files3</td><td>favicon-152.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\favicon-152.png</td><td>1</td><td/></row>
+		<row><td>favicon_60.png</td><td>Files3</td><td>favicon-60.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\favicon-60.png</td><td>1</td><td/></row>
+		<row><td>favicon_76.png</td><td>Files3</td><td>favicon-76.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\favicon-76.png</td><td>1</td><td/></row>
+		<row><td>htcacheclean.exe</td><td>Files8</td><td>htcacheclean.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\htcacheclean.exe</td><td>1</td><td/></row>
+		<row><td>htdbm.exe</td><td>Files8</td><td>htdbm.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\htdbm.exe</td><td>1</td><td/></row>
+		<row><td>htdigest.exe</td><td>Files8</td><td>htdigest.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\htdigest.exe</td><td>1</td><td/></row>
+		<row><td>htpasswd</td><td>Files2</td><td>htpasswd</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\htpasswd</td><td>1</td><td/></row>
+		<row><td>htpasswd.exe</td><td>Files8</td><td>htpasswd.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\htpasswd.exe</td><td>1</td><td/></row>
+		<row><td>httpd.conf</td><td>Files2</td><td>httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\httpd.conf</td><td>1</td><td/></row>
+		<row><td>httpd.conf1</td><td>Files6</td><td>httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_CONF_FILES&gt;\httpd.conf</td><td>1</td><td/></row>
+		<row><td>httpd.exe</td><td>Files8</td><td>httpd.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\httpd.exe</td><td>1</td><td/></row>
+		<row><td>httxt2dbm.exe</td><td>Files8</td><td>httxt2dbm.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\httxt2dbm.exe</td><td>1</td><td/></row>
+		<row><td>index.html</td><td>Files3</td><td>index.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\index.html</td><td>1</td><td/></row>
+		<row><td>installerhelper.exe</td><td>AssemblyFiles</td><td>InstallerHelper.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\InstallerHelper\bin\Debug\InstallerHelper.exe</td><td>1</td><td/></row>
+		<row><td>interop.netfwtypelib.dll</td><td>AssemblyFiles</td><td>Interop.NetFwTypeLib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ConsoleAgent\bin\Debug\Interop.NetFwTypeLib.dll</td><td>1</td><td/></row>
+		<row><td>libapr_1.dll</td><td>Files8</td><td>libapr-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libapr-1.dll</td><td>1</td><td/></row>
+		<row><td>libapr_1.exp</td><td>Files10</td><td>libapr-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libapr-1.exp</td><td>1</td><td/></row>
+		<row><td>libapr_1.lib</td><td>Files10</td><td>libapr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libapr-1.lib</td><td>1</td><td/></row>
+		<row><td>libapriconv_1.dll</td><td>Files8</td><td>libapriconv-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libapriconv-1.dll</td><td>1</td><td/></row>
+		<row><td>libapriconv_1.exp</td><td>Files10</td><td>libapriconv-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libapriconv-1.exp</td><td>1</td><td/></row>
+		<row><td>libapriconv_1.lib</td><td>Files10</td><td>libapriconv-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libapriconv-1.lib</td><td>1</td><td/></row>
+		<row><td>libaprutil_1.dll</td><td>Files8</td><td>libaprutil-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libaprutil-1.dll</td><td>1</td><td/></row>
+		<row><td>libaprutil_1.exp</td><td>Files10</td><td>libaprutil-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libaprutil-1.exp</td><td>1</td><td/></row>
+		<row><td>libaprutil_1.lib</td><td>Files10</td><td>libaprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libaprutil-1.lib</td><td>1</td><td/></row>
+		<row><td>libeay32.dll</td><td>Files8</td><td>libeay32.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libeay32.dll</td><td>1</td><td/></row>
+		<row><td>libhttpd.dll</td><td>Files8</td><td>libhttpd.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libhttpd.dll</td><td>1</td><td/></row>
+		<row><td>libhttpd.exp</td><td>Files10</td><td>libhttpd.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libhttpd.exp</td><td>1</td><td/></row>
+		<row><td>libhttpd.lib</td><td>Files10</td><td>libhttpd.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libhttpd.lib</td><td>1</td><td/></row>
+		<row><td>libxml2.dll</td><td>Files8</td><td>libxml2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libxml2.dll</td><td>1</td><td/></row>
+		<row><td>log4net.dll</td><td>AssemblyFiles</td><td>log4net.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ConsoleAgent\bin\Debug\log4net.dll</td><td>1</td><td/></row>
+		<row><td>logresolve.exe</td><td>Files8</td><td>logresolve.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\logresolve.exe</td><td>1</td><td/></row>
+		<row><td>lua51.dll</td><td>Files8</td><td>lua51.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\lua51.dll</td><td>1</td><td/></row>
+		<row><td>mime.types</td><td>Files9</td><td>mime.types</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_CONF_FILES1&gt;\mime.types</td><td>1</td><td/></row>
+		<row><td>mod_access_compat.so</td><td>Files11</td><td>mod_access_compat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_access_compat.so</td><td>1</td><td/></row>
+		<row><td>mod_actions.so</td><td>Files11</td><td>mod_actions.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_actions.so</td><td>1</td><td/></row>
+		<row><td>mod_alias.so</td><td>Files11</td><td>mod_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_alias.so</td><td>1</td><td/></row>
+		<row><td>mod_allowmethods.so</td><td>Files11</td><td>mod_allowmethods.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_allowmethods.so</td><td>1</td><td/></row>
+		<row><td>mod_asis.so</td><td>Files11</td><td>mod_asis.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_asis.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_basic.so</td><td>Files11</td><td>mod_auth_basic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_auth_basic.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_digest.so</td><td>Files11</td><td>mod_auth_digest.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_auth_digest.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_form.so</td><td>Files11</td><td>mod_auth_form.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_auth_form.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_anon.so</td><td>Files11</td><td>mod_authn_anon.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_anon.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_core.so</td><td>Files11</td><td>mod_authn_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_core.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_dbd.so</td><td>Files11</td><td>mod_authn_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_dbm.so</td><td>Files11</td><td>mod_authn_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_file.so</td><td>Files11</td><td>mod_authn_file.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_file.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_socache.so</td><td>Files11</td><td>mod_authn_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authn_socache.so</td><td>1</td><td/></row>
+		<row><td>mod_authnz_ldap.so</td><td>Files11</td><td>mod_authnz_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authnz_ldap.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_core.so</td><td>Files11</td><td>mod_authz_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_core.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_dbd.so</td><td>Files11</td><td>mod_authz_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_dbm.so</td><td>Files11</td><td>mod_authz_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_groupfile.so</td><td>Files11</td><td>mod_authz_groupfile.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_groupfile.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_host.so</td><td>Files11</td><td>mod_authz_host.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_host.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_owner.so</td><td>Files11</td><td>mod_authz_owner.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_owner.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_user.so</td><td>Files11</td><td>mod_authz_user.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_authz_user.so</td><td>1</td><td/></row>
+		<row><td>mod_autoindex.so</td><td>Files11</td><td>mod_autoindex.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_autoindex.so</td><td>1</td><td/></row>
+		<row><td>mod_buffer.so</td><td>Files11</td><td>mod_buffer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_buffer.so</td><td>1</td><td/></row>
+		<row><td>mod_cache.so</td><td>Files11</td><td>mod_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_cache.so</td><td>1</td><td/></row>
+		<row><td>mod_cache_disk.so</td><td>Files11</td><td>mod_cache_disk.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_cache_disk.so</td><td>1</td><td/></row>
+		<row><td>mod_cache_socache.so</td><td>Files11</td><td>mod_cache_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_cache_socache.so</td><td>1</td><td/></row>
+		<row><td>mod_cern_meta.so</td><td>Files11</td><td>mod_cern_meta.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_cern_meta.so</td><td>1</td><td/></row>
+		<row><td>mod_cgi.so</td><td>Files11</td><td>mod_cgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_cgi.so</td><td>1</td><td/></row>
+		<row><td>mod_charset_lite.so</td><td>Files11</td><td>mod_charset_lite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_charset_lite.so</td><td>1</td><td/></row>
+		<row><td>mod_data.so</td><td>Files11</td><td>mod_data.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_data.so</td><td>1</td><td/></row>
+		<row><td>mod_dav.exp</td><td>Files10</td><td>mod_dav.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\mod_dav.exp</td><td>1</td><td/></row>
+		<row><td>mod_dav.lib</td><td>Files10</td><td>mod_dav.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\mod_dav.lib</td><td>1</td><td/></row>
+		<row><td>mod_dav.so</td><td>Files11</td><td>mod_dav.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dav.so</td><td>1</td><td/></row>
+		<row><td>mod_dav_fs.so</td><td>Files11</td><td>mod_dav_fs.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dav_fs.so</td><td>1</td><td/></row>
+		<row><td>mod_dav_lock.so</td><td>Files11</td><td>mod_dav_lock.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dav_lock.so</td><td>1</td><td/></row>
+		<row><td>mod_dbd.so</td><td>Files11</td><td>mod_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_deflate.so</td><td>Files11</td><td>mod_deflate.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_deflate.so</td><td>1</td><td/></row>
+		<row><td>mod_dir.so</td><td>Files11</td><td>mod_dir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dir.so</td><td>1</td><td/></row>
+		<row><td>mod_dumpio.so</td><td>Files11</td><td>mod_dumpio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_dumpio.so</td><td>1</td><td/></row>
+		<row><td>mod_env.so</td><td>Files11</td><td>mod_env.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_env.so</td><td>1</td><td/></row>
+		<row><td>mod_expires.so</td><td>Files11</td><td>mod_expires.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_expires.so</td><td>1</td><td/></row>
+		<row><td>mod_ext_filter.so</td><td>Files11</td><td>mod_ext_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_ext_filter.so</td><td>1</td><td/></row>
+		<row><td>mod_file_cache.so</td><td>Files11</td><td>mod_file_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_file_cache.so</td><td>1</td><td/></row>
+		<row><td>mod_filter.so</td><td>Files11</td><td>mod_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_filter.so</td><td>1</td><td/></row>
+		<row><td>mod_headers.so</td><td>Files11</td><td>mod_headers.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_headers.so</td><td>1</td><td/></row>
+		<row><td>mod_heartbeat.so</td><td>Files11</td><td>mod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_heartbeat.so</td><td>1</td><td/></row>
+		<row><td>mod_heartmonitor.so</td><td>Files11</td><td>mod_heartmonitor.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_heartmonitor.so</td><td>1</td><td/></row>
+		<row><td>mod_ident.so</td><td>Files11</td><td>mod_ident.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_ident.so</td><td>1</td><td/></row>
+		<row><td>mod_imagemap.so</td><td>Files11</td><td>mod_imagemap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_imagemap.so</td><td>1</td><td/></row>
+		<row><td>mod_include.so</td><td>Files11</td><td>mod_include.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_include.so</td><td>1</td><td/></row>
+		<row><td>mod_info.so</td><td>Files11</td><td>mod_info.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_info.so</td><td>1</td><td/></row>
+		<row><td>mod_isapi.so</td><td>Files11</td><td>mod_isapi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_isapi.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_bybusyness.so</td><td>Files11</td><td>mod_lbmethod_bybusyness.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_lbmethod_bybusyness.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_byrequests.so</td><td>Files11</td><td>mod_lbmethod_byrequests.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_lbmethod_byrequests.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_bytraffic.so</td><td>Files11</td><td>mod_lbmethod_bytraffic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_lbmethod_bytraffic.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_heartbeat.so</td><td>Files11</td><td>mod_lbmethod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_lbmethod_heartbeat.so</td><td>1</td><td/></row>
+		<row><td>mod_ldap.so</td><td>Files11</td><td>mod_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_ldap.so</td><td>1</td><td/></row>
+		<row><td>mod_log_config.so</td><td>Files11</td><td>mod_log_config.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_log_config.so</td><td>1</td><td/></row>
+		<row><td>mod_log_debug.so</td><td>Files11</td><td>mod_log_debug.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_log_debug.so</td><td>1</td><td/></row>
+		<row><td>mod_log_forensic.so</td><td>Files11</td><td>mod_log_forensic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_log_forensic.so</td><td>1</td><td/></row>
+		<row><td>mod_logio.so</td><td>Files11</td><td>mod_logio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_logio.so</td><td>1</td><td/></row>
+		<row><td>mod_lua.so</td><td>Files11</td><td>mod_lua.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_lua.so</td><td>1</td><td/></row>
+		<row><td>mod_macro.so</td><td>Files11</td><td>mod_macro.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_macro.so</td><td>1</td><td/></row>
+		<row><td>mod_mime.so</td><td>Files11</td><td>mod_mime.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_mime.so</td><td>1</td><td/></row>
+		<row><td>mod_mime_magic.so</td><td>Files11</td><td>mod_mime_magic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_mime_magic.so</td><td>1</td><td/></row>
+		<row><td>mod_negotiation.so</td><td>Files11</td><td>mod_negotiation.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_negotiation.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy.so</td><td>Files11</td><td>mod_proxy.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_ajp.so</td><td>Files11</td><td>mod_proxy_ajp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_ajp.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_balancer.so</td><td>Files11</td><td>mod_proxy_balancer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_balancer.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_connect.so</td><td>Files11</td><td>mod_proxy_connect.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_connect.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_express.so</td><td>Files11</td><td>mod_proxy_express.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_express.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_fcgi.so</td><td>Files11</td><td>mod_proxy_fcgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_fcgi.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_ftp.so</td><td>Files11</td><td>mod_proxy_ftp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_ftp.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_html.so</td><td>Files11</td><td>mod_proxy_html.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_html.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_http.so</td><td>Files11</td><td>mod_proxy_http.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_http.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_scgi.so</td><td>Files11</td><td>mod_proxy_scgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_scgi.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_wstunnel.so</td><td>Files11</td><td>mod_proxy_wstunnel.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_proxy_wstunnel.so</td><td>1</td><td/></row>
+		<row><td>mod_ratelimit.so</td><td>Files11</td><td>mod_ratelimit.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_ratelimit.so</td><td>1</td><td/></row>
+		<row><td>mod_reflector.so</td><td>Files11</td><td>mod_reflector.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_reflector.so</td><td>1</td><td/></row>
+		<row><td>mod_remoteip.so</td><td>Files11</td><td>mod_remoteip.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_remoteip.so</td><td>1</td><td/></row>
+		<row><td>mod_reqtimeout.so</td><td>Files11</td><td>mod_reqtimeout.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_reqtimeout.so</td><td>1</td><td/></row>
+		<row><td>mod_request.so</td><td>Files11</td><td>mod_request.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_request.so</td><td>1</td><td/></row>
+		<row><td>mod_rewrite.so</td><td>Files11</td><td>mod_rewrite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_rewrite.so</td><td>1</td><td/></row>
+		<row><td>mod_sed.so</td><td>Files11</td><td>mod_sed.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_sed.so</td><td>1</td><td/></row>
+		<row><td>mod_session.so</td><td>Files11</td><td>mod_session.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_session.so</td><td>1</td><td/></row>
+		<row><td>mod_session_cookie.so</td><td>Files11</td><td>mod_session_cookie.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_session_cookie.so</td><td>1</td><td/></row>
+		<row><td>mod_session_crypto.so</td><td>Files11</td><td>mod_session_crypto.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_session_crypto.so</td><td>1</td><td/></row>
+		<row><td>mod_session_dbd.so</td><td>Files11</td><td>mod_session_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_session_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_setenvif.so</td><td>Files11</td><td>mod_setenvif.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_setenvif.so</td><td>1</td><td/></row>
+		<row><td>mod_slotmem_plain.so</td><td>Files11</td><td>mod_slotmem_plain.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_slotmem_plain.so</td><td>1</td><td/></row>
+		<row><td>mod_slotmem_shm.so</td><td>Files11</td><td>mod_slotmem_shm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_slotmem_shm.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_dbm.so</td><td>Files11</td><td>mod_socache_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_socache_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_memcache.so</td><td>Files11</td><td>mod_socache_memcache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_socache_memcache.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_shmcb.so</td><td>Files11</td><td>mod_socache_shmcb.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_socache_shmcb.so</td><td>1</td><td/></row>
+		<row><td>mod_speling.so</td><td>Files11</td><td>mod_speling.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_speling.so</td><td>1</td><td/></row>
+		<row><td>mod_ssl.so</td><td>Files11</td><td>mod_ssl.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_ssl.so</td><td>1</td><td/></row>
+		<row><td>mod_status.so</td><td>Files11</td><td>mod_status.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_status.so</td><td>1</td><td/></row>
+		<row><td>mod_substitute.so</td><td>Files11</td><td>mod_substitute.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_substitute.so</td><td>1</td><td/></row>
+		<row><td>mod_unique_id.so</td><td>Files11</td><td>mod_unique_id.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_unique_id.so</td><td>1</td><td/></row>
+		<row><td>mod_userdir.so</td><td>Files11</td><td>mod_userdir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_userdir.so</td><td>1</td><td/></row>
+		<row><td>mod_usertrack.so</td><td>Files11</td><td>mod_usertrack.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_usertrack.so</td><td>1</td><td/></row>
+		<row><td>mod_version.so</td><td>Files11</td><td>mod_version.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_version.so</td><td>1</td><td/></row>
+		<row><td>mod_vhost_alias.so</td><td>Files11</td><td>mod_vhost_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_vhost_alias.so</td><td>1</td><td/></row>
+		<row><td>mod_watchdog.so</td><td>Files11</td><td>mod_watchdog.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_watchdog.so</td><td>1</td><td/></row>
+		<row><td>mod_xml2enc.so</td><td>Files11</td><td>mod_xml2enc.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MODULES_FILES&gt;\mod_xml2enc.so</td><td>1</td><td/></row>
+		<row><td>openssl.exe</td><td>Files8</td><td>openssl.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\openssl.exe</td><td>1</td><td/></row>
+		<row><td>palette_logo.png</td><td>Files4</td><td>palette_logo.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\image\palette_logo.png</td><td>1</td><td/></row>
+		<row><td>paletteconsoleagent.exe</td><td>AssemblyFiles</td><td>PaletteConsoleAgent.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ConsoleAgent\bin\Debug\PaletteConsoleAgent.exe</td><td>1</td><td/></row>
+		<row><td>paletteserviceagent.exe</td><td>AssemblyFiles</td><td>PaletteServiceAgent.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ServiceAgent\bin\Debug\PaletteServiceAgent.exe</td><td>1</td><td/></row>
+		<row><td>pcgi.exe</td><td>AssemblyFiles1</td><td>pCGI.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pCGI\bin\Debug\pCGI.exe</td><td>1</td><td/></row>
+		<row><td>pcre.dll</td><td>Files8</td><td>pcre.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\pcre.dll</td><td>1</td><td/></row>
+		<row><td>pgcs.exe</td><td>AssemblyFiles</td><td>pgcs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pgcs\bin\Debug\pgcs.exe</td><td>1</td><td/></row>
+		<row><td>phttp.exe</td><td>AssemblyFiles</td><td>phttp.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\phttp\bin\Debug\phttp.exe</td><td>1</td><td/></row>
+		<row><td>pinfo.exe</td><td>AssemblyFiles</td><td>pinfo.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pinfo\bin\Debug\pinfo.exe</td><td>1</td><td/></row>
+		<row><td>pok.exe</td><td>AssemblyFiles</td><td>pok.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pok\bin\Debug\pok.exe</td><td>1</td><td/></row>
+		<row><td>prun.exe</td><td>AssemblyFiles</td><td>prun.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\prun\bin\Debug\prun.exe</td><td>1</td><td/></row>
+		<row><td>ps3.exe</td><td>AssemblyFiles</td><td>ps3.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ps3\bin\Debug\ps3.exe</td><td>1</td><td/></row>
+		<row><td>ptwbx.exe</td><td>AssemblyFiles</td><td>ptwbx.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ptwbx\bin\Debug\ptwbx.exe</td><td>1</td><td/></row>
+		<row><td>readme</td><td>Files2</td><td>README</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\README</td><td>1</td><td/></row>
+		<row><td>rotatelogs.exe</td><td>Files8</td><td>rotatelogs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\rotatelogs.exe</td><td>1</td><td/></row>
+		<row><td>server.crt</td><td>Files2</td><td>server.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.crt</td><td>1</td><td/></row>
+		<row><td>server.key</td><td>Files2</td><td>server.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.key</td><td>1</td><td/></row>
+		<row><td>ssleay32.dll</td><td>Files8</td><td>ssleay32.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\ssleay32.dll</td><td>1</td><td/></row>
+		<row><td>style.css</td><td>Files3</td><td>style.css</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\style.css</td><td>1</td><td/></row>
+		<row><td>wintty.exe</td><td>Files8</td><td>wintty.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\wintty.exe</td><td>1</td><td/></row>
+		<row><td>xml.lib</td><td>Files10</td><td>xml.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\xml.lib</td><td>1</td><td/></row>
+		<row><td>zlib1.dll</td><td>Files8</td><td>zlib1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\zlib1.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="Font">
 		<col key="yes" def="s72">File_</col>
 		<col def="S128">FontTitle</col>
+		<row><td>_b4065_8_0.ttf</td><td/></row>
+		<row><td>_b4065_9_0.ttf</td><td/></row>
+		<row><td>_b4065_a_0.ttf</td><td/></row>
 	</table>
 
 	<table name="ISAlias">
@@ -299,7 +533,21 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>AssemblyFiles</td><td/><td/><td>_F8C41396_78D4_474C_9CDA_A69AA9911500_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>AssemblyFiles1</td><td/><td/><td>_91562020_0300_4726_AF10_38C077BD4951_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DefaultComponent</td><td/><td/><td>_88537E65_4819_414A_B3C5_1FE2461FB0F2_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files</td><td/><td/><td>_F220F2F5_4132_4F31_9B52_A8478708BDE0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files1</td><td/><td/><td>_CC435229_1A44_44AB_A060_D1EE0C67EA1F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files10</td><td/><td/><td>_F5EFDD47_8FCE_4CB7_B876_BA9B929A3F72_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files11</td><td/><td/><td>_9E13EC82_0E74_419F_B6D8_8562848E331B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files2</td><td/><td/><td>_FA5D6CBB_3869_4FD4_84F2_136DD7B673EA_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files3</td><td/><td/><td>_B135BDD8_041E_4D1D_913C_ADB8C4FB46A7_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files4</td><td/><td/><td>_DFD38F3B_5DA0_4950_BE77_75864E14C8E6_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files5</td><td/><td/><td>_D94F718D_2A9D_4DBC_8E0C_F5AB3C74F00F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files6</td><td/><td/><td>_96DDB3C2_3CF2_4E62_9512_B939F5D5E069_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files7</td><td/><td/><td>_BAC728CE_92DD_4DA7_99B3_A926CB6B9471_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files8</td><td/><td/><td>_0609E28D_8E70_449C_BF1E_47F60918AD06_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files9</td><td/><td/><td>_A2D80416_28DE_4ACF_9711_A65C7704D850_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISComponentSubFolder">
@@ -493,8 +741,14 @@
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
+		<row><td>PATH_TO_BIN_FILES</td><td>C:\Palette-Dev\maint\apache2\bin</td><td/><td>2</td></row>
+		<row><td>PATH_TO_CONF_FILES</td><td>C:\Palette-Dev\maint\conf</td><td/><td>2</td></row>
+		<row><td>PATH_TO_CONF_FILES1</td><td>C:\Palette-Dev\maint\apache2\conf</td><td/><td>2</td></row>
 		<row><td>PATH_TO_IMAGES_FILES</td><td>&lt;ISPROJECTDIR&gt;\..\images</td><td/><td>2</td></row>
 		<row><td>PATH_TO_IMAGES_FILES1</td><td>C:\Users\Matthew\Projects\palette\agent\PaletteSetup\images</td><td/><td>2</td></row>
+		<row><td>PATH_TO_LIB_FILES</td><td>C:\Palette-Dev\maint\apache2\lib</td><td/><td>2</td></row>
+		<row><td>PATH_TO_MODULES_FILES</td><td>C:\Palette-Dev\maint\apache2\modules</td><td/><td>2</td></row>
+		<row><td>PATH_TO_WWW_FILES</td><td>C:\Palette-Dev\maint\www</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
@@ -808,6 +1062,30 @@
 	<table name="ISShortcutComponents">
 		<col key="yes" def="s38">Shortcut_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>ApacheMonitor.exe</td><td>Files8</td></row>
+		<row><td>InstallerHelper.exe</td><td>AssemblyFiles</td></row>
+		<row><td>PaletteConsoleAgent.exe</td><td>AssemblyFiles</td></row>
+		<row><td>PaletteServiceAgent.exe</td><td>AssemblyFiles</td></row>
+		<row><td>ab.exe</td><td>Files7</td></row>
+		<row><td>abs.exe</td><td>Files8</td></row>
+		<row><td>htcacheclean.exe</td><td>Files8</td></row>
+		<row><td>htdbm.exe</td><td>Files8</td></row>
+		<row><td>htdigest.exe</td><td>Files8</td></row>
+		<row><td>htpasswd.exe</td><td>Files8</td></row>
+		<row><td>httpd.exe</td><td>Files8</td></row>
+		<row><td>httxt2dbm.exe</td><td>Files8</td></row>
+		<row><td>logresolve.exe</td><td>Files8</td></row>
+		<row><td>openssl.exe</td><td>Files8</td></row>
+		<row><td>pCGI.exe</td><td>AssemblyFiles1</td></row>
+		<row><td>pgcs.exe</td><td>AssemblyFiles</td></row>
+		<row><td>phttp.exe</td><td>AssemblyFiles</td></row>
+		<row><td>pinfo.exe</td><td>AssemblyFiles</td></row>
+		<row><td>pok.exe</td><td>AssemblyFiles</td></row>
+		<row><td>prun.exe</td><td>AssemblyFiles</td></row>
+		<row><td>ps3.exe</td><td>AssemblyFiles</td></row>
+		<row><td>ptwbx.exe</td><td>AssemblyFiles</td></row>
+		<row><td>rotatelogs.exe</td><td>Files8</td></row>
+		<row><td>wintty.exe</td><td>Files8</td></row>
 	</table>
 
 	<table name="ISStorages">
@@ -826,6 +1104,33 @@
 		<row><td>IDPROP_SETUPTYPE_COMPLETE_DESC</td><td>1033</td><td>Complete</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDPROP_SETUPTYPE_CUSTOM</td><td>1033</td><td>Custom</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDPROP_SETUPTYPE_CUSTOM_DESC_PRO</td><td>1033</td><td>Custom</td><td>0</td><td/><td>-1910351247</td></row>
+		<row><td>IDS_FEATURE_DISPLAY_NAME1</td><td>1033</td><td>ProgramFiles</td><td>0</td><td/><td>1646463821</td></row>
+		<row><td>IDS_FEATURE_DISPLAY_NAME2</td><td>1033</td><td>HelpFiles</td><td>0</td><td/><td>1646482253</td></row>
+		<row><td>IDS_FEATURE_DISPLAY_NAME3</td><td>1033</td><td>SupportFiles</td><td>0</td><td/><td>1646521261</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch PaletteConsoleAgent.exe</td><td>0</td><td/><td>1646503756</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>Launch PaletteServiceAgent.exe</td><td>0</td><td/><td>1646469453</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME11</td><td>1033</td><td>Launch pCGI.exe</td><td>0</td><td/><td>1646468301</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME12</td><td>1033</td><td>Launch ab.exe</td><td>0</td><td/><td>1646518606</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME13</td><td>1033</td><td>Launch abs.exe</td><td>0</td><td/><td>1646518606</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME14</td><td>1033</td><td>Launch ApacheMonitor.exe</td><td>0</td><td/><td>1646518606</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME15</td><td>1033</td><td>Launch htcacheclean.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME16</td><td>1033</td><td>Launch htdbm.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME17</td><td>1033</td><td>Launch htdigest.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME18</td><td>1033</td><td>Launch htpasswd.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME19</td><td>1033</td><td>Launch httpd.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>Launch phttp.exe</td><td>0</td><td/><td>1646495789</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME20</td><td>1033</td><td>Launch httxt2dbm.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME21</td><td>1033</td><td>Launch logresolve.exe</td><td>0</td><td/><td>1646520654</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME22</td><td>1033</td><td>Launch openssl.exe</td><td>0</td><td/><td>1646461294</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>Launch rotatelogs.exe</td><td>0</td><td/><td>1646461294</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME24</td><td>1033</td><td>Launch wintty.exe</td><td>0</td><td/><td>1646461294</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Launch prun.exe</td><td>0</td><td/><td>1646520365</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>Launch pinfo.exe</td><td>0</td><td/><td>1646477389</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>Launch pgcs.exe</td><td>0</td><td/><td>1646510157</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>Launch ps3.exe</td><td>0</td><td/><td>1646467181</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>Launch pok.exe</td><td>0</td><td/><td>1646489709</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME8</td><td>1033</td><td>Launch ptwbx.exe</td><td>0</td><td/><td>1646510189</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME9</td><td>1033</td><td>Launch InstallerHelper.exe</td><td>0</td><td/><td>1646491789</td></row>
 		<row><td>IDS_SQLSCRIPT_INSTALLING</td><td>1033</td><td>Executing SQL Install Script...</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDS_SQLSCRIPT_UNINSTALLING</td><td>1033</td><td>Executing SQL Uninstall Script...</td><td>0</td><td/><td>-1910351247</td></row>
 		<row><td>IDS__DialogId_10205</td><td>1033</td><td>InstallShield Wizard</td><td>0</td><td/><td>1512270318</td></row>
@@ -880,6 +1185,9 @@
 		<row><td>IDS__NewDialog_ControlId_50</td><td>1033</td><td>Your Title Here</td><td>0</td><td/><td>278304778</td></row>
 		<row><td>IDS__NewDialog_ControlId_51</td><td>1033</td><td>Your Sub-Title Here</td><td>0</td><td/><td>278304778</td></row>
 		<row><td>IDS__NewDialog_ControlId_9</td><td>1033</td><td>Cancel</td><td>0</td><td/><td>278302730</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>NewFeature1</td><td>0</td><td/><td>1646521516</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>ProgramFiles</td><td>0</td><td/><td>1646519500</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>ProgramFiles</td><td>0</td><td/><td>1646488621</td></row>
 	</table>
 
 	<table name="ISVirtualDirectory">
@@ -1048,7 +1356,7 @@ UwBJAE4ARwBMAEUAXwBFAFgARQBfAEkATQBBAEcARQABAE0AZQBkAGkAYQA=
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
-		<row><td>ARPURLINFOABOUT</td><td>http://www.palette-software.com</td><td/></row>
+		<row><td>ARPURLINFOABOUT</td><td>http://www.PaletteSoftware.com</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DefaultUIFont</td><td>Tahoma8</td><td/></row>
 		<row><td>ISAppExeFile</td><td>YourApp.exe</td><td/></row>
@@ -1144,6 +1452,30 @@ UwBJAE4ARwBMAEUAXwBFAFgARQBfAEkATQBBAEcARQABAE0AZQBkAGkAYQA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>ApacheMonitor.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME14##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\ApacheMonitor.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>ApacheMonitor.exe</td><td>18</td></row>
+		<row><td>InstallerHelper.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME9##</td><td/><td>&lt;TARGETDIR&gt;\InstallerHelper.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>InstallerHelper.exe</td><td>18</td></row>
+		<row><td>PaletteConsoleAgent.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\PaletteConsoleAgent.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>PaletteConsoleAgent.exe</td><td>18</td></row>
+		<row><td>PaletteServiceAgent.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td/><td>&lt;TARGETDIR&gt;\PaletteServiceAgent.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>PaletteServiceAgent.exe</td><td>18</td></row>
+		<row><td>ab.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME12##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\ab.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>ab.exe</td><td>18</td></row>
+		<row><td>abs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME13##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\abs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>abs.exe</td><td>18</td></row>
+		<row><td>htcacheclean.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME15##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htcacheclean.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htcacheclean.exe</td><td>18</td></row>
+		<row><td>htdbm.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME16##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htdbm.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htdbm.exe</td><td>18</td></row>
+		<row><td>htdigest.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME17##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htdigest.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htdigest.exe</td><td>18</td></row>
+		<row><td>htpasswd.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME18##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htpasswd.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htpasswd.exe</td><td>18</td></row>
+		<row><td>httpd.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\httpd.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>httpd.exe</td><td>18</td></row>
+		<row><td>httxt2dbm.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME20##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\httxt2dbm.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>httxt2dbm.exe</td><td>18</td></row>
+		<row><td>logresolve.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME21##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\logresolve.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>logresolve.exe</td><td>18</td></row>
+		<row><td>openssl.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME22##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\openssl.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>openssl.exe</td><td>18</td></row>
+		<row><td>pCGI.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME11##</td><td/><td>&lt;TARGETDIR&gt;\cgi-bin\pCGI.exe</td><td/><td/><td/><td/><td/><td>1</td><td>CGI_BIN</td><td/><td/><td/><td/><td/><td>pCGI.exe</td><td>18</td></row>
+		<row><td>pgcs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME5##</td><td/><td>&lt;TARGETDIR&gt;\pgcs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pgcs.exe</td><td>18</td></row>
+		<row><td>phttp.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td/><td>&lt;TARGETDIR&gt;\phttp.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>phttp.exe</td><td>18</td></row>
+		<row><td>pinfo.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td/><td>&lt;TARGETDIR&gt;\pinfo.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pinfo.exe</td><td>18</td></row>
+		<row><td>pok.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME7##</td><td/><td>&lt;TARGETDIR&gt;\pok.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pok.exe</td><td>18</td></row>
+		<row><td>prun.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td/><td>&lt;TARGETDIR&gt;\prun.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>prun.exe</td><td>18</td></row>
+		<row><td>ps3.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME6##</td><td/><td>&lt;TARGETDIR&gt;\ps3.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>ps3.exe</td><td>18</td></row>
+		<row><td>ptwbx.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME8##</td><td/><td>&lt;TARGETDIR&gt;\ptwbx.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>ptwbx.exe</td><td>18</td></row>
+		<row><td>rotatelogs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\rotatelogs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>rotatelogs.exe</td><td>18</td></row>
+		<row><td>wintty.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME24##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\wintty.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>wintty.exe</td><td>18</td></row>
 	</table>
 
 	<table name="TextStyle">
