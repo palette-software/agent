@@ -7,5 +7,4 @@ Release
 *.suo
 *.user
 /*.ini
-app.config
 
