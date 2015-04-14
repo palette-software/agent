@@ -105,7 +105,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>AssemblyFiles</td><td>{5A1CAE19-CC53-453D-BEDE-1602607B2470}</td><td>TARGETDIR</td><td>0</td><td/><td>paletteserviceagent.exe</td><td>52753</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>AssemblyFiles</td><td>{5A1CAE19-CC53-453D-BEDE-1602607B2470}</td><td>TARGETDIR</td><td>0</td><td/><td>paletteserviceagent.exe</td><td>52737</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AssemblyFiles1</td><td>{C2C32518-5FE3-454B-89E3-D90CA37A2684}</td><td>CGI_BIN</td><td>0</td><td/><td>pcgi.exe</td><td>52753</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DefaultComponent</td><td>{E34E1525-11A6-4071-A4EF-DF3EA7D3DCA2}</td><td>TARGETDIR</td><td>0</td><td/><td/><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Files</td><td>{8EED5A02-877C-466E-BC74-753E3D6DACD6}</td><td>CONF</td><td>8</td><td/><td>archive.crt</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -347,7 +347,6 @@
 		<row><td>httpd.exe</td><td>Files8</td><td>httpd.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\httpd.exe</td><td>1</td><td/></row>
 		<row><td>httxt2dbm.exe</td><td>Files8</td><td>httxt2dbm.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\httxt2dbm.exe</td><td>1</td><td/></row>
 		<row><td>index.html</td><td>Files3</td><td>index.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_WWW_FILES&gt;\index.html</td><td>1</td><td/></row>
-		<row><td>installerhelper.exe</td><td>AssemblyFiles</td><td>InstallerHelper.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\InstallerHelper\bin\Debug\InstallerHelper.exe</td><td>1</td><td/></row>
 		<row><td>interop.netfwtypelib.dll</td><td>AssemblyFiles</td><td>Interop.NetFwTypeLib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\ConsoleAgent\bin\Debug\Interop.NetFwTypeLib.dll</td><td>1</td><td/></row>
 		<row><td>libapr_1.dll</td><td>Files8</td><td>libapr-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_BIN_FILES&gt;\libapr-1.dll</td><td>1</td><td/></row>
 		<row><td>libapr_1.exp</td><td>Files10</td><td>libapr-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_LIB_FILES&gt;\libapr-1.exp</td><td>1</td><td/></row>
@@ -817,7 +816,6 @@
 		<col def="I4">ISSetupPrerequisiteLocation</col>
 		<row><td>Debug</td><td>Media</td><td/><td>PackageName</td><td>0</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>12</td><td/><td/><td/><td/></row>
 		<row><td>Release</td><td>Media</td><td/><td>PackageName</td><td>0</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>12</td><td/><td/><td/><td/></row>
-		<row><td>SINGLE_EXE_IMAGE</td><td>Media</td><td/><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>3</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>33554445</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISReleasePro">
@@ -844,7 +842,6 @@
 		<col def="S255">CertPassword</col>
 		<row><td>Debug</td><td>Media</td><td/><td/><td>{47324F63-22B7-42C9-9951-F45ACB1D7113}</td><td/><td/><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
 		<row><td>Release</td><td>Media</td><td/><td/><td>{FBBD2520-563F-447E-8765-E8C0B474AAF6}</td><td/><td/><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
-		<row><td>SINGLE_EXE_IMAGE</td><td>Media</td><td/><td/><td>{4462BEAF-70E3-41CC-87BA-18B799FA0E64}</td><td>Palette.exe</td><td>&lt;PATH_TO_IMAGES_FILES&gt;\palette.ico,0</td><td/><td/><td>-1</td><td/><td>-1</td><td/><td/><td/><td/><td/><td/><td/><td>15296</td><td/></row>
 	</table>
 
 	<table name="ISReleaseProDataAsFiles">
@@ -1031,7 +1028,6 @@
 		<col def="I2">Splash</col>
 		<col def="S0">Path</col>
 		<row><td>LicenseAgreement</td><td>license.txt</td><td/><td>0</td><td>0</td><td>&lt;ISProductFolder&gt;\Redist\0409\license.rtf</td></row>
-		<row><td>SetupFile1</td><td>493x312.bmp</td><td/><td>0</td><td>0</td><td>&lt;PATH_TO_IMAGES_FILES&gt;\493x312.bmp</td></row>
 	</table>
 
 	<table name="ISSetupPrerequisites">
@@ -1274,8 +1270,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="bda357a34262bb9777365025e93dc2dd">
-UwBJAE4ARwBMAEUAXwBFAFgARQBfAEkATQBBAEcARQABAE0AZQBkAGkAYQA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="588ca2d9d1211e8e3ffd950823eb2e81">
+UgBlAGwAZQBhAHMAZQABAE0AZQBkAGkAYQA=
 			</td></row>
 		<row><td>DialogSizeType</td><td>1</td></row>
 		<row><td>DoMaintenance</td><td>1</td></row>
