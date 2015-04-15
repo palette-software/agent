@@ -1058,30 +1058,9 @@
 	<table name="ISShortcutComponents">
 		<col key="yes" def="s38">Shortcut_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>ApacheMonitor.exe</td><td>Files8</td></row>
 		<row><td>InstallerHelper.exe</td><td>AssemblyFiles</td></row>
 		<row><td>PaletteConsoleAgent.exe</td><td>AssemblyFiles</td></row>
 		<row><td>PaletteServiceAgent.exe</td><td>AssemblyFiles</td></row>
-		<row><td>ab.exe</td><td>Files7</td></row>
-		<row><td>abs.exe</td><td>Files8</td></row>
-		<row><td>htcacheclean.exe</td><td>Files8</td></row>
-		<row><td>htdbm.exe</td><td>Files8</td></row>
-		<row><td>htdigest.exe</td><td>Files8</td></row>
-		<row><td>htpasswd.exe</td><td>Files8</td></row>
-		<row><td>httpd.exe</td><td>Files8</td></row>
-		<row><td>httxt2dbm.exe</td><td>Files8</td></row>
-		<row><td>logresolve.exe</td><td>Files8</td></row>
-		<row><td>openssl.exe</td><td>Files8</td></row>
-		<row><td>pCGI.exe</td><td>AssemblyFiles1</td></row>
-		<row><td>pgcs.exe</td><td>AssemblyFiles</td></row>
-		<row><td>phttp.exe</td><td>AssemblyFiles</td></row>
-		<row><td>pinfo.exe</td><td>AssemblyFiles</td></row>
-		<row><td>pok.exe</td><td>AssemblyFiles</td></row>
-		<row><td>prun.exe</td><td>AssemblyFiles</td></row>
-		<row><td>ps3.exe</td><td>AssemblyFiles</td></row>
-		<row><td>ptwbx.exe</td><td>AssemblyFiles</td></row>
-		<row><td>rotatelogs.exe</td><td>Files8</td></row>
-		<row><td>wintty.exe</td><td>Files8</td></row>
 	</table>
 
 	<table name="ISStorages">
@@ -1184,6 +1163,9 @@
 		<row><td>ID_STRING1</td><td>1033</td><td>NewFeature1</td><td>0</td><td/><td>1646521516</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>ProgramFiles</td><td>0</td><td/><td>1646519500</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>ProgramFiles</td><td>0</td><td/><td>1646488621</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>+1.415.202.6251</td><td>0</td><td/><td>2049168135</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>http://hello.palette-software.com/</td><td>0</td><td/><td>2049149767</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>http://palette-software.com/agent/</td><td>0</td><td/><td>2049133415</td></row>
 	</table>
 
 	<table name="ISVirtualDirectory">
@@ -1351,11 +1333,14 @@ UgBlAGwAZQBhAHMAZQABAE0AZQBkAGkAYQA=
 		<col key="yes" def="s72">Property</col>
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
+		<row><td>ARPHELPLINK</td><td>##ID_STRING5##</td><td/></row>
+		<row><td>ARPHELPTELEPHONE</td><td>##ID_STRING4##</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>http://www.PaletteSoftware.com</td><td/></row>
+		<row><td>ARPURLUPDATEINFO</td><td>##ID_STRING6##</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DefaultUIFont</td><td>Tahoma8</td><td/></row>
-		<row><td>ISAppExeFile</td><td>YourApp.exe</td><td/></row>
+		<row><td>ISAppExeFile</td><td>PaletteServiceAgent.exe</td><td/></row>
 		<row><td>ISENABLEDWUSFINISHDIALOG</td><td/><td/></row>
 		<row><td>ISVROOT_PORT_NO</td><td>0</td><td/></row>
 		<row><td>IS_SQLSERVER_AUTHENTICATION</td><td>0</td><td/></row>
@@ -1448,30 +1433,9 @@ UgBlAGwAZQBhAHMAZQABAE0AZQBkAGkAYQA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>ApacheMonitor.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME14##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\ApacheMonitor.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>ApacheMonitor.exe</td><td>18</td></row>
 		<row><td>InstallerHelper.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME9##</td><td/><td>&lt;TARGETDIR&gt;\InstallerHelper.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>InstallerHelper.exe</td><td>18</td></row>
 		<row><td>PaletteConsoleAgent.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\PaletteConsoleAgent.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>PaletteConsoleAgent.exe</td><td>18</td></row>
 		<row><td>PaletteServiceAgent.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td/><td>&lt;TARGETDIR&gt;\PaletteServiceAgent.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>PaletteServiceAgent.exe</td><td>18</td></row>
-		<row><td>ab.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME12##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\ab.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>ab.exe</td><td>18</td></row>
-		<row><td>abs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME13##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\abs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>abs.exe</td><td>18</td></row>
-		<row><td>htcacheclean.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME15##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htcacheclean.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htcacheclean.exe</td><td>18</td></row>
-		<row><td>htdbm.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME16##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htdbm.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htdbm.exe</td><td>18</td></row>
-		<row><td>htdigest.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME17##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htdigest.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htdigest.exe</td><td>18</td></row>
-		<row><td>htpasswd.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME18##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\htpasswd.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>htpasswd.exe</td><td>18</td></row>
-		<row><td>httpd.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\httpd.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>httpd.exe</td><td>18</td></row>
-		<row><td>httxt2dbm.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME20##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\httxt2dbm.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>httxt2dbm.exe</td><td>18</td></row>
-		<row><td>logresolve.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME21##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\logresolve.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>logresolve.exe</td><td>18</td></row>
-		<row><td>openssl.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME22##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\openssl.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>openssl.exe</td><td>18</td></row>
-		<row><td>pCGI.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME11##</td><td/><td>&lt;TARGETDIR&gt;\cgi-bin\pCGI.exe</td><td/><td/><td/><td/><td/><td>1</td><td>CGI_BIN</td><td/><td/><td/><td/><td/><td>pCGI.exe</td><td>18</td></row>
-		<row><td>pgcs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME5##</td><td/><td>&lt;TARGETDIR&gt;\pgcs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pgcs.exe</td><td>18</td></row>
-		<row><td>phttp.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td/><td>&lt;TARGETDIR&gt;\phttp.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>phttp.exe</td><td>18</td></row>
-		<row><td>pinfo.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td/><td>&lt;TARGETDIR&gt;\pinfo.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pinfo.exe</td><td>18</td></row>
-		<row><td>pok.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME7##</td><td/><td>&lt;TARGETDIR&gt;\pok.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>pok.exe</td><td>18</td></row>
-		<row><td>prun.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td/><td>&lt;TARGETDIR&gt;\prun.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>prun.exe</td><td>18</td></row>
-		<row><td>ps3.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME6##</td><td/><td>&lt;TARGETDIR&gt;\ps3.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>ps3.exe</td><td>18</td></row>
-		<row><td>ptwbx.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME8##</td><td/><td>&lt;TARGETDIR&gt;\ptwbx.exe</td><td/><td/><td/><td/><td/><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>ptwbx.exe</td><td>18</td></row>
-		<row><td>rotatelogs.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\rotatelogs.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>rotatelogs.exe</td><td>18</td></row>
-		<row><td>wintty.exe</td><td>palette</td><td>##IDS_SHORTCUT_DISPLAY_NAME24##</td><td/><td>&lt;TARGETDIR&gt;\apache2\bin\wintty.exe</td><td/><td/><td/><td/><td/><td>1</td><td>BIN</td><td/><td/><td/><td/><td/><td>wintty.exe</td><td>18</td></row>
 	</table>
 
 	<table name="TextStyle">
