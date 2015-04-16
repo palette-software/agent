@@ -1,0 +1,3 @@
+# In <InstallShield>\Support\0409\Settings.xml change the line:
+<Warnings Disable="-6487"/>
+
