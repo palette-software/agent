@@ -339,8 +339,20 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>AWSSDK.dll</td><td>{ACFAEFB3-AB8C-43A8-90EC-52D6299DA519}</td><td>INSTALLDIR</td><td>8</td><td/><td>awssdk.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ConsoleAgent.Primary_output</td><td>{01C8DE75-B1CC-4D6F-A41C-E242F9567C88}</td><td>INSTALLDIR</td><td>8</td><td/><td>consoleagent.primary_output</td><td>1</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Interop.NetFwTypeLib.dll</td><td>{788AD763-D2C1-472B-8196-EF55A539ADD8}</td><td>INSTALLDIR</td><td>8</td><td/><td>interop.netfwtypelib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ServiceAgent.Primary_output</td><td>{5AFC4391-D2F6-4654-AA3D-09EFEF92BB20}</td><td>INSTALLDIR</td><td>8</td><td/><td>serviceagent.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>fastJSON.dll</td><td>{9E46994E-C7BA-4372-A01A-10AF29F41D0A}</td><td>INSTALLDIR</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>fastJSON.dll1</td><td>{63D1DD0B-A2D5-4CA7-BB5A-083CD5121548}</td><td>INSTALLDIR</td><td>8</td><td/><td>fastjson.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>log4net.dll</td><td>{4BC11BB9-8847-4527-AC7F-BA5DF495BFDF}</td><td>INSTALLDIR</td><td>8</td><td/><td>log4net.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pgcs.Primary_output</td><td>{50818695-C2DB-4BB0-B0D5-29AFE5C418AD}</td><td>INSTALLDIR</td><td>8</td><td/><td>pgcs.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>phttp.Primary_output</td><td>{4EFD5704-CB52-45CA-981A-BEC120F164E2}</td><td>INSTALLDIR</td><td>8</td><td/><td>phttp.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pinfo.Primary_output</td><td>{247D8846-184C-440F-B75F-4E282BC9EECC}</td><td>INSTALLDIR</td><td>8</td><td/><td>pinfo.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pok.Primary_output</td><td>{E1F4F8BE-DE85-4D45-82FC-B48D5874C1A4}</td><td>INSTALLDIR</td><td>8</td><td/><td>pok.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>prun.Primary_output</td><td>{C0A566D3-CBD4-4E88-B1F1-D1FD1833115A}</td><td>INSTALLDIR</td><td>8</td><td/><td>prun.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ps3.Primary_output</td><td>{5CAB389E-7752-47F0-AF0B-649B0168BAE5}</td><td>INSTALLDIR</td><td>8</td><td/><td>ps3.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ptwbx.Primary_output</td><td>{E2D131AF-7A87-4503-9CED-0FEA412C7870}</td><td>INSTALLDIR</td><td>8</td><td/><td>ptwbx.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1008,6 +1020,7 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>fastJSON.dll</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1814,8 +1827,20 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>Palette_Files</td><td>AWSSDK.dll</td></row>
 		<row><td>Palette_Files</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>Interop.NetFwTypeLib.dll</td></row>
 		<row><td>Palette_Files</td><td>ServiceAgent.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>fastJSON.dll</td></row>
+		<row><td>Palette_Files</td><td>fastJSON.dll1</td></row>
+		<row><td>Palette_Files</td><td>log4net.dll</td></row>
+		<row><td>Palette_Files</td><td>pgcs.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>phttp.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>pinfo.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>pok.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>prun.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>ps3.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>ptwbx.Primary_output</td></row>
 	</table>
 
 	<table name="File">
@@ -1830,7 +1855,18 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>awssdk.dll</td><td>AWSSDK.dll</td><td>AWSSDK.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\AWSSDK.dll</td><td>1</td><td/></row>
 		<row><td>consoleagent.primary_output</td><td>ConsoleAgent.Primary_output</td><td>ConsoleAgent.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ConsoleAgent&gt;|Built</td><td>3</td><td/></row>
+		<row><td>fastjson.dll</td><td>fastJSON.dll1</td><td>fastJSON.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\fastJSON.dll</td><td>1</td><td/></row>
+		<row><td>interop.netfwtypelib.dll</td><td>Interop.NetFwTypeLib.dll</td><td>INTERO~1.DLL|Interop.NetFwTypeLib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\Interop.NetFwTypeLib.dll</td><td>1</td><td/></row>
+		<row><td>log4net.dll</td><td>log4net.dll</td><td>log4net.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\log4net.dll</td><td>1</td><td/></row>
+		<row><td>pgcs.primary_output</td><td>pgcs.Primary_output</td><td>pgcs.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pgcs&gt;|Built</td><td>3</td><td/></row>
+		<row><td>phttp.primary_output</td><td>phttp.Primary_output</td><td>phttp.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;phttp&gt;|Built</td><td>3</td><td/></row>
+		<row><td>pinfo.primary_output</td><td>pinfo.Primary_output</td><td>pinfo.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pinfo&gt;|Built</td><td>3</td><td/></row>
+		<row><td>pok.primary_output</td><td>pok.Primary_output</td><td>pok.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pok&gt;|Built</td><td>3</td><td/></row>
+		<row><td>prun.primary_output</td><td>prun.Primary_output</td><td>prun.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;prun&gt;|Built</td><td>3</td><td/></row>
+		<row><td>ps3.primary_output</td><td>ps3.Primary_output</td><td>ps3.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ps3&gt;|Built</td><td>3</td><td/></row>
+		<row><td>ptwbx.primary_output</td><td>ptwbx.Primary_output</td><td>ptwbx.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ptwbx&gt;|Built</td><td>3</td><td/></row>
 		<row><td>serviceagent.primary_output</td><td>ServiceAgent.Primary_output</td><td>ServiceAgent.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ServiceAgent&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -1975,8 +2011,20 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>AWSSDK.dll</td><td/><td/><td>_45A4F39C_6DD9_4C49_95AA_3A0154B77AF3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ConsoleAgent.Primary_output</td><td/><td/><td>_5B5B155B_55EE_4541_AC40_CA00C3178C24_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Interop.NetFwTypeLib.dll</td><td/><td/><td>_EFADFE4E_56A6_4EF9_AC3C_B43C6F8538DB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ServiceAgent.Primary_output</td><td/><td/><td>_DA68075D_F8E1_4473_9AAE_7A0583DDEF93_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>fastJSON.dll</td><td/><td/><td>_FBE868F9_D940_4712_808E_66FF62A76D92_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>fastJSON.dll1</td><td/><td/><td>_5CFCC80C_DE89_4A81_9182_5F309CE87663_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>log4net.dll</td><td/><td/><td>_19158841_EBFF_44FD_9804_4882BC6DBE0F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>pgcs.Primary_output</td><td/><td/><td>_25404E68_CF1A_47D4_90A9_772F2BAC4CA2_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>phttp.Primary_output</td><td/><td/><td>_7E995D4E_E5F4_4060_952D_DEB09D24BAC3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>pinfo.Primary_output</td><td/><td/><td>_54433038_1FD8_4CAA_8DFB_58FD60F6AA96_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>pok.Primary_output</td><td/><td/><td>_A159152F_C536_4987_A7A5_BF8D1E62D2BF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>prun.Primary_output</td><td/><td/><td>_9EF72E5E_F44C_4C61_B376_21F64B6BBBC3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ps3.Primary_output</td><td/><td/><td>_124ADA38_9A58_464F_B715_B386CA50230F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ptwbx.Primary_output</td><td/><td/><td>_A9174A2C_31CA_4627_A029_0542300AF6A5_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2305,10 +2353,18 @@
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
+		<row><td>PATH_TO_DEBUG_FILES</td><td>C:\Palette-Dev\fastJSON\obj\Debug</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>ServiceAgent</td><td>ServiceAgent\ServiceAgent.csproj</td><td/><td>2</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
+		<row><td>pgcs</td><td>pgcs\pgcs.csproj</td><td/><td>2</td></row>
+		<row><td>phttp</td><td>phttp\phttp.csproj</td><td/><td>2</td></row>
+		<row><td>pinfo</td><td>pinfo\pinfo.csproj</td><td/><td>2</td></row>
+		<row><td>pok</td><td>pok\pok.csproj</td><td/><td>2</td></row>
+		<row><td>prun</td><td>prun\prun.csproj</td><td/><td>2</td></row>
+		<row><td>ps3</td><td>ps3\ps3.csproj</td><td/><td>2</td></row>
+		<row><td>ptwbx</td><td>ptwbx\ptwbx.csproj</td><td/><td>2</td></row>
 	</table>
 
 	<table name="ISPowerShellWrap">
@@ -2617,7 +2673,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_CB356B21_7BFE_4C45_932D_6D5048EA86EA_</td><td>Microsoft .NET Framework 4.5.1 Full.prq</td><td/><td/><td/></row>
+		<row><td>_64C99469_0DF3_42FD_A6E0_F555AA6486E0_</td><td>Microsoft .NET Framework 4.5.1 Full.prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISStorages">
@@ -2632,7 +2688,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Palette Software</td><td>0</td><td/><td>-2111607065</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Palette Software</td><td>0</td><td/><td>-2111582641</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
@@ -3733,7 +3789,9 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.palette-software.com</td><td>0</td><td/><td>-2111576345</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.PaletteSoftware.com</td><td>0</td><td/><td>-2111582641</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent</td><td>0</td><td/><td>-2111585808</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Service for Palette Agent</td><td>0</td><td/><td>-2111634928</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
 	</table>
 
@@ -4477,6 +4535,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="S255">Arguments</col>
 		<col def="s72">Component_</col>
 		<col def="L255">Description</col>
+		<row><td>AgentServiceInstall</td><td>MyService1</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>1</td><td/><td/><td/><td/><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
 	</table>
 
 	<table name="Shortcut">
