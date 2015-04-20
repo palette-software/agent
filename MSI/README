@@ -1,3 +1,7 @@
 # In <InstallShield>\Support\0409\Settings.xml change the line:
 <Warnings Disable="-6487"/>
 
+# go to the Package Manager Console under 'Tools' menu in VS.
+PM> Install-Package UnmanagedExports
+
+

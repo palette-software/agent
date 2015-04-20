@@ -553,6 +553,18 @@
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>PushButton</td><td>301</td><td>188</td><td>65</td><td>17</td><td>3</td><td/><td>##IDS_PRINT_BUTTON##</td><td>Agree</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Eula.rtf</td><td/></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>BannerLine</td><td>Line</td><td>0</td><td>45</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>LicenseKey</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>{&amp;Tahoma8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>DlgDesc</td><td>Text</td><td>26</td><td>28</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_DESCRIPTION##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>DlgTitle</td><td>Text</td><td>18</td><td>11</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>LICENSEKEY</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Edit1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Text1</td><td>Text</td><td>66</td><td>110</td><td>109</td><td>10</td><td>3</td><td>NewProperty1</td><td>##NEW_STRING1##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>MaintenanceType</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -868,8 +880,8 @@
 		<row><td>AdminWelcome</td><td>Next</td><td>NewDialog</td><td>AdminNetworkLocation</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>No</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>Yes</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed</td><td>0</td></row>
-		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>SetupType</td><td>NOT Installed</td><td>0</td></row>
+		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed</td><td>1</td></row>
+		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>SetupType</td><td>NOT Installed</td><td>2</td></row>
 		<row><td>CustomSetup</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>CustomSetup</td><td>ChangeFolder</td><td>SelectionBrowse</td><td>InstallChangeFolder</td><td>1</td><td>0</td></row>
 		<row><td>CustomSetup</td><td>Details</td><td>SelectionBrowse</td><td>DiskSpaceRequirements</td><td>1</td><td>1</td></row>
@@ -904,13 +916,17 @@
 		<row><td>InstallChangeFolder</td><td>OK</td><td>EndDialog</td><td>Return</td><td>1</td><td>3</td></row>
 		<row><td>InstallChangeFolder</td><td>OK</td><td>SetTargetPath</td><td>[_BrowseProperty]</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>1</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>LicenseAgreement</td><td>1</td><td>0</td></row>
-		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td/></row>
+		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
+		<row><td>LicenseKey</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>1</td></row>
+		<row><td>LicenseKey</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
+		<row><td>LicenseKey</td><td>Next</td><td>DoAction</td><td>ValidateLicenseKey</td><td>1</td><td>1</td></row>
+		<row><td>LicenseKey</td><td>Next</td><td>NewDialog</td><td>LicenseAgreement</td><td>LicenseKeyValid &lt;&gt; 0</td><td>2</td></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
@@ -1027,6 +1043,7 @@
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
+		<row><td>ValidateLicenseKey</td><td>1</td><td>ValidateLicenseKey.clr</td><td>InstallerDLL.InstallerDLL.ValidateLicenseKey(...)</td><td>0</td><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -1060,6 +1077,7 @@
 		<row><td>InstallChangeFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Tail</td><td>OK</td><td>Cancel</td><td>Browse</td><td/><td>0</td><td/></row>
 		<row><td>InstallWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Welcome Panel</td><td/><td>0</td><td/></row>
 		<row><td>LicenseAgreement</td><td>50</td><td>50</td><td>374</td><td>266</td><td>2</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Agree</td><td>Next</td><td>Cancel</td><td>License Agreement</td><td/><td>0</td><td/></row>
+		<row><td>LicenseKey</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>MaintenanceType</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>RadioGroup</td><td>Next</td><td>Cancel</td><td>Change, Reinstall, Remove</td><td/><td>0</td><td/></row>
 		<row><td>MaintenanceWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Maintenance Welcome</td><td/><td>0</td><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>50</td><td>50</td><td>374</td><td>266</td><td>19</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>OK</td><td>OK</td><td>Cancel</td><td>RestartManager Files in Use</td><td/><td>0</td><td/></row>
@@ -1894,6 +1912,12 @@
 		<col key="yes" def="s72">Action_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="S0">Value</col>
+		<row><td>ValidateLicenseKey</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>ValidateLicenseKey</td><td>Class</td><td>InstallerDLL.InstallerDLL</td></row>
+		<row><td>ValidateLicenseKey</td><td>Method</td><td>ValidateLicenseKey</td></row>
+		<row><td>ValidateLicenseKey</td><td>Param1</td><td>[LICENSEKEY]</td></row>
+		<row><td>ValidateLicenseKey</td><td>Return</td><td>LicenseKeyValid</td></row>
+		<row><td>ValidateLicenseKey</td><td>Type</td><td>0</td></row>
 	</table>
 
 	<table name="ISComCatalogAttribute">
@@ -2142,6 +2166,9 @@
 		<col key="yes" def="s72">ISLinkerLibrary</col>
 		<col def="s255">Library</col>
 		<col def="i4">Order</col>
+		<row><td>_IfxObl</td><td>&lt;ISProductFolder&gt;\Script\ifx\Lib\ifx.obl</td><td>3</td></row>
+		<row><td>_IsrtObl</td><td>&lt;ISProductFolder&gt;\Script\ISRT\Lib\isrt.obl</td><td>2</td></row>
+		<row><td>_IswiObl</td><td>&lt;ISProductFolder&gt;\Script\ISWi\Lib\iswi.obl</td><td>1</td></row>
 		<row><td>isrt.obl</td><td>isrt.obl</td><td>2</td></row>
 		<row><td>iswi.obl</td><td>iswi.obl</td><td>1</td></row>
 	</table>
@@ -2301,6 +2328,7 @@
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>ConsoleAgent</td><td>ConsoleAgent\ConsoleAgent.csproj</td><td/><td>2</td></row>
+		<row><td>CustomAction</td><td>CustomAction\CustomAction.csproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -2781,9 +2809,9 @@
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_COST</td><td>1033</td><td>Costing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>1033</td><td>Installing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_UNINSTALL</td><td>1033</td><td>Uninstalling COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Dialog Normal Description</td><td>0</td><td/><td>-1910336943</td></row>
+		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>-2111590707</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_EXTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;MSSansBold8}Dialog Bold Title</td><td>0</td><td/><td>-1910336943</td></row>
+		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Enter License Key</td><td>0</td><td/><td>-2111613235</td></row>
 		<row><td>IDS_DIFX_AMD64</td><td>1033</td><td>[ProductName] requires an X64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_IA64</td><td>1033</td><td>[ProductName] requires an IA64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_X86</td><td>1033</td><td>[ProductName] requires an X86 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
@@ -3733,8 +3761,15 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
+		<row><td>ID_LicenseKeyDlg_PleaseEnterKey</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>-2111607379</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.palette-software.com</td><td>0</td><td/><td>-2111576345</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>-2111629779</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>0</td><td>0</td><td/><td>-1574761459</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
+		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-2111586451</td></row>
+		<row><td>NEW_STRING2</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977374328</td></row>
+		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
+		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
@@ -4296,6 +4331,8 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>ISENABLEDWUSFINISHDIALOG</td><td/><td/></row>
 		<row><td>ISSHOWMSILOG</td><td/><td/></row>
 		<row><td>ISVROOT_PORT_NO</td><td>0</td><td/></row>
+		<row><td>ISX_SERIALNUM</td><td>0</td><td/></row>
+		<row><td>ISX_SERIALNUM1</td><td>0</td><td/></row>
 		<row><td>IS_COMPLUS_PROGRESSTEXT_COST</td><td>##IDS_COMPLUS_PROGRESSTEXT_COST##</td><td/></row>
 		<row><td>IS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>##IDS_COMPLUS_PROGRESSTEXT_INSTALL##</td><td/></row>
 		<row><td>IS_COMPLUS_PROGRESSTEXT_UNINSTALL</td><td>##IDS_COMPLUS_PROGRESSTEXT_UNINSTALL##</td><td/></row>
@@ -4313,7 +4350,10 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
+		<row><td>LICENSEKEY</td><td> </td><td/></row>
+		<row><td>LicenseKeyValid</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
+		<row><td>NewProperty1</td><td>0</td><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEAPPPOOL</td><td>##IDS_PROGMSG_IIS_CREATEAPPPOOL##</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEAPPPOOLS</td><td>##IDS_PROGMSG_IIS_CREATEAPPPOOLS##</td><td/></row>
@@ -4351,8 +4391,10 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>ReinstallModeText</td><td>omus</td><td/></row>
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUM;USERNAME;LICENSEKEY</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
+		<row><td>USERNAME</td><td>0</td><td/></row>
+		<row><td>USERNAME1</td><td>0</td><td/></row>
 		<row><td>UpgradeCode</td><td>{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
