@@ -37,5 +37,33 @@
 			<Name>ServiceAgent</Name>
 			<Project>{1F86B649-B376-4711-874E-1DD824E12D6C}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\pgcs\pgcs.csproj">
+			<Name>pgcs</Name>
+			<Project>{E7863B2A-58B7-4242-AB68-6D025EE7736D}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\phttp\phttp.csproj">
+			<Name>phttp</Name>
+			<Project>{6EAA7C97-9410-44C5-81EC-8F3B6CAB3BD0}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\pinfo\pinfo.csproj">
+			<Name>pinfo</Name>
+			<Project>{FA3F0B0E-B6B5-40BF-BA44-59EFECA6D6F2}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\pok\pok.csproj">
+			<Name>pok</Name>
+			<Project>{0D1601EC-E6A2-4B4C-959A-2DAF5EC532FC}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\prun\prun.csproj">
+			<Name>prun</Name>
+			<Project>{48B11D21-B213-41A7-9700-9D43BAC337B6}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\ps3\ps3.csproj">
+			<Name>ps3</Name>
+			<Project>{2D4487E4-D573-488E-9488-A2201D511AB2}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\ptwbx\ptwbx.csproj">
+			<Name>ptwbx</Name>
+			<Project>{2DCEC8E0-1C28-4BB5-92AF-D28553965C11}</Project>
+		</ProjectReference>
 	</ItemGroup>
 </Project>
