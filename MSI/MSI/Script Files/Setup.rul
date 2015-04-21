@@ -1,0 +1,107 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            
+//  This template script provides the code necessary to build an entry-point 
+//  function to be called in an InstallScript custom action. 
+//                                                                            
+//                                                                            
+//    File Name:  Setup.rul                                                   
+//                                                                            
+//  Description:  InstallShield script                                        
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Include Ifx.h for built-in InstallScript function prototypes, for Windows 
+// Installer API function prototypes and constants, and to declare code for 
+// the OnBegin and OnEnd events.
+#include "ifx.h"
+
+export prototype GetLicenseKey(HWND);
+export prototype SaveLicenseKey(HWND);
+
+#define KEY "Software\\Palette"
+
+// To Do:  Declare global variables, define constants, and prototype user-
+//         defined and DLL functions here.
+
+
+// To Do:  Create a custom action for this entry-point function:
+// 1.  Right-click on "Custom Actions" in the Sequences/Actions view.
+// 2.  Select "Custom Action Wizard" from the context menu.
+// 3.  Proceed through the wizard and give the custom action a unique name.
+// 4.  Select "Run InstallScript code" for the custom action type, and in
+//     the next panel select "MyFunction" (or the new name of the entry-
+//     point function) for the source.
+// 5.  Click Next, accepting the default selections until the wizard
+//     creates the custom action.
+//
+// Once you have made a custom action, you must execute it in your setup by
+// inserting it into a sequence or making it the result of a dialog's
+// control event.
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  GetLicenseKey
+// 
+// Retrieve a previously used license key from the registry and save it
+// in the LICENSEKEY property.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function GetLicenseKey(hMSI)
+    NUMBER nResult, nvSize, nvType;
+    STRING szLicenseKey, szMsg;
+begin
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+	
+	if (!RegDBKeyExist(KEY)) then
+		return ERROR_SUCCESS;
+	endif;
+	
+	nvType = REGDB_STRING;
+	
+	nResult = RegDBGetKeyValueEx(KEY, "LicenseKey", nvType, szLicenseKey, nvSize);
+	if (nResult < 0) then
+		SprintfMsiLog("LicenseKey not found in registry: %s\n", FormatMessage(nResult));
+		return ERROR_SUCCESS;
+	endif;
+
+/*
+	
+*/
+    MsiSetProperty(hMSI, "LICENSEKEY", szLicenseKey);
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  SaveLicenseKey
+// 
+// Store the license key in the registry so that on re-install it may be
+// used to pre-populate the license key on dialog.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function SaveLicenseKey(hMSI)
+	NUMBER nResult, nvSize;
+	STRING svLicenseKey, svMsg;
+begin
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+
+	MsiGetProperty(hMSI, "LICENSEKEY", svLicenseKey, nvSize);
+	if (nvSize == 0) then
+		return ERROR_SUCCESS;
+	endif;
+	
+	if (!RegDBKeyExist(KEY)) then
+		nResult = RegDBCreateKeyEx(KEY, "");
+		if (nResult < 0) then
+			Sprintf(svMsg, "Failed to create Registry key '%s'\n%s", KEY, FormatMessage(nResult));
+			MessageBox(svMsg, SEVERE);
+			abort;
+		endif;
+	endif;
+	
+	nResult = RegDBSetKeyValueEx(KEY, "LicenseKey", REGDB_STRING, svLicenseKey, nvSize);
+	if (nResult < 0) then
+		Sprintf(svMsg, "Failed to set Registry value 'LICENSEKEY'\n%s", FormatMessage(nResult));
+		MessageBox(svMsg, SEVERE);
+		abort;
+	endif;
+end;
