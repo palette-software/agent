@@ -2498,8 +2498,8 @@
 		<col def="I4">MsiEngineVersion</col>
 		<col def="S255">WinMsi30Url</col>
 		<col def="S255">CertPassword</col>
-		<row><td>Debug</td><td>Default Configuration</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td/><td>http://www.installengine.com/cert05/isengine</td><td/><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>16</td><td>3</td><td>16</td><td>http://www.installengine.com/Msiengine30</td><td/></row>
-		<row><td>Release</td><td>Default Configuration</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td/><td>http://www.installengine.com/cert05/isengine</td><td/><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>16</td><td>3</td><td>16</td><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>Debug</td><td>Default Configuration</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td/><td>http://www.installengine.com/cert05/isengine</td><td/><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>1040</td><td>3</td><td>16</td><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>Release</td><td>Default Configuration</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td/><td>http://www.installengine.com/cert05/isengine</td><td/><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>1040</td><td>3</td><td>16</td><td>http://www.installengine.com/Msiengine30</td><td/></row>
 	</table>
 
 	<table name="ISReleaseProperty">
@@ -4049,8 +4049,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="8c50a525cdd9ef5e5a339c7b7706c506">
-RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="4b00b795ba16b41c1637c4298a4cc781">
+UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Default Configuration</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
