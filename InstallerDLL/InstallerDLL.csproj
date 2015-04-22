@@ -32,8 +32,9 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InstallShield.Interop.Msi">
-      <HintPath>..\..\..\..\..\..\Program Files\InstallShield\2014\System\InstallShield.Interop.Msi.dll</HintPath>
+    <Reference Include="InstallShield.Interop.Msi, Version=21.0.0.338, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\InstallShield.Interop.Msi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
