@@ -18,9 +18,12 @@
 
 export prototype GetLicenseKey(HWND);
 export prototype SaveLicenseKey(HWND);
+export prototype GetHostnamePort(HWND);
+export prototype SaveHostnamePort(HWND);
 export prototype ParseHostnamePort(HWND);
 
 #define KEY "Software\\Palette"
+#define PORT 22
 
 // To Do:  Declare global variables, define constants, and prototype user-
 //         defined and DLL functions here.
@@ -50,7 +53,7 @@ export prototype ParseHostnamePort(HWND);
 ///////////////////////////////////////////////////////////////////////////////
 function GetLicenseKey(hMSI)
     NUMBER nResult, nvSize, nvType;
-    STRING szLicenseKey, szMsg;
+    STRING szLicenseKey;
 begin
 
 	// FIXME: check if LICENSEKEY <> "" i.e. it was passed on the command line.
@@ -74,20 +77,70 @@ end;
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           
+// Function:  GetHostnamePort
+// 
+// Retrieve a previously used hostname and/or port from the registry and save it
+// in the HOSTNAMEPORT property.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function GetHostnamePort(hMSI)
+    NUMBER nResult, nvSize, nPort, nType;
+    STRING szHostnamePort, szHostname, svPort;
+begin
+
+	nPort = PORT;
+	nType = REGDB_STRING;
+
+	// FIXME: check if HOSTNAME <> "" i.e. it was passed on the command line.
+
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+	
+	if (!RegDBKeyExist(KEY)) then
+		return ERROR_SUCCESS;
+	endif;
+	
+	nResult = RegDBGetKeyValueEx(KEY, "Hostname", nType, szHostname, nvSize);
+	if (nResult < 0) then
+		SprintfMsiLog("Hostname not found in registry: %s\n", FormatMessage(nResult));
+		return ERROR_SUCCESS;
+	endif;
+	
+	nType = REGDB_NUMBER;
+	
+	nResult = RegDBGetKeyValueEx(KEY, "Port", nType, svPort, nvSize);
+	if (nResult == 0) then
+		StrToNum(nPort, svPort);
+	endif;
+	
+	if (nPort != PORT) then
+		szHostnamePort = szHostname + ":" + svPort;
+	else
+		szHostnamePort = szHostname;
+	endif;
+
+    MsiSetProperty(hMSI, "HostnamePort", szHostnamePort);
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
 // Function:  SaveLicenseKey
 // 
 // Store the license key in the registry so that on re-install it may be
-// used to pre-populate the license key on dialog.
+// used to pre-populate the license key dialog.
 //                                                                           
 ///////////////////////////////////////////////////////////////////////////////
 function SaveLicenseKey(hMSI)
-	NUMBER nResult, nvSize;
+	NUMBER nResult, nvSize, nType;
 	STRING svLicenseKey, svMsg;
 begin
+
+	nType = REGDB_STRING;
+
 	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
 
 	MsiGetProperty(hMSI, "LICENSEKEY", svLicenseKey, nvSize);
 	if (nvSize == 0) then
+		// FIXME: this should be impossible.
 		return ERROR_SUCCESS;
 	endif;
 	
@@ -100,7 +153,7 @@ begin
 		endif;
 	endif;
 	
-	nResult = RegDBSetKeyValueEx(KEY, "LicenseKey", REGDB_STRING, svLicenseKey, nvSize);
+	nResult = RegDBSetKeyValueEx(KEY, "LicenseKey", nType, svLicenseKey, nvSize);
 	if (nResult < 0) then
 		Sprintf(svMsg, "Failed to set Registry value 'LICENSEKEY'\n%s", FormatMessage(nResult));
 		MessageBox(svMsg, SEVERE);
@@ -110,7 +163,7 @@ end;
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           
-// Function:  FixupHostname
+// Function:  ParseHostnamePort
 // 
 // Parse the hostname:port value if present and remove the 'scheme' if the
 // value is (incorrectly) entered as a URL.
@@ -120,7 +173,7 @@ function ParseHostnamePort(hMSI)
 	STRING svHostnamePort, svHostname, svPort;
 	NUMBER nSize, nIndex, nPort;
 begin
-	svPort = "22";
+	NumToStr(svPort, PORT);
 
 	MsiGetProperty(hMSI, "HostnamePort", svHostnamePort, nSize);
 	svHostnamePort = StrLower(svHostnamePort);
@@ -145,10 +198,66 @@ begin
 	
 	StrToNum(nPort, svPort);
 	if (nPort < 0) then
-		MessageBox("Invalid port specified, using default port 22", SEVERE);
-		NumToStr(svPort, 22);
+		MessageBox("Invalid port specified, using default port.", SEVERE);
+		NumToStr(svPort, PORT);
 	endif;
 	
 	MsiSetProperty(hMSI, "PORT", svPort);
 	MsiSetProperty(hMSI, "HOSTNAME", svHostname);
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  SaveHostnamePort
+// 
+// Store the hostname and port in the registry so that on re-install it may be
+// used to pre-populate the hostname dialog.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function SaveHostnamePort(hMSI)
+	NUMBER nResult, nvSize, nType;
+	STRING svValue, svMsg;
+begin
+
+	nType = REGDB_STRING;
+
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+	
+	if (!RegDBKeyExist(KEY)) then
+		nResult = RegDBCreateKeyEx(KEY, "");
+		if (nResult < 0) then
+			Sprintf(svMsg, "Failed to create Registry key '%s'\n%s", KEY, FormatMessage(nResult));
+			MessageBox(svMsg, SEVERE);
+			abort;
+		endif;
+	endif;
+	
+	MsiGetProperty(hMSI, "HOSTNAME", svValue, nvSize);
+	if (nvSize == 0) then
+		// FIXME: this should be impossible.
+		return ERROR_SUCCESS;
+	endif;
+	
+	nResult = RegDBSetKeyValueEx(KEY, "Hostname", nType, svValue, nvSize);
+	if (nResult < 0) then
+		Sprintf(svMsg, "Failed to set Registry value 'LICENSEKEY'\n%s", FormatMessage(nResult));
+		MessageBox(svMsg, SEVERE);
+		abort;
+	endif;
+	
+	MsiGetProperty(hMSI, "PORT", svValue, nvSize);
+	if (nvSize == 0) then
+		// FIXME: this should be impossible.
+		return ERROR_SUCCESS;
+	endif;
+	
+	nType = REGDB_NUMBER;
+	
+	nResult = RegDBSetKeyValueEx(KEY, "Port", nType, svValue, nvSize);
+	if (nResult < 0) then
+		Sprintf(svMsg, "Failed to set Registry value 'LICENSEKEY'\n%s", FormatMessage(nResult));
+		MessageBox(svMsg, SEVERE);
+		abort;
+	endif;
+	
 end;

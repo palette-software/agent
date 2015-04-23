@@ -988,8 +988,9 @@
 		<row><td>Hostname</td><td>Back</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td>1</td></row>
 		<row><td>Hostname</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseHostnamePort</td><td>1</td><td>1</td></row>
+		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>SaveHostnamePort</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ValidateHostnamePort</td><td>HOSTNAME &lt;&gt; ""</td><td>3</td></row>
-		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
+		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>HostnamePortValid &lt;&gt; 0</td><td>5</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>Reset</td><td>0</td><td>1</td><td>1</td></row>
 		<row><td>InstallChangeFolder</td><td>NewFolder</td><td>DirectoryListNew</td><td>0</td><td>1</td><td>0</td></row>
@@ -1119,6 +1120,7 @@
 		<col def="S0">Target</col>
 		<col def="I4">ExtendedType</col>
 		<col def="S255">ISComments</col>
+		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
 		<row><td>GetLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f1</td><td>0</td><td/></row>
 		<row><td>ISPreventDowngrade</td><td>19</td><td/><td>[IS_PREVENT_DOWNGRADE_EXIT]</td><td/><td>Exits install when a newer version of this product is found</td></row>
 		<row><td>ISPrint</td><td>1</td><td>SetAllUsers.dll</td><td>PrintScrollableText</td><td/><td>Prints the contents of a ScrollableText control on a dialog.</td></row>
@@ -1128,6 +1130,7 @@
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
 		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
+		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
@@ -2566,6 +2569,8 @@
 		<row><td>f1</td><td>0</td><td>GetLicenseKey</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
 		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
+		<row><td>f4</td><td>0</td><td>GetHostnamePort</td><td/></row>
+		<row><td>f5</td><td>0</td><td>SaveHostnamePort</td><td/></row>
 	</table>
 
 	<table name="ISLanguage">
@@ -4472,7 +4477,8 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>FindRelatedProducts</td><td/><td>430</td><td>FindRelatedProducts</td><td/></row>
-		<row><td>GetLicenseKey</td><td/><td>200</td><td/><td/></row>
+		<row><td>GetHostnamePort</td><td/><td>200</td><td/><td/></row>
+		<row><td>GetLicenseKey</td><td/><td>5</td><td/><td/></row>
 		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
 		<row><td>InstallWelcome</td><td>Not Installed</td><td>1210</td><td>InstallWelcome</td><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
