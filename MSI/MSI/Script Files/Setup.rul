@@ -14,9 +14,11 @@
 // Installer API function prototypes and constants, and to declare code for 
 // the OnBegin and OnEnd events.
 #include "ifx.h"
+#include "String.rul"
 
 export prototype GetLicenseKey(HWND);
 export prototype SaveLicenseKey(HWND);
+export prototype ParseHostnamePort(HWND);
 
 #define KEY "Software\\Palette"
 
@@ -50,6 +52,9 @@ function GetLicenseKey(hMSI)
     NUMBER nResult, nvSize, nvType;
     STRING szLicenseKey, szMsg;
 begin
+
+	// FIXME: check if LICENSEKEY <> "" i.e. it was passed on the command line.
+
 	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
 	
 	if (!RegDBKeyExist(KEY)) then
@@ -64,9 +69,6 @@ begin
 		return ERROR_SUCCESS;
 	endif;
 
-/*
-	
-*/
     MsiSetProperty(hMSI, "LICENSEKEY", szLicenseKey);
 end;
 
@@ -104,4 +106,49 @@ begin
 		MessageBox(svMsg, SEVERE);
 		abort;
 	endif;
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  FixupHostname
+// 
+// Parse the hostname:port value if present and remove the 'scheme' if the
+// value is (incorrectly) entered as a URL.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function ParseHostnamePort(hMSI)
+	STRING svHostnamePort, svHostname, svPort;
+	NUMBER nSize, nIndex, nPort;
+begin
+	svPort = "22";
+
+	MsiGetProperty(hMSI, "HostnamePort", svHostnamePort, nSize);
+	svHostnamePort = StrLower(svHostnamePort);
+	if (StrLengthChars(svHostnamePort) == 0) then
+		MessageBox("Hostname is required.", SEVERE);
+		return ERROR_SUCCESS;
+	endif;
+	
+	if (StrStartsWith(svHostnamePort, "http://") || StrStartsWith(svHostnamePort, "https://")) then
+		MessageBox("The hostname value should not be a URL.", SEVERE);
+		return ERROR_SUCCESS;
+	endif;
+	
+	nIndex = StrFindEx(svHostnamePort, ":", 0);
+	if (nIndex >= 0) then
+		StrSub(svPort, svHostnamePort, nIndex + 1, nSize - (nIndex + 1));
+		StrSub(svHostname, svHostnamePort, 0, nIndex);
+		nSize = nIndex;
+	else
+		svHostname = svHostnamePort;
+	endif;
+	
+	StrToNum(nPort, svPort);
+	if (nPort < 0) then
+		MessageBox("Invalid port specified, using default port 22", SEVERE);
+		NumToStr(svPort, 22);
+	endif;
+	
+	MsiSetProperty(hMSI, "PORT", svPort);
+	MsiSetProperty(hMSI, "HOSTNAME", svHostname);
 end;

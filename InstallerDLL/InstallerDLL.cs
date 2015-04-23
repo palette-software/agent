@@ -35,6 +35,13 @@ namespace InstallerDLL
             return 1;
         }
 
+        public static int ValidateHostnamePort(string hostname, int port)
+        {
+            //string msg = string.Format("Hostname: {0}\nPort: {1}", hostname, port);
+            //MessageBox.Show(msg, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return 1;
+        }
+
         /// <summary>
         /// 
         /// </summary>

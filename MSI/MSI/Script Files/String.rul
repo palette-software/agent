@@ -1,0 +1,39 @@
+#include "ifx.h"
+
+export prototype STRING StrLower(STRING);
+export prototype BOOL StrStartsWith(STRING, STRING);
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  StrLower
+// 
+// Convert the passed string to lower case and return it.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function STRING StrLower(szStr)
+	STRING svNewStr;
+begin
+	StrToLower(svNewStr, szStr);
+	return svNewStr;
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  StrStartsWith
+// 
+// Return true if the string starts with the substring.
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function BOOL StrStartsWith(szStr, szSubStr)
+	STRING svValue;
+	NUMBER nLength;
+begin
+	nLength = StrLengthChars(szSubStr);
+	StrSub(svValue, szStr, 0, nLength);
+	if (StrCompare(svValue, szSubStr) == 0) then
+		return TRUE;
+	endif;
+	return FALSE;
+end;
+
+

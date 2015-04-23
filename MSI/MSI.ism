@@ -576,6 +576,18 @@
 		<row><td>FilesInUse</td><td>Ignore</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Ignore##</td><td>Exit</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>List</td><td>ListBox</td><td>21</td><td>87</td><td>331</td><td>135</td><td>7</td><td>FileInUseProcess</td><td/><td>Retry</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Retry##</td><td>Ignore</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>BannerLine</td><td>Line</td><td>0</td><td>45</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>Hostname</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>{&amp;Tahoma8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>DlgDesc</td><td>Text</td><td>26</td><td>28</td><td>292</td><td>25</td><td>65539</td><td/><td>##ID_DIALOG_TEXT2_DESCRIPTION_HOSTNAME##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>DlgTitle</td><td>Text</td><td>18</td><td>11</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>HostnamePort</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Edit1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Text1</td><td>Text</td><td>66</td><td>110</td><td>109</td><td>10</td><td>3</td><td>NewProperty1</td><td>##ID_STRING4##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>InstallChangeFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -594,7 +606,7 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>PushButton</td><td>310</td><td>66</td><td>19</td><td>19</td><td>3670019</td><td/><td/><td>NewFolder</td><td>##IDS__IsBrowseFolderDlg_UpOneLevel##</td><td>0</td><td/><td/><td>NewBinary3</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Image</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>CheckAgreeLicense</td><td>CheckBox</td><td>162</td><td>155</td><td>10</td><td>11</td><td>3</td><td>AgreeToLicense</td><td>##NEW_STRING10##</td><td>Hyperlink1</td><td/><td/><td/><td/><td/></row>
+		<row><td>InstallWelcome</td><td>CheckAgreeLicense</td><td>CheckBox</td><td>162</td><td>155</td><td>10</td><td>11</td><td>3</td><td>AgreeToLicense</td><td>***IS_STRING_NOT_DEFINED***</td><td>Hyperlink1</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Hyperlink1</td><td>Hyperlink</td><td>231</td><td>155</td><td>80</td><td>11</td><td>65539</td><td/><td>##NEW_STRING7##</td><td>Next</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckAgreeLicense</td><td/><td/><td/><td/><td>NewBinary5</td></row>
@@ -623,10 +635,10 @@
 		<row><td>LicenseKey</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>DlgDesc</td><td>Text</td><td>26</td><td>28</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_DESCRIPTION##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>DlgTitle</td><td>Text</td><td>18</td><td>11</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>DlgTitle</td><td>Text</td><td>18</td><td>12</td><td>292</td><td>25</td><td>65539</td><td/><td>##ID_DIALOG_TEXT_DESCRIPTION_HOSTNAME##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>LICENSEKEY</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Edit1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>Text1</td><td>Text</td><td>66</td><td>110</td><td>109</td><td>10</td><td>3</td><td>NewProperty1</td><td>##NEW_STRING1##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Text1</td><td>Text</td><td>66</td><td>110</td><td>109</td><td>10</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>MaintenanceType</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -973,6 +985,11 @@
 		<row><td>FilesInUse</td><td>Exit</td><td>EndDialog</td><td>Exit</td><td>1</td><td>0</td></row>
 		<row><td>FilesInUse</td><td>Ignore</td><td>EndDialog</td><td>Ignore</td><td>1</td><td>0</td></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>EndDialog</td><td>Retry</td><td>1</td><td>0</td></row>
+		<row><td>Hostname</td><td>Back</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td>1</td></row>
+		<row><td>Hostname</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
+		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseHostnamePort</td><td>1</td><td>1</td></row>
+		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ValidateHostnamePort</td><td>HOSTNAME &lt;&gt; ""</td><td>3</td></row>
+		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>Reset</td><td>0</td><td>1</td><td>1</td></row>
 		<row><td>InstallChangeFolder</td><td>NewFolder</td><td>DirectoryListNew</td><td>0</td><td>1</td><td>0</td></row>
@@ -990,7 +1007,7 @@
 		<row><td>LicenseKey</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>LicenseKey</td><td>Next</td><td>DoAction</td><td>SaveLicenseKey</td><td>LicenseKeyValid &lt;&gt; 0</td><td>2</td></row>
 		<row><td>LicenseKey</td><td>Next</td><td>DoAction</td><td>ValidateLicenseKey</td><td>1</td><td>1</td></row>
-		<row><td>LicenseKey</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>LicenseKeyValid &lt;&gt; 0</td><td>3</td></row>
+		<row><td>LicenseKey</td><td>Next</td><td>NewDialog</td><td>Hostname</td><td>LicenseKeyValid &lt;&gt; 0</td><td>3</td></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
@@ -1019,7 +1036,7 @@
 		<row><td>PatchWelcome</td><td>Next</td><td>Reinstall</td><td>ALL</td><td>PATCH And REINSTALL=""</td><td>1</td></row>
 		<row><td>PatchWelcome</td><td>Next</td><td>ReinstallMode</td><td>omus</td><td>PATCH And REINSTALLMODE=""</td><td>2</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>CustomSetup</td><td>Installed OR _IsSetupTypeMin = "Custom"</td><td>2</td></row>
-		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed AND _IsSetupTypeMin &lt;&gt; "Custom"</td><td>1</td></row>
+		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>Hostname</td><td>NOT Installed AND _IsSetupTypeMin &lt;&gt; "Custom"</td><td>1</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed AND _IsMaintenance = "Reinstall"</td><td>3</td></row>
 		<row><td>ReadyToInstall</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>ReadyToInstall</td><td>InstallNow</td><td>EndDialog</td><td>Return</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
@@ -1110,10 +1127,12 @@
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
+		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
+		<row><td>ValidateHostnamePort</td><td>1</td><td>ValidateHostnamePort.clr</td><td>InstallerDLL.InstallerDLL.ValidateHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>ValidateLicenseKey</td><td>1</td><td>ValidateLicenseKey.clr</td><td>InstallerDLL.InstallerDLL.ValidateLicenseKey(...)</td><td>0</td><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
@@ -1145,6 +1164,7 @@
 		<row><td>DestinationFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Destination Folder</td><td/><td>0</td><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>OK</td><td>OK</td><td>OK</td><td>Feature Details</td><td/><td>0</td><td/></row>
 		<row><td>FilesInUse</td><td>50</td><td>50</td><td>374</td><td>266</td><td>19</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Retry</td><td>Retry</td><td>Exit</td><td>Files in Use</td><td/><td>0</td><td/></row>
+		<row><td>Hostname</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>InstallChangeFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Tail</td><td>OK</td><td>Cancel</td><td>Browse</td><td/><td>0</td><td/></row>
 		<row><td>InstallWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td/><td>Cancel</td><td>Welcome Panel</td><td/><td>0</td><td/></row>
 		<row><td>LicenseAgreement</td><td>50</td><td>50</td><td>374</td><td>266</td><td>2</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Agree</td><td>Next</td><td>Cancel</td><td>License Agreement</td><td/><td>0</td><td/></row>
@@ -2240,6 +2260,13 @@
 		<col key="yes" def="s72">Action_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="S0">Value</col>
+		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>ValidateHostnamePort</td><td>Class</td><td>InstallerDLL.InstallerDLL</td></row>
+		<row><td>ValidateHostnamePort</td><td>Method</td><td>ValidateHostnamePort</td></row>
+		<row><td>ValidateHostnamePort</td><td>Param1</td><td>[HOSTNAME]</td></row>
+		<row><td>ValidateHostnamePort</td><td>Param2</td><td>[PORT]</td></row>
+		<row><td>ValidateHostnamePort</td><td>Return</td><td>HostnamePortValid</td></row>
+		<row><td>ValidateHostnamePort</td><td>Type</td><td>0</td></row>
 		<row><td>ValidateLicenseKey</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
 		<row><td>ValidateLicenseKey</td><td>Class</td><td>InstallerDLL.InstallerDLL</td></row>
 		<row><td>ValidateLicenseKey</td><td>Method</td><td>ValidateLicenseKey</td></row>
@@ -2538,6 +2565,7 @@
 		<col def="S255">Target</col>
 		<row><td>f1</td><td>0</td><td>GetLicenseKey</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
+		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
 	</table>
 
 	<table name="ISLanguage">
@@ -3000,6 +3028,7 @@
 	<table name="ISScriptFile">
 		<col key="yes" def="s255">ISScriptFile</col>
 		<row><td>&lt;ISPROJECTDIR&gt;\Script Files\Setup.rul</td></row>
+		<row><td>&lt;ISPROJECTDIR&gt;\Script Files\String.rul</td></row>
 	</table>
 
 	<table name="ISSearchReplace">
@@ -3208,9 +3237,9 @@
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_COST</td><td>1033</td><td>Costing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>1033</td><td>Installing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_UNINSTALL</td><td>1033</td><td>Uninstalling COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>-2111590707</td></row>
+		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Please enter the License Key provide by email.</td><td>0</td><td/><td>-1172081080</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_EXTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Enter License Key</td><td>0</td><td/><td>-2111613235</td></row>
+		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Enter the Hostname</td><td>0</td><td/><td>-1306326352</td></row>
 		<row><td>IDS_DIFX_AMD64</td><td>1033</td><td>[ProductName] requires an X64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_IA64</td><td>1033</td><td>[ProductName] requires an IA64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_X86</td><td>1033</td><td>[ProductName] requires an X86 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
@@ -4161,13 +4190,15 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
+		<row><td>ID_DIALOG_TEXT2_DESCRIPTION_HOSTNAME</td><td>1033</td><td>Please enter the hostname of the Palette server.</td><td>0</td><td/><td>-1172085240</td></row>
+		<row><td>ID_DIALOG_TEXT_DESCRIPTION_HOSTNAME</td><td>1033</td><td>{&amp;TahomaBold10}Enter the License Key</td><td>0</td><td/><td>-1172105656</td></row>
 		<row><td>ID_LicenseKeyDlg_PleaseEnterKey</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>-2111607379</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.palette-software.com</td><td>0</td><td/><td>-2111576345</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>-2111629779</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>0</td><td>0</td><td/><td>-1574761459</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Palette server hostname:</td><td>0</td><td/><td>-1172054392</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-2111586451</td></row>
-		<row><td>NEW_STRING10</td><td>1033</td><td/><td>0</td><td/><td>-1306296721</td></row>
+		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-1172064664</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977374328</td></row>
 		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
@@ -4734,6 +4765,9 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>DisplayNameTypical</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>Display_IsBitmapDlg</td><td>1</td><td/></row>
 		<row><td>ErrorDialog</td><td>SetupError</td><td/></row>
+		<row><td>HOSTNAME</td><td/><td/></row>
+		<row><td>HostnamePort</td><td/><td/></row>
+		<row><td>HostnamePortValid</td><td>0</td><td/></row>
 		<row><td>INSTALLLEVEL</td><td>100</td><td/></row>
 		<row><td>ISCHECKFORPRODUCTUPDATES</td><td>1</td><td/></row>
 		<row><td>ISENABLEDWUSFINISHDIALOG</td><td/><td/></row>
@@ -4761,7 +4795,6 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LICENSEKEY</td><td> </td><td/></row>
-		<row><td>LicenseA</td><td>0</td><td/></row>
 		<row><td>LicenseKeyValid</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>MsiLogging</td><td>voicewarmupx</td><td/></row>
@@ -4770,7 +4803,9 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>NewProperty3</td><td>0</td><td/></row>
 		<row><td>NewProperty4</td><td>0</td><td/></row>
 		<row><td>NewProperty5</td><td>0</td><td/></row>
+		<row><td>NewProperty6</td><td>0</td><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
+		<row><td>PORT</td><td>22</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEAPPPOOL</td><td>##IDS_PROGMSG_IIS_CREATEAPPPOOL##</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEAPPPOOLS</td><td>##IDS_PROGMSG_IIS_CREATEAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEVROOT</td><td>##IDS_PROGMSG_IIS_CREATEVROOT##</td><td/></row>
@@ -4807,7 +4842,7 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>ReinstallModeText</td><td>omus</td><td/></row>
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUM;USERNAME;LICENSEKEY;ISSHOWMSILOG2</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUM;USERNAME;ISSHOWMSILOG2</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>USERNAME</td><td>0</td><td/></row>
 		<row><td>USERNAME1</td><td>0</td><td/></row>
