@@ -1,0 +1,5 @@
+Install the UnmanagedExports package from nuget:
+https://www.nuget.org/packages/UnmanagedExports
+
+To see the exports, use the dumpbin program from the 'Visual Studio Command Prompt':
+# dumpbin /exports <dllname>

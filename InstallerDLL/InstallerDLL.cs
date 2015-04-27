@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InstallShield.Interop;
+using RGiesecke.DllExport;
 
 namespace InstallerDLL
 {
@@ -40,6 +41,12 @@ namespace InstallerDLL
             //string msg = string.Format("Hostname: {0}\nPort: {1}", hostname, port);
             //MessageBox.Show(msg, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return 1;
+        }
+
+        [DllExport()]
+        public static string GenerateUUID(Int32 unused)
+        {
+            return System.Guid.NewGuid().ToString();
         }
 
         /// <summary>

@@ -1,5 +1,7 @@
 /UpgradeLog.htm
 /build
+/packages
+/dotnet35
 bin
 obj
 Debug
