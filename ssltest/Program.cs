@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Net;
 using System.Net.Security;
@@ -38,7 +37,31 @@ namespace ssltest
 
                 /* resolve the remote address on each connection in case the IP changes. */
                 IPAddress addr;
-                NetUtil.GetResolvedConnectionIPAddress(host, out addr);
+
+                if (!IPAddress.TryParse(host, out addr))
+                {
+                    IPHostEntry hostEntry = Dns.GetHostEntry(host);
+
+                    if (hostEntry != null && hostEntry.AddressList != null
+                                 && hostEntry.AddressList.Length > 0)
+                    {
+                        if (hostEntry.AddressList.Length == 1)
+                        {
+                            addr = hostEntry.AddressList[0];
+                        }
+                        else
+                        {
+                            foreach (IPAddress var in hostEntry.AddressList)
+                            {
+                                if (var.AddressFamily == AddressFamily.InterNetwork)
+                                {
+                                    addr = var;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 IPEndPoint remoteEP = new IPEndPoint(addr, port);
                 socket.Connect(remoteEP);
