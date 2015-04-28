@@ -254,7 +254,6 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<row><td>ISSELFREG.DLL</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\isregsvr.dll</td></row>
 		<row><td>ISSetup.dll</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\ISSetup.dll</td></row>
-		<row><td>ISSetupFilesHelper</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\SFHelper.dll</td></row>
 		<row><td>NewBinary1</td><td/><td>&lt;ISProjectFolder&gt;\Theme\banner-499x58.jpg</td></row>
 		<row><td>NewBinary10</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CompleteSetupIco.ibd</td></row>
 		<row><td>NewBinary11</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CustomSetupIco.ibd</td></row>
@@ -955,7 +954,6 @@
 		<row><td>AdminWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>AdminWelcome</td><td>Next</td><td>NewDialog</td><td>AdminNetworkLocation</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>No</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
-		<row><td>CancelSetup</td><td>Yes</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>CancelSetup</td><td>Yes</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed</td><td>1</td></row>
 		<row><td>CustomSetup</td><td>Back</td><td>NewDialog</td><td>SetupType</td><td>NOT Installed</td><td>2</td></row>
@@ -1073,10 +1071,8 @@
 		<row><td>SetupCompleteError</td><td>Back</td><td>[Suspend]</td><td>{}</td><td>1</td><td>1</td></row>
 		<row><td>SetupCompleteError</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>SetupCompleteError</td><td>Cancel</td><td>[Suspend]</td><td>1</td><td>1</td><td>1</td></row>
-		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>LAUNCHPROGRAM</td><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>6</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
@@ -1092,7 +1088,6 @@
 		<row><td>SetupInterrupted</td><td>Back</td><td>[Suspend]</td><td>{}</td><td>1</td><td>1</td></row>
 		<row><td>SetupInterrupted</td><td>Cancel</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupInterrupted</td><td>Cancel</td><td>[Suspend]</td><td>1</td><td>1</td><td>1</td></row>
-		<row><td>SetupInterrupted</td><td>Finish</td><td>DoAction</td><td>ISSetupFilesCleanup</td><td>1</td><td>200</td></row>
 		<row><td>SetupInterrupted</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupInterrupted</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupProgress</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
@@ -1125,6 +1120,7 @@
 		<col def="S0">Target</col>
 		<col def="I4">ExtendedType</col>
 		<col def="S255">ISComments</col>
+		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
 		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
 		<row><td>GetLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f1</td><td>0</td><td/></row>
 		<row><td>GetUUID</td><td>1</td><td>ISSetup.dll</td><td>f6</td><td>0</td><td/></row>
@@ -1133,13 +1129,12 @@
 		<row><td>ISSelfRegisterCosting</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterCosting</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
-		<row><td>ISSetupFilesCleanup</td><td>257</td><td>ISSetupFilesHelper</td><td>SFCleanupEx</td><td/><td/></row>
-		<row><td>ISSetupFilesExtract</td><td>257</td><td>ISSetupFilesHelper</td><td>SFStartupEx</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
 		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
+		<row><td>SaveUUID</td><td>1</td><td>ISSetup.dll</td><td>f7</td><td>0</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -2271,6 +2266,11 @@
 		<col key="yes" def="s72">Action_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="S0">Value</col>
+		<row><td>GenerateUUID</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>GenerateUUID</td><td>Class</td><td>InstallerDLL.InstallerDLL</td></row>
+		<row><td>GenerateUUID</td><td>Method</td><td>GenerateUUID</td></row>
+		<row><td>GenerateUUID</td><td>Return</td><td>UUID</td></row>
+		<row><td>GenerateUUID</td><td>Type</td><td>0</td></row>
 		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
 		<row><td>ValidateHostnamePort</td><td>Class</td><td>InstallerDLL.InstallerDLL</td></row>
 		<row><td>ValidateHostnamePort</td><td>Method</td><td>ValidateHostnamePort</td></row>
@@ -2580,6 +2580,7 @@
 		<row><td>f4</td><td>0</td><td>GetHostnamePort</td><td/></row>
 		<row><td>f5</td><td>0</td><td>SaveHostnamePort</td><td/></row>
 		<row><td>f6</td><td>0</td><td>GetUUID</td><td/></row>
+		<row><td>f7</td><td>0</td><td>SaveUUID</td><td/></row>
 	</table>
 
 	<table name="ISLanguage">
@@ -3079,7 +3080,6 @@
 		<col def="S50">Language</col>
 		<col def="I2">Splash</col>
 		<col def="S0">Path</col>
-		<row><td>SetupFile1</td><td>InstallerDLL.dll</td><td/><td>0</td><td>0</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Release\InstallerDLL.dll</td></row>
 	</table>
 
 	<table name="ISSetupPrerequisites">
@@ -4212,6 +4212,9 @@
 		<row><td>ID_STRING2</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>-2111629779</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>0</td><td>0</td><td/><td>-1574761459</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Palette server hostname:</td><td>0</td><td/><td>-1172054392</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>agent.ini</td><td>0</td><td/><td>-635181776</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>DEFAULT</td><td>0</td><td/><td>-635212464</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>UUID</td><td>0</td><td/><td>-635194032</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-1172064664</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977374328</td></row>
@@ -4340,6 +4343,7 @@
 		<col def="s255">Value</col>
 		<col def="i2">Action</col>
 		<col def="s72">Component_</col>
+		<row><td>IniTableKey1</td><td>##ID_STRING5##</td><td>INSTALLDIR</td><td>##ID_STRING6##</td><td>##ID_STRING7##</td><td>[UUID]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
 	</table>
 
 	<table name="IniLocator">
@@ -4373,8 +4377,6 @@
 		<row><td>ISSelfRegisterCosting</td><td/><td>2201</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td/><td>5601</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td/><td>6601</td><td/><td/></row>
-		<row><td>ISSetupFilesCleanup</td><td/><td>6602</td><td/><td/></row>
-		<row><td>ISSetupFilesExtract</td><td/><td>3</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td/><td>2202</td><td/><td/></row>
 		<row><td>InstallFiles</td><td/><td>4000</td><td>InstallFiles</td><td/></row>
 		<row><td>InstallFinalize</td><td/><td>6600</td><td>InstallFinalize</td><td/></row>
@@ -4482,35 +4484,35 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<col def="I2">Sequence</col>
 		<col def="S255">ISComments</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>AppSearch</td><td/><td>400</td><td>AppSearch</td><td/></row>
-		<row><td>CCPSearch</td><td>CCP_TEST</td><td>500</td><td>CCPSearch</td><td/></row>
+		<row><td>AppSearch</td><td/><td>200</td><td>AppSearch</td><td/></row>
+		<row><td>CCPSearch</td><td>CCP_TEST</td><td>450</td><td>CCPSearch</td><td/></row>
 		<row><td>CostFinalize</td><td/><td>1000</td><td>CostFinalize</td><td/></row>
-		<row><td>CostInitialize</td><td/><td>800</td><td>CostInitialize</td><td/></row>
+		<row><td>CostInitialize</td><td/><td>700</td><td>CostInitialize</td><td/></row>
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
-		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
-		<row><td>FindRelatedProducts</td><td/><td>430</td><td>FindRelatedProducts</td><td/></row>
-		<row><td>GetHostnamePort</td><td/><td>200</td><td/><td/></row>
+		<row><td>FileCost</td><td/><td>800</td><td>FileCost</td><td/></row>
+		<row><td>FindRelatedProducts</td><td/><td>420</td><td>FindRelatedProducts</td><td/></row>
+		<row><td>GenerateUUID</td><td>UUID = ""</td><td>127</td><td/><td/></row>
+		<row><td>GetHostnamePort</td><td/><td>7</td><td/><td/></row>
 		<row><td>GetLicenseKey</td><td/><td>6</td><td/><td/></row>
-		<row><td>GetUUID</td><td/><td>5</td><td/><td/></row>
-		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
-		<row><td>ISSetupFilesCleanup</td><td/><td>1301</td><td/><td/></row>
-		<row><td>ISSetupFilesExtract</td><td/><td>3</td><td/><td/></row>
+		<row><td>GetUUID</td><td/><td>103</td><td/><td/></row>
+		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>430</td><td>ISPreventDowngrade</td><td/></row>
 		<row><td>InstallWelcome</td><td>Not Installed</td><td>1210</td><td>InstallWelcome</td><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
-		<row><td>LaunchConditions</td><td>Not Installed</td><td>410</td><td>LaunchConditions</td><td/></row>
+		<row><td>LaunchConditions</td><td>Not Installed</td><td>400</td><td>LaunchConditions</td><td/></row>
 		<row><td>MaintenanceWelcome</td><td>Installed And Not RESUME And Not Preselected And Not PATCH</td><td>1230</td><td>MaintenanceWelcome</td><td/></row>
 		<row><td>MigrateFeatureStates</td><td/><td>1200</td><td>MigrateFeatureStates</td><td/></row>
 		<row><td>PatchWelcome</td><td>Installed And PATCH And Not IS_MAJOR_UPGRADE</td><td>1205</td><td>Patch Panel</td><td/></row>
-		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
+		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>500</td><td>RMCCPSearch</td><td/></row>
 		<row><td>ResolveSource</td><td>Not Installed</td><td>990</td><td>ResolveSource</td><td/></row>
+		<row><td>SaveUUID</td><td/><td>151</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>VersionNT = 400</td><td>970</td><td/><td/></row>
 		<row><td>SetupCompleteError</td><td/><td>-3</td><td>SetupCompleteError</td><td/></row>
 		<row><td>SetupCompleteSuccess</td><td/><td>-1</td><td>SetupCompleteSuccess</td><td/></row>
-		<row><td>SetupInitialization</td><td/><td>420</td><td>SetupInitialization</td><td/></row>
+		<row><td>SetupInitialization</td><td/><td>410</td><td>SetupInitialization</td><td/></row>
 		<row><td>SetupInterrupted</td><td/><td>-2</td><td>SetupInterrupted</td><td/></row>
 		<row><td>SetupProgress</td><td/><td>1240</td><td>SetupProgress</td><td/></row>
 		<row><td>SetupResume</td><td>Installed And (RESUME Or Preselected) And Not PATCH</td><td>1220</td><td>SetupResume</td><td/></row>
-		<row><td>ValidateProductID</td><td/><td>700</td><td>ValidateProductID</td><td/></row>
+		<row><td>ValidateProductID</td><td/><td>600</td><td>ValidateProductID</td><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>VersionNT &gt;= 500</td><td>980</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>VersionNT</td><td>960</td><td/><td/></row>
 	</table>

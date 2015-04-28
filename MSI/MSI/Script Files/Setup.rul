@@ -22,12 +22,10 @@ export prototype GetHostnamePort(HWND);
 export prototype SaveHostnamePort(HWND);
 export prototype ParseHostnamePort(HWND);
 export prototype GetUUID(HWND);
-
-prototype STRING InstallerDLL.GenerateUUID(HWND);
+export prototype SaveUUID(HWND);
 
 #define KEY "Software\\Palette"
 #define PORT 22
-#define DLL "InstallerDLL.dll"
 
 // To Do:  Declare global variables, define constants, and prototype user-
 //         defined and DLL functions here.
@@ -268,13 +266,39 @@ end;
 //
 // Function:  GetUUID
 //
-// Retrieve the system UUID from the registry or generate a new one by calling
-// GenerateUUID in the DLL.  The result is stored in the UUID property.
+// Retrieve the system UUID from the registry;
 //
 ///////////////////////////////////////////////////////////////////////////////
 function GetUUID(hMSI)
 	NUMBER nResult, nvSize, nType;
-	STRING svUuid, svMsg, szSupportDir, szDll;
+	STRING svUuid, svMsg;
+begin
+	MsiGetProperty(hMSI, "UUID", svUuid, nvSize);
+	if (nvSize > 0) then
+		// UUID was specified on the command line.
+		return ERROR_SUCCESS;
+	endif;
+
+	nType = REGDB_STRING;
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+
+	nResult = RegDBGetKeyValueEx(KEY, "UUID", nType, svUuid, nvSize);
+	if (nResult == 0) then
+		MsiSetProperty(hMSI, "UUID", svUuid);
+	endif;
+
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function:  SaveUUID
+//
+// Store the system UUID in the registry
+//
+///////////////////////////////////////////////////////////////////////////////
+function SaveUUID(hMSI)
+	NUMBER nResult, nvSize, nType;
+	STRING svUuid, svMsg;
 begin
 	MsiGetProperty(hMSI, "UUID", svUuid, nvSize);
 
@@ -290,32 +314,10 @@ begin
 		endif;
 	endif;
 
-	if (nvSize == 0) then
-		nResult = RegDBGetKeyValueEx(KEY, "UUID", nType, svUuid, nvSize);
-		if (nResult < 0) then
-			MsiGetProperty(hMSI, "SUPPORTDIR", szSupportDir, nvSize);
-			ChangeDirectory(szSupportDir);
-			szDll = szSupportDir ^ DLL;
-
-			nResult = UseDLL(szDll);
-			if (nResult < 0) then
-				Sprintf(svMsg, "Failed to load %s\n%s", szDll, FormatMessage(nResult));
-				MessageBox(svMsg, SEVERE);
-				abort;
-			endif;
-			svUuid = InstallerDLL.GenerateUUID(hMSI);
-			UnUseDLL(szDll);
-		endif;
-	endif;
-
 	nResult = RegDBSetKeyValueEx(KEY, "UUID", nType, svUuid, nvSize);
 	if (nResult < 0) then
 		Sprintf(svMsg, "Failed to set Registry value 'UUID'\n%s", FormatMessage(nResult));
 		MessageBox(svMsg, SEVERE);
 		abort;
-	endif;
-
-	if (nvSize == 0) then
-		MsiSetProperty(hMSI, "UUID", svUuid);
 	endif;
 end;

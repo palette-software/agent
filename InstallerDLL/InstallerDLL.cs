@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InstallShield.Interop;
-using RGiesecke.DllExport;
 
 namespace InstallerDLL
 {
@@ -43,9 +42,9 @@ namespace InstallerDLL
             return 1;
         }
 
-        [DllExport()]
-        public static string GenerateUUID(Int32 unused)
+        public static string GenerateUUID(Int32 handle)
         {
+            MessageBox.Show("GenerateUUID()");
             return System.Guid.NewGuid().ToString();
         }
 
