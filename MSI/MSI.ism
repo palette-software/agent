@@ -346,25 +346,25 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>AWSSDK.dll</td><td>{ACFAEFB3-AB8C-43A8-90EC-52D6299DA519}</td><td>INSTALLDIR</td><td>8</td><td/><td>awssdk.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles</td><td>{EAE4FE41-8679-4F50-B50E-0D66B62C07E6}</td><td>APACHE2</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles1</td><td>{F66B562F-E10E-4BF1-B2DE-7330963B29EB}</td><td>BIN</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles10</td><td>{8DDD5D50-378D-4A22-9E3D-E92A504FC528}</td><td>WWW</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles11</td><td>{91E13D68-B5B1-4C31-85D8-BF7695B75975}</td><td>FONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles12</td><td>{7B343326-B240-437E-9897-A60F22D26657}</td><td>IMAGE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles13</td><td>{BD6163ED-914B-41EA-A052-972D56E5C90E}</td><td>WEBFONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles14</td><td>{B9A05843-4429-4695-A365-034212F8E75D}</td><td>UPGRADE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles2</td><td>{FF5FB549-11C6-4E63-9D85-F0468D2D12F6}</td><td>CONF</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles3</td><td>{2EF24BEF-4B8E-457D-8AC3-87D6C7BBED13}</td><td>LIB</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles4</td><td>{A2FF70C4-01AF-4C2F-87E6-7B8085B4FF2A}</td><td>MODULES</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles5</td><td>{C6419A9A-8A7A-40A8-8777-C5D969BB213B}</td><td>CGI_BIN</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles6</td><td>{1D1969A3-5CE5-4D10-9B17-1C815EA34E0F}</td><td>CONF1</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles7</td><td>{D915BF70-13A5-4BFC-A6A5-8E53F5E9F56A}</td><td>ARCHIVE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AllOtherFiles8</td><td>{9E950783-6E94-4CDE-8176-EA057473A891}</td><td>MAINT</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles9</td><td>{2134F556-4889-425F-AD2E-AEEA15FB6D6B}</td><td>CONF2</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ApacheBin</td><td>{F66B562F-E10E-4BF1-B2DE-7330963B29EB}</td><td>BIN</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ApacheCGIBin</td><td>{C6419A9A-8A7A-40A8-8777-C5D969BB213B}</td><td>CGI_BIN</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ApacheConf</td><td>{FF5FB549-11C6-4E63-9D85-F0468D2D12F6}</td><td>CONF</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ApacheLib</td><td>{2EF24BEF-4B8E-457D-8AC3-87D6C7BBED13}</td><td>LIB</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ApacheModules</td><td>{A2FF70C4-01AF-4C2F-87E6-7B8085B4FF2A}</td><td>MODULES</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ApacheMonitor.exe</td><td>{0C9174B3-8468-4B58-AAA0-CB4CE830EFE8}</td><td>BIN</td><td>8</td><td/><td>apachemonitor.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ArchiveConf</td><td>{D915BF70-13A5-4BFC-A6A5-8E53F5E9F56A}</td><td>ARCHIVE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Conf</td><td>{1D1969A3-5CE5-4D10-9B17-1C815EA34E0F}</td><td>CONF1</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ConsoleAgent.Primary_output</td><td>{01C8DE75-B1CC-4D6F-A41C-E242F9567C88}</td><td>INSTALLDIR</td><td>8</td><td/><td>consoleagent.primary_output</td><td>1</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Interop.NetFwTypeLib.dll</td><td>{788AD763-D2C1-472B-8196-EF55A539ADD8}</td><td>INSTALLDIR</td><td>8</td><td/><td>interop.netfwtypelib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Logs</td><td>{32EE1FE9-F4C3-4942-B707-7D65D2AD7D96}</td><td>LOGS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintConf</td><td>{2134F556-4889-425F-AD2E-AEEA15FB6D6B}</td><td>CONF2</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintWww</td><td>{8DDD5D50-378D-4A22-9E3D-E92A504FC528}</td><td>WWW</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintWwwFonts</td><td>{91E13D68-B5B1-4C31-85D8-BF7695B75975}</td><td>FONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintWwwFontsWebfonts</td><td>{BD6163ED-914B-41EA-A052-972D56E5C90E}</td><td>WEBFONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintWwwImage</td><td>{7B343326-B240-437E-9897-A60F22D26657}</td><td>IMAGE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ServiceAgent.Primary_output</td><td>{5AFC4391-D2F6-4654-AA3D-09EFEF92BB20}</td><td>INSTALLDIR</td><td>8</td><td/><td>serviceagent.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Upgrade</td><td>{B9A05843-4429-4695-A365-034212F8E75D}</td><td>UPGRADE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ab.exe</td><td>{8C8563FE-3572-441D-815E-97C189312B76}</td><td>BIN</td><td>8</td><td/><td>ab.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>abs.exe</td><td>{088FDF81-8FC9-479F-94E6-5BDDBD493D13}</td><td>BIN</td><td>8</td><td/><td>abs.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>apr_crypto_openssl_1.dll</td><td>{64A3FEBC-02A3-4319-BF4E-E2CD8C5C2338}</td><td>BIN</td><td>8</td><td/><td>apr_crypto_openssl_1.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -577,7 +577,7 @@
 		<row><td>FilesInUse</td><td>List</td><td>ListBox</td><td>21</td><td>87</td><td>331</td><td>135</td><td>7</td><td>FileInUseProcess</td><td/><td>Retry</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Retry##</td><td>Ignore</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>Hostname</td><td>BannerLine</td><td>Line</td><td>0</td><td>45</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
 		<row><td>Hostname</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>{&amp;Tahoma8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -628,7 +628,7 @@
 		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Eula.rtf</td><td/></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>BannerLine</td><td>Line</td><td>0</td><td>45</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
 		<row><td>LicenseKey</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>{&amp;Tahoma8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -1106,11 +1106,11 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>APACHE2</td><td>AllOtherFiles</td></row>
-		<row><td>CGI_BIN</td><td>AllOtherFiles5</td></row>
-		<row><td>FONTS</td><td>AllOtherFiles11</td></row>
+		<row><td>CGI_BIN</td><td>ApacheCGIBin</td></row>
+		<row><td>FONTS</td><td>MaintWwwFonts</td></row>
+		<row><td>LOGS</td><td>Logs</td></row>
 		<row><td>MAINT</td><td>AllOtherFiles8</td></row>
-		<row><td>UPGRADE</td><td>AllOtherFiles14</td></row>
+		<row><td>UPGRADE</td><td>Upgrade</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1174,7 +1174,7 @@
 		<row><td>InstallChangeFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Tail</td><td>OK</td><td>Cancel</td><td>Browse</td><td/><td>0</td><td/></row>
 		<row><td>InstallWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td/><td>Cancel</td><td>Welcome Panel</td><td/><td>0</td><td/></row>
 		<row><td>LicenseAgreement</td><td>50</td><td>50</td><td>374</td><td>266</td><td>2</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Agree</td><td>Next</td><td>Cancel</td><td>License Agreement</td><td/><td>0</td><td/></row>
-		<row><td>LicenseKey</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
+		<row><td>LicenseKey</td><td>50</td><td>44</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>MaintenanceType</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>RadioGroup</td><td>Next</td><td>Cancel</td><td>Change, Reinstall, Remove</td><td/><td>0</td><td/></row>
 		<row><td>MaintenanceWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Maintenance Welcome</td><td/><td>0</td><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>50</td><td>50</td><td>374</td><td>266</td><td>19</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>OK</td><td>OK</td><td>Cancel</td><td>RestartManager Files in Use</td><td/><td>0</td><td/></row>
@@ -1226,6 +1226,7 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LIB</td><td>APACHE2</td><td>lib</td><td/><td>0</td><td/></row>
+		<row><td>LOGS</td><td>INSTALLDIR</td><td>logs</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MAINT</td><td>INSTALLDIR</td><td>maint</td><td/><td>0</td><td/></row>
 		<row><td>MODULES</td><td>APACHE2</td><td>modules</td><td/><td>0</td><td/></row>
@@ -1945,25 +1946,25 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>Palette_Files</td><td>AWSSDK.dll</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles1</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles10</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles11</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles12</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles13</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles14</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles2</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles3</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles4</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles5</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles6</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles7</td></row>
 		<row><td>Palette_Files</td><td>AllOtherFiles8</td></row>
-		<row><td>Palette_Files</td><td>AllOtherFiles9</td></row>
+		<row><td>Palette_Files</td><td>ApacheBin</td></row>
+		<row><td>Palette_Files</td><td>ApacheCGIBin</td></row>
+		<row><td>Palette_Files</td><td>ApacheConf</td></row>
+		<row><td>Palette_Files</td><td>ApacheLib</td></row>
+		<row><td>Palette_Files</td><td>ApacheModules</td></row>
 		<row><td>Palette_Files</td><td>ApacheMonitor.exe</td></row>
+		<row><td>Palette_Files</td><td>ArchiveConf</td></row>
+		<row><td>Palette_Files</td><td>Conf</td></row>
 		<row><td>Palette_Files</td><td>ConsoleAgent.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>Interop.NetFwTypeLib.dll</td></row>
+		<row><td>Palette_Files</td><td>Logs</td></row>
+		<row><td>Palette_Files</td><td>MaintConf</td></row>
+		<row><td>Palette_Files</td><td>MaintWww</td></row>
+		<row><td>Palette_Files</td><td>MaintWwwFonts</td></row>
+		<row><td>Palette_Files</td><td>MaintWwwFontsWebfonts</td></row>
+		<row><td>Palette_Files</td><td>MaintWwwImage</td></row>
 		<row><td>Palette_Files</td><td>ServiceAgent.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>Upgrade</td></row>
 		<row><td>Palette_Files</td><td>ab.exe</td></row>
 		<row><td>Palette_Files</td><td>abs.exe</td></row>
 		<row><td>Palette_Files</td><td>apr_crypto_openssl_1.dll</td></row>
@@ -2014,174 +2015,173 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>_b4065_8_0.eot</td><td>AllOtherFiles13</td><td>2B4065~1.EOT|2B4065_8_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.eot</td><td>1</td><td/></row>
-		<row><td>_b4065_8_0.ttf</td><td>AllOtherFiles13</td><td>2B4065~1.TTF|2B4065_8_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.ttf</td><td>1</td><td/></row>
-		<row><td>_b4065_8_0.woff</td><td>AllOtherFiles13</td><td>2B4065~1.WOF|2B4065_8_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.woff</td><td>1</td><td/></row>
-		<row><td>_b4065_9_0.eot</td><td>AllOtherFiles13</td><td>2B4065~1.EOT|2B4065_9_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.eot</td><td>1</td><td/></row>
-		<row><td>_b4065_9_0.ttf</td><td>AllOtherFiles13</td><td>2B4065~1.TTF|2B4065_9_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.ttf</td><td>1</td><td/></row>
-		<row><td>_b4065_9_0.woff</td><td>AllOtherFiles13</td><td>2B4065~1.WOF|2B4065_9_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.woff</td><td>1</td><td/></row>
-		<row><td>_b4065_a_0.eot</td><td>AllOtherFiles13</td><td>2B4065~1.EOT|2B4065_A_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.eot</td><td>1</td><td/></row>
-		<row><td>_b4065_a_0.ttf</td><td>AllOtherFiles13</td><td>2B4065~1.TTF|2B4065_A_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.ttf</td><td>1</td><td/></row>
-		<row><td>_b4065_a_0.woff</td><td>AllOtherFiles13</td><td>2B4065~1.WOF|2B4065_A_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.woff</td><td>1</td><td/></row>
-		<row><td>_gitignore</td><td>AllOtherFiles2</td><td>GITIGN~1|.gitignore</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES&gt;\.gitignore</td><td>1</td><td/></row>
+		<row><td>_b4065_8_0.eot</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.EOT|2B4065_8_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_8_0.ttf</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.TTF|2B4065_8_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_8_0.woff</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.WOF|2B4065_8_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_8_0.woff</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.eot</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.EOT|2B4065_9_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.ttf</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.TTF|2B4065_9_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_9_0.woff</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.WOF|2B4065_9_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_9_0.woff</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.eot</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.EOT|2B4065_A_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.eot</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.ttf</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.TTF|2B4065_A_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.ttf</td><td>1</td><td/></row>
+		<row><td>_b4065_a_0.woff</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.WOF|2B4065_A_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.woff</td><td>1</td><td/></row>
+		<row><td>_gitignore</td><td>ApacheConf</td><td>GITIGN~1|.gitignore</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES&gt;\.gitignore</td><td>1</td><td/></row>
 		<row><td>ab.exe</td><td>ab.exe</td><td>ab.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\ab.exe</td><td>1</td><td/></row>
 		<row><td>abs.exe</td><td>abs.exe</td><td>abs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\abs.exe</td><td>1</td><td/></row>
-		<row><td>agent.ini</td><td>AllOtherFiles6</td><td>agent.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\agent.ini</td><td>1</td><td/></row>
 		<row><td>apachemonitor.exe</td><td>ApacheMonitor.exe</td><td>APACHE~1.EXE|ApacheMonitor.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\ApacheMonitor.exe</td><td>1</td><td/></row>
-		<row><td>apr_1.lib</td><td>AllOtherFiles3</td><td>apr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\apr-1.lib</td><td>1</td><td/></row>
+		<row><td>apr_1.lib</td><td>ApacheLib</td><td>apr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\apr-1.lib</td><td>1</td><td/></row>
 		<row><td>apr_crypto_openssl_1.dll</td><td>apr_crypto_openssl_1.dll</td><td>APR_CR~1.DLL|apr_crypto_openssl-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\apr_crypto_openssl-1.dll</td><td>1</td><td/></row>
 		<row><td>apr_dbd_mysql_1.dll</td><td>apr_dbd_mysql_1.dll</td><td>APR_DB~1.DLL|apr_dbd_mysql-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\apr_dbd_mysql-1.dll</td><td>1</td><td/></row>
 		<row><td>apr_dbd_odbc_1.dll</td><td>apr_dbd_odbc_1.dll</td><td>APR_DB~1.DLL|apr_dbd_odbc-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\apr_dbd_odbc-1.dll</td><td>1</td><td/></row>
 		<row><td>apr_ldap_1.dll</td><td>apr_ldap_1.dll</td><td>APR_LD~1.DLL|apr_ldap-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\apr_ldap-1.dll</td><td>1</td><td/></row>
-		<row><td>aprutil_1.lib</td><td>AllOtherFiles3</td><td>APRUTI~1.LIB|aprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\aprutil-1.lib</td><td>1</td><td/></row>
-		<row><td>archive.crt</td><td>AllOtherFiles6</td><td>archive.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.crt</td><td>1</td><td/></row>
-		<row><td>archive.key</td><td>AllOtherFiles6</td><td>archive.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.key</td><td>1</td><td/></row>
+		<row><td>aprutil_1.lib</td><td>ApacheLib</td><td>APRUTI~1.LIB|aprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\aprutil-1.lib</td><td>1</td><td/></row>
+		<row><td>archive.crt</td><td>Conf</td><td>archive.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.crt</td><td>1</td><td/></row>
+		<row><td>archive.key</td><td>Conf</td><td>archive.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.key</td><td>1</td><td/></row>
 		<row><td>awssdk.dll</td><td>AWSSDK.dll</td><td>AWSSDK.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\AWSSDK.dll</td><td>1</td><td/></row>
 		<row><td>consoleagent.primary_output</td><td>ConsoleAgent.Primary_output</td><td>ConsoleAgent.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ConsoleAgent&gt;|Built</td><td>3</td><td/></row>
-		<row><td>dbmmanage.pl</td><td>AllOtherFiles1</td><td>DBMMAN~1.PL|dbmmanage.pl</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\dbmmanage.pl</td><td>1</td><td/></row>
+		<row><td>dbmmanage.pl</td><td>ApacheBin</td><td>DBMMAN~1.PL|dbmmanage.pl</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\dbmmanage.pl</td><td>1</td><td/></row>
 		<row><td>fastjson.dll</td><td>fastJSON.dll</td><td>fastJSON.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\fastJSON.dll</td><td>1</td><td/></row>
-		<row><td>favicon.ico</td><td>AllOtherFiles10</td><td>favicon.ico</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon.ico</td><td>1</td><td/></row>
-		<row><td>favicon_120.png</td><td>AllOtherFiles10</td><td>FAVICO~1.PNG|favicon-120.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-120.png</td><td>1</td><td/></row>
-		<row><td>favicon_152.png</td><td>AllOtherFiles10</td><td>FAVICO~1.PNG|favicon-152.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-152.png</td><td>1</td><td/></row>
-		<row><td>favicon_60.png</td><td>AllOtherFiles10</td><td>FAVICO~1.PNG|favicon-60.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-60.png</td><td>1</td><td/></row>
-		<row><td>favicon_76.png</td><td>AllOtherFiles10</td><td>FAVICO~1.PNG|favicon-76.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-76.png</td><td>1</td><td/></row>
+		<row><td>favicon.ico</td><td>MaintWww</td><td>favicon.ico</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon.ico</td><td>1</td><td/></row>
+		<row><td>favicon_120.png</td><td>MaintWww</td><td>FAVICO~1.PNG|favicon-120.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-120.png</td><td>1</td><td/></row>
+		<row><td>favicon_152.png</td><td>MaintWww</td><td>FAVICO~1.PNG|favicon-152.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-152.png</td><td>1</td><td/></row>
+		<row><td>favicon_60.png</td><td>MaintWww</td><td>FAVICO~1.PNG|favicon-60.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-60.png</td><td>1</td><td/></row>
+		<row><td>favicon_76.png</td><td>MaintWww</td><td>FAVICO~1.PNG|favicon-76.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\favicon-76.png</td><td>1</td><td/></row>
 		<row><td>htcacheclean.exe</td><td>htcacheclean.exe</td><td>HTCACH~1.EXE|htcacheclean.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\htcacheclean.exe</td><td>1</td><td/></row>
 		<row><td>htdbm.exe</td><td>htdbm.exe</td><td>htdbm.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\htdbm.exe</td><td>1</td><td/></row>
 		<row><td>htdigest.exe</td><td>htdigest.exe</td><td>htdigest.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\htdigest.exe</td><td>1</td><td/></row>
-		<row><td>htpasswd</td><td>AllOtherFiles7</td><td>htpasswd</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\htpasswd</td><td>1</td><td/></row>
+		<row><td>htpasswd</td><td>ArchiveConf</td><td>htpasswd</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\htpasswd</td><td>1</td><td/></row>
 		<row><td>htpasswd.exe</td><td>htpasswd.exe</td><td>htpasswd.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\htpasswd.exe</td><td>1</td><td/></row>
-		<row><td>httpd.conf</td><td>AllOtherFiles7</td><td>HTTPD~1.CON|httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\httpd.conf</td><td>1</td><td/></row>
-		<row><td>httpd.conf1</td><td>AllOtherFiles9</td><td>HTTPD~1.CON|httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES1&gt;\httpd.conf</td><td>1</td><td/></row>
+		<row><td>httpd.conf</td><td>ArchiveConf</td><td>HTTPD~1.CON|httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\httpd.conf</td><td>1</td><td/></row>
+		<row><td>httpd.conf1</td><td>MaintConf</td><td>HTTPD~1.CON|httpd.conf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES1&gt;\httpd.conf</td><td>1</td><td/></row>
 		<row><td>httpd.exe</td><td>httpd.exe</td><td>httpd.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\httpd.exe</td><td>1</td><td/></row>
 		<row><td>httxt2dbm.exe</td><td>httxt2dbm.exe</td><td>HTTXT2~1.EXE|httxt2dbm.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\httxt2dbm.exe</td><td>1</td><td/></row>
-		<row><td>index.html</td><td>AllOtherFiles10</td><td>INDEX~1.HTM|index.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\index.html</td><td>1</td><td/></row>
+		<row><td>index.html</td><td>MaintWww</td><td>INDEX~1.HTM|index.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\index.html</td><td>1</td><td/></row>
 		<row><td>interop.netfwtypelib.dll</td><td>Interop.NetFwTypeLib.dll</td><td>INTERO~1.DLL|Interop.NetFwTypeLib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\Interop.NetFwTypeLib.dll</td><td>1</td><td/></row>
 		<row><td>libapr_1.dll</td><td>libapr_1.dll</td><td>libapr-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libapr-1.dll</td><td>1</td><td/></row>
-		<row><td>libapr_1.exp</td><td>AllOtherFiles3</td><td>libapr-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapr-1.exp</td><td>1</td><td/></row>
-		<row><td>libapr_1.lib</td><td>AllOtherFiles3</td><td>libapr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapr-1.lib</td><td>1</td><td/></row>
+		<row><td>libapr_1.exp</td><td>ApacheLib</td><td>libapr-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapr-1.exp</td><td>1</td><td/></row>
+		<row><td>libapr_1.lib</td><td>ApacheLib</td><td>libapr-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapr-1.lib</td><td>1</td><td/></row>
 		<row><td>libapriconv_1.dll</td><td>libapriconv_1.dll</td><td>LIBAPR~1.DLL|libapriconv-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libapriconv-1.dll</td><td>1</td><td/></row>
-		<row><td>libapriconv_1.exp</td><td>AllOtherFiles3</td><td>LIBAPR~1.EXP|libapriconv-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapriconv-1.exp</td><td>1</td><td/></row>
-		<row><td>libapriconv_1.lib</td><td>AllOtherFiles3</td><td>LIBAPR~1.LIB|libapriconv-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapriconv-1.lib</td><td>1</td><td/></row>
+		<row><td>libapriconv_1.exp</td><td>ApacheLib</td><td>LIBAPR~1.EXP|libapriconv-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapriconv-1.exp</td><td>1</td><td/></row>
+		<row><td>libapriconv_1.lib</td><td>ApacheLib</td><td>LIBAPR~1.LIB|libapriconv-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libapriconv-1.lib</td><td>1</td><td/></row>
 		<row><td>libaprutil_1.dll</td><td>libaprutil_1.dll</td><td>LIBAPR~1.DLL|libaprutil-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libaprutil-1.dll</td><td>1</td><td/></row>
-		<row><td>libaprutil_1.exp</td><td>AllOtherFiles3</td><td>LIBAPR~1.EXP|libaprutil-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libaprutil-1.exp</td><td>1</td><td/></row>
-		<row><td>libaprutil_1.lib</td><td>AllOtherFiles3</td><td>LIBAPR~1.LIB|libaprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libaprutil-1.lib</td><td>1</td><td/></row>
+		<row><td>libaprutil_1.exp</td><td>ApacheLib</td><td>LIBAPR~1.EXP|libaprutil-1.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libaprutil-1.exp</td><td>1</td><td/></row>
+		<row><td>libaprutil_1.lib</td><td>ApacheLib</td><td>LIBAPR~1.LIB|libaprutil-1.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libaprutil-1.lib</td><td>1</td><td/></row>
 		<row><td>libeay32.dll</td><td>libeay32.dll</td><td>libeay32.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libeay32.dll</td><td>1</td><td/></row>
 		<row><td>libhttpd.dll</td><td>libhttpd.dll</td><td>libhttpd.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libhttpd.dll</td><td>1</td><td/></row>
-		<row><td>libhttpd.exp</td><td>AllOtherFiles3</td><td>libhttpd.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libhttpd.exp</td><td>1</td><td/></row>
-		<row><td>libhttpd.lib</td><td>AllOtherFiles3</td><td>libhttpd.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libhttpd.lib</td><td>1</td><td/></row>
+		<row><td>libhttpd.exp</td><td>ApacheLib</td><td>libhttpd.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libhttpd.exp</td><td>1</td><td/></row>
+		<row><td>libhttpd.lib</td><td>ApacheLib</td><td>libhttpd.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\libhttpd.lib</td><td>1</td><td/></row>
 		<row><td>libxml2.dll</td><td>libxml2.dll</td><td>libxml2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\libxml2.dll</td><td>1</td><td/></row>
 		<row><td>log4net.dll</td><td>log4net.dll</td><td>log4net.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\log4net.dll</td><td>1</td><td/></row>
 		<row><td>logresolve.exe</td><td>logresolve.exe</td><td>LOGRES~1.EXE|logresolve.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\logresolve.exe</td><td>1</td><td/></row>
 		<row><td>lua51.dll</td><td>lua51.dll</td><td>lua51.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\lua51.dll</td><td>1</td><td/></row>
-		<row><td>mime.types</td><td>AllOtherFiles2</td><td>MIME~1.TYP|mime.types</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES&gt;\mime.types</td><td>1</td><td/></row>
-		<row><td>mod_access_compat.so</td><td>AllOtherFiles4</td><td>MOD_AC~1.SO|mod_access_compat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_access_compat.so</td><td>1</td><td/></row>
-		<row><td>mod_actions.so</td><td>AllOtherFiles4</td><td>MOD_AC~1.SO|mod_actions.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_actions.so</td><td>1</td><td/></row>
-		<row><td>mod_alias.so</td><td>AllOtherFiles4</td><td>MOD_AL~1.SO|mod_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_alias.so</td><td>1</td><td/></row>
-		<row><td>mod_allowmethods.so</td><td>AllOtherFiles4</td><td>MOD_AL~1.SO|mod_allowmethods.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_allowmethods.so</td><td>1</td><td/></row>
-		<row><td>mod_asis.so</td><td>AllOtherFiles4</td><td>mod_asis.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_asis.so</td><td>1</td><td/></row>
-		<row><td>mod_auth_basic.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_auth_basic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_basic.so</td><td>1</td><td/></row>
-		<row><td>mod_auth_digest.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_auth_digest.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_digest.so</td><td>1</td><td/></row>
-		<row><td>mod_auth_form.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_auth_form.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_form.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_anon.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_anon.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_anon.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_core.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_core.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_dbd.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_dbd.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_dbm.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_dbm.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_file.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_file.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_file.so</td><td>1</td><td/></row>
-		<row><td>mod_authn_socache.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authn_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_socache.so</td><td>1</td><td/></row>
-		<row><td>mod_authnz_ldap.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authnz_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authnz_ldap.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_core.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_core.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_dbd.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_dbd.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_dbm.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_dbm.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_groupfile.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_groupfile.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_groupfile.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_host.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_host.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_host.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_owner.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_owner.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_owner.so</td><td>1</td><td/></row>
-		<row><td>mod_authz_user.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_authz_user.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_user.so</td><td>1</td><td/></row>
-		<row><td>mod_autoindex.so</td><td>AllOtherFiles4</td><td>MOD_AU~1.SO|mod_autoindex.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_autoindex.so</td><td>1</td><td/></row>
-		<row><td>mod_buffer.so</td><td>AllOtherFiles4</td><td>MOD_BU~1.SO|mod_buffer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_buffer.so</td><td>1</td><td/></row>
-		<row><td>mod_cache.so</td><td>AllOtherFiles4</td><td>MOD_CA~1.SO|mod_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache.so</td><td>1</td><td/></row>
-		<row><td>mod_cache_disk.so</td><td>AllOtherFiles4</td><td>MOD_CA~1.SO|mod_cache_disk.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache_disk.so</td><td>1</td><td/></row>
-		<row><td>mod_cache_socache.so</td><td>AllOtherFiles4</td><td>MOD_CA~1.SO|mod_cache_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache_socache.so</td><td>1</td><td/></row>
-		<row><td>mod_cern_meta.so</td><td>AllOtherFiles4</td><td>MOD_CE~1.SO|mod_cern_meta.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cern_meta.so</td><td>1</td><td/></row>
-		<row><td>mod_cgi.so</td><td>AllOtherFiles4</td><td>mod_cgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cgi.so</td><td>1</td><td/></row>
-		<row><td>mod_charset_lite.so</td><td>AllOtherFiles4</td><td>MOD_CH~1.SO|mod_charset_lite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_charset_lite.so</td><td>1</td><td/></row>
-		<row><td>mod_data.so</td><td>AllOtherFiles4</td><td>mod_data.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_data.so</td><td>1</td><td/></row>
-		<row><td>mod_dav.exp</td><td>AllOtherFiles3</td><td>mod_dav.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\mod_dav.exp</td><td>1</td><td/></row>
-		<row><td>mod_dav.lib</td><td>AllOtherFiles3</td><td>mod_dav.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\mod_dav.lib</td><td>1</td><td/></row>
-		<row><td>mod_dav.so</td><td>AllOtherFiles4</td><td>mod_dav.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav.so</td><td>1</td><td/></row>
-		<row><td>mod_dav_fs.so</td><td>AllOtherFiles4</td><td>MOD_DA~1.SO|mod_dav_fs.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav_fs.so</td><td>1</td><td/></row>
-		<row><td>mod_dav_lock.so</td><td>AllOtherFiles4</td><td>MOD_DA~1.SO|mod_dav_lock.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav_lock.so</td><td>1</td><td/></row>
-		<row><td>mod_dbd.so</td><td>AllOtherFiles4</td><td>mod_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dbd.so</td><td>1</td><td/></row>
-		<row><td>mod_deflate.so</td><td>AllOtherFiles4</td><td>MOD_DE~1.SO|mod_deflate.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_deflate.so</td><td>1</td><td/></row>
-		<row><td>mod_dir.so</td><td>AllOtherFiles4</td><td>mod_dir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dir.so</td><td>1</td><td/></row>
-		<row><td>mod_dumpio.so</td><td>AllOtherFiles4</td><td>MOD_DU~1.SO|mod_dumpio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dumpio.so</td><td>1</td><td/></row>
-		<row><td>mod_env.so</td><td>AllOtherFiles4</td><td>mod_env.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_env.so</td><td>1</td><td/></row>
-		<row><td>mod_expires.so</td><td>AllOtherFiles4</td><td>MOD_EX~1.SO|mod_expires.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_expires.so</td><td>1</td><td/></row>
-		<row><td>mod_ext_filter.so</td><td>AllOtherFiles4</td><td>MOD_EX~1.SO|mod_ext_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ext_filter.so</td><td>1</td><td/></row>
-		<row><td>mod_file_cache.so</td><td>AllOtherFiles4</td><td>MOD_FI~1.SO|mod_file_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_file_cache.so</td><td>1</td><td/></row>
-		<row><td>mod_filter.so</td><td>AllOtherFiles4</td><td>MOD_FI~1.SO|mod_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_filter.so</td><td>1</td><td/></row>
-		<row><td>mod_headers.so</td><td>AllOtherFiles4</td><td>MOD_HE~1.SO|mod_headers.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_headers.so</td><td>1</td><td/></row>
-		<row><td>mod_heartbeat.so</td><td>AllOtherFiles4</td><td>MOD_HE~1.SO|mod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_heartbeat.so</td><td>1</td><td/></row>
-		<row><td>mod_heartmonitor.so</td><td>AllOtherFiles4</td><td>MOD_HE~1.SO|mod_heartmonitor.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_heartmonitor.so</td><td>1</td><td/></row>
-		<row><td>mod_ident.so</td><td>AllOtherFiles4</td><td>MOD_ID~1.SO|mod_ident.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ident.so</td><td>1</td><td/></row>
-		<row><td>mod_imagemap.so</td><td>AllOtherFiles4</td><td>MOD_IM~1.SO|mod_imagemap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_imagemap.so</td><td>1</td><td/></row>
-		<row><td>mod_include.so</td><td>AllOtherFiles4</td><td>MOD_IN~1.SO|mod_include.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_include.so</td><td>1</td><td/></row>
-		<row><td>mod_info.so</td><td>AllOtherFiles4</td><td>mod_info.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_info.so</td><td>1</td><td/></row>
-		<row><td>mod_isapi.so</td><td>AllOtherFiles4</td><td>MOD_IS~1.SO|mod_isapi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_isapi.so</td><td>1</td><td/></row>
-		<row><td>mod_lbmethod_bybusyness.so</td><td>AllOtherFiles4</td><td>MOD_LB~1.SO|mod_lbmethod_bybusyness.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_bybusyness.so</td><td>1</td><td/></row>
-		<row><td>mod_lbmethod_byrequests.so</td><td>AllOtherFiles4</td><td>MOD_LB~1.SO|mod_lbmethod_byrequests.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_byrequests.so</td><td>1</td><td/></row>
-		<row><td>mod_lbmethod_bytraffic.so</td><td>AllOtherFiles4</td><td>MOD_LB~1.SO|mod_lbmethod_bytraffic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_bytraffic.so</td><td>1</td><td/></row>
-		<row><td>mod_lbmethod_heartbeat.so</td><td>AllOtherFiles4</td><td>MOD_LB~1.SO|mod_lbmethod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_heartbeat.so</td><td>1</td><td/></row>
-		<row><td>mod_ldap.so</td><td>AllOtherFiles4</td><td>mod_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ldap.so</td><td>1</td><td/></row>
-		<row><td>mod_log_config.so</td><td>AllOtherFiles4</td><td>MOD_LO~1.SO|mod_log_config.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_config.so</td><td>1</td><td/></row>
-		<row><td>mod_log_debug.so</td><td>AllOtherFiles4</td><td>MOD_LO~1.SO|mod_log_debug.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_debug.so</td><td>1</td><td/></row>
-		<row><td>mod_log_forensic.so</td><td>AllOtherFiles4</td><td>MOD_LO~1.SO|mod_log_forensic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_forensic.so</td><td>1</td><td/></row>
-		<row><td>mod_logio.so</td><td>AllOtherFiles4</td><td>MOD_LO~1.SO|mod_logio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_logio.so</td><td>1</td><td/></row>
-		<row><td>mod_lua.so</td><td>AllOtherFiles4</td><td>mod_lua.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lua.so</td><td>1</td><td/></row>
-		<row><td>mod_macro.so</td><td>AllOtherFiles4</td><td>MOD_MA~1.SO|mod_macro.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_macro.so</td><td>1</td><td/></row>
-		<row><td>mod_mime.so</td><td>AllOtherFiles4</td><td>mod_mime.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_mime.so</td><td>1</td><td/></row>
-		<row><td>mod_mime_magic.so</td><td>AllOtherFiles4</td><td>MOD_MI~1.SO|mod_mime_magic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_mime_magic.so</td><td>1</td><td/></row>
-		<row><td>mod_negotiation.so</td><td>AllOtherFiles4</td><td>MOD_NE~1.SO|mod_negotiation.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_negotiation.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_ajp.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_ajp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_ajp.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_balancer.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_balancer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_balancer.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_connect.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_connect.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_connect.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_express.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_express.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_express.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_fcgi.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_fcgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_fcgi.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_ftp.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_ftp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_ftp.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_html.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_html.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_html.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_http.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_http.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_http.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_scgi.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_scgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_scgi.so</td><td>1</td><td/></row>
-		<row><td>mod_proxy_wstunnel.so</td><td>AllOtherFiles4</td><td>MOD_PR~1.SO|mod_proxy_wstunnel.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_wstunnel.so</td><td>1</td><td/></row>
-		<row><td>mod_ratelimit.so</td><td>AllOtherFiles4</td><td>MOD_RA~1.SO|mod_ratelimit.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ratelimit.so</td><td>1</td><td/></row>
-		<row><td>mod_reflector.so</td><td>AllOtherFiles4</td><td>MOD_RE~1.SO|mod_reflector.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_reflector.so</td><td>1</td><td/></row>
-		<row><td>mod_remoteip.so</td><td>AllOtherFiles4</td><td>MOD_RE~1.SO|mod_remoteip.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_remoteip.so</td><td>1</td><td/></row>
-		<row><td>mod_reqtimeout.so</td><td>AllOtherFiles4</td><td>MOD_RE~1.SO|mod_reqtimeout.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_reqtimeout.so</td><td>1</td><td/></row>
-		<row><td>mod_request.so</td><td>AllOtherFiles4</td><td>MOD_RE~1.SO|mod_request.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_request.so</td><td>1</td><td/></row>
-		<row><td>mod_rewrite.so</td><td>AllOtherFiles4</td><td>MOD_RE~1.SO|mod_rewrite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_rewrite.so</td><td>1</td><td/></row>
-		<row><td>mod_sed.so</td><td>AllOtherFiles4</td><td>mod_sed.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_sed.so</td><td>1</td><td/></row>
-		<row><td>mod_session.so</td><td>AllOtherFiles4</td><td>MOD_SE~1.SO|mod_session.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session.so</td><td>1</td><td/></row>
-		<row><td>mod_session_cookie.so</td><td>AllOtherFiles4</td><td>MOD_SE~1.SO|mod_session_cookie.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_cookie.so</td><td>1</td><td/></row>
-		<row><td>mod_session_crypto.so</td><td>AllOtherFiles4</td><td>MOD_SE~1.SO|mod_session_crypto.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_crypto.so</td><td>1</td><td/></row>
-		<row><td>mod_session_dbd.so</td><td>AllOtherFiles4</td><td>MOD_SE~1.SO|mod_session_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_dbd.so</td><td>1</td><td/></row>
-		<row><td>mod_setenvif.so</td><td>AllOtherFiles4</td><td>MOD_SE~1.SO|mod_setenvif.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_setenvif.so</td><td>1</td><td/></row>
-		<row><td>mod_slotmem_plain.so</td><td>AllOtherFiles4</td><td>MOD_SL~1.SO|mod_slotmem_plain.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_slotmem_plain.so</td><td>1</td><td/></row>
-		<row><td>mod_slotmem_shm.so</td><td>AllOtherFiles4</td><td>MOD_SL~1.SO|mod_slotmem_shm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_slotmem_shm.so</td><td>1</td><td/></row>
-		<row><td>mod_socache_dbm.so</td><td>AllOtherFiles4</td><td>MOD_SO~1.SO|mod_socache_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_dbm.so</td><td>1</td><td/></row>
-		<row><td>mod_socache_memcache.so</td><td>AllOtherFiles4</td><td>MOD_SO~1.SO|mod_socache_memcache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_memcache.so</td><td>1</td><td/></row>
-		<row><td>mod_socache_shmcb.so</td><td>AllOtherFiles4</td><td>MOD_SO~1.SO|mod_socache_shmcb.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_shmcb.so</td><td>1</td><td/></row>
-		<row><td>mod_speling.so</td><td>AllOtherFiles4</td><td>MOD_SP~1.SO|mod_speling.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_speling.so</td><td>1</td><td/></row>
-		<row><td>mod_ssl.so</td><td>AllOtherFiles4</td><td>mod_ssl.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ssl.so</td><td>1</td><td/></row>
-		<row><td>mod_status.so</td><td>AllOtherFiles4</td><td>MOD_ST~1.SO|mod_status.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_status.so</td><td>1</td><td/></row>
-		<row><td>mod_substitute.so</td><td>AllOtherFiles4</td><td>MOD_SU~1.SO|mod_substitute.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_substitute.so</td><td>1</td><td/></row>
-		<row><td>mod_unique_id.so</td><td>AllOtherFiles4</td><td>MOD_UN~1.SO|mod_unique_id.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_unique_id.so</td><td>1</td><td/></row>
-		<row><td>mod_userdir.so</td><td>AllOtherFiles4</td><td>MOD_US~1.SO|mod_userdir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_userdir.so</td><td>1</td><td/></row>
-		<row><td>mod_usertrack.so</td><td>AllOtherFiles4</td><td>MOD_US~1.SO|mod_usertrack.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_usertrack.so</td><td>1</td><td/></row>
-		<row><td>mod_version.so</td><td>AllOtherFiles4</td><td>MOD_VE~1.SO|mod_version.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_version.so</td><td>1</td><td/></row>
-		<row><td>mod_vhost_alias.so</td><td>AllOtherFiles4</td><td>MOD_VH~1.SO|mod_vhost_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_vhost_alias.so</td><td>1</td><td/></row>
-		<row><td>mod_watchdog.so</td><td>AllOtherFiles4</td><td>MOD_WA~1.SO|mod_watchdog.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_watchdog.so</td><td>1</td><td/></row>
-		<row><td>mod_xml2enc.so</td><td>AllOtherFiles4</td><td>MOD_XM~1.SO|mod_xml2enc.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_xml2enc.so</td><td>1</td><td/></row>
+		<row><td>mime.types</td><td>ApacheConf</td><td>MIME~1.TYP|mime.types</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES&gt;\mime.types</td><td>1</td><td/></row>
+		<row><td>mod_access_compat.so</td><td>ApacheModules</td><td>MOD_AC~1.SO|mod_access_compat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_access_compat.so</td><td>1</td><td/></row>
+		<row><td>mod_actions.so</td><td>ApacheModules</td><td>MOD_AC~1.SO|mod_actions.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_actions.so</td><td>1</td><td/></row>
+		<row><td>mod_alias.so</td><td>ApacheModules</td><td>MOD_AL~1.SO|mod_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_alias.so</td><td>1</td><td/></row>
+		<row><td>mod_allowmethods.so</td><td>ApacheModules</td><td>MOD_AL~1.SO|mod_allowmethods.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_allowmethods.so</td><td>1</td><td/></row>
+		<row><td>mod_asis.so</td><td>ApacheModules</td><td>mod_asis.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_asis.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_basic.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_auth_basic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_basic.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_digest.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_auth_digest.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_digest.so</td><td>1</td><td/></row>
+		<row><td>mod_auth_form.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_auth_form.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_auth_form.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_anon.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_anon.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_anon.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_core.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_core.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_dbd.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_dbm.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_file.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_file.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_file.so</td><td>1</td><td/></row>
+		<row><td>mod_authn_socache.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authn_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authn_socache.so</td><td>1</td><td/></row>
+		<row><td>mod_authnz_ldap.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authnz_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authnz_ldap.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_core.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_core.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_core.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_dbd.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_dbm.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_groupfile.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_groupfile.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_groupfile.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_host.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_host.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_host.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_owner.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_owner.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_owner.so</td><td>1</td><td/></row>
+		<row><td>mod_authz_user.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_authz_user.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_authz_user.so</td><td>1</td><td/></row>
+		<row><td>mod_autoindex.so</td><td>ApacheModules</td><td>MOD_AU~1.SO|mod_autoindex.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_autoindex.so</td><td>1</td><td/></row>
+		<row><td>mod_buffer.so</td><td>ApacheModules</td><td>MOD_BU~1.SO|mod_buffer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_buffer.so</td><td>1</td><td/></row>
+		<row><td>mod_cache.so</td><td>ApacheModules</td><td>MOD_CA~1.SO|mod_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache.so</td><td>1</td><td/></row>
+		<row><td>mod_cache_disk.so</td><td>ApacheModules</td><td>MOD_CA~1.SO|mod_cache_disk.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache_disk.so</td><td>1</td><td/></row>
+		<row><td>mod_cache_socache.so</td><td>ApacheModules</td><td>MOD_CA~1.SO|mod_cache_socache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cache_socache.so</td><td>1</td><td/></row>
+		<row><td>mod_cern_meta.so</td><td>ApacheModules</td><td>MOD_CE~1.SO|mod_cern_meta.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cern_meta.so</td><td>1</td><td/></row>
+		<row><td>mod_cgi.so</td><td>ApacheModules</td><td>mod_cgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_cgi.so</td><td>1</td><td/></row>
+		<row><td>mod_charset_lite.so</td><td>ApacheModules</td><td>MOD_CH~1.SO|mod_charset_lite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_charset_lite.so</td><td>1</td><td/></row>
+		<row><td>mod_data.so</td><td>ApacheModules</td><td>mod_data.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_data.so</td><td>1</td><td/></row>
+		<row><td>mod_dav.exp</td><td>ApacheLib</td><td>mod_dav.exp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\mod_dav.exp</td><td>1</td><td/></row>
+		<row><td>mod_dav.lib</td><td>ApacheLib</td><td>mod_dav.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\mod_dav.lib</td><td>1</td><td/></row>
+		<row><td>mod_dav.so</td><td>ApacheModules</td><td>mod_dav.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav.so</td><td>1</td><td/></row>
+		<row><td>mod_dav_fs.so</td><td>ApacheModules</td><td>MOD_DA~1.SO|mod_dav_fs.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav_fs.so</td><td>1</td><td/></row>
+		<row><td>mod_dav_lock.so</td><td>ApacheModules</td><td>MOD_DA~1.SO|mod_dav_lock.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dav_lock.so</td><td>1</td><td/></row>
+		<row><td>mod_dbd.so</td><td>ApacheModules</td><td>mod_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_deflate.so</td><td>ApacheModules</td><td>MOD_DE~1.SO|mod_deflate.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_deflate.so</td><td>1</td><td/></row>
+		<row><td>mod_dir.so</td><td>ApacheModules</td><td>mod_dir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dir.so</td><td>1</td><td/></row>
+		<row><td>mod_dumpio.so</td><td>ApacheModules</td><td>MOD_DU~1.SO|mod_dumpio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_dumpio.so</td><td>1</td><td/></row>
+		<row><td>mod_env.so</td><td>ApacheModules</td><td>mod_env.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_env.so</td><td>1</td><td/></row>
+		<row><td>mod_expires.so</td><td>ApacheModules</td><td>MOD_EX~1.SO|mod_expires.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_expires.so</td><td>1</td><td/></row>
+		<row><td>mod_ext_filter.so</td><td>ApacheModules</td><td>MOD_EX~1.SO|mod_ext_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ext_filter.so</td><td>1</td><td/></row>
+		<row><td>mod_file_cache.so</td><td>ApacheModules</td><td>MOD_FI~1.SO|mod_file_cache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_file_cache.so</td><td>1</td><td/></row>
+		<row><td>mod_filter.so</td><td>ApacheModules</td><td>MOD_FI~1.SO|mod_filter.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_filter.so</td><td>1</td><td/></row>
+		<row><td>mod_headers.so</td><td>ApacheModules</td><td>MOD_HE~1.SO|mod_headers.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_headers.so</td><td>1</td><td/></row>
+		<row><td>mod_heartbeat.so</td><td>ApacheModules</td><td>MOD_HE~1.SO|mod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_heartbeat.so</td><td>1</td><td/></row>
+		<row><td>mod_heartmonitor.so</td><td>ApacheModules</td><td>MOD_HE~1.SO|mod_heartmonitor.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_heartmonitor.so</td><td>1</td><td/></row>
+		<row><td>mod_ident.so</td><td>ApacheModules</td><td>MOD_ID~1.SO|mod_ident.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ident.so</td><td>1</td><td/></row>
+		<row><td>mod_imagemap.so</td><td>ApacheModules</td><td>MOD_IM~1.SO|mod_imagemap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_imagemap.so</td><td>1</td><td/></row>
+		<row><td>mod_include.so</td><td>ApacheModules</td><td>MOD_IN~1.SO|mod_include.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_include.so</td><td>1</td><td/></row>
+		<row><td>mod_info.so</td><td>ApacheModules</td><td>mod_info.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_info.so</td><td>1</td><td/></row>
+		<row><td>mod_isapi.so</td><td>ApacheModules</td><td>MOD_IS~1.SO|mod_isapi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_isapi.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_bybusyness.so</td><td>ApacheModules</td><td>MOD_LB~1.SO|mod_lbmethod_bybusyness.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_bybusyness.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_byrequests.so</td><td>ApacheModules</td><td>MOD_LB~1.SO|mod_lbmethod_byrequests.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_byrequests.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_bytraffic.so</td><td>ApacheModules</td><td>MOD_LB~1.SO|mod_lbmethod_bytraffic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_bytraffic.so</td><td>1</td><td/></row>
+		<row><td>mod_lbmethod_heartbeat.so</td><td>ApacheModules</td><td>MOD_LB~1.SO|mod_lbmethod_heartbeat.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lbmethod_heartbeat.so</td><td>1</td><td/></row>
+		<row><td>mod_ldap.so</td><td>ApacheModules</td><td>mod_ldap.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ldap.so</td><td>1</td><td/></row>
+		<row><td>mod_log_config.so</td><td>ApacheModules</td><td>MOD_LO~1.SO|mod_log_config.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_config.so</td><td>1</td><td/></row>
+		<row><td>mod_log_debug.so</td><td>ApacheModules</td><td>MOD_LO~1.SO|mod_log_debug.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_debug.so</td><td>1</td><td/></row>
+		<row><td>mod_log_forensic.so</td><td>ApacheModules</td><td>MOD_LO~1.SO|mod_log_forensic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_log_forensic.so</td><td>1</td><td/></row>
+		<row><td>mod_logio.so</td><td>ApacheModules</td><td>MOD_LO~1.SO|mod_logio.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_logio.so</td><td>1</td><td/></row>
+		<row><td>mod_lua.so</td><td>ApacheModules</td><td>mod_lua.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_lua.so</td><td>1</td><td/></row>
+		<row><td>mod_macro.so</td><td>ApacheModules</td><td>MOD_MA~1.SO|mod_macro.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_macro.so</td><td>1</td><td/></row>
+		<row><td>mod_mime.so</td><td>ApacheModules</td><td>mod_mime.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_mime.so</td><td>1</td><td/></row>
+		<row><td>mod_mime_magic.so</td><td>ApacheModules</td><td>MOD_MI~1.SO|mod_mime_magic.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_mime_magic.so</td><td>1</td><td/></row>
+		<row><td>mod_negotiation.so</td><td>ApacheModules</td><td>MOD_NE~1.SO|mod_negotiation.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_negotiation.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_ajp.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_ajp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_ajp.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_balancer.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_balancer.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_balancer.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_connect.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_connect.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_connect.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_express.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_express.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_express.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_fcgi.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_fcgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_fcgi.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_ftp.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_ftp.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_ftp.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_html.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_html.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_html.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_http.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_http.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_http.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_scgi.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_scgi.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_scgi.so</td><td>1</td><td/></row>
+		<row><td>mod_proxy_wstunnel.so</td><td>ApacheModules</td><td>MOD_PR~1.SO|mod_proxy_wstunnel.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_proxy_wstunnel.so</td><td>1</td><td/></row>
+		<row><td>mod_ratelimit.so</td><td>ApacheModules</td><td>MOD_RA~1.SO|mod_ratelimit.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ratelimit.so</td><td>1</td><td/></row>
+		<row><td>mod_reflector.so</td><td>ApacheModules</td><td>MOD_RE~1.SO|mod_reflector.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_reflector.so</td><td>1</td><td/></row>
+		<row><td>mod_remoteip.so</td><td>ApacheModules</td><td>MOD_RE~1.SO|mod_remoteip.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_remoteip.so</td><td>1</td><td/></row>
+		<row><td>mod_reqtimeout.so</td><td>ApacheModules</td><td>MOD_RE~1.SO|mod_reqtimeout.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_reqtimeout.so</td><td>1</td><td/></row>
+		<row><td>mod_request.so</td><td>ApacheModules</td><td>MOD_RE~1.SO|mod_request.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_request.so</td><td>1</td><td/></row>
+		<row><td>mod_rewrite.so</td><td>ApacheModules</td><td>MOD_RE~1.SO|mod_rewrite.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_rewrite.so</td><td>1</td><td/></row>
+		<row><td>mod_sed.so</td><td>ApacheModules</td><td>mod_sed.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_sed.so</td><td>1</td><td/></row>
+		<row><td>mod_session.so</td><td>ApacheModules</td><td>MOD_SE~1.SO|mod_session.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session.so</td><td>1</td><td/></row>
+		<row><td>mod_session_cookie.so</td><td>ApacheModules</td><td>MOD_SE~1.SO|mod_session_cookie.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_cookie.so</td><td>1</td><td/></row>
+		<row><td>mod_session_crypto.so</td><td>ApacheModules</td><td>MOD_SE~1.SO|mod_session_crypto.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_crypto.so</td><td>1</td><td/></row>
+		<row><td>mod_session_dbd.so</td><td>ApacheModules</td><td>MOD_SE~1.SO|mod_session_dbd.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_session_dbd.so</td><td>1</td><td/></row>
+		<row><td>mod_setenvif.so</td><td>ApacheModules</td><td>MOD_SE~1.SO|mod_setenvif.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_setenvif.so</td><td>1</td><td/></row>
+		<row><td>mod_slotmem_plain.so</td><td>ApacheModules</td><td>MOD_SL~1.SO|mod_slotmem_plain.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_slotmem_plain.so</td><td>1</td><td/></row>
+		<row><td>mod_slotmem_shm.so</td><td>ApacheModules</td><td>MOD_SL~1.SO|mod_slotmem_shm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_slotmem_shm.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_dbm.so</td><td>ApacheModules</td><td>MOD_SO~1.SO|mod_socache_dbm.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_dbm.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_memcache.so</td><td>ApacheModules</td><td>MOD_SO~1.SO|mod_socache_memcache.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_memcache.so</td><td>1</td><td/></row>
+		<row><td>mod_socache_shmcb.so</td><td>ApacheModules</td><td>MOD_SO~1.SO|mod_socache_shmcb.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_socache_shmcb.so</td><td>1</td><td/></row>
+		<row><td>mod_speling.so</td><td>ApacheModules</td><td>MOD_SP~1.SO|mod_speling.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_speling.so</td><td>1</td><td/></row>
+		<row><td>mod_ssl.so</td><td>ApacheModules</td><td>mod_ssl.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_ssl.so</td><td>1</td><td/></row>
+		<row><td>mod_status.so</td><td>ApacheModules</td><td>MOD_ST~1.SO|mod_status.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_status.so</td><td>1</td><td/></row>
+		<row><td>mod_substitute.so</td><td>ApacheModules</td><td>MOD_SU~1.SO|mod_substitute.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_substitute.so</td><td>1</td><td/></row>
+		<row><td>mod_unique_id.so</td><td>ApacheModules</td><td>MOD_UN~1.SO|mod_unique_id.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_unique_id.so</td><td>1</td><td/></row>
+		<row><td>mod_userdir.so</td><td>ApacheModules</td><td>MOD_US~1.SO|mod_userdir.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_userdir.so</td><td>1</td><td/></row>
+		<row><td>mod_usertrack.so</td><td>ApacheModules</td><td>MOD_US~1.SO|mod_usertrack.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_usertrack.so</td><td>1</td><td/></row>
+		<row><td>mod_version.so</td><td>ApacheModules</td><td>MOD_VE~1.SO|mod_version.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_version.so</td><td>1</td><td/></row>
+		<row><td>mod_vhost_alias.so</td><td>ApacheModules</td><td>MOD_VH~1.SO|mod_vhost_alias.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_vhost_alias.so</td><td>1</td><td/></row>
+		<row><td>mod_watchdog.so</td><td>ApacheModules</td><td>MOD_WA~1.SO|mod_watchdog.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_watchdog.so</td><td>1</td><td/></row>
+		<row><td>mod_xml2enc.so</td><td>ApacheModules</td><td>MOD_XM~1.SO|mod_xml2enc.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_xml2enc.so</td><td>1</td><td/></row>
 		<row><td>openssl.exe</td><td>openssl.exe</td><td>openssl.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\openssl.exe</td><td>1</td><td/></row>
-		<row><td>palette_logo.png</td><td>AllOtherFiles12</td><td>PALETT~1.PNG|palette_logo.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\image\palette_logo.png</td><td>1</td><td/></row>
+		<row><td>palette_logo.png</td><td>MaintWwwImage</td><td>PALETT~1.PNG|palette_logo.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\image\palette_logo.png</td><td>1</td><td/></row>
 		<row><td>pcgi.exe</td><td>pCGI.exe</td><td>pCGI.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pCGI\bin\Debug\pCGI.exe</td><td>1</td><td/></row>
 		<row><td>pcre.dll</td><td>pcre.dll</td><td>pcre.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\pcre.dll</td><td>1</td><td/></row>
 		<row><td>pgcs.primary_output</td><td>pgcs.Primary_output</td><td>pgcs.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pgcs&gt;|Built</td><td>3</td><td/></row>
@@ -2191,15 +2191,15 @@
 		<row><td>prun.primary_output</td><td>prun.Primary_output</td><td>prun.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;prun&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ps3.primary_output</td><td>ps3.Primary_output</td><td>ps3.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ps3&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ptwbx.primary_output</td><td>ptwbx.Primary_output</td><td>ptwbx.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ptwbx&gt;|Built</td><td>3</td><td/></row>
-		<row><td>readme</td><td>AllOtherFiles7</td><td>README</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\README</td><td>1</td><td/></row>
+		<row><td>readme</td><td>ArchiveConf</td><td>README</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\README</td><td>1</td><td/></row>
 		<row><td>rotatelogs.exe</td><td>rotatelogs.exe</td><td>ROTATE~1.EXE|rotatelogs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\rotatelogs.exe</td><td>1</td><td/></row>
-		<row><td>server.crt</td><td>AllOtherFiles7</td><td>server.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.crt</td><td>1</td><td/></row>
-		<row><td>server.key</td><td>AllOtherFiles7</td><td>server.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.key</td><td>1</td><td/></row>
+		<row><td>server.crt</td><td>ArchiveConf</td><td>server.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.crt</td><td>1</td><td/></row>
+		<row><td>server.key</td><td>ArchiveConf</td><td>server.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\server.key</td><td>1</td><td/></row>
 		<row><td>serviceagent.primary_output</td><td>ServiceAgent.Primary_output</td><td>ServiceAgent.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ServiceAgent&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ssleay32.dll</td><td>ssleay32.dll</td><td>ssleay32.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\ssleay32.dll</td><td>1</td><td/></row>
-		<row><td>style.css</td><td>AllOtherFiles10</td><td>style.css</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\style.css</td><td>1</td><td/></row>
+		<row><td>style.css</td><td>MaintWww</td><td>style.css</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\style.css</td><td>1</td><td/></row>
 		<row><td>wintty.exe</td><td>wintty.exe</td><td>wintty.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\wintty.exe</td><td>1</td><td/></row>
-		<row><td>xml.lib</td><td>AllOtherFiles3</td><td>xml.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\xml.lib</td><td>1</td><td/></row>
+		<row><td>xml.lib</td><td>ApacheLib</td><td>xml.lib</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_LIB_FILES&gt;\xml.lib</td><td>1</td><td/></row>
 		<row><td>zlib1.dll</td><td>zlib1.dll</td><td>zlib1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\zlib1.dll</td><td>1</td><td/></row>
 	</table>
 
@@ -2366,25 +2366,25 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>AWSSDK.dll</td><td/><td/><td>_45A4F39C_6DD9_4C49_95AA_3A0154B77AF3_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles</td><td/><td/><td>_9723B8FE_5178_4778_9A62_C756CC75177E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles1</td><td/><td/><td>_2A22AF0B_6CFC_44C1_B94F_F4DB26F65EC0_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles10</td><td/><td/><td>_E6EAB4B3_2956_49C6_AC0A_F9FFB3E712AF_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles11</td><td/><td/><td>_DF5F71FE_5B86_4E42_A3EC_F31C6EA4A022_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles12</td><td/><td/><td>_73B1D671_8366_4A5F_9A96_7F3EC6B6B1FA_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles13</td><td/><td/><td>_A76CACA0_6971_4EC3_B239_1D4387CBAE5F_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles14</td><td/><td/><td>_7E69F186_FBB5_4DEF_A8DB_0C39F45BAD8E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles2</td><td/><td/><td>_60CA233B_FCE3_47EA_B1FA_DCC038326F35_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles3</td><td/><td/><td>_75548701_CFB3_4723_ABC6_4D24C152498B_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles4</td><td/><td/><td>_A052FA00_AB1D_45E9_AFC1_225A3CDBF575_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles5</td><td/><td/><td>_FB7FB00A_3E59_49F0_B27A_11E08C155656_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles6</td><td/><td/><td>_1C4431D2_9C2C_410E_A3E2_F492106C9BE1_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles7</td><td/><td/><td>_DE880FB3_E5B0_4AF7_9BEA_35B6D5E0FA9D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AllOtherFiles8</td><td/><td/><td>_46460A5D_0A6B_45FB_A131_C8D216BDB18B_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles9</td><td/><td/><td>_5A633107_3038_46D1_AD33_014D90CA6001_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ApacheBin</td><td/><td/><td>_2A22AF0B_6CFC_44C1_B94F_F4DB26F65EC0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ApacheCGIBin</td><td/><td/><td>_FB7FB00A_3E59_49F0_B27A_11E08C155656_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ApacheConf</td><td/><td/><td>_60CA233B_FCE3_47EA_B1FA_DCC038326F35_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ApacheLib</td><td/><td/><td>_75548701_CFB3_4723_ABC6_4D24C152498B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ApacheModules</td><td/><td/><td>_A052FA00_AB1D_45E9_AFC1_225A3CDBF575_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ApacheMonitor.exe</td><td/><td/><td>_98F147C1_C18E_4EEA_BA85_0138B8E47898_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ArchiveConf</td><td/><td/><td>_DE880FB3_E5B0_4AF7_9BEA_35B6D5E0FA9D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Conf</td><td/><td/><td>_1C4431D2_9C2C_410E_A3E2_F492106C9BE1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ConsoleAgent.Primary_output</td><td/><td/><td>_5B5B155B_55EE_4541_AC40_CA00C3178C24_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Interop.NetFwTypeLib.dll</td><td/><td/><td>_EFADFE4E_56A6_4EF9_AC3C_B43C6F8538DB_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Logs</td><td/><td/><td>_3562A974_90DA_4D07_8EC1_F882FACD59F4_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintConf</td><td/><td/><td>_5A633107_3038_46D1_AD33_014D90CA6001_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintWww</td><td/><td/><td>_E6EAB4B3_2956_49C6_AC0A_F9FFB3E712AF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintWwwFonts</td><td/><td/><td>_DF5F71FE_5B86_4E42_A3EC_F31C6EA4A022_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintWwwFontsWebfonts</td><td/><td/><td>_A76CACA0_6971_4EC3_B239_1D4387CBAE5F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintWwwImage</td><td/><td/><td>_73B1D671_8366_4A5F_9A96_7F3EC6B6B1FA_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ServiceAgent.Primary_output</td><td/><td/><td>_DA68075D_F8E1_4473_9AAE_7A0583DDEF93_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Upgrade</td><td/><td/><td>_7E69F186_FBB5_4DEF_A8DB_0C39F45BAD8E_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ab.exe</td><td/><td/><td>_1EC18CFA_A8E8_42D2_BBB2_6D19C531323A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>abs.exe</td><td/><td/><td>_6A9B9143_21B4_48EB_8879_968A68F8018F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>apr_crypto_openssl_1.dll</td><td/><td/><td>_A050BF63_CC77_42BA_BB96_CA80C692E324_FILTER</td><td/><td/><td/><td/></row>
@@ -4209,12 +4209,19 @@
 		<row><td>ID_DIALOG_TEXT_DESCRIPTION_HOSTNAME</td><td>1033</td><td>{&amp;TahomaBold10}Enter the License Key</td><td>0</td><td/><td>-1172105656</td></row>
 		<row><td>ID_LicenseKeyDlg_PleaseEnterKey</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>-2111607379</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.palette-software.com</td><td>0</td><td/><td>-2111576345</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>-2111629779</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>0</td><td>0</td><td/><td>-1574761459</td></row>
+		<row><td>ID_STRING10</td><td>1033</td><td>port</td><td>0</td><td/><td>-501015506</td></row>
+		<row><td>ID_STRING11</td><td>1033</td><td>logger</td><td>0</td><td/><td>-500964146</td></row>
+		<row><td>ID_STRING12</td><td>1033</td><td>location</td><td>0</td><td/><td>-501019410</td></row>
+		<row><td>ID_STRING13</td><td>1033</td><td>maxsize</td><td>0</td><td/><td>-500969137</td></row>
+		<row><td>ID_STRING14</td><td>1033</td><td>license-key</td><td>0</td><td/><td>-500963729</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent</td><td>0</td><td/><td>-500977970</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Service for the Palette Agent</td><td>0</td><td/><td>-500963634</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Palette server hostname:</td><td>0</td><td/><td>-1172054392</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>agent.ini</td><td>0</td><td/><td>-635181776</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>DEFAULT</td><td>0</td><td/><td>-635212464</td></row>
-		<row><td>ID_STRING7</td><td>1033</td><td>UUID</td><td>0</td><td/><td>-635194032</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>uuid</td><td>0</td><td/><td>-500980241</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>controller</td><td>0</td><td/><td>-501003250</td></row>
+		<row><td>ID_STRING9</td><td>1033</td><td>host</td><td>0</td><td/><td>-501017554</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-1172064664</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977374328</td></row>
@@ -4343,7 +4350,12 @@
 		<col def="s255">Value</col>
 		<col def="i2">Action</col>
 		<col def="s72">Component_</col>
-		<row><td>IniTableKey1</td><td>##ID_STRING5##</td><td>INSTALLDIR</td><td>##ID_STRING6##</td><td>##ID_STRING7##</td><td>[UUID]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey1</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING6##</td><td>##ID_STRING7##</td><td>[UUID]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey2</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING8##</td><td>##ID_STRING9##</td><td>[HOSTNAME]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey3</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING8##</td><td>##ID_STRING10##</td><td>[PORT]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey4</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING11##</td><td>##ID_STRING12##</td><td>[INSTALLDIR]logs\agent.log</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey5</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING11##</td><td>##ID_STRING13##</td><td>10MB</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
+		<row><td>IniTableKey6</td><td>##ID_STRING5##</td><td>CONF1</td><td>##ID_STRING6##</td><td>##ID_STRING14##</td><td>[LICENSEKEY]</td><td>0</td><td>ConsoleAgent.Primary_output</td></row>
 	</table>
 
 	<table name="IniLocator">
@@ -4978,6 +4990,7 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<col def="S255">Arguments</col>
 		<col def="I2">Wait</col>
 		<col def="s72">Component_</col>
+		<row><td>ServiceControl</td><td>PaletteAgent</td><td>163</td><td/><td>1</td><td>ServiceAgent.Primary_output</td></row>
 	</table>
 
 	<table name="ServiceInstall">
@@ -4994,7 +5007,7 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<col def="S255">Arguments</col>
 		<col def="s72">Component_</col>
 		<col def="L255">Description</col>
-		<row><td>AgentServiceInstall</td><td>PaletteAgent</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>1</td><td/><td/><td/><td/><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
+		<row><td>AgentService</td><td>PaletteAgent</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>32769</td><td/><td/><td/><td/><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
 	</table>
 
 	<table name="Shortcut">

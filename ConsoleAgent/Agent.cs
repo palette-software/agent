@@ -29,6 +29,7 @@ public class Agent : Base
     public const int DEFAULT_ROLLER_MAXBACKUPS = 5;
 
     public IniFile conf = null;
+    public String inifile;
 
     public string uuid;
     public string hostname = "localhost";
@@ -68,6 +69,7 @@ public class Agent : Base
         //Set some Agent defaults (may be overridden by the INI file)
         hostname = Dns.GetHostName();
 
+        this.inifile = inifile;
         conf = new IniFile(inifile);
         ParseIniFile();
 
@@ -90,6 +92,7 @@ public class Agent : Base
         }
         else
         {
+            // FIXME
             logger.Error("agent.ini file not found: " + inifile);
             logger.Error("Starting Agent with default settings");
         }
@@ -225,7 +228,12 @@ public class Agent : Base
 
         // intentionally raise exception if these are not set.
         uuid = conf.Read("uuid", DEFAULT_SECTION);
-        installDir = conf.Read("install-dir", DEFAULT_SECTION);
+        installDir = conf.Read("install-dir", DEFAULT_SECTION, null);
+        if (installDir == null)
+        {
+            installDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        }
+
         programDataDir = conf.Read("data-dir", DEFAULT_SECTION, null);
         if (programDataDir == null)
         {
@@ -244,7 +252,7 @@ public class Agent : Base
 
         controllerHost = conf.Read("host", "controller", DEFAULT_CONTROLLER_HOST);
         controllerPort = conf.ReadInt("port", "controller", DEFAULT_CONTROLLER_PORT);
-        controllerSsl = conf.ReadBool("ssl", "controller", false);
+        controllerSsl = conf.ReadBool("ssl", "controller", true);
         controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
 
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
