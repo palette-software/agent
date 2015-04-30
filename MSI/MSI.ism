@@ -3088,7 +3088,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_64C99469_0DF3_42FD_A6E0_F555AA6486E0_</td><td>Microsoft .NET Framework 4.5.1 Full.prq</td><td/><td/><td/></row>
+		<row><td>_B1155CCA_9017_4ECC_A517_6C663803E52F_</td><td>Microsoft .NET Framework 4.5.1 Full.prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISStorages">
@@ -4458,10 +4458,11 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="4b00b795ba16b41c1637c4298a4cc781">
-UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="8c50a525cdd9ef5e5a339c7b7706c506">
+RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Default Configuration</td></row>
+		<row><td>DisableWarnings</td><td>-6487</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
 		<row><td>ISCompilerOption_CompileBeforeBuild</td><td>1</td></row>
 		<row><td>ISCompilerOption_Debug</td><td>0</td></row>

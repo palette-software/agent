@@ -1,0 +1,8 @@
+/*
+!.gitignore
+!/Script Files
+*.dbg
+*.inx
+*.isr
+*.map
+*.obs
