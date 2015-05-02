@@ -354,12 +354,15 @@
 		<row><td>ApacheLib</td><td>{2EF24BEF-4B8E-457D-8AC3-87D6C7BBED13}</td><td>LIB</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ApacheModules</td><td>{A2FF70C4-01AF-4C2F-87E6-7B8085B4FF2A}</td><td>MODULES</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ApacheMonitor.exe</td><td>{0C9174B3-8468-4B58-AAA0-CB4CE830EFE8}</td><td>BIN</td><td>8</td><td/><td>apachemonitor.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Archive</td><td>{F16662FF-9212-41EF-AC4F-C9981D75D57A}</td><td>ARCHIVE1</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ArchiveConf</td><td>{D915BF70-13A5-4BFC-A6A5-8E53F5E9F56A}</td><td>ARCHIVE</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ArchiveLogs</td><td>{80FF31F6-67F9-4F91-9E06-21E2D1969FFA}</td><td>ARCHIVE2</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Conf</td><td>{1D1969A3-5CE5-4D10-9B17-1C815EA34E0F}</td><td>CONF1</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ConsoleAgent.Primary_output</td><td>{01C8DE75-B1CC-4D6F-A41C-E242F9567C88}</td><td>INSTALLDIR</td><td>8</td><td/><td>consoleagent.primary_output</td><td>1</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Interop.NetFwTypeLib.dll</td><td>{788AD763-D2C1-472B-8196-EF55A539ADD8}</td><td>INSTALLDIR</td><td>8</td><td/><td>interop.netfwtypelib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Logs</td><td>{32EE1FE9-F4C3-4942-B707-7D65D2AD7D96}</td><td>LOGS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>MaintConf</td><td>{2134F556-4889-425F-AD2E-AEEA15FB6D6B}</td><td>CONF2</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MaintLogs</td><td>{447E3425-E7D6-4B0F-94D7-F89C8207A78D}</td><td>MAINT1</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>MaintWww</td><td>{8DDD5D50-378D-4A22-9E3D-E92A504FC528}</td><td>WWW</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>MaintWwwFonts</td><td>{91E13D68-B5B1-4C31-85D8-BF7695B75975}</td><td>FONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>MaintWwwFontsWebfonts</td><td>{BD6163ED-914B-41EA-A052-972D56E5C90E}</td><td>WEBFONTS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1107,10 +1110,13 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>ARCHIVE1</td><td>Archive</td></row>
+		<row><td>ARCHIVE2</td><td>ArchiveLogs</td></row>
 		<row><td>CGI_BIN</td><td>ApacheCGIBin</td></row>
 		<row><td>FONTS</td><td>MaintWwwFonts</td></row>
 		<row><td>LOGS</td><td>Logs</td></row>
 		<row><td>MAINT</td><td>AllOtherFiles8</td></row>
+		<row><td>MAINT1</td><td>MaintLogs</td></row>
 		<row><td>UPGRADE</td><td>Upgrade</td></row>
 	</table>
 
@@ -1121,7 +1127,8 @@
 		<col def="S0">Target</col>
 		<col def="I4">ExtendedType</col>
 		<col def="S255">ISComments</col>
-		<row><td>Cleanup</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
+		<row><td>CleanupInstallDir</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
+		<row><td>CleanupServices</td><td>1</td><td>ISSetup.dll</td><td>f10</td><td>0</td><td/></row>
 		<row><td>CreateApacheEnv</td><td>1025</td><td>ISSetup.dll</td><td>f8</td><td>0</td><td/></row>
 		<row><td>CreateApacheEnvImmediate</td><td>51</td><td>CreateApacheEnv</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
@@ -1207,6 +1214,8 @@
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>APACHE2</td><td>INSTALLDIR</td><td>apache2</td><td/><td>0</td><td/></row>
 		<row><td>ARCHIVE</td><td>CONF1</td><td>archive</td><td/><td>0</td><td/></row>
+		<row><td>ARCHIVE1</td><td>INSTALLDIR</td><td>archive</td><td/><td>0</td><td/></row>
+		<row><td>ARCHIVE2</td><td>LOGS</td><td>archive</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>BIN</td><td>APACHE2</td><td>bin</td><td/><td>0</td><td/></row>
@@ -1233,6 +1242,7 @@
 		<row><td>LOGS</td><td>INSTALLDIR</td><td>logs</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MAINT</td><td>INSTALLDIR</td><td>maint</td><td/><td>0</td><td/></row>
+		<row><td>MAINT1</td><td>LOGS</td><td>maint</td><td/><td>0</td><td/></row>
 		<row><td>MODULES</td><td>APACHE2</td><td>modules</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>PALETTE_SOFTWARE</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
@@ -1957,12 +1967,15 @@
 		<row><td>Palette_Files</td><td>ApacheLib</td></row>
 		<row><td>Palette_Files</td><td>ApacheModules</td></row>
 		<row><td>Palette_Files</td><td>ApacheMonitor.exe</td></row>
+		<row><td>Palette_Files</td><td>Archive</td></row>
 		<row><td>Palette_Files</td><td>ArchiveConf</td></row>
+		<row><td>Palette_Files</td><td>ArchiveLogs</td></row>
 		<row><td>Palette_Files</td><td>Conf</td></row>
 		<row><td>Palette_Files</td><td>ConsoleAgent.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>Interop.NetFwTypeLib.dll</td></row>
 		<row><td>Palette_Files</td><td>Logs</td></row>
 		<row><td>Palette_Files</td><td>MaintConf</td></row>
+		<row><td>Palette_Files</td><td>MaintLogs</td></row>
 		<row><td>Palette_Files</td><td>MaintWww</td></row>
 		<row><td>Palette_Files</td><td>MaintWwwFonts</td></row>
 		<row><td>Palette_Files</td><td>MaintWwwFontsWebfonts</td></row>
@@ -2376,12 +2389,15 @@
 		<row><td>ApacheLib</td><td/><td/><td>_75548701_CFB3_4723_ABC6_4D24C152498B_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ApacheModules</td><td/><td/><td>_A052FA00_AB1D_45E9_AFC1_225A3CDBF575_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ApacheMonitor.exe</td><td/><td/><td>_98F147C1_C18E_4EEA_BA85_0138B8E47898_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Archive</td><td/><td/><td>_6E512C2F_D098_400A_8985_2F25E678F298_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ArchiveConf</td><td/><td/><td>_DE880FB3_E5B0_4AF7_9BEA_35B6D5E0FA9D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ArchiveLogs</td><td/><td/><td>_02D9F475_895A_4F7C_AD65_10EAB8832974_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Conf</td><td/><td/><td>_1C4431D2_9C2C_410E_A3E2_F492106C9BE1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ConsoleAgent.Primary_output</td><td/><td/><td>_5B5B155B_55EE_4541_AC40_CA00C3178C24_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Interop.NetFwTypeLib.dll</td><td/><td/><td>_EFADFE4E_56A6_4EF9_AC3C_B43C6F8538DB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Logs</td><td/><td/><td>_3562A974_90DA_4D07_8EC1_F882FACD59F4_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>MaintConf</td><td/><td/><td>_5A633107_3038_46D1_AD33_014D90CA6001_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MaintLogs</td><td/><td/><td>_FD186935_0A54_4A3D_8526_CCDEAE1BDA34_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>MaintWww</td><td/><td/><td>_E6EAB4B3_2956_49C6_AC0A_F9FFB3E712AF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>MaintWwwFonts</td><td/><td/><td>_DF5F71FE_5B86_4E42_A3EC_F31C6EA4A022_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>MaintWwwFontsWebfonts</td><td/><td/><td>_A76CACA0_6971_4EC3_B239_1D4387CBAE5F_FILTER</td><td/><td/><td/><td/></row>
@@ -2578,6 +2594,7 @@
 		<col def="s72">Source</col>
 		<col def="S255">Target</col>
 		<row><td>f1</td><td>0</td><td>GetLicenseKey</td><td/></row>
+		<row><td>f10</td><td>0</td><td>CleanupServices</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
 		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
 		<row><td>f4</td><td>0</td><td>GetHostnamePort</td><td/></row>
@@ -2585,7 +2602,7 @@
 		<row><td>f6</td><td>0</td><td>GetUUID</td><td/></row>
 		<row><td>f7</td><td>0</td><td>SaveUUID</td><td/></row>
 		<row><td>f8</td><td>1024</td><td>CreateApacheEnv</td><td/></row>
-		<row><td>f9</td><td>0</td><td>Cleanup</td><td/></row>
+		<row><td>f9</td><td>0</td><td>CleanupInstallDir</td><td/></row>
 	</table>
 
 	<table name="ISLanguage">
@@ -4382,7 +4399,8 @@
 		<row><td>AppSearch</td><td/><td>400</td><td>AppSearch</td><td/></row>
 		<row><td>BindImage</td><td/><td>4300</td><td>BindImage</td><td/></row>
 		<row><td>CCPSearch</td><td>CCP_TEST</td><td>500</td><td>CCPSearch</td><td/></row>
-		<row><td>Cleanup</td><td>REMOVE="ALL"</td><td>3050</td><td/><td/></row>
+		<row><td>CleanupInstallDir</td><td>REMOVE="ALL"</td><td>3050</td><td/><td/></row>
+		<row><td>CleanupServices</td><td>REMOVE="ALL"</td><td>2050</td><td/><td/></row>
 		<row><td>CostFinalize</td><td/><td>1000</td><td>CostFinalize</td><td/></row>
 		<row><td>CostInitialize</td><td/><td>800</td><td>CostInitialize</td><td/></row>
 		<row><td>CreateApacheEnv</td><td>Not Installed</td><td>5750</td><td/><td/></row>
@@ -4838,7 +4856,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
-		<row><td>LICENSEKEY</td><td> </td><td/></row>
+		<row><td>LICENSEKEY</td><td/><td/></row>
 		<row><td>LicenseKeyValid</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>MsiLogging</td><td>voicewarmupx</td><td/></row>
