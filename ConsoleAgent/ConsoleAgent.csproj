@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="FirewallUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tableau.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -183,7 +184,6 @@ ECHO Define INSTALLDIR "$(SolutionDir)build" &gt; "$(SolutionDir)build\apache2\c
 ECHO Define DATADIR "$(SolutionDir)build" &gt;&gt; "$(SolutionDir)build\apache2\conf\env.conf"
 
 IF NOT EXIST "$(SolutionDir)build\maint"  (mkdir "$(SolutionDir)build\maint")
-IF NOT EXIST "$(SolutionDir)build\maint\logs"  (mkdir "$(SolutionDir)build\maint\logs")
 IF NOT EXIST "$(SolutionDir)build\maint\conf"  (mkdir "$(SolutionDir)build\maint\conf")
 
 IF NOT EXIST "$(SolutionDir)build\conf\archive"  (mkdir "$(SolutionDir)build\conf\archive")
@@ -193,7 +193,6 @@ COPY /Y "$(SolutionDir)conf\archive\server.crt" "$(SolutionDir)build\conf\archiv
 COPY /Y "$(SolutionDir)conf\archive\server.key" "$(SolutionDir)build\conf\archive"
 
 IF NOT EXIST "$(SolutionDir)build\archive"  (mkdir "$(SolutionDir)build\archive")
-IF NOT EXIST "$(SolutionDir)build\archive\logs"  (mkdir "$(SolutionDir)build\archive\logs")
 
 IF NOT EXIST "$(SolutionDir)build\maint\www"  (mkdir "$(SolutionDir)build\maint\www")
 XCOPY /Y /S "$(SolutionDir)..\maint\www\*"  "$(SolutionDir)build\maint\www\"

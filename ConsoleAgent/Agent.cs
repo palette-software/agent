@@ -22,7 +22,7 @@ public class Agent : Base
 {
     public const string DEFAULT_SECTION = "DEFAULT";
     public const string DEFAULT_CONTROLLER_HOST = "localhost";
-    public const int DEFAULT_CONTROLLER_PORT = 8888;
+    public const int DEFAULT_CONTROLLER_PORT = 22;
     public const int DEFAULT_ARCHIVE_PORT = 8889;
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
@@ -34,8 +34,7 @@ public class Agent : Base
     public string uuid;
     public string hostname = "localhost";
 
-    // Values to pre-pend to the environment variable 'PATH' for child processes.
-    public string envPath;
+    string baseEnvPath = Environment.GetEnvironmentVariable("Path");
 
     public string controllerHost;
     public int controllerPort;
@@ -54,6 +53,8 @@ public class Agent : Base
     public ProcessManager processManager;
 
     public string licenseKey;
+    // *all* Tableau information
+    Tableau tableau = null;
     
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -82,22 +83,13 @@ public class Agent : Base
         Directory.CreateDirectory(programDataDir);
 
         xidDir = StdPath.Combine(programDataDir, "XID");
-        Directory.CreateDirectory(programDataDir);
+        Directory.CreateDirectory(xidDir);
 
         SetupLogging();
+        logger.Info("Starting Agent using inifile: " + inifile);
 
-        if (File.Exists(inifile)) 
-        {
-            logger.Info("Starting Agent using inifile: " + inifile);
-        }
-        else
-        {
-            // FIXME
-            logger.Error("agent.ini file not found: " + inifile);
-            logger.Error("Starting Agent with default settings");
-        }
+        processManager = new ProcessManager(xidDir, installDir);
 
-        processManager = new ProcessManager(xidDir, installDir, envPath);
         string path = StdPath.Combine(installDir, "maint", "conf", "httpd.conf");
         string logDir = StdPath.Combine(programDataDir, "logs", "maint");
         maintServer = new Apache2(MAINTENANCE_SERVICE_NAME, path, installDir, logDir);
@@ -105,6 +97,25 @@ public class Agent : Base
         path = StdPath.Combine(installDir, "conf", "archive", "httpd.conf");
         logDir = StdPath.Combine(programDataDir, "logs", "archive");
         archiveServer = new Apache2(ARCHIVE_SERVICE_NAME, path, installDir, logDir);
+    }
+
+    /// <summary>
+    /// Set the PATH environment variable (for helper applications to inherit).
+    /// </summary>
+    private void SetupEnvPath()
+    {
+        string path = installDir;
+
+        tableau = Tableau.query();
+        if (tableau != null)
+        {
+            path = path + Path.PathSeparator + tableau.Path + @"\bin";
+        }
+
+        path = path + Path.PathSeparator + baseEnvPath;
+        Environment.SetEnvironmentVariable("Path", path);
+
+        logger.Info("PATH: " + path);
     }
 
     /// <summary>
@@ -188,6 +199,8 @@ public class Agent : Base
 
         while (true)
         {
+            SetupEnvPath();
+
             HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl, controllerTimeoutMilliseconds);
             try
             {
@@ -224,10 +237,10 @@ public class Agent : Base
     /// </summary>
     private void ParseIniFile()
     {
-        envPath = conf.Read("path", DEFAULT_SECTION, null);
-
-        // intentionally raise exception if these are not set.
+        // intentionally raise exception if uuid is not set.
         uuid = conf.Read("uuid", DEFAULT_SECTION);
+        licenseKey = conf.Read("license-key", DEFAULT_SECTION);
+
         installDir = conf.Read("install-dir", DEFAULT_SECTION, null);
         if (installDir == null)
         {
@@ -237,10 +250,6 @@ public class Agent : Base
         programDataDir = conf.Read("data-dir", DEFAULT_SECTION, null);
         if (programDataDir == null)
         {
-            /*
-             * programDataDir == installDir primarily for debugging.
-             * For production, data-dir will be specified by the installer.
-             */
             programDataDir = installDir;
         }
         
@@ -256,8 +265,6 @@ public class Agent : Base
         controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
 
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
-
-        licenseKey = conf.Read("license-key", DEFAULT_SECTION, "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX");
     }
 
     /// <summary>

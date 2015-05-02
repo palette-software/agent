@@ -44,7 +44,6 @@ namespace InstallerDLL
 
         public static string GenerateUUID(Int32 handle)
         {
-            MessageBox.Show("GenerateUUID()");
             return System.Guid.NewGuid().ToString();
         }
 

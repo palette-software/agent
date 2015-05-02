@@ -173,6 +173,7 @@
 		<row><td>AdminWelcome</td><td/><td>1010</td><td>AdminWelcome</td><td/></row>
 		<row><td>CostFinalize</td><td/><td>1000</td><td>CostFinalize</td><td/></row>
 		<row><td>CostInitialize</td><td/><td>800</td><td>CostInitialize</td><td/></row>
+		<row><td>CreateApacheEnv</td><td/><td>25</td><td/><td/></row>
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>SetupCompleteError</td><td/><td>-3</td><td>SetupCompleteError</td><td/></row>
@@ -1120,6 +1121,9 @@
 		<col def="S0">Target</col>
 		<col def="I4">ExtendedType</col>
 		<col def="S255">ISComments</col>
+		<row><td>Cleanup</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
+		<row><td>CreateApacheEnv</td><td>1025</td><td>ISSetup.dll</td><td>f8</td><td>0</td><td/></row>
+		<row><td>CreateApacheEnvImmediate</td><td>51</td><td>CreateApacheEnv</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
 		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
 		<row><td>GetLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f1</td><td>0</td><td/></row>
@@ -2024,7 +2028,6 @@
 		<row><td>_b4065_a_0.eot</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.EOT|2B4065_A_0.eot</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.eot</td><td>1</td><td/></row>
 		<row><td>_b4065_a_0.ttf</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.TTF|2B4065_A_0.ttf</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.ttf</td><td>1</td><td/></row>
 		<row><td>_b4065_a_0.woff</td><td>MaintWwwFontsWebfonts</td><td>2B4065~1.WOF|2B4065_A_0.woff</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\fonts\webfonts\2B4065_A_0.woff</td><td>1</td><td/></row>
-		<row><td>_gitignore</td><td>ApacheConf</td><td>GITIGN~1|.gitignore</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_CONF_FILES&gt;\.gitignore</td><td>1</td><td/></row>
 		<row><td>ab.exe</td><td>ab.exe</td><td>ab.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\ab.exe</td><td>1</td><td/></row>
 		<row><td>abs.exe</td><td>abs.exe</td><td>abs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\abs.exe</td><td>1</td><td/></row>
 		<row><td>apachemonitor.exe</td><td>ApacheMonitor.exe</td><td>APACHE~1.EXE|ApacheMonitor.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\ApacheMonitor.exe</td><td>1</td><td/></row>
@@ -2581,6 +2584,8 @@
 		<row><td>f5</td><td>0</td><td>SaveHostnamePort</td><td/></row>
 		<row><td>f6</td><td>0</td><td>GetUUID</td><td/></row>
 		<row><td>f7</td><td>0</td><td>SaveUUID</td><td/></row>
+		<row><td>f8</td><td>1024</td><td>CreateApacheEnv</td><td/></row>
+		<row><td>f9</td><td>0</td><td>Cleanup</td><td/></row>
 	</table>
 
 	<table name="ISLanguage">
@@ -4377,8 +4382,11 @@
 		<row><td>AppSearch</td><td/><td>400</td><td>AppSearch</td><td/></row>
 		<row><td>BindImage</td><td/><td>4300</td><td>BindImage</td><td/></row>
 		<row><td>CCPSearch</td><td>CCP_TEST</td><td>500</td><td>CCPSearch</td><td/></row>
+		<row><td>Cleanup</td><td>REMOVE="ALL"</td><td>3050</td><td/><td/></row>
 		<row><td>CostFinalize</td><td/><td>1000</td><td>CostFinalize</td><td/></row>
 		<row><td>CostInitialize</td><td/><td>800</td><td>CostInitialize</td><td/></row>
+		<row><td>CreateApacheEnv</td><td>Not Installed</td><td>5750</td><td/><td/></row>
+		<row><td>CreateApacheEnvImmediate</td><td/><td>1525</td><td/><td/></row>
 		<row><td>CreateFolders</td><td/><td>3700</td><td>CreateFolders</td><td/></row>
 		<row><td>CreateShortcuts</td><td/><td>4500</td><td>CreateShortcuts</td><td/></row>
 		<row><td>DeleteServices</td><td>VersionNT</td><td>2000</td><td>DeleteServices</td><td/></row>

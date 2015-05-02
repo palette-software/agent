@@ -1,7 +1,7 @@
 [DEFAULT]
-type=primary
 # archive=false
 uuid=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+license-key=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 # install-dir=
 # hostname=primary
 
