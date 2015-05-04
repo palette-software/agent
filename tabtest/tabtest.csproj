@@ -7,8 +7,8 @@
     <ProjectGuid>{04CC8AE6-CDDD-4CE5-98FB-5C75D9582910}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>tabregtest</RootNamespace>
-    <AssemblyName>tabregtest</AssemblyName>
+    <RootNamespace>tabtest</RootNamespace>
+    <AssemblyName>tabtest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
