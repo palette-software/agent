@@ -95,6 +95,7 @@
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="Apache2.cs" />
+    <Compile Include="Impersonator.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="NetUtil.cs" />
     <Compile Include="PaletteHandler.cs" />

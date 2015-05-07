@@ -191,6 +191,8 @@ public class PaletteHandler : HttpHandler
         res.ContentType = "application/json";
 
         Dictionary<string, object> outputBody = null;
+        string username;
+        string password;
 
         UInt64 xid;
         if (req.Method == "POST")
@@ -206,8 +208,32 @@ public class PaletteHandler : HttpHandler
                 Dictionary<string, string> env = GetEnv(req);
                 bool immediate = GetImmediate(req);
 
-                agent.processManager.Start(xid, cmd, env, immediate);
-                outputBody = agent.processManager.GetInfo(xid);
+                try
+                {
+                    if (GetCreds(req, out username, out password))
+                    {
+                        agent.processManager.Start(xid, cmd, username, password, env, immediate);
+                    }
+                    else
+                    {
+                        agent.processManager.Start(xid, cmd, env, immediate);
+                    }
+                    outputBody = agent.processManager.GetInfo(xid);
+                }
+                catch (Exception exc)
+                {
+                    outputBody = new Dictionary<string, object>();
+                    outputBody["status"] = "FAILED";
+                    outputBody["error"] = exc.Message;
+                    outputBody["details"] = exc.ToString();
+                    if (exc is System.ComponentModel.Win32Exception)
+                    {
+                        System.ComponentModel.Win32Exception sysexc = (System.ComponentModel.Win32Exception)exc;
+                        outputBody["error-code"] = sysexc.ErrorCode;
+                        outputBody["native-error-code"] = sysexc.NativeErrorCode;
+                    }
+                }
+
                 if (immediate)
                 {
                     /* Cleanup immediate commands to avoid an additional call from the controller. */
@@ -1096,6 +1122,36 @@ public class PaletteHandler : HttpHandler
             return (bool)(req.JSON["immediate"]);
         } catch {}
         return false;
+    }
+
+    private bool GetCreds(HttpRequest req, out string username, out string password)
+    {
+        username = null;
+        password = null;
+
+        if (req.JSON == null)
+        {
+            return false;
+        }
+
+        if (req.JSON.ContainsKey("username"))
+        {
+            if (!req.JSON.ContainsKey("password"))
+            {
+                throw new HttpBadRequest("'password' is required when 'username' is specified");
+            }
+            username = (string)req.JSON["username"];
+            password = (string)req.JSON["password"];
+        }
+        else if (req.JSON.ContainsKey("password"))
+        {
+            throw new HttpBadRequest("'username' is required when 'password' is specified");
+        }
+        else
+        {
+            return false;
+        }
+        return true;
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ using log4net.Config;
 /// </summary>
 public class ProcessManager
 {
-    private string xidDir; 
+    private string xidDir;
     private string binDir;
 
     // The ProcessManager class uses the Agent 'PATH' Environment variable to locate executables.
@@ -40,8 +40,12 @@ public class ProcessManager
     /// </summary>
     /// <param name="xid">agent process id</param>
     /// <param name="cmd">command string</param>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <param name="env"></param>
+    /// <param name="immediate"></param>
     /// <returns>a agent process</returns>
-    public Process Start(UInt64 xid, string cmd, Dictionary<string, string> env, bool immediate)
+    public Process Start(UInt64 xid, string cmd, string username, string password, Dictionary<string, string> env, bool immediate)
     {
         Process process = new Process();
 
@@ -68,24 +72,39 @@ public class ProcessManager
             }
         }
 
-
-        try
+        if ((username != null) && (password != null))
         {
-            process.Start();
-            //WritePid(dir, process.Id);
-            WriteCmd(dir, cmd);
-
-            if (immediate)
+            using (new Impersonator(username, password))
             {
-                process.WaitForExit();
+                process.Start();
             }
         }
-        catch(Exception exc)
+        else
         {
-            logger.Error("Error launching process: " + exc.Message);
+            process.Start();
+        }
+        //WritePid(dir, process.Id);
+        WriteCmd(dir, cmd);
+
+        if (immediate)
+        {
+            process.WaitForExit();
         }
 
         return process;
+    }
+
+    /// <summary>
+    /// Starts an agent process
+    /// </summary>
+    /// <param name="xid">agent process id</param>
+    /// <param name="cmd">command string</param>
+    /// <param name="env"></param>
+    /// <param name="immediate"></param>
+    /// <returns>a agent process</returns>
+    public Process Start(UInt64 xid, string cmd, Dictionary<string, string> env, bool immediate)
+    {
+        return Start(xid, cmd, null, null, env, immediate);
     }
 
     /// <summary>
