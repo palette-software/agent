@@ -76,6 +76,7 @@ public class ProcessManager
         {
             using (new Impersonator(username, password))
             {
+                logger.Info(String.Format("CMD[{0}]: impersonating '{1}'", xid, username));
                 process.Start();
             }
         }

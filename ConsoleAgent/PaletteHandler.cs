@@ -97,6 +97,8 @@ public class PaletteHandler : HttpHandler
                 return HandleFirewall(req);
             case "/sql":
                 return HandleSQL(req);
+            case "/check/user":
+                return HandleCheckUser(req);
             default:
                 throw new HttpNotFound();
         }
@@ -204,6 +206,7 @@ public class PaletteHandler : HttpHandler
             {
                 String cmd = GetCmd(req);
                 logger.Info(String.Format("CMD[{0}]: {1}", xid, cmd));
+                logger.Debug(String.Format("CMD[{0}]: {1}", xid, GetPrintableJSON(req)));
 
                 Dictionary<string, string> env = GetEnv(req);
                 bool immediate = GetImmediate(req);
@@ -957,6 +960,49 @@ public class PaletteHandler : HttpHandler
         return res;
     }
 
+    private HttpResponse HandleCheckUser(HttpRequest req)
+    {
+        Dictionary<string, object> outputBody = new Dictionary<string, object>();
+
+        if (req.Method != "POST")
+        {
+            throw new HttpMethodNotAllowed();
+        }
+
+        string username;
+        string password;
+
+        if (!GetCreds(req, out username, out password))
+        {
+            throw new HttpBadRequest("Both 'username' and 'password' are required.");
+        }
+
+        try
+        {
+            using (new Impersonator(username, password))
+            {
+                outputBody["status"] = "OK";
+            }
+        } catch (Exception exc) {
+            outputBody = new Dictionary<string, object>();
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = exc.Message;
+            outputBody["details"] = exc.ToString();
+            if (exc is System.ComponentModel.Win32Exception)
+            {
+                System.ComponentModel.Win32Exception sysexc = (System.ComponentModel.Win32Exception)exc;
+                outputBody["error-code"] = sysexc.ErrorCode;
+                outputBody["native-error-code"] = sysexc.NativeErrorCode;
+            }
+        }
+
+        // Getting here means an exception was thrown.
+        HttpResponse res = req.Response;
+        res.ContentType = "application/json";
+        res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
+        return res;
+    }
+
     /// <summary>
     /// Pulls xid (agent process id) from JSON dictionary
     /// </summary>
@@ -1042,6 +1088,26 @@ public class PaletteHandler : HttpHandler
         {
             throw new HttpBadRequest("Invalid 'xid' in QUERY_STRING\n");
         }
+    }
+
+    /// <summary>
+    /// Get HttpRequest.JSON as a password-sanitized, printable string.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
+    private string GetPrintableJSON(HttpRequest req)
+    {
+        // shallow copy, be careful!
+        Dictionary<string, object> data = new Dictionary<string, object>(req.JSON);
+        if (data.ContainsKey("password"))
+        {
+            data["password"] = "********";
+        }
+        if (data.ContainsKey("run-as-password"))
+        {
+            data["run-as-password"] = "********";
+        }
+        return fastJSON.JSON.Instance.ToJSON(data);
     }
 
     /// <summary>
