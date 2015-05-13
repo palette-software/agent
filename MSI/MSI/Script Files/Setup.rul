@@ -28,8 +28,13 @@ export prototype CreateApacheEnv(HWND);
 export prototype CleanupInstallDir(HWND);
 export prototype CleanupServices(HWND);
 
+export prototype AdminUser(HWND);
+
 #define KEY "Software\\Palette"
 #define PORT 22
+
+#define ADMIN_TYPE_CREATE_NEW   1
+#define ADMIN_TYPE_USE_EXISTING 2
 
 // To Do:  Declare global variables, define constants, and prototype user-
 //         defined and DLL functions here.
@@ -354,7 +359,7 @@ begin
 	
 	nResult = CreateFile(nvFileHandle, svPath, szFileName);
 	if (nResult < 0) then
-		Sprintf(svMsg, "Failed to write '%s\%s'\n%s", svPath, szFileName, FormatMessage(nResult));
+		Sprintf(svMsg, "Failed to write '%s\\%s'\n%s", svPath, szFileName, FormatMessage(nResult));
 		MessageBox(svMsg, SEVERE);
 		abort;
 	endif;
@@ -425,5 +430,33 @@ begin
 	if (ServiceExistsService(szServiceName)) then
 		ServiceStopService(szServiceName);
 		ServiceRemoveService(szServiceName);
+	endif;
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function:  AdminUser
+//
+// Fixup and implicitly log the admin user information.
+//
+///////////////////////////////////////////////////////////////////////////////
+function AdminUser(hMSI)
+	NUMBER nvSize, nAdminType;
+	STRING svPropertyValue, svMsg;
+begin
+	// FIXME: handle specifying the admin user on the command line.
+	
+	nAdminType = 0;
+	MsiGetProperty(hMSI, "AdminType", svPropertyValue, nvSize);
+	StrToNum(nAdminType, svPropertyValue);
+	
+	if (nAdminType == ADMIN_TYPE_CREATE_NEW) then
+		MsiSetProperty(hMSI, "USERNAME", "palette");
+		
+	elseif (nAdminType != ADMIN_TYPE_USE_EXISTING) then
+		Sprintf(svMsg, "Failed to get AdminType\n");
+		MessageBox(svMsg, SEVERE);
+		abort;
 	endif;
 end;
