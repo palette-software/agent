@@ -2337,6 +2337,7 @@
 		<row><td>CreateAdminUser2</td><td>Type</td><td>0</td></row>
 		<row><td>DeleteAdminUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
 		<row><td>DeleteAdminUser</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>DeleteAdminUser</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
 		<row><td>DeleteAdminUser</td><td>Method</td><td>DeleteAdminUser</td></row>
 		<row><td>DeleteAdminUser</td><td>Type</td><td>0</td></row>
 		<row><td>GeneratePassword</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
@@ -2350,9 +2351,9 @@
 		<row><td>GenerateUUID</td><td>Param1</td><td/></row>
 		<row><td>GenerateUUID</td><td>Return</td><td>UUID</td></row>
 		<row><td>GenerateUUID</td><td>Type</td><td>0</td></row>
-		<row><td>RollbackCustomAction</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll </td></row>
 		<row><td>RollbackCustomAction2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
 		<row><td>RollbackCustomAction2</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>RollbackCustomAction2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
 		<row><td>RollbackCustomAction2</td><td>Method</td><td>Rollback</td></row>
 		<row><td>RollbackCustomAction2</td><td>Type</td><td>0</td></row>
 		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
@@ -4537,7 +4538,7 @@
 		<row><td>RemoveRegistryValues</td><td/><td>2600</td><td>RemoveRegistryValues</td><td/></row>
 		<row><td>RemoveShortcuts</td><td/><td>3200</td><td>RemoveShortcuts</td><td/></row>
 		<row><td>ResolveSource</td><td>Not Installed</td><td>850</td><td>ResolveSource</td><td/></row>
-		<row><td>RollbackCustomAction2</td><td/><td>1513</td><td/><td/></row>
+		<row><td>RollbackCustomAction2</td><td>NOT Installed</td><td>1513</td><td/><td/></row>
 		<row><td>ScheduleReboot</td><td>ISSCHEDULEREBOOT</td><td>6410</td><td>ScheduleReboot</td><td/></row>
 		<row><td>SelfRegModules</td><td/><td>5600</td><td>SelfRegModules</td><td/></row>
 		<row><td>SelfUnregModules</td><td/><td>2200</td><td>SelfUnregModules</td><td/></row>

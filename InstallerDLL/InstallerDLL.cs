@@ -49,11 +49,9 @@ public class InstallerDLL
         NewUser.Invoke("SetPassword", new object[] { password });
         NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
 
-        // set password never expires
-        PropertyValueCollection properties = NewUser.Properties["userFlags"];
-        int userFlags = (int)properties.Value;
-        userFlags |= ADS_UF_DONT_EXPIRE_PASSWD;
-        properties.Value = userFlags;
+        // http://wiert.me/2009/10/11/c-net-setting-or-clearing-the-password-never-expires-flag-for-a-user/
+        int userFlags = ADS_UF_DONT_EXPIRE_PASSWD;
+        NewUser.Properties["userFlags"].Value = userFlags;
 
         try
         {
