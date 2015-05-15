@@ -646,11 +646,11 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>PushButton</td><td>310</td><td>66</td><td>19</td><td>19</td><td>3670019</td><td/><td/><td>NewFolder</td><td>##IDS__IsBrowseFolderDlg_UpOneLevel##</td><td>0</td><td/><td/><td>NewBinary3</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Image</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>CheckAgreeLicense</td><td>CheckBox</td><td>162</td><td>155</td><td>10</td><td>11</td><td>3</td><td>AgreeToLicense</td><td>***IS_STRING_NOT_DEFINED***</td><td>Hyperlink1</td><td/><td/><td/><td/><td/></row>
+		<row><td>InstallWelcome</td><td>CheckAgreeLicense</td><td>CheckBox</td><td>162</td><td>155</td><td>10</td><td>11</td><td>3</td><td>AgreeToLicense</td><td>##NEW_STRING26##</td><td>Next</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>Hyperlink1</td><td>Hyperlink</td><td>231</td><td>155</td><td>80</td><td>11</td><td>65539</td><td/><td>##NEW_STRING7##</td><td>Next</td><td/><td/><td/><td/><td/></row>
+		<row><td>InstallWelcome</td><td>Hyperlink1</td><td>Hyperlink</td><td>230</td><td>155</td><td>80</td><td>11</td><td>65539</td><td/><td>##NEW_STRING7##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckAgreeLicense</td><td/><td/><td/><td/><td>NewBinary5</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_NEXT##</td><td>Hyperlink1</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Text1</td><td>Text</td><td>177</td><td>155</td><td>191</td><td>11</td><td>196611</td><td/><td>##NEW_STRING20##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_WelcomeProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_InstallProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -1249,7 +1249,7 @@
 		<row><td>FilesInUse</td><td>50</td><td>50</td><td>374</td><td>266</td><td>19</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Retry</td><td>Retry</td><td>Exit</td><td>Files in Use</td><td/><td>0</td><td/></row>
 		<row><td>Hostname</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>InstallChangeFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Tail</td><td>OK</td><td>Cancel</td><td>Browse</td><td/><td>0</td><td/></row>
-		<row><td>InstallWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td/><td>Cancel</td><td>Welcome Panel</td><td/><td>0</td><td/></row>
+		<row><td>InstallWelcome</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Image</td><td/><td>Cancel</td><td>Welcome Panel</td><td/><td>0</td><td/></row>
 		<row><td>LicenseAgreement</td><td>50</td><td>50</td><td>374</td><td>266</td><td>2</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Agree</td><td>Next</td><td>Cancel</td><td>License Agreement</td><td/><td>0</td><td/></row>
 		<row><td>LicenseKey</td><td>50</td><td>44</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>MaintenanceType</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>RadioGroup</td><td>Next</td><td>Cancel</td><td>Change, Reinstall, Remove</td><td/><td>0</td><td/></row>
@@ -4375,6 +4375,7 @@
 		<row><td>NEW_STRING23</td><td>1033</td><td>The password must contain a minimum of eight (8) characters.</td><td>0</td><td/><td>1923317870</td></row>
 		<row><td>NEW_STRING24</td><td>1033</td><td>{&amp;TahomaBold8}NOTE: This user will not be deleted during uninstall.</td><td>0</td><td/><td>1923334222</td></row>
 		<row><td>NEW_STRING25</td><td>1033</td><td/><td>0</td><td/><td>2057503209</td></row>
+		<row><td>NEW_STRING26</td><td>1033</td><td/><td>0</td><td/><td>2057503565</td></row>
 		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
