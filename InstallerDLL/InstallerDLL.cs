@@ -31,13 +31,21 @@ public class InstallerDLL
     /// <param name="password"></param>
     public static void CreateAdminUser(Int32 handle)
     {
-        //System.Diagnostics.Debugger.Launch();
+        System.Diagnostics.Debugger.Launch();
         string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
-        string[] tokens = data.Split(";".ToCharArray(), 3);
 
-        string productType = tokens[0];
-        string username = tokens[1];
-        string password = tokens[2];
+        if (data.Length == 0)
+        {
+            // HACK - this means we were not supposed to run in the first place
+            // i.e. AdminType == 1
+            log(handle, "[CreateAdminUser] nothing to do.");
+            return;
+        }
+
+        string[] tokens = data.Split(";".ToCharArray(), 2);
+
+        string username = tokens[0];
+        string password = tokens[1];
 
         if (username.StartsWith(@".\"))
         {
@@ -49,6 +57,7 @@ public class InstallerDLL
         NewUser.Invoke("SetPassword", new object[] { password });
         NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
 
+        // FIXME: do in a separate transaction.
         // http://wiert.me/2009/10/11/c-net-setting-or-clearing-the-password-never-expires-flag-for-a-user/
         int userFlags = ADS_UF_DONT_EXPIRE_PASSWD;
         NewUser.Properties["userFlags"].Value = userFlags;
@@ -88,14 +97,40 @@ public class InstallerDLL
             MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
         }
+    }
 
+    /// <summary>
+    /// The user home folder is created at first logon.  In this case, that happens when the Service is started.
+    /// Hence, this CustomAction must be separate from CreateAdminUser and be scheduled after StartService.
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void HideHomeFolder(Int32 handle)
+    {
+        //System.Diagnostics.Debugger.Launch();
+        string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
+        if (data.Length == 0)
+        {
+            // HACK - this means we were not supposed to run in the first place
+            // i.e. AdminType == 1
+            log(handle, "[HideHomeFolder] nothing to do.");
+            return;
+        }
+
+        string username = data;
+        if (username.StartsWith(@".\"))
+        {
+            username = username.Substring(2);
+        }
+
+        string homeFolder = HomeFolder(username);
         // HideTopLevelFolder
         // First, set hidden flag on the current directory (if needed)
-        DirectoryInfo dir = new DirectoryInfo(HomeFolder(username));
+        DirectoryInfo dir = new DirectoryInfo(homeFolder);
         if ((dir.Attributes & System.IO.FileAttributes.Hidden) == 0)
         {
+
             File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
-            log(handle, String.Format("[CreateAdminUser] Home folder was successfully hidden: {0}", dir.FullName));
+            log(handle, String.Format("[HideHomeFolder] Home folder was successfully hidden: {0}", dir.FullName));
         }
     }
 
@@ -160,12 +195,20 @@ public class InstallerDLL
         }
     }
 
-    public static int CheckAdminUser(int adminType, ref string username, ref string password)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="adminType"></param>
+    /// <param name="productType"></param>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    public static int CheckAdminUser(int adminType, string productType, ref string username, ref string password)
     {
+        //System.Diagnostics.Debugger.Launch();
         if (adminType == ADMIN_TYPE_CREATE_NEW)
         {
             username = @".\" + USERNAME;
-            password = GeneratePassword();
         }
         else if (adminType == ADMIN_TYPE_USE_EXISTING)
         {
@@ -187,6 +230,47 @@ public class InstallerDLL
         //{
         //    GrantLogonAsServiceRight(Environment.MachineName + "\\" + username);
         //}
+        return 1;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="productType"></param>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <param name="confirmPassword"></param>
+    /// <returns></returns>
+    public static int CheckCreateUser(string productType, string username, string password, string confirmPassword)
+    {
+        if (username == null || username.Length == 0)
+        {
+            MessageBox.Show("'username' is required.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return 0;
+        }
+        if (password == null || password.Length == 0)
+        {
+            MessageBox.Show("'password' is required.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return 0;
+        }
+        if (confirmPassword == null || confirmPassword.Length == 0)
+        {
+            MessageBox.Show("Please confirm the password.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return 0;
+        }
+
+        if (password != confirmPassword)
+        {
+            MessageBox.Show("The entered passwords do not match.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return 0;
+        }
+
+        if (password.Length < 8)
+        {
+            MessageBox.Show("The password must contain at least at characters.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return 0;
+        }
+
         return 1;
     }
 
@@ -277,7 +361,7 @@ public class InstallerDLL
     /// <returns></returns>
     private static string HomeFolder(string username)
     {
-        string path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
+        string path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)).FullName;
         return Path.Combine(path, username);
     }
 

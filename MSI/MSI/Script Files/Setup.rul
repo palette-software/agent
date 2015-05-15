@@ -28,7 +28,7 @@ export prototype CreateApacheEnv(HWND);
 export prototype CleanupInstallDir(HWND);
 export prototype CleanupServices(HWND);
 
-export prototype AdminUser(HWND);
+export prototype Finalize(HWND);
 
 #define KEY "Software\\Palette"
 #define PORT 22
@@ -436,12 +436,12 @@ end;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function:  AdminUser
+// Function:  Finalilze
 //
-// Fixup and implicitly log the admin user information.
+// Fixup the USERNAME & PASSWORD properties.
 //
 ///////////////////////////////////////////////////////////////////////////////
-function AdminUser(hMSI)
+function Finalize(hMSI)
 	NUMBER nvSize, nAdminType;
 	STRING svPropertyValue, svMsg;
 begin
@@ -452,8 +452,12 @@ begin
 	StrToNum(nAdminType, svPropertyValue);
 	
 	if (nAdminType == ADMIN_TYPE_CREATE_NEW) then
-		MsiSetProperty(hMSI, "USERNAME", "palette");
-		
+		MsiGetProperty(hMSI, "UsernameNew", svPropertyValue, nvSize);
+		MsiSetProperty(hMSI, "USERNAME", svPropertyValue);
+		MsiGetProperty(hMSI, "PasswordNew", svPropertyValue, nvSize);
+		MsiSetProperty(hMSI, "PASSWORD", svPropertyValue);
+		svPropertyValue = "1";
+		MsiSetProperty(hMSI, "TRY_CREATE_ADMIN_USER", svPropertyValue);
 	elseif (nAdminType != ADMIN_TYPE_USE_EXISTING) then
 		Sprintf(svMsg, "Failed to get AdminType\n");
 		MessageBox(svMsg, SEVERE);
