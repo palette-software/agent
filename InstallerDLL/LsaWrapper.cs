@@ -171,6 +171,11 @@ namespace LSA
 
         public void AddPrivileges(string account, string privilege)
         {
+            if (account.StartsWith(@".\"))
+            {
+                // LsaLookupNames2 does not accept the .\ shorthand.
+                account = account.Substring(2);
+            }
             LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
             LSA_TRANSLATED_SID2 lts;
             IntPtr tsids = IntPtr.Zero;
@@ -203,6 +208,12 @@ namespace LSA
 
         public string[] GetRights(string account)
         {
+            if (account.StartsWith(@".\"))
+            {
+                // LsaLookupNames2 does not accept the .\ shorthand.
+                account = account.Substring(2);
+            }
+
             LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
             LSA_TRANSLATED_SID2 lts;
             IntPtr tsids = IntPtr.Zero;

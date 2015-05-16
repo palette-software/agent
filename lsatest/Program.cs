@@ -28,12 +28,6 @@ namespace lsatest
                 return -1;
             }
 
-            if (account.Contains('\\'))
-            {
-                string[] tokens = account.Split(@"\".ToCharArray(), 2);
-                account = tokens[1];
-            }
-
             Console.WriteLine();
             using (LsaWrapper lsa = new LsaWrapper())
             {
