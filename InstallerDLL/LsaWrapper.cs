@@ -33,33 +33,30 @@ namespace LSA
     }
     sealed class Win32Sec
     {
-        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true),
-        SuppressUnmanagedCodeSecurityAttribute]
+        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
         internal static extern uint LsaOpenPolicy(
-        LSA_UNICODE_STRING[] SystemName,
-        ref LSA_OBJECT_ATTRIBUTES ObjectAttributes,
-        int AccessMask,
-        out IntPtr PolicyHandle
+            LSA_UNICODE_STRING[] SystemName,
+            ref LSA_OBJECT_ATTRIBUTES ObjectAttributes,
+            int AccessMask,
+            out IntPtr PolicyHandle
         );
 
-        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true),
-        SuppressUnmanagedCodeSecurityAttribute]
+        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
         internal static extern uint LsaAddAccountRights(
-        LSA_HANDLE PolicyHandle,
-        IntPtr pSID,
-        LSA_UNICODE_STRING[] UserRights,
-        int CountOfRights
+            LSA_HANDLE PolicyHandle,
+            IntPtr pSID,
+            LSA_UNICODE_STRING[] UserRights,
+            int CountOfRights
         );
 
-        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true),
-        SuppressUnmanagedCodeSecurityAttribute]
+        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
         internal static extern int LsaLookupNames2(
-        LSA_HANDLE PolicyHandle,
-        uint Flags,
-        uint Count,
-        LSA_UNICODE_STRING[] Names,
-        ref IntPtr ReferencedDomains,
-        ref IntPtr Sids
+            LSA_HANDLE PolicyHandle,
+            uint Flags,
+            uint Count,
+            LSA_UNICODE_STRING[] Names,
+            ref IntPtr ReferencedDomains,
+            ref IntPtr Sids
         );
 
         [DllImport("advapi32")]
@@ -71,6 +68,14 @@ namespace LSA
         [DllImport("advapi32")]
         internal static extern int LsaFreeMemory(IntPtr Buffer);
 
+        // http://stackoverflow.com/questions/2112901/i-successfully-called-advapi32s-lsaenumerateaccountrights-from-c-now-how-do
+        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
+        internal static extern uint LsaEnumerateAccountRights(
+            LSA_HANDLE PolicyHandle,
+            IntPtr pSID,
+            out /* LSA_UNICODE_STRING[] */ IntPtr UserRights,
+            out ulong CountOfRights
+        );
     }
     /// <summary>
     /// This class is used to grant "Log on as a service", "Log on as a batchjob", "Log on localy" etc.
@@ -123,6 +128,9 @@ namespace LSA
         const uint STATUS_ACCESS_DENIED = 0xc0000022;
         const uint STATUS_INSUFFICIENT_RESOURCES = 0xc000009a;
         const uint STATUS_NO_MEMORY = 0xc0000017;
+        const uint STATUS_OBJECT_NAME_NOT_FOUND = 0xc0000034;
+
+        const uint STATUS_NONE_MAPPED = 0xc0000073;
 
         IntPtr lsaHandle;
 
@@ -147,8 +155,7 @@ namespace LSA
                 system[0] = InitLsaString(systemName);
             }
 
-            uint ret = Win32Sec.LsaOpenPolicy(system, ref lsaAttr,
-            (int)Access.POLICY_ALL_ACCESS, out lsaHandle);
+            uint ret = Win32Sec.LsaOpenPolicy(system, ref lsaAttr, (int)Access.POLICY_ALL_ACCESS, out lsaHandle);
             if (ret == 0)
                 return;
             if (ret == STATUS_ACCESS_DENIED)
@@ -162,25 +169,6 @@ namespace LSA
             throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
         }
 
-        //public void AddPrivileges(string account, string privilege)
-        //{
-        //    IntPtr pSid = GetSIDInformation(account);
-        //    LSA_UNICODE_STRING[] privileges = new LSA_UNICODE_STRING[1];
-        //    privileges[0] = InitLsaString(privilege);
-        //    uint ret = Win32Sec.LsaAddAccountRights(lsaHandle, pSid, privileges, 1);
-        //    if (ret == 0)
-        //        return;
-        //    if (ret == STATUS_ACCESS_DENIED)
-        //    {
-        //        throw new UnauthorizedAccessException();
-        //    }
-        //    if ((ret == STATUS_INSUFFICIENT_RESOURCES) || (ret == STATUS_NO_MEMORY))
-        //    {
-        //        throw new OutOfMemoryException();
-        //    }
-        //    throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
-        //}
-
         public void AddPrivileges(string account, string privilege)
         {
             LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
@@ -192,6 +180,7 @@ namespace LSA
             int ret1 = Win32Sec.LsaLookupNames2(lsaHandle, 0, 1, names, ref tdom, ref tsids);
             if (ret1 != 0)
                 throw new Win32Exception(Win32Sec.LsaNtStatusToWinError(ret1));
+
             lts = (LSA_TRANSLATED_SID2)Marshal.PtrToStructure(tsids, typeof(LSA_TRANSLATED_SID2));
             IntPtr pSid = lts.Sid;
             LSA_UNICODE_STRING[] privileges = new LSA_UNICODE_STRING[1];
@@ -210,6 +199,62 @@ namespace LSA
                 throw new OutOfMemoryException();
             }
             throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
+        }
+
+        public string[] GetRights(string account)
+        {
+            LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
+            LSA_TRANSLATED_SID2 lts;
+            IntPtr tsids = IntPtr.Zero;
+            IntPtr tdom = IntPtr.Zero;
+            names[0] = InitLsaString(account);
+            lts.Sid = IntPtr.Zero;
+            int ret1 = Win32Sec.LsaLookupNames2(lsaHandle, 0, 1, names, ref tdom, ref tsids);
+            if ((uint)ret1 == STATUS_NONE_MAPPED)
+            {
+                throw new NotFoundException(account);
+            }
+            if (ret1 != 0)
+            {
+                throw new Win32Exception(Win32Sec.LsaNtStatusToWinError(ret1));
+            }
+
+            lts = (LSA_TRANSLATED_SID2)Marshal.PtrToStructure(tsids, typeof(LSA_TRANSLATED_SID2));
+            IntPtr pSid = lts.Sid;
+
+            IntPtr rightsArray = IntPtr.Zero;
+            ulong rightsCount = 0;
+            uint ret = Win32Sec.LsaEnumerateAccountRights(lsaHandle, pSid, out rightsArray, out rightsCount);
+            Win32Sec.LsaFreeMemory(tsids);
+            Win32Sec.LsaFreeMemory(tdom);
+            
+            if (ret == STATUS_ACCESS_DENIED)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            if ((ret == STATUS_INSUFFICIENT_RESOURCES) || (ret == STATUS_NO_MEMORY))
+            {
+                throw new OutOfMemoryException();
+            }
+            if (ret == STATUS_OBJECT_NAME_NOT_FOUND)
+            {
+                return null;
+            }
+            else if (ret != 0)
+            {
+                throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
+            }
+
+            string[] result = new string[rightsCount];
+
+            LSA_UNICODE_STRING lsastr = new LSA_UNICODE_STRING();
+            for (ulong i = 0; i < rightsCount; i++)
+            {
+                IntPtr itemAddr = new IntPtr(rightsArray.ToInt64() + (long)(i * (ulong)Marshal.SizeOf(lsastr)));
+                lsastr = (LSA_UNICODE_STRING)Marshal.PtrToStructure(itemAddr, lsastr.GetType());
+                result[i] = lsastr.Buffer;
+            }
+            return result;
         }
 
         public void Dispose()
@@ -268,5 +313,10 @@ namespace LSA
                 lsaWrapper.AddPrivileges(account, privilege);
             }
         }
+    }
+
+    public class NotFoundException : Exception
+    {
+        public NotFoundException(string account) : base(account) { }
     }
 }
