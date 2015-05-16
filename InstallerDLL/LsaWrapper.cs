@@ -50,6 +50,15 @@ namespace LSA
         );
 
         [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
+        internal static extern uint LsaRemoveAccountRights(
+            LSA_HANDLE PolicyHandle,
+            IntPtr pSID,
+            bool AllRights,
+            LSA_UNICODE_STRING[] UserRights,
+            int CountOfRights
+        );
+
+        [DllImport("advapi32", CharSet = CharSet.Unicode, SetLastError = true), SuppressUnmanagedCodeSecurityAttribute]
         internal static extern int LsaLookupNames2(
             LSA_HANDLE PolicyHandle,
             uint Flags,
@@ -191,6 +200,48 @@ namespace LSA
             LSA_UNICODE_STRING[] privileges = new LSA_UNICODE_STRING[1];
             privileges[0] = InitLsaString(privilege);
             uint ret = Win32Sec.LsaAddAccountRights(lsaHandle, pSid, privileges, 1);
+            Win32Sec.LsaFreeMemory(tsids);
+            Win32Sec.LsaFreeMemory(tdom);
+            if (ret == 0)
+                return;
+            if (ret == STATUS_ACCESS_DENIED)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            if ((ret == STATUS_INSUFFICIENT_RESOURCES) || (ret == STATUS_NO_MEMORY))
+            {
+                throw new OutOfMemoryException();
+            }
+            throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
+        }
+
+        public void AddRight(string account, string right)
+        {
+            AddPrivileges(account, right);
+        }
+
+        public void RemoveRight(string account, string right)
+        {
+            if (account.StartsWith(@".\"))
+            {
+                // LsaLookupNames2 does not accept the .\ shorthand.
+                account = account.Substring(2);
+            }
+            LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
+            LSA_TRANSLATED_SID2 lts;
+            IntPtr tsids = IntPtr.Zero;
+            IntPtr tdom = IntPtr.Zero;
+            names[0] = InitLsaString(account);
+            lts.Sid = IntPtr.Zero;
+            int ret1 = Win32Sec.LsaLookupNames2(lsaHandle, 0, 1, names, ref tdom, ref tsids);
+            if (ret1 != 0)
+                throw new Win32Exception(Win32Sec.LsaNtStatusToWinError(ret1));
+
+            lts = (LSA_TRANSLATED_SID2)Marshal.PtrToStructure(tsids, typeof(LSA_TRANSLATED_SID2));
+            IntPtr pSid = lts.Sid;
+            LSA_UNICODE_STRING[] rights = new LSA_UNICODE_STRING[1];
+            rights[0] = InitLsaString(right);
+            uint ret = Win32Sec.LsaRemoveAccountRights(lsaHandle, pSid, false, rights, 1);
             Win32Sec.LsaFreeMemory(tsids);
             Win32Sec.LsaFreeMemory(tdom);
             if (ret == 0)
