@@ -173,4 +173,99 @@ public class HttpRequest
             }
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="?"></param>
+    /// <param name="?"></param>
+    /// <returns></returns>
+    public object GetKeyAsObject(string name, bool required)
+    {
+        if (JSON == null)
+        {
+            if (required)
+            {
+                throw new HttpBadRequest("Valid JSON required.");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        if (!JSON.ContainsKey(name))
+        {
+            if (required)
+            {
+                throw new HttpBadRequest(String.Format("Missing JSON key '{0}'", name));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        return JSON[name];
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public string GetKey(string name, bool required)
+    {
+        object value = GetKeyAsObject(name, required);
+        try
+        {
+            return (string)value;
+        }
+        catch (Exception)
+        {
+            throw new HttpBadRequest(String.Format("Expected a string value for JSON key '{0}'", name));
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public int GetKeyAsInt(string name)
+    {
+        object value = GetKeyAsObject(name, true);
+        try
+        {
+            return (int)value;
+        }
+        catch (Exception)
+        {
+            throw new HttpBadRequest(String.Format("Expected an integer value for JSON key '{0}'", name));
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="defaultValue"></param>
+    /// <returns></returns>
+    public int GetKeyAsInt(string name, int defaultValue)
+    {
+        object value = GetKeyAsObject(name, false);
+        if (value == null)
+        {
+            return defaultValue;
+        }
+        try
+        {
+            return (int)value;
+        }
+        catch (Exception)
+        {
+            throw new HttpBadRequest(String.Format("Expected an integer value for JSON key '{0}'", name));
+        }
+    }
 }

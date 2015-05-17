@@ -61,6 +61,7 @@ public class HttpResponse
     {
         writer.WriteLine("HTTP/" + VERSION + " " + Convert.ToString(StatusCode) + " " + StatusDescription);
         writer.WriteLine("Server: " + SERVER);
+        writer.WriteLine("Content-Type: " + ContentType);
         writer.WriteLine("Content-Length: " + Convert.ToString(body.Length));
         writer.WriteLine("");
         if (body.Length > 0)

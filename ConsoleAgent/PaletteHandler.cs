@@ -87,14 +87,16 @@ public class PaletteHandler : HttpHandler
                 return HandleCmd(req);
             case "/file":
                 return HandleFile(req);
+            case "/firewall":
+                return HandleFirewall(req);
             case "/hup":
                 return HandleHUP(req);
             case "/maint":
                 return HandleMaint(req);
             case "/ping":
                 return HandlePing(req);
-            case "/firewall":
-                return HandleFirewall(req);
+            case "/proxy":
+                return HandleProxy(req);
             case "/sql":
                 return HandleSQL(req);
             case "/check/user":
@@ -957,6 +959,91 @@ public class PaletteHandler : HttpHandler
         res.ContentType = "application/json";
         res.Write(json);
 
+        return res;
+    }
+
+    private HttpResponse HandleProxy(HttpRequest req)
+    {
+        if (req.Method != "GET")
+        {
+            throw new HttpMethodNotAllowed();
+        }
+
+        string url = req.GetKey("URL", true);
+        int timeout = req.GetKeyAsInt("timeout", -1);
+
+        HttpResponse res = req.Response;
+
+        HttpWebRequest webReq = (HttpWebRequest) HttpWebRequest.Create(url);
+        if (timeout >= 0)
+        {
+            webReq.Timeout = timeout;
+        }
+
+        HttpWebResponse webRes;
+        try
+        {
+            webRes = (HttpWebResponse)webReq.GetResponse();
+        }
+        catch (WebException exc)
+        {
+            if (exc.Response != null)
+            {
+                webRes = (HttpWebResponse)exc.Response;
+            }
+            else
+            {
+                Dictionary<string, object> outputBody = new Dictionary<string, object>();
+                outputBody["status"] = "FAILED";
+                outputBody["error"] = exc.Message;
+
+                string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+                logger.Debug("JSON: " + json);
+
+                res.ContentType = "application/x-json";
+                res.Write(json);
+                return res;
+            }
+        }
+
+        int statusCode = (int)webRes.StatusCode;
+        if (statusCode < 200 || statusCode >= 300)
+        {
+            Dictionary<string, object> outputBody = new Dictionary<string, object>();
+            outputBody["status"] = "FAILED";
+            outputBody["error"] = statusCode.ToString() + " " + webRes.StatusDescription;
+            outputBody["status-code"] = statusCode;
+            outputBody["reason"] = webRes.StatusDescription;
+
+            // In case of an error, the body is assumed to be text.
+            string body;
+            using (StreamReader reader = new StreamReader(webRes.GetResponseStream()))
+            {
+                body = reader.ReadToEnd();
+            }
+            outputBody["body"] = body;
+
+            string json = fastJSON.JSON.Instance.ToJSON(outputBody);
+            logger.Debug("JSON: " + json);
+
+            res.ContentType = "application/x-json";
+            res.Write(json);
+        }
+        else
+        {
+            res.StatusCode = statusCode;
+            res.StatusDescription = webRes.StatusDescription;
+            res.ContentType = webRes.ContentType;
+
+            // read the body as unprocessed binary.
+            byte[] body = new byte[webRes.ContentLength];
+            Stream stream = webRes.GetResponseStream();
+            stream.Read(body, 0, body.Length);
+            stream.Close();
+
+            res.Write(body);
+        }
+        webRes.Close();
         return res;
     }
 
