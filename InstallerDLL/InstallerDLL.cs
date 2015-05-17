@@ -27,6 +27,8 @@ public class InstallerDLL
 
     public const string PRODUCT_TYPE_LANMANNT = "LanmanNT";
 
+    public const int REG_HIDE_USER = 0x10000;
+
     /// <summary>
     /// 
     /// </summary>
@@ -111,6 +113,16 @@ public class InstallerDLL
             string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, username);
             MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
+        }
+
+        try
+        {
+            HideUser(username);
+        }
+        catch (Exception e)
+        {
+            string msg = String.Format("Failed to hide account '{0}', continuing.\n{1}", username, e.Message);
+            MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 
@@ -459,6 +471,46 @@ public class InstallerDLL
         }
 
         return !Directory.Exists(folder);
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
+    public static void HideUser(string account)
+    {
+        RegistryKey hklm;
+
+        if (Environment.Is64BitOperatingSystem)
+        {
+            hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+        }
+        else
+        {
+            hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+        }
+
+        //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon  \SpecialAccounts\UserList
+        string key = @"Software\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts";
+
+        RegistryKey specialAccountsSubKey = Registry.LocalMachine.OpenSubKey(key, true);
+        if (specialAccountsSubKey == null)
+        {
+            specialAccountsSubKey = hklm.CreateSubKey(key);
+        }
+
+        RegistryKey userListSubKey = specialAccountsSubKey.OpenSubKey("UserList");
+        if (userListSubKey == null)
+        {
+            userListSubKey = specialAccountsSubKey.CreateSubKey("UserList");
+            userListSubKey.SetValue(account, REG_HIDE_USER, RegistryValueKind.DWord);
+        }
+
+        userListSubKey.Close();
+        specialAccountsSubKey.Close();
+        hklm.Close();
     }
 
     private static void log(Int32 handle, string msg)
