@@ -471,13 +471,8 @@
 		<row><td>AdminUser</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>AdminUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
-		<row><td>AdminUser</td><td>Edit1</td><td>Edit</td><td>135</td><td>134</td><td>128</td><td>16</td><td>3</td><td>USERNAME</td><td/><td>Edit2</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Edit2</td><td>Edit</td><td>135</td><td>155</td><td>128</td><td>16</td><td>2097155</td><td>PASSWORD</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>Next</td><td>PushButton</td><td>230</td><td>244</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>RadioButtonGroup1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>29</td><td>71</td><td>322</td><td>137</td><td>3</td><td>AdminType</td><td/><td>Edit1</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text1</td><td>Text</td><td>87</td><td>136</td><td>45</td><td>12</td><td>65539</td><td>NewProperty11</td><td>##NEW_STRING17##</td><td/><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text2</td><td>Text</td><td>87</td><td>156</td><td>45</td><td>12</td><td>65539</td><td>NewProperty12</td><td>##NEW_STRING18##</td><td/><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text3</td><td>Text</td><td>79</td><td>184</td><td>250</td><td>13</td><td>65539</td><td>NewProperty14</td><td>##NEW_STRING21##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>29</td><td>86</td><td>322</td><td>73</td><td>3</td><td>AdminType</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -604,6 +599,21 @@
 		<row><td>DiskSpaceRequirements</td><td>DlgTitle</td><td>Text</td><td>9</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS__IsFeatureDetailsDlg_DiskSpaceRequirements##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>List</td><td>VolumeCostList</td><td>8</td><td>55</td><td>358</td><td>125</td><td>393223</td><td/><td>##IDS__IsFeatureDetailsDlg_Numbers##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>OK</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFeatureDetailsDlg_OK##</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>ExistingUser</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>{&amp;Tahoma8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Edit1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_EXISTING##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
+		<row><td>ExistingUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_EXISTING##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
+		<row><td>ExistingUser</td><td>Edit1</td><td>Edit</td><td>139</td><td>101</td><td>128</td><td>16</td><td>3</td><td>USERNAME</td><td/><td>Edit2</td><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Edit2</td><td>Edit</td><td>139</td><td>122</td><td>128</td><td>16</td><td>2097155</td><td>PASSWORD</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Text1</td><td>Text</td><td>91</td><td>103</td><td>45</td><td>12</td><td>65539</td><td>NewProperty1</td><td>##NEW_STRING27##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Text2</td><td>Text</td><td>91</td><td>124</td><td>45</td><td>12</td><td>65539</td><td>NewProperty2</td><td>##NEW_STRING28##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Text3</td><td>Text</td><td>83</td><td>162</td><td>250</td><td>13</td><td>65539</td><td>NewProperty3</td><td>##NEW_STRING29##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>FilesInUse</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -884,16 +894,6 @@
 		<col key="yes" def="s50">Control_</col>
 		<col key="yes" def="s50">Action</col>
 		<col key="yes" def="s255">Condition</col>
-		<row><td>AdminUser</td><td>Edit1</td><td>Hide</td><td>AdminType = 1</td></row>
-		<row><td>AdminUser</td><td>Edit1</td><td>Show</td><td>AdminType = 2</td></row>
-		<row><td>AdminUser</td><td>Edit2</td><td>Hide</td><td>AdminType = 1</td></row>
-		<row><td>AdminUser</td><td>Edit2</td><td>Show</td><td>AdminType = 2</td></row>
-		<row><td>AdminUser</td><td>Text1</td><td>Hide</td><td>AdminType = 1</td></row>
-		<row><td>AdminUser</td><td>Text1</td><td>Show</td><td>AdminType = 2</td></row>
-		<row><td>AdminUser</td><td>Text2</td><td>Hide</td><td>AdminType = 1</td></row>
-		<row><td>AdminUser</td><td>Text2</td><td>Show</td><td>AdminType = 2</td></row>
-		<row><td>AdminUser</td><td>Text3</td><td>Hide</td><td>AdminType = 1</td></row>
-		<row><td>AdminUser</td><td>Text3</td><td>Show</td><td>AdminType = 2</td></row>
 		<row><td>CustomSetup</td><td>ChangeFolder</td><td>Hide</td><td>Installed</td></row>
 		<row><td>CustomSetup</td><td>Details</td><td>Hide</td><td>Installed</td></row>
 		<row><td>CustomSetup</td><td>InstallLabel</td><td>Hide</td><td>Installed</td></row>
@@ -1005,7 +1005,7 @@
 		<row><td>AdminUser</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>AdminUser</td><td>Next</td><td>DoAction</td><td>CheckAdminUser</td><td>1</td><td>1</td></row>
 		<row><td>AdminUser</td><td>Next</td><td>NewDialog</td><td>CreateUser</td><td>AdminType = 1</td><td>2</td></row>
-		<row><td>AdminUser</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>AdminType = 2 </td><td>3</td></row>
+		<row><td>AdminUser</td><td>Next</td><td>NewDialog</td><td>ExistingUser</td><td>AdminType = 2</td><td>3</td></row>
 		<row><td>AdminWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>AdminWelcome</td><td>Next</td><td>NewDialog</td><td>AdminNetworkLocation</td><td>1</td><td>0</td></row>
 		<row><td>CancelSetup</td><td>No</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
@@ -1041,6 +1041,10 @@
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
 		<row><td>DestinationFolder</td><td>Next</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td>0</td></row>
 		<row><td>DiskSpaceRequirements</td><td>OK</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
+		<row><td>ExistingUser</td><td>Back</td><td>NewDialog</td><td>AdminUser</td><td>1</td><td>1</td></row>
+		<row><td>ExistingUser</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
+		<row><td>ExistingUser</td><td>Next</td><td>DoAction</td><td>CheckExistingUser</td><td>1</td><td>1</td></row>
+		<row><td>ExistingUser</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>ExistingUserValid = 1</td><td>2</td></row>
 		<row><td>FilesInUse</td><td>Exit</td><td>EndDialog</td><td>Exit</td><td>1</td><td>0</td></row>
 		<row><td>FilesInUse</td><td>Ignore</td><td>EndDialog</td><td>Ignore</td><td>1</td><td>0</td></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>EndDialog</td><td>Retry</td><td>1</td><td>0</td></row>
@@ -1095,8 +1099,8 @@
 		<row><td>PatchWelcome</td><td>Next</td><td>EndDialog</td><td>Return</td><td>1</td><td>3</td></row>
 		<row><td>PatchWelcome</td><td>Next</td><td>Reinstall</td><td>ALL</td><td>PATCH And REINSTALL=""</td><td>1</td></row>
 		<row><td>PatchWelcome</td><td>Next</td><td>ReinstallMode</td><td>omus</td><td>PATCH And REINSTALLMODE=""</td><td>2</td></row>
-		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>AdminUser</td><td>NOT Installed AND AdminType = 2</td><td>2</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>CreateUser</td><td>NOT Installed AND AdminType = 1</td><td>1</td></row>
+		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>ExistingUser</td><td>NOT Installed AND AdminType = 2</td><td>2</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed AND _IsMaintenance = "Reinstall"</td><td>3</td></row>
 		<row><td>ReadyToInstall</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>ReadyToInstall</td><td>InstallNow</td><td>EndDialog</td><td>Return</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
@@ -1184,6 +1188,7 @@
 		<col def="S255">ISComments</col>
 		<row><td>CheckAdminUser</td><td>1</td><td>CheckAdminUser.clr</td><td>InstallerDLL.CheckAdminUser(...)</td><td>0</td><td/></row>
 		<row><td>CheckCreateUser</td><td>1</td><td>CheckCreateUser.clr</td><td>InstallerDLL.CheckCreateUser(...)</td><td>0</td><td/></row>
+		<row><td>CheckExistingUser</td><td>1</td><td>CheckExistingUser.clr</td><td>InstallerDLL.CheckExistingUser(...)</td><td>0</td><td/></row>
 		<row><td>CleanupInstallDir</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
 		<row><td>CleanupServices</td><td>1</td><td>ISSetup.dll</td><td>f10</td><td>0</td><td/></row>
 		<row><td>CreateAdminUser1</td><td>51</td><td>CreateAdminUser2</td><td>[USERNAME];[PASSWORD]</td><td/><td/></row>
@@ -1246,6 +1251,7 @@
 		<row><td>DatabaseFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Database Folder</td><td/><td>0</td><td/></row>
 		<row><td>DestinationFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Destination Folder</td><td/><td>0</td><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>OK</td><td>OK</td><td>OK</td><td>Feature Details</td><td/><td>0</td><td/></row>
+		<row><td>ExistingUser</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING17##</td><td>Next</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>FilesInUse</td><td>50</td><td>50</td><td>374</td><td>266</td><td>19</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Retry</td><td>Retry</td><td>Exit</td><td>Files in Use</td><td/><td>0</td><td/></row>
 		<row><td>Hostname</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##ID_STRING2##</td><td>Edit1</td><td>Next</td><td>Cancel</td><td>Interior</td><td/><td>0</td><td/></row>
 		<row><td>InstallChangeFolder</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Tail</td><td>OK</td><td>Cancel</td><td>Browse</td><td/><td>0</td><td/></row>
@@ -2366,6 +2372,14 @@
 		<row><td>CheckCreateUser</td><td>Param4</td><td>[ConfirmPassword]</td></row>
 		<row><td>CheckCreateUser</td><td>Return</td><td>CreateUserValid</td></row>
 		<row><td>CheckCreateUser</td><td>Type</td><td>0</td></row>
+		<row><td>CheckExistingUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>CheckExistingUser</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>CheckExistingUser</td><td>Method</td><td>CheckExistingUser</td></row>
+		<row><td>CheckExistingUser</td><td>Param1</td><td>[ProductType]</td></row>
+		<row><td>CheckExistingUser</td><td>Param2</td><td>[USERNAME]</td></row>
+		<row><td>CheckExistingUser</td><td>Param3</td><td>[NewProperty3]</td></row>
+		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
+		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
 		<row><td>CreateAdminUser2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
 		<row><td>CreateAdminUser2</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CreateAdminUser2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll </td></row>
@@ -3382,12 +3396,14 @@
 		<row><td>IDS_DIALOG_TEXT2_ADMIN</td><td>1033</td><td>Please select how the Palette agent will run as a service.</td><td>0</td><td/><td>1520665965</td></row>
 		<row><td>IDS_DIALOG_TEXT2_CREATE</td><td>1033</td><td>Please provide the details for creating a dedicated administrative user.</td><td>0</td><td/><td>1923288461</td></row>
 		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Dialog Interior Description</td><td>0</td><td/><td>1520654795</td></row>
+		<row><td>IDS_DIALOG_TEXT2_EXISTING</td><td>1033</td><td>Specify the account credentials for the Palette Agent service.</td><td>0</td><td/><td>-2103245678</td></row>
 		<row><td>IDS_DIALOG_TEXT2_HOSTNAME</td><td>1033</td><td>Please enter the hostname of the Palette server.</td><td>0</td><td/><td>1520675275</td></row>
 		<row><td>IDS_DIALOG_TEXT2_LICENSE_KEY</td><td>1033</td><td>Please enter the license key provided by email.</td><td>0</td><td/><td>1520648779</td></row>
 		<row><td>IDS_DIALOG_TEXT_ADMIN</td><td>1033</td><td>{&amp;TahomaBold10}Administrator Accounts</td><td>0</td><td/><td>1520661837</td></row>
 		<row><td>IDS_DIALOG_TEXT_CREATE</td><td>1033</td><td>{&amp;TahomaBold10}Create Administrative User</td><td>0</td><td/><td>1923333453</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_EXTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>1520642507</td></row>
+		<row><td>IDS_DIALOG_TEXT_EXISTING</td><td>1033</td><td>{&amp;TahomaBold10}Specify Adminstrator Account</td><td>0</td><td/><td>-2103201198</td></row>
 		<row><td>IDS_DIALOG_TEXT_HOSTNAME</td><td>1033</td><td>{&amp;TahomaBold10}Palette Server Hostname</td><td>0</td><td/><td>1520658218</td></row>
 		<row><td>IDS_DIFX_AMD64</td><td>1033</td><td>[ProductName] requires an X64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_IA64</td><td>1033</td><td>[ProductName] requires an IA64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
@@ -4348,6 +4364,7 @@
 		<row><td>ID_STRING14</td><td>1033</td><td>license-key</td><td>0</td><td/><td>-500963729</td></row>
 		<row><td>ID_STRING15</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>1520683082</td></row>
 		<row><td>ID_STRING16</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>1923321101</td></row>
+		<row><td>ID_STRING17</td><td>1033</td><td>[ProductName] - InstallShield Wizard</td><td>0</td><td/><td>-2103236110</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent</td><td>0</td><td/><td>-500977970</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Service for the Palette Agent</td><td>0</td><td/><td>-500963634</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Palette server hostname:</td><td>0</td><td/><td>-1172054392</td></row>
@@ -4360,22 +4377,25 @@
 		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;License Key:</td><td>0</td><td/><td>-1172064664</td></row>
 		<row><td>NEW_STRING10</td><td>1033</td><td>username:</td><td>0</td><td/><td>1923297037</td></row>
 		<row><td>NEW_STRING11</td><td>1033</td><td>password:</td><td>0</td><td/><td>1923297037</td></row>
-		<row><td>NEW_STRING12</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923335373</td></row>
-		<row><td>NEW_STRING13</td><td>1033</td><td>Use existing administrator account.</td><td>0</td><td/><td>1520671662</td></row>
+		<row><td>NEW_STRING12</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>-2103235757</td></row>
+		<row><td>NEW_STRING13</td><td>1033</td><td>Use existing administrator account.</td><td>0</td><td/><td>-2103235757</td></row>
 		<row><td>NEW_STRING14</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING15</td><td>1033</td><td>Use existing administrator account.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING16</td><td>1033</td><td>username:</td><td>0</td><td/><td>1923327757</td></row>
-		<row><td>NEW_STRING17</td><td>1033</td><td>username:</td><td>0</td><td/><td>1520669774</td></row>
-		<row><td>NEW_STRING18</td><td>1033</td><td>password:</td><td>0</td><td/><td>1520669806</td></row>
+		<row><td>NEW_STRING17</td><td>1033</td><td>username:</td><td>0</td><td/><td>-2103235757</td></row>
+		<row><td>NEW_STRING18</td><td>1033</td><td>password:</td><td>0</td><td/><td>-2103235757</td></row>
 		<row><td>NEW_STRING19</td><td>1033</td><td>password:</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977374328</td></row>
 		<row><td>NEW_STRING20</td><td>1033</td><td>I agree to the</td><td>0</td><td/><td>1520680814</td></row>
-		<row><td>NEW_STRING21</td><td>1033</td><td>The username should be in the form of DOMAIN\User.</td><td>0</td><td/><td>1654899272</td></row>
+		<row><td>NEW_STRING21</td><td>1033</td><td>The username should be in the form of DOMAIN\User.</td><td>0</td><td/><td>-2103235757</td></row>
 		<row><td>NEW_STRING22</td><td>1033</td><td>confirm password:</td><td>0</td><td/><td>1923303245</td></row>
 		<row><td>NEW_STRING23</td><td>1033</td><td>The password must contain a minimum of eight (8) characters.</td><td>0</td><td/><td>1923317870</td></row>
 		<row><td>NEW_STRING24</td><td>1033</td><td>{&amp;TahomaBold8}NOTE: This user will not be deleted during uninstall.</td><td>0</td><td/><td>1923334222</td></row>
 		<row><td>NEW_STRING25</td><td>1033</td><td/><td>0</td><td/><td>2057503209</td></row>
 		<row><td>NEW_STRING26</td><td>1033</td><td/><td>0</td><td/><td>2057503565</td></row>
+		<row><td>NEW_STRING27</td><td>1033</td><td>username:</td><td>0</td><td/><td>-2103188686</td></row>
+		<row><td>NEW_STRING28</td><td>1033</td><td>password:</td><td>0</td><td/><td>-2103188686</td></row>
+		<row><td>NEW_STRING29</td><td>1033</td><td>The username should be in the form of DOMAIN\User.</td><td>0</td><td/><td>-2103188686</td></row>
 		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
@@ -4967,6 +4987,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>DisplayNameTypical</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>Display_IsBitmapDlg</td><td>1</td><td/></row>
 		<row><td>ErrorDialog</td><td>SetupError</td><td/></row>
+		<row><td>ExistingUserValid</td><td>0</td><td/></row>
 		<row><td>HOSTNAME</td><td/><td/></row>
 		<row><td>HostnamePort</td><td/><td/></row>
 		<row><td>HostnamePortValid</td><td>0</td><td/></row>
@@ -5000,6 +5021,9 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>LicenseKeyValid</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>MsiLogging</td><td>voicewarmupx</td><td/></row>
+		<row><td>NewProperty1</td><td>0</td><td/></row>
+		<row><td>NewProperty2</td><td>0</td><td/></row>
+		<row><td>NewProperty3</td><td>0</td><td/></row>
 		<row><td>PASSWORD</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
 		<row><td>PORT</td><td>22</td><td/></row>
@@ -5071,8 +5095,8 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="L64">Text</col>
 		<col def="L50">Help</col>
 		<col def="I4">ISControlId</col>
-		<row><td>AdminType</td><td>1</td><td>1</td><td>32</td><td>11</td><td>200</td><td>17</td><td>##NEW_STRING12##</td><td/><td>0</td></row>
-		<row><td>AdminType</td><td>2</td><td>2</td><td>31</td><td>35</td><td>200</td><td>20</td><td>##NEW_STRING13##</td><td/><td>0</td></row>
+		<row><td>AdminType</td><td>1</td><td>1</td><td>36</td><td>11</td><td>200</td><td>17</td><td>##NEW_STRING12##</td><td/><td>0</td></row>
+		<row><td>AdminType</td><td>2</td><td>2</td><td>36</td><td>40</td><td>200</td><td>20</td><td>##NEW_STRING13##</td><td/><td>0</td></row>
 		<row><td>AgreeToLicense</td><td>1</td><td>No</td><td>0</td><td>15</td><td>291</td><td>15</td><td>##IDS__AgreeToLicense_0##</td><td/><td/></row>
 		<row><td>AgreeToLicense</td><td>2</td><td>Yes</td><td>0</td><td>0</td><td>291</td><td>15</td><td>##IDS__AgreeToLicense_1##</td><td/><td/></row>
 		<row><td>ApplicationUsers</td><td>1</td><td>AllUsers</td><td>1</td><td>7</td><td>290</td><td>14</td><td>##IDS__IsRegisterUserDlg_Anyone##</td><td/><td/></row>

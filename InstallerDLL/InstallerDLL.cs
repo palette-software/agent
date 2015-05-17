@@ -18,10 +18,14 @@ public class InstallerDLL
 {
     public const string USERNAME = "palette";
 
+    public const string SERVICE_RIGHT = "SeServiceLogonRight";
+
     public const int ADMIN_TYPE_CREATE_NEW = 1;
     public const int ADMIN_TYPE_USE_EXISTING = 2;
 
     public const int ADS_UF_DONT_EXPIRE_PASSWD = 0x10000;
+
+    public const string PRODUCT_TYPE_LANMANNT = "LanmanNT";
 
     /// <summary>
     /// 
@@ -31,7 +35,7 @@ public class InstallerDLL
     /// <param name="password"></param>
     public static void CreateAdminUser(Int32 handle)
     {
-        System.Diagnostics.Debugger.Launch();
+        //System.Diagnostics.Debugger.Launch();
         string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
 
         if (data.Length == 0)
@@ -208,28 +212,13 @@ public class InstallerDLL
         //System.Diagnostics.Debugger.Launch();
         if (adminType == ADMIN_TYPE_CREATE_NEW)
         {
+            // set username to pre-populates the CreateAdminUser dialog.
             username = @".\" + USERNAME;
         }
-        else if (adminType == ADMIN_TYPE_USE_EXISTING)
-        {
-            if (username == null || username.Length == 0)
-            {
-                return 0;
-            }
-            if (password == null || password.Length == 0)
-            {
-                return 0;
-            }
-        }
-        else
+        else if (adminType != ADMIN_TYPE_USE_EXISTING)
         {
             return 0;
         }
-
-        //if (productType != "LanmanNT")
-        //{
-        //    GrantLogonAsServiceRight(Environment.MachineName + "\\" + username);
-        //}
         return 1;
     }
 
@@ -270,6 +259,57 @@ public class InstallerDLL
             MessageBox.Show("The password must contain at least at characters.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             return 0;
         }
+
+        return 1;
+    }
+
+    public static int CheckExistingUser(string productType, string username, string password)
+    {
+        if (username == null || username.Length == 0)
+        {
+            return 0;
+        }
+        if (password == null || password.Length == 0)
+        {
+            return 0;
+        }
+        if (!username.Contains('\\'))
+        {
+            username = @".\" + username;
+        }
+
+        if (productType != PRODUCT_TYPE_LANMANNT)
+        {
+            using (LsaWrapper lsa = new LsaWrapper())
+            {
+                string[] rights;
+                try
+                {
+                    rights = lsa.GetRights(username);
+                }
+                catch (NotFoundException)
+                {
+                    string msg = String.Format("The specified account '{0}' does not exist.", username);
+                    MessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    return 1;
+                }
+
+                if (rights == null || !rights.Contains(SERVICE_RIGHT))
+                {
+                    try
+                    {
+                        lsa.AddRight(username, SERVICE_RIGHT);
+                    }
+                    catch (Exception e)
+                    {
+                        string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, username, e.Message);
+                        MessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        throw e;
+                    }
+                }
+            }
+        }
+
 
         return 1;
     }
