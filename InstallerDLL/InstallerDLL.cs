@@ -61,7 +61,19 @@ public class InstallerDLL
         NewUser.Invoke("SetPassword", new object[] { password });
         NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
 
-        // FIXME: do in a separate transaction.
+        try
+        {
+            NewUser.CommitChanges();
+        }
+        catch (Exception e)
+        {
+            string msg = String.Format("Failed to create user '{0}': {1}", username, e.Message);
+            MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+
+        // Setting the Don't Expire flag may be prevented by system policy, so do it in a separate transaction
+        // and warn, but don't abort, on failure.
         // http://wiert.me/2009/10/11/c-net-setting-or-clearing-the-password-never-expires-flag-for-a-user/
         int userFlags = ADS_UF_DONT_EXPIRE_PASSWD;
         NewUser.Properties["userFlags"].Value = userFlags;
@@ -72,9 +84,8 @@ public class InstallerDLL
         }
         catch (Exception e)
         {
-            string msg = String.Format("Failed to create user '{0}': {1}", username, e.Message);
-            MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw e;
+            string msg = String.Format("Failed set the 'Don't Expire' flag, continuing.\n{0}", e.Message);
+            MessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}\\{1}", Environment.MachineName, username));
