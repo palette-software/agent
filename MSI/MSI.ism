@@ -2354,7 +2354,7 @@
 		<col key="yes" def="s72">Action_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="S0">Value</col>
-		<row><td>CheckAdminUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>CheckAdminUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CheckAdminUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckAdminUser</td><td>Method</td><td>CheckAdminUser</td></row>
 		<row><td>CheckAdminUser</td><td>Param1</td><td>[AdminType]</td></row>
@@ -2363,7 +2363,7 @@
 		<row><td>CheckAdminUser</td><td>Param4</td><td>[PASSWORD]</td></row>
 		<row><td>CheckAdminUser</td><td>Return</td><td>AdminUserValid</td></row>
 		<row><td>CheckAdminUser</td><td>Type</td><td>0</td></row>
-		<row><td>CheckCreateUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>CheckCreateUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CheckCreateUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckCreateUser</td><td>Method</td><td>CheckCreateUser</td></row>
 		<row><td>CheckCreateUser</td><td>Param1</td><td>[ProductType]</td></row>
@@ -2372,7 +2372,7 @@
 		<row><td>CheckCreateUser</td><td>Param4</td><td>[ConfirmPassword]</td></row>
 		<row><td>CheckCreateUser</td><td>Return</td><td>CreateUserValid</td></row>
 		<row><td>CheckCreateUser</td><td>Type</td><td>0</td></row>
-		<row><td>CheckExistingUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>CheckExistingUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CheckExistingUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckExistingUser</td><td>Method</td><td>CheckExistingUser</td></row>
 		<row><td>CheckExistingUser</td><td>Param1</td><td>[ProductType]</td></row>
@@ -2380,35 +2380,35 @@
 		<row><td>CheckExistingUser</td><td>Param3</td><td>[NewProperty3]</td></row>
 		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
 		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
-		<row><td>CreateAdminUser2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>CreateAdminUser2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CreateAdminUser2</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CreateAdminUser2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll </td></row>
 		<row><td>CreateAdminUser2</td><td>Method</td><td>CreateAdminUser</td></row>
 		<row><td>CreateAdminUser2</td><td>Type</td><td>0</td></row>
-		<row><td>GeneratePassword</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>GeneratePassword</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>GeneratePassword</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>GeneratePassword</td><td>Method</td><td>GeneratePassword</td></row>
 		<row><td>GeneratePassword</td><td>Return</td><td>PASSWORD</td></row>
 		<row><td>GeneratePassword</td><td>Type</td><td>0</td></row>
-		<row><td>GenerateUUID</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>GenerateUUID</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>GenerateUUID</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>GenerateUUID</td><td>Method</td><td>GenerateUUID</td></row>
 		<row><td>GenerateUUID</td><td>Param1</td><td/></row>
 		<row><td>GenerateUUID</td><td>Return</td><td>UUID</td></row>
 		<row><td>GenerateUUID</td><td>Type</td><td>0</td></row>
-		<row><td>HideHomeFolder2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>HideHomeFolder2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>HideHomeFolder2</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>HideHomeFolder2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
 		<row><td>HideHomeFolder2</td><td>Method</td><td>HideHomeFolder</td></row>
 		<row><td>HideHomeFolder2</td><td>Type</td><td>0</td></row>
-		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>ValidateHostnamePort</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>ValidateHostnamePort</td><td>Method</td><td>ValidateHostnamePort</td></row>
 		<row><td>ValidateHostnamePort</td><td>Param1</td><td>[HOSTNAME]</td></row>
 		<row><td>ValidateHostnamePort</td><td>Param2</td><td>[PORT]</td></row>
 		<row><td>ValidateHostnamePort</td><td>Return</td><td>HostnamePortValid</td></row>
 		<row><td>ValidateHostnamePort</td><td>Type</td><td>0</td></row>
-		<row><td>ValidateLicenseKey</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\InstallerDLL\bin\Debug\InstallerDLL.dll</td></row>
+		<row><td>ValidateLicenseKey</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>ValidateLicenseKey</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>ValidateLicenseKey</td><td>Method</td><td>ValidateLicenseKey</td></row>
 		<row><td>ValidateLicenseKey</td><td>Param1</td><td>[LICENSEKEY]</td></row>
@@ -2899,7 +2899,7 @@
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
-		<row><td>PATH_TO_FASTJSON_FILES</td><td>&lt;VSSolutionFolder&gt;\..\fastJSON\obj\Debug</td><td/><td>2</td></row>
+		<row><td>PATH_TO_FASTJSON_FILES</td><td>&lt;VSSolutionFolder&gt;\build</td><td/><td>2</td></row>
 		<row><td>PATH_TO_MAINT_APACHE2_BIN_FILES</td><td>&lt;VSSolutionFolder&gt;\..\maint\apache2\bin</td><td/><td>2</td></row>
 		<row><td>PATH_TO_MAINT_APACHE2_CONF_FILES</td><td>&lt;VSSolutionFolder&gt;\..\maint\apache2\conf</td><td/><td>2</td></row>
 		<row><td>PATH_TO_MAINT_APACHE2_CONF_FILES1</td><td>&lt;VSSolutionFolder&gt;\..\maint\conf</td><td/><td>2</td></row>
@@ -2979,8 +2979,8 @@
 		<col def="S255">DotNetBuildConfiguration</col>
 		<col def="S255">MsiCommandLine</col>
 		<col def="I4">ISSetupPrerequisiteLocation</col>
-		<row><td>Debug</td><td>Default Configuration</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>1</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42475533</td><td/><td/><td/><td>2</td></row>
-		<row><td>Release</td><td>Default Configuration</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>1</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42475533</td><td/><td/><td/><td>1</td></row>
+		<row><td>Debug</td><td>Default Configuration</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>1</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42508301</td><td/><td/><td/><td>2</td></row>
+		<row><td>Release</td><td>Default Configuration</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>1</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42508301</td><td/><td/><td/><td>2</td></row>
 	</table>
 
 	<table name="ISReleaseASPublishInfo">
