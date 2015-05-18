@@ -34,8 +34,8 @@ static public class TopMostMessageBox
         topmostForm.Size = new System.Drawing.Size(1, 1);
         topmostForm.StartPosition = FormStartPosition.Manual;
         System.Drawing.Rectangle rect = SystemInformation.VirtualScreen;
-        topmostForm.Location = new System.Drawing.Point(rect.Bottom + 10,
-            rect.Right + 10);
+        topmostForm.Location = new System.Drawing.Point(rect.Bottom + 10, rect.Right + 10);
+        topmostForm.Icon = Properties.Resources.palette;
         topmostForm.Show();
         // Make this form the active form and make it TopMost
         topmostForm.Focus();
