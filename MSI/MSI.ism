@@ -394,7 +394,7 @@
 		<row><td>logresolve.exe</td><td>{ADD66D9A-6AE8-45B0-8C85-08145DBE9CB9}</td><td>BIN</td><td>8</td><td/><td>logresolve.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>lua51.dll</td><td>{8EE4C008-0CA9-4BBF-90A9-5864652E922B}</td><td>BIN</td><td>8</td><td/><td>lua51.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>openssl.exe</td><td>{A6CAA7FA-64D9-4756-AB06-223B45A7AB6C}</td><td>BIN</td><td>8</td><td/><td>openssl.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>pCGI.exe</td><td>{8AF4F689-4910-41E3-A98C-8B4F65DB911F}</td><td>CGI_BIN</td><td>8</td><td/><td>pcgi.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pCGI.Primary_output</td><td>{9BB6E992-DBD8-463B-B139-00B78BF5B7E0}</td><td>CGI_BIN</td><td>8</td><td/><td>pcgi.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>pcre.dll</td><td>{1A799E2A-D864-4940-9327-B65E0E9D231A}</td><td>BIN</td><td>8</td><td/><td>pcre.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>pgcs.Primary_output</td><td>{50818695-C2DB-4BB0-B0D5-29AFE5C418AD}</td><td>INSTALLDIR</td><td>8</td><td/><td>pgcs.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>phttp.Primary_output</td><td>{4EFD5704-CB52-45CA-981A-BEC120F164E2}</td><td>INSTALLDIR</td><td>8</td><td/><td>phttp.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -2077,7 +2077,7 @@
 		<row><td>Palette_Files</td><td>logresolve.exe</td></row>
 		<row><td>Palette_Files</td><td>lua51.dll</td></row>
 		<row><td>Palette_Files</td><td>openssl.exe</td></row>
-		<row><td>Palette_Files</td><td>pCGI.exe</td></row>
+		<row><td>Palette_Files</td><td>pCGI.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>pcre.dll</td></row>
 		<row><td>Palette_Files</td><td>pgcs.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>phttp.Primary_output</td></row>
@@ -2270,7 +2270,7 @@
 		<row><td>mod_xml2enc.so</td><td>ApacheModules</td><td>MOD_XM~1.SO|mod_xml2enc.so</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_MODULES_FILES&gt;\mod_xml2enc.so</td><td>1</td><td/></row>
 		<row><td>openssl.exe</td><td>openssl.exe</td><td>openssl.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\openssl.exe</td><td>1</td><td/></row>
 		<row><td>palette_logo.png</td><td>MaintWwwImage</td><td>PALETT~1.PNG|palette_logo.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_WWW_FILES&gt;\image\palette_logo.png</td><td>1</td><td/></row>
-		<row><td>pcgi.exe</td><td>pCGI.exe</td><td>pCGI.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\pCGI\bin\Debug\pCGI.exe</td><td>1</td><td/></row>
+		<row><td>pcgi.primary_output</td><td>pCGI.Primary_output</td><td>pCGI.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pCGI&gt;|Built</td><td>3</td><td/></row>
 		<row><td>pcre.dll</td><td>pcre.dll</td><td>pcre.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\pcre.dll</td><td>1</td><td/></row>
 		<row><td>pgcs.primary_output</td><td>pgcs.Primary_output</td><td>pgcs.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pgcs&gt;|Built</td><td>3</td><td/></row>
 		<row><td>phttp.primary_output</td><td>phttp.Primary_output</td><td>phttp.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;phttp&gt;|Built</td><td>3</td><td/></row>
@@ -2541,7 +2541,7 @@
 		<row><td>logresolve.exe</td><td/><td/><td>_23923F1C_357E_4EE3_A6D3_8FA2CB355071_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>lua51.dll</td><td/><td/><td>_8CE674F5_5B61_4AB9_906B_116E64A73265_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>openssl.exe</td><td/><td/><td>_061AA153_3B2C_40A6_887F_F681D09D6943_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>pCGI.exe</td><td/><td/><td>_6ED17AC7_4594_44A7_81CE_310F69F2073C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>pCGI.Primary_output</td><td/><td/><td>_EEE7856A_31CD_4F94_8E6E_F32A27B29D5C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>pcre.dll</td><td/><td/><td>_19F1A465_F250_4830_9ED5_2F86C5141998_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>pgcs.Primary_output</td><td/><td/><td>_25404E68_CF1A_47D4_90A9_772F2BAC4CA2_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>phttp.Primary_output</td><td/><td/><td>_7E995D4E_E5F4_4060_952D_DEB09D24BAC3_FILTER</td><td/><td/><td/><td/></row>
@@ -2910,6 +2910,7 @@
 		<row><td>ServiceAgent</td><td>ServiceAgent\ServiceAgent.csproj</td><td/><td>2</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
+		<row><td>pCGI</td><td>pCGI\pCGI.csproj</td><td/><td>2</td></row>
 		<row><td>pgcs</td><td>pgcs\pgcs.csproj</td><td/><td>2</td></row>
 		<row><td>phttp</td><td>phttp\phttp.csproj</td><td/><td>2</td></row>
 		<row><td>pinfo</td><td>pinfo\pinfo.csproj</td><td/><td>2</td></row>

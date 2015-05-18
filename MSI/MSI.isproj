@@ -37,6 +37,10 @@
 			<Name>ServiceAgent</Name>
 			<Project>{1F86B649-B376-4711-874E-1DD824E12D6C}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\pCGI\pCGI.csproj">
+			<Name>pCGI</Name>
+			<Project>{56574972-0999-447B-906F-19483F188490}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\pgcs\pgcs.csproj">
 			<Name>pgcs</Name>
 			<Project>{E7863B2A-58B7-4242-AB68-6D025EE7736D}</Project>
