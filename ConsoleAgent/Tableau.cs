@@ -11,7 +11,7 @@ using Microsoft.Win32;
     /// This class contains all the Tableau-specific functionality.
     /// All other agent code should remain Tableau-independent.
     /// </summary>
-class Tableau
+public class Tableau
 {
     public int Bitness;
     public string Path;

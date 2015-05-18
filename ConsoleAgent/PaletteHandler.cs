@@ -91,6 +91,8 @@ public class PaletteHandler : HttpHandler
                 return HandleFirewall(req);
             case "/hup":
                 return HandleHUP(req);
+            case "/info":
+                return HandleInfo(req);
             case "/maint":
                 return HandleMaint(req);
             case "/ping":
@@ -177,6 +179,19 @@ public class PaletteHandler : HttpHandler
 
         logger.Info("/auth");
 
+        string json = fastJSON.JSON.Instance.ToJSON(data);
+        logger.Debug(json);
+
+        res.Write(json);
+        return res;
+    }
+
+    private HttpResponse HandleInfo(HttpRequest req)
+    {
+        HttpResponse res = req.Response;
+        req.ContentType = "application/json";
+
+        Dictionary<string, object> data = Info.Generate(agent.tableau);
         string json = fastJSON.JSON.Instance.ToJSON(data);
         logger.Debug(json);
 

@@ -54,7 +54,7 @@ public class Agent : Base
 
     public string licenseKey;
     // *all* Tableau information
-    Tableau tableau = null;
+    public Tableau tableau = null;
     
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
