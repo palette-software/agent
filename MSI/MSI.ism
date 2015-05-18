@@ -500,7 +500,7 @@
 		<row><td>CreateUser</td><td>Text1</td><td>Text</td><td>92</td><td>84</td><td>45</td><td>12</td><td>65539</td><td>NewProperty17</td><td>##NEW_STRING16##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>Text2</td><td>Text</td><td>92</td><td>103</td><td>45</td><td>12</td><td>65539</td><td>NewProperty18</td><td>##NEW_STRING19##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>Text3</td><td>Text</td><td>55</td><td>124</td><td>70</td><td>13</td><td>65539</td><td>NewProperty19</td><td>##NEW_STRING22##</td><td/><td/><td/><td/><td/><td/></row>
-		<row><td>CreateUser</td><td>Text4</td><td>Text</td><td>79</td><td>146</td><td>266</td><td>13</td><td>65539</td><td>NewProperty20</td><td>##NEW_STRING23##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>CreateUser</td><td>Text4</td><td>Text</td><td>55</td><td>149</td><td>277</td><td>22</td><td>65539</td><td>NewProperty20</td><td>##NEW_STRING23##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>Text5</td><td>Text</td><td>76</td><td>200</td><td>265</td><td>13</td><td>65539</td><td>NewProperty21</td><td>##NEW_STRING24##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
@@ -4390,7 +4390,7 @@
 		<row><td>NEW_STRING20</td><td>1033</td><td>I agree to the</td><td>0</td><td/><td>1520680814</td></row>
 		<row><td>NEW_STRING21</td><td>1033</td><td>The username should be in the form of DOMAIN\User.</td><td>0</td><td/><td>-2103235757</td></row>
 		<row><td>NEW_STRING22</td><td>1033</td><td>confirm password:</td><td>0</td><td/><td>1923303245</td></row>
-		<row><td>NEW_STRING23</td><td>1033</td><td>The password must contain a minimum of eight (8) characters.</td><td>0</td><td/><td>1923317870</td></row>
+		<row><td>NEW_STRING23</td><td>1033</td><td>The password must contain a minimum of six (6) characters and meet the complexity requirements of this system.</td><td>0</td><td/><td>-1834753492</td></row>
 		<row><td>NEW_STRING24</td><td>1033</td><td>{&amp;TahomaBold8}NOTE: This user will not be deleted during uninstall.</td><td>0</td><td/><td>1923334222</td></row>
 		<row><td>NEW_STRING25</td><td>1033</td><td/><td>0</td><td/><td>2057503209</td></row>
 		<row><td>NEW_STRING26</td><td>1033</td><td/><td>0</td><td/><td>2057503565</td></row>
