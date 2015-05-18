@@ -253,7 +253,7 @@ public class InstallerDLL
     /// <param name="password"></param>
     /// <param name="confirmPassword"></param>
     /// <returns></returns>
-    public static int CheckCreateUser(string productType, string username, string password, string confirmPassword)
+    public static int CheckCreateUser(string productType, ref string username, string password, string confirmPassword)
     {
         if (username == null || username.Length == 0)
         {
@@ -286,7 +286,7 @@ public class InstallerDLL
         return 1;
     }
 
-    public static int CheckExistingUser(string productType, string username, string password)
+    public static int CheckExistingUser(string productType, ref string username, string password)
     {
         if (username == null || username.Length == 0)
         {
