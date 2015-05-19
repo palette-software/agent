@@ -471,7 +471,7 @@
 		<row><td>AdminUser</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>AdminUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
-		<row><td>AdminUser</td><td>Next</td><td>PushButton</td><td>230</td><td>244</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>RadioButtonGroup1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>RadioButtonGroup1</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>29</td><td>86</td><td>322</td><td>73</td><td>3</td><td>AdminType</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
@@ -1197,7 +1197,7 @@
 		<row><td>CreateApacheEnv2</td><td>1025</td><td>ISSetup.dll</td><td>f8</td><td>0</td><td/></row>
 		<row><td>Finalize</td><td>1</td><td>ISSetup.dll</td><td>f11</td><td/><td/></row>
 		<row><td>GeneratePassword</td><td>1</td><td>GeneratePassword.clr</td><td>InstallerDLL.GeneratePassword(...)</td><td>0</td><td/></row>
-		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
+		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
 		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
 		<row><td>GetLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f1</td><td>0</td><td/></row>
 		<row><td>GetUUID</td><td>1</td><td>ISSetup.dll</td><td>f6</td><td>0</td><td/></row>
@@ -2393,7 +2393,6 @@
 		<row><td>GenerateUUID</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>GenerateUUID</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>GenerateUUID</td><td>Method</td><td>GenerateUUID</td></row>
-		<row><td>GenerateUUID</td><td>Param1</td><td/></row>
 		<row><td>GenerateUUID</td><td>Return</td><td>UUID</td></row>
 		<row><td>GenerateUUID</td><td>Type</td><td>0</td></row>
 		<row><td>HideHomeFolder2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>

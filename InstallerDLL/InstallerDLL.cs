@@ -400,7 +400,7 @@ public class InstallerDLL
     /// </summary>
     /// <param name="handle"></param>
     /// <returns></returns>
-    public static string GenerateUUID(Int32 handle)
+    public static string GenerateUUID()
     {
         return System.Guid.NewGuid().ToString();
     }
