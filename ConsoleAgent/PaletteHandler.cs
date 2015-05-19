@@ -1059,7 +1059,7 @@ public class PaletteHandler : HttpHandler
             // read the body as unprocessed binary.
             while ((count = stream.Read(buffer, 0, BUFFER_SIZE)) > 0)
             {
-                res.Write(buffer);
+                res.Write(buffer, 0, count);
             }
             stream.Close();
         }

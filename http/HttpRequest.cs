@@ -261,7 +261,8 @@ public class HttpRequest
         }
         try
         {
-            return (int)value;
+            // value is a boxed object it can't be cast directly to an int.
+            return Convert.ToInt32(value);
         }
         catch (Exception)
         {

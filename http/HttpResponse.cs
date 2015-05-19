@@ -45,6 +45,17 @@ public class HttpResponse
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="bytes"></param>
+    /// <param name="start"></param>
+    /// <param name="count"></param>
+    public void Write(byte[] bytes, int start, int count)
+    {
+        body.Write(bytes, start, count);
+    }
+
+    /// <summary>
     /// Writes response body
     /// </summary>
     /// <param name="s"></param>
