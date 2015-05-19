@@ -30,8 +30,12 @@ export prototype CleanupServices(HWND);
 
 export prototype Finalize(HWND);
 
+export prototype PreStopService(HWND);
+
 #define KEY "Software\\Palette"
 #define PORT 22
+
+#define SERVICE_NAME "PaletteAgent"
 
 #define ADMIN_TYPE_CREATE_NEW   1
 #define ADMIN_TYPE_USE_EXISTING 2
@@ -463,4 +467,17 @@ begin
 		MessageBox(svMsg, SEVERE);
 		abort;
 	endif;
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function:  PreStopService
+//
+// Stop the service before InstallValidate to avoid the error dialog:
+//   "The following appications should be closed before continuing..."
+//
+///////////////////////////////////////////////////////////////////////////////
+function PreStopService(hMSI)
+begin
+	ServiceStopService(SERVICE_NAME);
 end;
