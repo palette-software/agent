@@ -22,6 +22,8 @@ using System.Reflection;
 /// </summary>
 public class PaletteHandler : HttpHandler
 {
+    public const int BUFFER_SIZE = 64 * 1024;
+
     private Agent agent;
     private List<PerformanceCounter> counters = new List<PerformanceCounter>();
 
@@ -1050,13 +1052,16 @@ public class PaletteHandler : HttpHandler
             res.StatusDescription = webRes.StatusDescription;
             res.ContentType = webRes.ContentType;
 
-            // read the body as unprocessed binary.
-            byte[] body = new byte[webRes.ContentLength];
+            int count;
+            byte[] buffer = new byte[BUFFER_SIZE];
             Stream stream = webRes.GetResponseStream();
-            stream.Read(body, 0, body.Length);
-            stream.Close();
 
-            res.Write(body);
+            // read the body as unprocessed binary.
+            while ((count = stream.Read(buffer, 0, BUFFER_SIZE)) > 0)
+            {
+                res.Write(buffer);
+            }
+            stream.Close();
         }
         webRes.Close();
         return res;
