@@ -28,6 +28,7 @@ export prototype CreateApacheEnv(HWND);
 export prototype CleanupInstallDir(HWND);
 export prototype CleanupServices(HWND);
 
+export prototype Setup(HWND);
 export prototype Finalize(HWND);
 
 export prototype PreStopService(HWND);
@@ -437,12 +438,34 @@ begin
 	endif;
 end;
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function:  Setup
+//
+// Setup the ACCOUNT & PASSWORD properties.
+//
+///////////////////////////////////////////////////////////////////////////////
+function Setup(hMSI)
+	NUMBER nvSize, nAdminType;
+	STRING svPropertyValue, svMsg;
+begin
+	// FIXME: handle specifying the admin user on the command line.
+	
+	nvSize = 0;
+	MsiGetProperty(hMSI, "ACCOUNT", svPropertyValue, nvSize);
+	if (nvSize > 0) then
+		// ACCOUNT was specified on the command line.
+		NumToStr(svPropertyValue, ADMIN_TYPE_USE_EXISTING);
+		MsiSetProperty(hMSI, "AdminType", svPropertyValue);
+	endif;
+end;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Function:  Finalilze
 //
-// Fixup the USERNAME & PASSWORD properties.
+// Fixup the ACCOUNT & PASSWORD properties.
 //
 ///////////////////////////////////////////////////////////////////////////////
 function Finalize(hMSI)
@@ -457,7 +480,12 @@ begin
 	
 	if (nAdminType == ADMIN_TYPE_CREATE_NEW) then
 		MsiGetProperty(hMSI, "UsernameNew", svPropertyValue, nvSize);
-		MsiSetProperty(hMSI, "USERNAME", svPropertyValue);
+
+		if (StrFind(svPropertyValue, "\\") < 0) then
+			svPropertyValue = ".\\" + svPropertyValue;
+		endif;
+		
+		MsiSetProperty(hMSI, "ACCOUNT", svPropertyValue);
 		MsiGetProperty(hMSI, "PasswordNew", svPropertyValue, nvSize);
 		MsiSetProperty(hMSI, "PASSWORD", svPropertyValue);
 		svPropertyValue = "1";

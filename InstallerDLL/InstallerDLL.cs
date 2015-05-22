@@ -16,7 +16,7 @@ using LSA;
 
 public class InstallerDLL
 {
-    public const string USERNAME = "palette";
+    public const string ACCOUNT = "Palette";
 
     public const string SERVICE_RIGHT = "SeServiceLogonRight";
 
@@ -32,9 +32,7 @@ public class InstallerDLL
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="productType"></param>
-    /// <param name="username"></param>
-    /// <param name="password"></param>
+    /// <param name="handle"></param>
     public static void CreateAdminUser(Int32 handle)
     {
         //System.Diagnostics.Debugger.Launch();
@@ -50,16 +48,16 @@ public class InstallerDLL
 
         string[] tokens = data.Split(";".ToCharArray(), 2);
 
-        string username = tokens[0];
+        string account = tokens[0];
         string password = tokens[1];
 
-        if (username.StartsWith(@".\"))
+        if (account.StartsWith(@".\"))
         {
-            username = username.Substring(2);
+            account = account.Substring(2);
         }
 
         DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
-        DirectoryEntry NewUser = AD.Children.Add(username, "user");
+        DirectoryEntry NewUser = AD.Children.Add(account, "user");
         NewUser.Invoke("SetPassword", new object[] { password });
         NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
 
@@ -69,7 +67,7 @@ public class InstallerDLL
         }
         catch (Exception e)
         {
-            string msg = String.Format("Failed to create user '{0}': {1}", username, e.Message);
+            string msg = String.Format("Failed to create user '{0}': {1}", account, e.Message);
             TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
         }
@@ -90,7 +88,7 @@ public class InstallerDLL
             TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}\\{1}", Environment.MachineName, username));
+        log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}\\{1}", Environment.MachineName, account));
 
         DirectoryEntry grp;
         grp = AD.Children.Find("Administrators", "group");
@@ -101,27 +99,27 @@ public class InstallerDLL
             throw new Exception(msg);
         }
         grp.Invoke("Add", new object[] { NewUser.Path.ToString() });
-        log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}\\{1}' to group '{2}'", Environment.MachineName, username, grp.ToString()));
+        log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}\\{1}' to group '{2}'", Environment.MachineName, account, grp.ToString()));
 
         try
         {
-            GrantLogonAsServiceRight(Environment.MachineName + "\\" + username);
-            log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}\\{1}'", Environment.MachineName, username));
+            GrantLogonAsServiceRight(Environment.MachineName + "\\" + account);
+            log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}\\{1}'", Environment.MachineName, account));
         }
         catch (Exception e)
         {
-            string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, username);
+            string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, account);
             TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
         }
 
         try
         {
-            HideUser(username);
+            HideUser(account);
         }
         catch (Exception e)
         {
-            string msg = String.Format("Failed to hide account '{0}', continuing.\n{1}", username, e.Message);
+            string msg = String.Format("Failed to hide account '{0}', continuing.\n{1}", account, e.Message);
             TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
@@ -143,13 +141,13 @@ public class InstallerDLL
             return;
         }
 
-        string username = data;
-        if (username.StartsWith(@".\"))
+        string account = data;
+        if (account.StartsWith(@".\"))
         {
-            username = username.Substring(2);
+            account = account.Substring(2);
         }
 
-        string homeFolder = HomeFolder(username);
+        string homeFolder = HomeFolder(account);
         // HideTopLevelFolder
         // First, set hidden flag on the current directory (if needed)
         DirectoryInfo dir = new DirectoryInfo(homeFolder);
@@ -180,7 +178,7 @@ public class InstallerDLL
 
     public static void DeleteAdminUser(Int32 handle)
     {
-        string homeFolder = HomeFolder(USERNAME);
+        string homeFolder = HomeFolder(ACCOUNT);
 
         //Now remove Palette User.  First try normal means
         DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
@@ -188,20 +186,20 @@ public class InstallerDLL
 
         try
         {
-            DirectoryEntry user = users.Find(USERNAME);
+            DirectoryEntry user = users.Find(ACCOUNT);
             try
             {
                 users.Remove(user);
-                log(handle, String.Format("[DeleteAdminUser] successfully deleted {0}", USERNAME));
+                log(handle, String.Format("[DeleteAdminUser] successfully deleted {0}", ACCOUNT));
             }
             catch (Exception e) {
-                log(handle, String.Format("[DeleteAdminUser] Failed to delete user {0}: {1}", USERNAME, e.Message));
+                log(handle, String.Format("[DeleteAdminUser] Failed to delete user {0}: {1}", ACCOUNT, e.Message));
             }
         }
         catch (System.Runtime.InteropServices.COMException e)
         {
             //User not found.  Try to delete user folder if it exists and quit
-            log(handle, String.Format("[DeleteAdminUser] {0}: {1}", USERNAME, e.Message));
+            log(handle, String.Format("[DeleteAdminUser] {0}: {1}", ACCOUNT, e.Message));
         }
 
         if (Directory.Exists(homeFolder))
@@ -227,16 +225,16 @@ public class InstallerDLL
     /// </summary>
     /// <param name="adminType"></param>
     /// <param name="productType"></param>
-    /// <param name="username"></param>
+    /// <param name="account"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public static int CheckAdminUser(int adminType, string productType, ref string username, ref string password)
+    public static int CheckAdminUser(int adminType, string productType, ref string account, ref string password)
     {
         //System.Diagnostics.Debugger.Launch();
         if (adminType == ADMIN_TYPE_CREATE_NEW)
         {
-            // set username to pre-populates the CreateAdminUser dialog.
-            username = @".\" + USERNAME;
+            // set account to pre-populates the CreateAdminUser dialog.
+            account = ACCOUNT;
         }
         else if (adminType != ADMIN_TYPE_USE_EXISTING)
         {
@@ -249,20 +247,27 @@ public class InstallerDLL
     /// 
     /// </summary>
     /// <param name="productType"></param>
-    /// <param name="username"></param>
+    /// <param name="account"></param>
     /// <param name="password"></param>
     /// <param name="confirmPassword"></param>
     /// <returns></returns>
-    public static int CheckCreateUser(string productType, ref string username, string password, string confirmPassword)
+    public static int CheckCreateUser(string productType, ref string account, string password, string confirmPassword)
     {
-        if (username == null || username.Length == 0)
+        if (account == null || account.Length == 0)
         {
-            TopMostMessageBox.Show("'username' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'User Account' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
+
+        if (account.Contains('\\') && !account.StartsWith(@".\"))
+        {
+            TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
+
         if (password == null || password.Length == 0)
         {
-            TopMostMessageBox.Show("'password' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'Password' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
         if (confirmPassword == null || confirmPassword.Length == 0)
@@ -286,9 +291,9 @@ public class InstallerDLL
         return 1;
     }
 
-    public static int CheckExistingUser(string productType, ref string username, string password)
+    public static int CheckExistingUser(string productType, ref string account, string password)
     {
-        if (username == null || username.Length == 0)
+        if (account == null || account.Length == 0)
         {
             return 0;
         }
@@ -296,9 +301,10 @@ public class InstallerDLL
         {
             return 0;
         }
-        if (!username.Contains('\\'))
+
+        if (!account.Contains('\\'))
         {
-            username = @".\" + username;
+            account = @".\" + account;
         }
 
         if (productType != PRODUCT_TYPE_LANMANNT)
@@ -308,11 +314,11 @@ public class InstallerDLL
                 string[] rights;
                 try
                 {
-                    rights = lsa.GetRights(username);
+                    rights = lsa.GetRights(account);
                 }
                 catch (NotFoundException)
                 {
-                    string msg = String.Format("The specified account '{0}' does not exist.", username);
+                    string msg = String.Format("The specified account '{0}' does not exist.", account);
                     TopMostMessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return 1;
                 }
@@ -321,11 +327,11 @@ public class InstallerDLL
                 {
                     try
                     {
-                        lsa.AddRight(username, SERVICE_RIGHT);
+                        lsa.AddRight(account, SERVICE_RIGHT);
                     }
                     catch (Exception e)
                     {
-                        string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, username, e.Message);
+                        string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
                         TopMostMessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                         throw e;
                     }
@@ -408,24 +414,24 @@ public class InstallerDLL
     /// <summary>
     /// ntrights +r SeServiceLogonRight -u [user]
     /// </summary>
-    /// <param name="username"></param>
-    private static void GrantLogonAsServiceRight(string username)
+    /// <param name="account"></param>
+    private static void GrantLogonAsServiceRight(string account)
     {
         using (LsaWrapper lsa = new LsaWrapper())
         {
-            lsa.AddPrivileges(username, "SeServiceLogonRight");
+            lsa.AddPrivileges(account, "SeServiceLogonRight");
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="username"></param>
+    /// <param name="account"></param>
     /// <returns></returns>
-    private static string HomeFolder(string username)
+    private static string HomeFolder(string account)
     {
         string path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)).FullName;
-        return Path.Combine(path, username);
+        return Path.Combine(path, account);
     }
 
     /// <summary>

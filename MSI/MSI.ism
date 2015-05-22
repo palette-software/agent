@@ -608,7 +608,7 @@
 		<row><td>ExistingUser</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>293</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_EXISTING##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>ExistingUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ExistingUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_EXISTING##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
-		<row><td>ExistingUser</td><td>Edit1</td><td>Edit</td><td>139</td><td>101</td><td>128</td><td>16</td><td>3</td><td>USERNAME</td><td/><td>Edit2</td><td/><td/><td/><td/><td/></row>
+		<row><td>ExistingUser</td><td>Edit1</td><td>Edit</td><td>139</td><td>101</td><td>128</td><td>16</td><td>3</td><td>ACCOUNT</td><td/><td>Edit2</td><td/><td/><td/><td/><td/></row>
 		<row><td>ExistingUser</td><td>Edit2</td><td>Edit</td><td>139</td><td>122</td><td>128</td><td>16</td><td>2097155</td><td>PASSWORD</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>ExistingUser</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ExistingUser</td><td>Text1</td><td>Text</td><td>73</td><td>103</td><td>60</td><td>12</td><td>65603</td><td>NewProperty1</td><td>##NEW_STRING27##</td><td/><td/><td/><td/><td/><td/></row>
@@ -1190,7 +1190,7 @@
 		<row><td>CheckExistingUser</td><td>1</td><td>CheckExistingUser.clr</td><td>InstallerDLL.CheckExistingUser(...)</td><td>0</td><td/></row>
 		<row><td>CleanupInstallDir</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
 		<row><td>CleanupServices</td><td>1</td><td>ISSetup.dll</td><td>f10</td><td>0</td><td/></row>
-		<row><td>CreateAdminUser1</td><td>51</td><td>CreateAdminUser2</td><td>[USERNAME];[PASSWORD]</td><td/><td/></row>
+		<row><td>CreateAdminUser1</td><td>51</td><td>CreateAdminUser2</td><td>[ACCOUNT];[PASSWORD]</td><td/><td/></row>
 		<row><td>CreateAdminUser2</td><td>1025</td><td>CreateAdminUser2.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>CreateApacheEnv1</td><td>51</td><td>CreateApacheEnv2</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>CreateApacheEnv2</td><td>1025</td><td>ISSetup.dll</td><td>f8</td><td>0</td><td/></row>
@@ -1200,7 +1200,7 @@
 		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
 		<row><td>GetLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f1</td><td>0</td><td/></row>
 		<row><td>GetUUID</td><td>1</td><td>ISSetup.dll</td><td>f6</td><td>0</td><td/></row>
-		<row><td>HideHomeFolder1</td><td>51</td><td>HideHomeFolder2</td><td>[USERNAME]</td><td/><td/></row>
+		<row><td>HideHomeFolder1</td><td>51</td><td>HideHomeFolder2</td><td>[ACCOUNT]</td><td/><td/></row>
 		<row><td>HideHomeFolder2</td><td>1025</td><td>HideHomeFolder2.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>ISPreventDowngrade</td><td>19</td><td/><td>[IS_PREVENT_DOWNGRADE_EXIT]</td><td/><td>Exits install when a newer version of this product is found</td></row>
 		<row><td>ISPrint</td><td>1</td><td>SetAllUsers.dll</td><td>PrintScrollableText</td><td/><td>Prints the contents of a ScrollableText control on a dialog.</td></row>
@@ -1217,6 +1217,7 @@
 		<row><td>SaveUUID</td><td>1</td><td>ISSetup.dll</td><td>f7</td><td>0</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
+		<row><td>Setup</td><td>1</td><td>ISSetup.dll</td><td>f13</td><td>0</td><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
 		<row><td>ValidateHostnamePort</td><td>1</td><td>ValidateHostnamePort.clr</td><td>InstallerDLL.InstallerDLL.ValidateHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>ValidateLicenseKey</td><td>1</td><td>ValidateLicenseKey.clr</td><td>InstallerDLL.InstallerDLL.ValidateLicenseKey(...)</td><td>0</td><td/></row>
@@ -2359,7 +2360,7 @@
 		<row><td>CheckAdminUser</td><td>Method</td><td>CheckAdminUser</td></row>
 		<row><td>CheckAdminUser</td><td>Param1</td><td>[AdminType]</td></row>
 		<row><td>CheckAdminUser</td><td>Param2</td><td>[ProductType]</td></row>
-		<row><td>CheckAdminUser</td><td>Param3</td><td>[USERNAME]</td></row>
+		<row><td>CheckAdminUser</td><td>Param3</td><td>[ACCOUNT]</td></row>
 		<row><td>CheckAdminUser</td><td>Param4</td><td>[PASSWORD]</td></row>
 		<row><td>CheckAdminUser</td><td>Return</td><td>AdminUserValid</td></row>
 		<row><td>CheckAdminUser</td><td>Type</td><td>0</td></row>
@@ -2376,7 +2377,7 @@
 		<row><td>CheckExistingUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckExistingUser</td><td>Method</td><td>CheckExistingUser</td></row>
 		<row><td>CheckExistingUser</td><td>Param1</td><td>[ProductType]</td></row>
-		<row><td>CheckExistingUser</td><td>Param2</td><td>[USERNAME]</td></row>
+		<row><td>CheckExistingUser</td><td>Param2</td><td>[ACCOUNT]</td></row>
 		<row><td>CheckExistingUser</td><td>Param3</td><td>[NewProperty3]</td></row>
 		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
 		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
@@ -2710,6 +2711,7 @@
 		<row><td>f10</td><td>0</td><td>CleanupServices</td><td/></row>
 		<row><td>f11</td><td>0</td><td>Finalize</td><td/></row>
 		<row><td>f12</td><td>0</td><td>PreStopService</td><td/></row>
+		<row><td>f13</td><td>0</td><td>Setup</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
 		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
 		<row><td>f4</td><td>0</td><td>GetHostnamePort</td><td/></row>
@@ -4703,6 +4705,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>ResolveSource</td><td>Not Installed</td><td>990</td><td>ResolveSource</td><td/></row>
 		<row><td>SaveUUID</td><td/><td>151</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>VersionNT = 400</td><td>970</td><td/><td/></row>
+		<row><td>Setup</td><td/><td>5</td><td/><td/></row>
 		<row><td>SetupCompleteError</td><td/><td>-3</td><td>SetupCompleteError</td><td/></row>
 		<row><td>SetupCompleteSuccess</td><td/><td>-1</td><td>SetupCompleteSuccess</td><td/></row>
 		<row><td>SetupInitialization</td><td/><td>410</td><td>SetupInitialization</td><td/></row>
@@ -4969,6 +4972,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col key="yes" def="s72">Property</col>
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
+		<row><td>ACCOUNT</td><td/><td/></row>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
 		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
@@ -5070,13 +5074,12 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>ReinstallModeText</td><td>omus</td><td/></row>
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUMISSHOWMSILOG2;USERNAME;PASSWORD</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUMISSHOWMSILOG2;ACCOUNT;PASSWORD</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>TRY_CREATE_ADMIN_USER</td><td>0</td><td/></row>
-		<row><td>USERNAME</td><td/><td/></row>
 		<row><td>UUID</td><td/><td/></row>
 		<row><td>UpgradeCode</td><td>{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}</td><td/></row>
-		<row><td>UsernameNew</td><td>.\palette</td><td/></row>
+		<row><td>UsernameNew</td><td>Palette</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -5204,7 +5207,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="S255">Arguments</col>
 		<col def="s72">Component_</col>
 		<col def="L255">Description</col>
-		<row><td>AgentService</td><td>PaletteAgent</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>32769</td><td/><td/><td>[USERNAME]</td><td>[PASSWORD]</td><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
+		<row><td>AgentService</td><td>PaletteAgent</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>32771</td><td/><td/><td>[ACCOUNT]</td><td>[PASSWORD]</td><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
 	</table>
 
 	<table name="Shortcut">
