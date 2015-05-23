@@ -35,16 +35,28 @@ namespace lsatest
                 if (rights == null)
                 {
                     Console.WriteLine("Account '{0}' has no granted rights.", account);
-                    return 0;
                 }
-
-                Console.WriteLine(account + ":");
-                for (int i = 0; i < rights.Length; i++)
+                else
                 {
-                    Console.WriteLine("  " + rights[i]);
+
+                    Console.WriteLine(account + ":");
+                    for (int i = 0; i < rights.Length; i++)
+                    {
+                        Console.WriteLine("  " + rights[i]);
+                    }
                 }
             }
-            return -1;
+            Console.WriteLine();
+            bool isAdmin = AdminUtil.IsAdministratorNoCache(account);
+            if (isAdmin)
+            {
+                Console.WriteLine("'{0}' is an administrator.", account);
+            }
+            else
+            {
+                Console.WriteLine("'{0}' is NOT an administrator.", account);
+            }
+            return 0;
         }
     }
 }

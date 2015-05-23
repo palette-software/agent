@@ -2378,7 +2378,7 @@
 		<row><td>CheckExistingUser</td><td>Method</td><td>CheckExistingUser</td></row>
 		<row><td>CheckExistingUser</td><td>Param1</td><td>[ProductType]</td></row>
 		<row><td>CheckExistingUser</td><td>Param2</td><td>[ACCOUNT]</td></row>
-		<row><td>CheckExistingUser</td><td>Param3</td><td>[NewProperty3]</td></row>
+		<row><td>CheckExistingUser</td><td>Param3</td><td>[PASSWORD]</td></row>
 		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
 		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
 		<row><td>CreateAdminUser2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>

@@ -29,6 +29,8 @@ public class InstallerDLL
 
     public const int REG_HIDE_USER = 0x10000;
 
+    public const string TITLE = "Palette Agent Installer";
+
     /// <summary>
     /// 
     /// </summary>
@@ -68,7 +70,7 @@ public class InstallerDLL
         catch (Exception e)
         {
             string msg = String.Format("Failed to create user '{0}': {1}", account, e.Message);
-            TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
         }
 
@@ -85,7 +87,7 @@ public class InstallerDLL
         catch (Exception e)
         {
             string msg = String.Format("Failed set the 'Don't Expire' flag, continuing.\n{0}", e.Message);
-            TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}\\{1}", Environment.MachineName, account));
@@ -95,7 +97,7 @@ public class InstallerDLL
         if (grp == null)
         {
             string msg = "'Administrators' group not found.";
-            TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw new Exception(msg);
         }
         grp.Invoke("Add", new object[] { NewUser.Path.ToString() });
@@ -109,7 +111,7 @@ public class InstallerDLL
         catch (Exception e)
         {
             string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, account);
-            TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw e;
         }
 
@@ -120,7 +122,7 @@ public class InstallerDLL
         catch (Exception e)
         {
             string msg = String.Format("Failed to hide account '{0}', continuing.\n{1}", account, e.Message);
-            TopMostMessageBox.Show(msg, "CreateAdminUser", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 
@@ -255,36 +257,36 @@ public class InstallerDLL
     {
         if (account == null || account.Length == 0)
         {
-            TopMostMessageBox.Show("'User Account' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'User Account' is required.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
         if (account.Contains('\\') && !account.StartsWith(@".\"))
         {
-            TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
         if (password == null || password.Length == 0)
         {
-            TopMostMessageBox.Show("'Password' is required.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'Password' is required.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
         if (confirmPassword == null || confirmPassword.Length == 0)
         {
-            TopMostMessageBox.Show("Please confirm the password.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("Please confirm the password.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
         if (password != confirmPassword)
         {
-            MessageBox.Show("The entered passwords do not match.", "Create User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
         if (password.Length < 6)
         {
-            TopMostMessageBox.Show("The password must contain at least eight(6) characters.", "Create User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("The password must contain at least eight(6) characters.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
@@ -293,6 +295,7 @@ public class InstallerDLL
 
     public static int CheckExistingUser(string productType, ref string account, string password)
     {
+        //System.Diagnostics.Debugger.Launch();
         if (account == null || account.Length == 0)
         {
             return 0;
@@ -319,8 +322,8 @@ public class InstallerDLL
                 catch (NotFoundException)
                 {
                     string msg = String.Format("The specified account '{0}' does not exist.", account);
-                    TopMostMessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-                    return 1;
+                    TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0;
                 }
 
                 if (rights == null || !rights.Contains(SERVICE_RIGHT))
@@ -332,14 +335,41 @@ public class InstallerDLL
                     catch (Exception e)
                     {
                         string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
-                        TopMostMessageBox.Show(msg, "Check User Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         throw e;
                     }
                 }
             }
         }
 
+        try
+        {
+            if (!AdminUtil.ValidateCredentials(account, password))
+            {
+                TopMostMessageBox.Show("Invalid username or password", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
+        catch (Exception e)
+        {
+            string msg = String.Format("An error occurred during account verification.\n{0}", e.Message);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
 
+        try
+        {
+            if (!AdminUtil.IsAdministratorNoCache(account))
+            {
+                TopMostMessageBox.Show("The account '{0}' does not belong to any administrator group", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
         return 1;
     }
 
@@ -381,7 +411,7 @@ public class InstallerDLL
         //System.Diagnostics.Debugger.Launch();
         if (!CheckLicenseKey(key))
         {
-            TopMostMessageBox.Show("Invalid license key format\nThe license key should have the format: 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'", "License Key Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("Invalid license key format\nThe license key should have the format: 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'", TITLE, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             return 0;
         }
         // FIXME: check licensing
