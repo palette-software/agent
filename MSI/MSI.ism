@@ -492,7 +492,7 @@
 		<row><td>CreateUser</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_CREATE##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>CreateUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>CreateUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_CREATE##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
+		<row><td>CreateUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>5</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_CREATE##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>CreateUser</td><td>Edit1</td><td>Edit</td><td>141</td><td>82</td><td>128</td><td>16</td><td>3</td><td>UsernameNew</td><td/><td>Edit2</td><td/><td/><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>Edit2</td><td>Edit</td><td>141</td><td>102</td><td>128</td><td>16</td><td>2097155</td><td>PasswordNew</td><td/><td>Edit3</td><td/><td/><td/><td/><td/></row>
 		<row><td>CreateUser</td><td>Edit3</td><td>Edit</td><td>141</td><td>121</td><td>128</td><td>16</td><td>2097155</td><td>ConfirmPassword</td><td/><td>Next</td><td/><td/><td/><td/><td/></row>
@@ -635,8 +635,9 @@
 		<row><td>Hostname</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_HOSTNAME##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>HostnamePort</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
-		<row><td>Hostname</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Edit1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Text2</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Text1</td><td>Text</td><td>67</td><td>110</td><td>230</td><td>10</td><td>3</td><td>NewProperty1</td><td>##ID_STRING4##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Text2</td><td>Text</td><td>67</td><td>156</td><td>237</td><td>25</td><td>65539</td><td>NewProperty6</td><td>##NEW_STRING32##</td><td>Edit1</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>InstallChangeFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -3403,16 +3404,16 @@
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>1033</td><td>Installing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_UNINSTALL</td><td>1033</td><td>Uninstalling COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIALOG_TEXT2_ADMIN</td><td>1033</td><td>Please select how the Palette agent will run as a service.</td><td>0</td><td/><td>1520665965</td></row>
-		<row><td>IDS_DIALOG_TEXT2_CREATE</td><td>1033</td><td>Please provide the details for creating a dedicated administrative user.</td><td>0</td><td/><td>1923288461</td></row>
+		<row><td>IDS_DIALOG_TEXT2_CREATE</td><td>1033</td><td>Provide the details for creating a new administrator user 'Run As' user account</td><td>0</td><td/><td>-761030005</td></row>
 		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Dialog Interior Description</td><td>0</td><td/><td>1520654795</td></row>
-		<row><td>IDS_DIALOG_TEXT2_EXISTING</td><td>1033</td><td>Please specify an administrator 'Run As' account for the Palette Agent Service</td><td>0</td><td/><td>-1297907096</td></row>
-		<row><td>IDS_DIALOG_TEXT2_HOSTNAME</td><td>1033</td><td>Please enter the IP address or hostname that this computer would use to connect to your Palette Server</td><td>0</td><td/><td>-1297895384</td></row>
-		<row><td>IDS_DIALOG_TEXT2_LICENSE_KEY</td><td>1033</td><td>Please enter the license key provided by the Palette Server Team.</td><td>0</td><td/><td>-1297932280</td></row>
+		<row><td>IDS_DIALOG_TEXT2_EXISTING</td><td>1033</td><td>Provide the details for an existing administrator 'Run As' account</td><td>0</td><td/><td>-761019733</td></row>
+		<row><td>IDS_DIALOG_TEXT2_HOSTNAME</td><td>1033</td><td>Please enter the IP address or hostname</td><td>0</td><td/><td>-761054805</td></row>
+		<row><td>IDS_DIALOG_TEXT2_LICENSE_KEY</td><td>1033</td><td>Please enter the license key provided by the Palette Support Team.</td><td>0</td><td/><td>-761038453</td></row>
 		<row><td>IDS_DIALOG_TEXT_ADMIN</td><td>1033</td><td>{&amp;TahomaBold10}Administrator Accounts</td><td>0</td><td/><td>1520661837</td></row>
-		<row><td>IDS_DIALOG_TEXT_CREATE</td><td>1033</td><td>{&amp;TahomaBold10}Create Administrative User</td><td>0</td><td/><td>1923333453</td></row>
+		<row><td>IDS_DIALOG_TEXT_CREATE</td><td>1033</td><td>{&amp;TahomaBold10}The Palette Agent Service 'Run As' User Account</td><td>0</td><td/><td>-761019797</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_EXTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIALOG_TEXT_DESCRIPTION_INTERIOR</td><td>1033</td><td>{&amp;TahomaBold10}Dialog Bold Title</td><td>0</td><td/><td>1520642507</td></row>
-		<row><td>IDS_DIALOG_TEXT_EXISTING</td><td>1033</td><td>{&amp;TahomaBold10}Specify the Palette Agent Service 'Run As' User Account</td><td>0</td><td/><td>-1297905208</td></row>
+		<row><td>IDS_DIALOG_TEXT_EXISTING</td><td>1033</td><td>{&amp;TahomaBold10}The Palette Agent Service 'Run As' User Account</td><td>0</td><td/><td>-761011637</td></row>
 		<row><td>IDS_DIALOG_TEXT_HOSTNAME</td><td>1033</td><td>{&amp;TahomaBold10}Palette Server IP Address or Hostname</td><td>0</td><td/><td>-1297936344</td></row>
 		<row><td>IDS_DIFX_AMD64</td><td>1033</td><td>[ProductName] requires an X64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_DIFX_IA64</td><td>1033</td><td>[ProductName] requires an IA64 processor. Click OK to exit the wizard.</td><td>0</td><td/><td>-1910336943</td></row>
@@ -4344,9 +4345,9 @@
 		<row><td>IDS__IsVerifyReadyDlg_DestFolder</td><td>1033</td><td>Destination Folder:</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_Install</td><td>1033</td><td>&amp;Install</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_Installdir</td><td>1033</td><td>[INSTALLDIR]</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS__IsVerifyReadyDlg_ModifyReady</td><td>1033</td><td>{&amp;MSSansBold8}Ready to Modify the Palette Agent</td><td>0</td><td/><td>-1297890680</td></row>
+		<row><td>IDS__IsVerifyReadyDlg_ModifyReady</td><td>1033</td><td>{&amp;MSSansBold8}Ready to install the Palette Agent</td><td>0</td><td/><td>-761056309</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_ReadyInstall</td><td>1033</td><td>{&amp;MSSansBold8}Ready to Install the Palette Agent</td><td>0</td><td/><td>-1297909112</td></row>
-		<row><td>IDS__IsVerifyReadyDlg_ReadyRepair</td><td>1033</td><td>{&amp;MSSansBold8}Ready to Repair the Palette Agent</td><td>0</td><td/><td>-1297900920</td></row>
+		<row><td>IDS__IsVerifyReadyDlg_ReadyRepair</td><td>1033</td><td>{&amp;MSSansBold8}Ready to repair the Palette Agent</td><td>0</td><td/><td>-761040149</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_SelectedSetupType</td><td>1033</td><td>[SelectedSetupType]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_Serial</td><td>1033</td><td>Serial: [ISX_SERIALNUM]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__IsVerifyReadyDlg_SetupType</td><td>1033</td><td>Setup Type:</td><td>0</td><td/><td>-1910336943</td></row>
@@ -4388,8 +4389,8 @@
 		<row><td>NEW_STRING1</td><td>1033</td><td>Palette Server License Key</td><td>0</td><td/><td>-1297903608</td></row>
 		<row><td>NEW_STRING10</td><td>1033</td><td>username:</td><td>0</td><td/><td>1923297037</td></row>
 		<row><td>NEW_STRING11</td><td>1033</td><td>password:</td><td>0</td><td/><td>1923297037</td></row>
-		<row><td>NEW_STRING12</td><td>1033</td><td>Create a new administrator account for the Palette Agent Service to 'Run As'</td><td>0</td><td/><td>-1297893144</td></row>
-		<row><td>NEW_STRING13</td><td>1033</td><td>Use an existing administrator account for the Palette Agent to 'Run As'</td><td>0</td><td/><td>-1297927896</td></row>
+		<row><td>NEW_STRING12</td><td>1033</td><td>Create a new administrator 'Run As' user account</td><td>0</td><td/><td>-761030101</td></row>
+		<row><td>NEW_STRING13</td><td>1033</td><td>Use an existing administrator 'Run As' user account</td><td>0</td><td/><td>-761064885</td></row>
 		<row><td>NEW_STRING14</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING15</td><td>1033</td><td>Use existing administrator account.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING16</td><td>1033</td><td>User Account</td><td>0</td><td/><td>-1297933976</td></row>
@@ -4408,6 +4409,9 @@
 		<row><td>NEW_STRING28</td><td>1033</td><td>Password</td><td>0</td><td/><td>-1297939928</td></row>
 		<row><td>NEW_STRING29</td><td>1033</td><td>The username should be in the form of DOMAIN\User.</td><td>0</td><td/><td>-2103188686</td></row>
 		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
+		<row><td>NEW_STRING30</td><td>1033</td><td>Text</td><td>0</td><td/><td>-761009749</td></row>
+		<row><td>NEW_STRING31</td><td>1033</td><td>Text</td><td>0</td><td/><td>-761069109</td></row>
+		<row><td>NEW_STRING32</td><td>1033</td><td>NOTE: This is the IP address or hostname that this computer would use to connecto to your Palette Server.</td><td>0</td><td/><td>-761044501</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
 		<row><td>NEW_STRING6</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923313421</td></row>
@@ -5040,6 +5044,9 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>NewProperty1</td><td>0</td><td/></row>
 		<row><td>NewProperty2</td><td>0</td><td/></row>
 		<row><td>NewProperty3</td><td>0</td><td/></row>
+		<row><td>NewProperty4</td><td>0</td><td/></row>
+		<row><td>NewProperty5</td><td>0</td><td/></row>
+		<row><td>NewProperty6</td><td>0</td><td/></row>
 		<row><td>PASSWORD</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
 		<row><td>PORT</td><td>22</td><td/></row>
