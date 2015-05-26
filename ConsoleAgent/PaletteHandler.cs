@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Net.Security;
 using System.Reflection;
 
 /// <summary>
@@ -47,6 +48,9 @@ public class PaletteHandler : HttpHandler
             /* The first value is always 0, so throw it away. */
             counter.NextValue();
         }
+
+        // turn off certificate validation for the SSL /proxy requests.
+        ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
     }
 
     /// <summary>
