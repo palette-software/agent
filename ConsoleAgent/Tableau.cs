@@ -13,12 +13,16 @@ using Microsoft.Win32;
     /// </summary>
 public class Tableau
 {
+    public const string YML_READONLY_ENABLED = "pgsql.readonly.enabled";
+    public const string YML_SYSINFO_IPS = "wgserver.systeminfo.allow_referrer_ips";
+    public const string MINIMUM_SUPPORTED_VERSION = "8.2.5";
+
     public int Bitness;
     public string Path;
     public string DataPath;
-    public string VersionString;
-    public decimal Version = 0;
     public string RegistryKeyPath;
+    public string VersionString;
+    public Version Version;
 
     private static string findLatestVersion(RegistryKey baseKey)
     {
@@ -59,6 +63,7 @@ public class Tableau
             if (version != null)
             {
                 tabinfo.VersionString = version;
+                Version.TryParse(version, out tabinfo.Version);
                 tabinfo.Bitness = 64;
                 tabinfo.RegistryKeyPath = buildRegistryKeyPath(version);
                 key = baseKey.OpenSubKey(tabinfo.RegistryKeyPath);
@@ -81,6 +86,7 @@ public class Tableau
         tabinfo.RegistryKeyPath = buildRegistryKeyPath(version);
         key = baseKey.OpenSubKey(tabinfo.RegistryKeyPath);
         baseKey.Close();
+
         return key;
     }
 
@@ -93,15 +99,6 @@ public class Tableau
 
         tabinfo.Path = (string)key.GetValue("AppVersion");
         tabinfo.DataPath = (string)key.GetValue("Data");
-
-        try
-        {
-            tabinfo.Version = Convert.ToDecimal(tabinfo.VersionString);
-        }
-        catch (Exception)
-        {
-            // ignored, leave version == 0.
-        }
         return tabinfo;
     }
 
@@ -142,5 +139,31 @@ public class Tableau
             }
         }
         return dict;
+    }
+
+    public static bool readOnlyEnabled(Dictionary<string, string> settings)
+    {
+        try
+        {
+            return Convert.ToBoolean(settings[Tableau.YML_READONLY_ENABLED]);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    public static string[] allowedSysInfoIPs(Dictionary<string, string> settings)
+    {
+        if (!settings.ContainsKey(Tableau.YML_SYSINFO_IPS))
+        {
+            return null;
+        }
+        string[] tokens = settings[Tableau.YML_SYSINFO_IPS].Split(",".ToCharArray());
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            tokens[i] = tokens[i].Trim();
+        }
+        return tokens;
     }
 }

@@ -1188,6 +1188,7 @@
 		<row><td>CheckAdminUser</td><td>1</td><td>CheckAdminUser.clr</td><td>InstallerDLL.CheckAdminUser(...)</td><td>0</td><td/></row>
 		<row><td>CheckCreateUser</td><td>1</td><td>CheckCreateUser.clr</td><td>InstallerDLL.CheckCreateUser(...)</td><td>0</td><td/></row>
 		<row><td>CheckExistingUser</td><td>1</td><td>CheckExistingUser.clr</td><td>InstallerDLL.CheckExistingUser(...)</td><td>0</td><td/></row>
+		<row><td>CheckTableau</td><td>1</td><td>CheckTableau.clr</td><td>InstallerDLL.CheckTableau()</td><td>0</td><td/></row>
 		<row><td>CleanupInstallDir</td><td>1</td><td>ISSetup.dll</td><td>f9</td><td>0</td><td/></row>
 		<row><td>CleanupServices</td><td>1</td><td>ISSetup.dll</td><td>f10</td><td>0</td><td/></row>
 		<row><td>CreateAdminUser1</td><td>51</td><td>CreateAdminUser2</td><td>[ACCOUNT];[PASSWORD]</td><td/><td/></row>
@@ -2381,6 +2382,11 @@
 		<row><td>CheckExistingUser</td><td>Param3</td><td>[PASSWORD]</td></row>
 		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
 		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
+		<row><td>CheckTableau</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>CheckTableau</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>CheckTableau</td><td>Method</td><td>CheckTableau</td></row>
+		<row><td>CheckTableau</td><td>Return</td><td>-</td></row>
+		<row><td>CheckTableau</td><td>Type</td><td>0</td></row>
 		<row><td>CreateAdminUser2</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CreateAdminUser2</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CreateAdminUser2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll </td></row>
@@ -4684,6 +4690,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="I4">ISAttributes</col>
 		<row><td>AppSearch</td><td/><td>200</td><td>AppSearch</td><td/></row>
 		<row><td>CCPSearch</td><td>CCP_TEST</td><td>450</td><td>CCPSearch</td><td/></row>
+		<row><td>CheckTableau</td><td>NOT Installed</td><td>1100</td><td/><td/></row>
 		<row><td>CostFinalize</td><td/><td>1000</td><td>CostFinalize</td><td/></row>
 		<row><td>CostInitialize</td><td/><td>700</td><td>CostInitialize</td><td/></row>
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
@@ -5077,6 +5084,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;COMPANYNAME;SUPPORTDIR;INSTALLDIR;LAUNCHPROGRAM;ISX_SERIALNUMISSHOWMSILOG2;ACCOUNT;PASSWORD</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>TRY_CREATE_ADMIN_USER</td><td>0</td><td/></row>
+		<row><td>TableauValid</td><td>0</td><td/></row>
 		<row><td>UUID</td><td/><td/></row>
 		<row><td>UpgradeCode</td><td>{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}</td><td/></row>
 		<row><td>UsernameNew</td><td>Palette</td><td/></row>

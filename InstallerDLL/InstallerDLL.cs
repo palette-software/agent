@@ -31,6 +31,46 @@ public class InstallerDLL
 
     public const string TITLE = "Palette Agent Installer";
 
+    public const string KB_READONLY = "http://onlinehelp.tableau.com/current/server/en-us/help.htm#adminview_postgres_access.htm";
+    public const string KB_SYSINFO = "http://onlinehelp.tableau.com/current/server/en-us/help.htm#service_remote.htm";
+
+    public static int CheckTableau()
+    {
+        //System.Diagnostics.Debugger.Launch();
+        Tableau tabinfo = Tableau.query();
+        if (tabinfo == null)
+        {
+            // non-primary
+            return 1;
+        }
+
+        Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
+        if (tabinfo.Version < minVersion)
+        {
+            string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw new Exception(msg);
+        }
+
+        Dictionary<string, string> settings = tabinfo.getSettings();
+        if (!Tableau.readOnlyEnabled(settings))
+        {
+            string msg = "The readonly user must be enabled\n" + KB_READONLY;
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw new Exception(msg);
+        }
+
+        string [] sysInfoIPs = Tableau.allowedSysInfoIPs(settings);
+        if (!sysInfoIPs.Contains("127.0.0.1"))
+        {
+            string msg = "sysinfo must be enabled for 127.0.0.1\n" + KB_SYSINFO;
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw new Exception(msg);
+        }
+
+        return 1;
+    }
+
     /// <summary>
     /// 
     /// </summary>
