@@ -4377,7 +4377,8 @@
 		<row><td>ID_STRING15</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297931960</td></row>
 		<row><td>ID_STRING16</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297911384</td></row>
 		<row><td>ID_STRING17</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297940024</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297911480</td></row>
+		<row><td>ID_STRING18</td><td>1033</td><td>Palette Agent</td><td>0</td><td/><td>-626849177</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-626830777</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Service for the Palette Agent</td><td>0</td><td/><td>-500963634</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Palette Server IP address or hostname</td><td>0</td><td/><td>-1297926008</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>agent.ini</td><td>0</td><td/><td>-635181776</td></row>
@@ -5222,7 +5223,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="S255">Arguments</col>
 		<col def="s72">Component_</col>
 		<col def="L255">Description</col>
-		<row><td>AgentService</td><td>PaletteAgent</td><td>##ID_STRING2##</td><td>16</td><td>2</td><td>32771</td><td/><td/><td>[ACCOUNT]</td><td>[PASSWORD]</td><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
+		<row><td>AgentService</td><td>PaletteAgent</td><td>##ID_STRING18##</td><td>16</td><td>2</td><td>32771</td><td/><td/><td>[ACCOUNT]</td><td>[PASSWORD]</td><td/><td>ServiceAgent.Primary_output</td><td>##ID_STRING3##</td></row>
 	</table>
 
 	<table name="Shortcut">
