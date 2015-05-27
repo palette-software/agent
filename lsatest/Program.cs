@@ -69,7 +69,7 @@ namespace lsatest
                     Console.WriteLine("The current domain is '{0}'.", domainName);
                 }
 
-                bool isAdmin = AdminUtil.IsAdministratorNoCache(ctx, userName);
+                bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
                 if (isAdmin)
                 {
                     Console.WriteLine("'{0}' is an administrator.", account);

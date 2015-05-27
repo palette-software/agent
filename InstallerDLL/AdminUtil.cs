@@ -69,13 +69,13 @@ class AdminUtil
     /// </summary>
     /// <param name="account"></param>
     /// <returns></returns>
-    public static bool IsAdministratorNoCache(string account)
+    public static bool IsBuiltInAdmin(string account)
     {
         string userName;
         string domainName;
 
         PrincipalContext ctx = getPrincipalContext(account, out userName, out domainName);
-        return IsAdministratorNoCache(ctx, userName);
+        return IsBuiltInAdmin(ctx, userName);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ class AdminUtil
     /// <param name="ctx"></param>
     /// <param name="userName"></param>
     /// <returns></returns>
-    public static bool IsAdministratorNoCache(PrincipalContext ctx, string userName)
+    public static bool IsBuiltInAdmin(PrincipalContext ctx, string userName)
     {
         // This call is slow, but case insensitive...
         UserPrincipal up = UserPrincipal.FindByIdentity(ctx, userName);
@@ -99,11 +99,15 @@ class AdminUtil
         {
             //PrincipalSearchResult<Principal> authGroups = up.GetAuthorizationGroups();
             PrincipalSearchResult<Principal> authGroups = up.GetGroups();
+            /*
             return authGroups.Any(principal =>
                                   principal.Sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid) ||
                                   principal.Sid.IsWellKnown(WellKnownSidType.AccountDomainAdminsSid) ||
                                   principal.Sid.IsWellKnown(WellKnownSidType.AccountAdministratorSid) ||
                                   principal.Sid.IsWellKnown(WellKnownSidType.AccountEnterpriseAdminsSid));
+            */
+            return authGroups.Any(principal =>
+                                  principal.Sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid));
         }
         return false;
     }

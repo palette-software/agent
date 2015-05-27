@@ -402,10 +402,10 @@ public class InstallerDLL
                 return 0;
             }
 
-            bool isAdmin = AdminUtil.IsAdministratorNoCache(ctx, userName);
+            bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
             if (!isAdmin)
             {
-                string msg = String.Format("The account '{0}' does not belong to any administrator group", account);
+                string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group", account);
                 TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
