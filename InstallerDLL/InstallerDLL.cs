@@ -401,7 +401,8 @@ public class InstallerDLL
             bool isAdmin = AdminUtil.IsAdministratorNoCache(ctx, userName);
             if (!isAdmin)
             {
-                TopMostMessageBox.Show("The account '{0}' does not belong to any administrator group", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string msg = String.Format("The account '{0}' does not belong to any administrator group", account);
+                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
         }
