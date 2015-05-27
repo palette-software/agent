@@ -146,16 +146,20 @@ public class InstallerDLL
         grp.Invoke("Add", new object[] { NewUser.Path.ToString() });
         log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}\\{1}' to group '{2}'", Environment.MachineName, account, grp.ToString()));
 
-        try
+        string productType = AdminUtil.getProductType();
+        if (productType != PRODUCT_TYPE_LANMANNT)
         {
-            GrantLogonAsServiceRight(Environment.MachineName + "\\" + account);
-            log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}\\{1}'", Environment.MachineName, account));
-        }
-        catch (Exception e)
-        {
-            string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, account);
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw e;
+            try
+            {
+                GrantLogonAsServiceRight(Environment.MachineName + "\\" + account);
+                log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}\\{1}'", Environment.MachineName, account));
+            }
+            catch (Exception e)
+            {
+                string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, account);
+                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw e;
+            }
         }
 
         try

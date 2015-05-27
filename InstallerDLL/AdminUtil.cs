@@ -8,9 +8,13 @@ using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.ActiveDirectory;
 using System.Security.Principal;
 
+using Microsoft.Win32;
+
 // http://ayende.com/blog/158401/are-you-an-administrator
 class AdminUtil
 {
+    public const string REG_KEY_PRODUCT_OPTIONS = @"SYSTEM\CurrentControlSet\Control\ProductOptions";
+
     /// <summary>
     /// PrincipalServerDownException must be caught: it means the system is in a domain, but the DC is unavailable.
     /// </summary>
@@ -28,7 +32,7 @@ class AdminUtil
         {
             userName = tokens[0];
         } else {
-            if (tokens[0] != ".")
+            if (tokens[0] != "." && tokens[0] != Environment.MachineName)
             {
                 domainName = tokens[0];
             }
@@ -74,6 +78,12 @@ class AdminUtil
         return IsAdministratorNoCache(ctx, userName);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ctx"></param>
+    /// <param name="userName"></param>
+    /// <returns></returns>
     public static bool IsAdministratorNoCache(PrincipalContext ctx, string userName)
     {
         // This call is slow, but case insensitive...
@@ -96,5 +106,22 @@ class AdminUtil
                                   principal.Sid.IsWellKnown(WellKnownSidType.AccountEnterpriseAdminsSid));
         }
         return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static string getProductType()
+    {
+        RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_KEY_PRODUCT_OPTIONS);
+        if (key == null)
+        {
+            return null;
+        }
+        string productType = (string)key.GetValue("ProductType");
+        key.Close();
+
+        return productType;
     }
 }

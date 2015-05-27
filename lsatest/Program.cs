@@ -97,6 +97,9 @@ namespace lsatest
                 Console.WriteLine("The domain controller is unreachable: " + e.Message);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Computer name: " + Environment.MachineName);
+            Console.WriteLine("Product Type: " + AdminUtil.getProductType());
             
             return 0;
         }
