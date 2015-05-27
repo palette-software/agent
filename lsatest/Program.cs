@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.DirectoryServices.ActiveDirectory;
+using System.DirectoryServices.AccountManagement;
+
 using LSA;
 
 namespace lsatest
@@ -14,6 +17,7 @@ namespace lsatest
         {
             // returns the account the application is running as.
             string account;
+            string password = null;
             if (args.Length == 0)
             {
                 account = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
@@ -21,6 +25,11 @@ namespace lsatest
             else if (args.Length == 1)
             {
                 account = args[0];
+            }
+            else if (args.Length == 2)
+            {
+                account = args[0];
+                password = args[1];
             }
             else
             {
@@ -46,16 +55,49 @@ namespace lsatest
                     }
                 }
             }
+
+            string userName;
+            string domainName;
+
             Console.WriteLine();
-            bool isAdmin = AdminUtil.IsAdministratorNoCache(account);
-            if (isAdmin)
+            try
             {
-                Console.WriteLine("'{0}' is an administrator.", account);
+                PrincipalContext ctx = AdminUtil.getPrincipalContext(account, out userName, out domainName);
+
+                if (domainName != null)
+                {
+                    Console.WriteLine("The current domain is '{0}'.", domainName);
+                }
+
+                bool isAdmin = AdminUtil.IsAdministratorNoCache(ctx, userName);
+                if (isAdmin)
+                {
+                    Console.WriteLine("'{0}' is an administrator.", account);
+                }
+                else
+                {
+                    Console.WriteLine("'{0}' is NOT an administrator.", account);
+                }
+
+                if (password != null)
+                {
+                    bool isValid = ctx.ValidateCredentials(userName, password);
+                    if (isValid)
+                    {
+                        Console.WriteLine("The credentials are valid.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("The credentials are INVALID.");
+                    }
+                }
             }
-            else
+            catch (PrincipalServerDownException e)
             {
-                Console.WriteLine("'{0}' is NOT an administrator.", account);
+                Console.WriteLine("The domain controller is unreachable: " + e.Message);
             }
+
+            
             return 0;
         }
     }

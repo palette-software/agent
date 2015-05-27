@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using InstallShield.Interop;
 using Microsoft.Win32;
 
+using System.DirectoryServices.ActiveDirectory;
+using System.DirectoryServices.AccountManagement;
+
 using LSA;
 
 public class InstallerDLL
@@ -382,34 +385,36 @@ public class InstallerDLL
             }
         }
 
+        string userName;
+        string domainName;
+
         try
         {
-            if (!AdminUtil.ValidateCredentials(account, password))
+            PrincipalContext ctx = AdminUtil.getPrincipalContext(account, out userName, out domainName);
+
+            if (!ctx.ValidateCredentials(userName, password))
             {
                 TopMostMessageBox.Show("Invalid username or password", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
-        }
-        catch (Exception e)
-        {
-            string msg = String.Format("An error occurred during account verification.\n{0}", e.Message);
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return 0;
-        }
 
-        try
-        {
-            if (!AdminUtil.IsAdministratorNoCache(account))
+            bool isAdmin = AdminUtil.IsAdministratorNoCache(ctx, userName);
+            if (!isAdmin)
             {
                 TopMostMessageBox.Show("The account '{0}' does not belong to any administrator group", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
         }
-        catch (Exception e)
+        catch (PrincipalServerDownException e)
         {
+            TopMostMessageBox.Show("The domain controller is unreachable: " + e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
+        catch (Exception e) {
             TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
+
         return 1;
     }
 

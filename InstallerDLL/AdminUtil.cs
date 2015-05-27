@@ -11,70 +11,84 @@ using System.Security.Principal;
 // http://ayende.com/blog/158401/are-you-an-administrator
 class AdminUtil
 {
-    public static bool ValidateCredentials(string username, string password)
+    /// <summary>
+    /// PrincipalServerDownException must be caught: it means the system is in a domain, but the DC is unavailable.
+    /// </summary>
+    /// <param name="account"></param>
+    /// <param name="userName"></param>
+    /// <param name="domainName"></param>
+    /// <returns></returns>
+    public static PrincipalContext getPrincipalContext(string account, out string userName, out string domainName)
     {
-        if (username.StartsWith(@".\"))
-        {
-            username = username.Substring(2);
-        }        
+        domainName = null;
+        string[] tokens = account.Split("\\".ToCharArray(), 2);
 
         PrincipalContext ctx;
-        try
+        if (tokens.Length == 1)
         {
-            Domain.GetComputerDomain();
-            try
+            userName = tokens[0];
+        } else {
+            if (tokens[0] != ".")
             {
-                ctx = new PrincipalContext(ContextType.Domain);
+                domainName = tokens[0];
             }
-            catch (PrincipalServerDownException)
-            {
-                // can't access domain, check local machine instead 
-                ctx = new PrincipalContext(ContextType.Machine);
-            }
+            userName = tokens[1];
         }
-        catch (ActiveDirectoryObjectNotFoundException)
+            
+        if (domainName != null)
         {
-            // not in a domain
+            ctx = new PrincipalContext(ContextType.Domain, domainName);
+        } else {
             ctx = new PrincipalContext(ContextType.Machine);
         }
-
-        return ctx.ValidateCredentials(username, password);
+        
+        return ctx;
     }
 
-    public static bool IsAdministratorNoCache(string username)
+    /// <summary>
+    /// Must catch PrincipalServerDownException
+    /// </summary>
+    /// <param name="account"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    public static bool ValidateCredentials(string account, string password)
     {
-        PrincipalContext ctx;
-        try
-        {
-            Domain.GetComputerDomain();
-            try
-            {
-                ctx = new PrincipalContext(ContextType.Domain);
-            }
-            catch (PrincipalServerDownException)
-            {
-                // can't access domain, check local machine instead 
-                ctx = new PrincipalContext(ContextType.Machine);
-            }
-        }
-        catch (ActiveDirectoryObjectNotFoundException)
-        {
-            // not in a domain
-            ctx = new PrincipalContext(ContextType.Machine);
-        }
+        string userName;
+        string domainName;
 
+        PrincipalContext ctx = getPrincipalContext(account, out userName, out domainName);
+        return ctx.ValidateCredentials(userName, password);
+    }
+
+    /// <summary>
+    /// Must catch PrincipalServerDownException
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
+    public static bool IsAdministratorNoCache(string account)
+    {
+        string userName;
+        string domainName;
+
+        PrincipalContext ctx = getPrincipalContext(account, out userName, out domainName);
+        return IsAdministratorNoCache(ctx, userName);
+    }
+
+    public static bool IsAdministratorNoCache(PrincipalContext ctx, string userName)
+    {
         // This call is slow, but case insensitive...
-        //UserPrincipal up = UserPrincipal.FindByIdentity(ctx, username);
+        UserPrincipal up = UserPrincipal.FindByIdentity(ctx, userName);
 
         // http://stackoverflow.com/questions/7533790/findbyidentity-performance-differences
-        UserPrincipal up = new UserPrincipal(ctx);
-        up.SamAccountName = username;
-        PrincipalSearcher searcher = new PrincipalSearcher(up);
-        up = searcher.FindOne() as UserPrincipal;
+        //UserPrincipal up = new UserPrincipal(ctx);
+        //up.SamAccountName = userName;
+        //PrincipalSearcher searcher = new PrincipalSearcher(up);
+        //up = searcher.FindOne() as UserPrincipal;
 
         if (up != null)
         {
-            PrincipalSearchResult<Principal> authGroups = up.GetAuthorizationGroups();
+            //PrincipalSearchResult<Principal> authGroups = up.GetAuthorizationGroups();
+            PrincipalSearchResult<Principal> authGroups = up.GetGroups();
             return authGroups.Any(principal =>
                                   principal.Sid.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid) ||
                                   principal.Sid.IsWellKnown(WellKnownSidType.AccountDomainAdminsSid) ||
