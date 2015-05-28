@@ -82,6 +82,7 @@ public class Tableau
         }
 
         tabinfo.VersionString = version;
+        Version.TryParse(version, out tabinfo.Version);
         tabinfo.Bitness = 32;
         tabinfo.RegistryKeyPath = buildRegistryKeyPath(version);
         key = baseKey.OpenSubKey(tabinfo.RegistryKeyPath);

@@ -48,11 +48,17 @@ public class InstallerDLL
         }
 
         Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
-        if (tabinfo.Version < minVersion)
+        if (tabinfo.Version != null)
         {
-            string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw new Exception(msg);
+            if (tabinfo.Version < minVersion)
+            {
+                string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
+                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(msg);
+            }
+        } else {
+            string msg = "Could not determine the Tableau Server version.  Please ensure that you have at least version " + Tableau.MINIMUM_SUPPORTED_VERSION;
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         Dictionary<string, string> settings = tabinfo.getSettings();
