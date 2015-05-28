@@ -28,7 +28,7 @@ class ps3
             Key = key
         };
 
-        string dest = key;
+        string dest = Path.GetFileName(key);
         using (GetObjectResponse response = client.GetObject(request))
         {
                 response.WriteResponseStreamToFile(dest);
@@ -36,10 +36,20 @@ class ps3
         return 0;
     }
 
-    static int doMultipartPUT(AmazonS3Client client, string bucketName, string path)
+    static int doMultipartPUT(AmazonS3Client client, string bucketPath, string path)
     {
+        string[] tokens = bucketPath.Split("/".ToCharArray());
+        string bucketName = tokens[0];
+
+        string key = "";
+        for (int i = 1; i < tokens.Length; i++)
+        {
+            key += tokens[i] + "/";
+        }
+        key += Path.GetFileName(path);
+
         TransferUtility fileTransferUtility = new TransferUtility(client);
-        fileTransferUtility.Upload(path, bucketName);
+        fileTransferUtility.Upload(path, bucketName, key);
         return 0;
     }
 
