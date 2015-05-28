@@ -40,16 +40,17 @@ class pinfo
             allData.Add("ip-address", NetUtil.GetFirstIPAddr(hostname));
             allData.Add("volumes", GetDriveInfo());
 
-            string installDir = RegistryUtil.GetTableauInstallPath();
-            if (installDir != null && installDir.Length > 0)
+            Tableau tabinfo = Tableau.query();
+            if (tabinfo != null)
             {
-                allData.Add("tableau-install-dir", installDir);
+                allData.Add("tableau-install-dir", tabinfo.Path);
+                allData.Add("tableau-data-dir", tabinfo.DataPath);
+                allData.Add("tableau-version", tabinfo.VersionString);
+                allData.Add("tableau-bitness", tabinfo.Bitness);
 
-                string dataDir = GetTableauData(installDir);
-                allData.Add("tableau-data-dir", dataDir);
-                if (Directory.Exists(dataDir))
+                if (Directory.Exists(tabinfo.DataPath))
                 {
-                    allData.Add("tableau-data-size", DirSize(dataDir));
+                    allData.Add("tableau-data-size", DirSize(tabinfo.DataPath));
                 }
             }
 
@@ -174,33 +175,6 @@ class pinfo
     public static long DirSize(string path)
     {
         return DirSize(new DirectoryInfo(path));
-    }
-
-    public static string GetTableauData(string installPath)
-    {
-        string root = Path.GetPathRoot(installPath).ToUpper();
-
-        /* If installed in C: and "C:/ProgramData/Tableau/Tableau Server" exists, use that regardless of registry. */
-        if (root == @"C:\")
-        {
-            string path = StdPath.Combine(root, "ProgramData", "Tableau", "Tableau Server");
-            if (Directory.Exists(path))
-            {
-                return path;
-            }
-        }
-
-        /* Look for a registry value. */
-        string value = RegistryUtil.GetTableauDataDir(installPath);
-        if (value != null)
-        {
-            /* return the parent of directory of the returned value. */
-            string relative = Path.Combine(value, "..");
-            return Path.GetFullPath(relative);
-        }
-
-        /* Default to the install path. */
-        return installPath;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]

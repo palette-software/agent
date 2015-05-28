@@ -100,6 +100,14 @@ public class Tableau
 
         tabinfo.Path = (string)key.GetValue("AppVersion");
         tabinfo.DataPath = (string)key.GetValue("Data");
+        if (!Directory.Exists(tabinfo.DataPath))
+        {
+            string path = @"C:\ProgramData\Tableau\Tableau Server\data";
+            if (Directory.Exists(path))
+            {
+                tabinfo.DataPath = path;
+            }
+        }
         return tabinfo;
     }
 
@@ -108,11 +116,7 @@ public class Tableau
         String path = System.IO.Path.Combine(DataPath, "tabsvc", "config", "workgroup.yml");
         if (!File.Exists(path))
         {
-            path = @"C:\ProgramData\Tableau\Tableau Server\data\tabsvc\config\workgroup.yml";
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("workgroup.yml");
-            }
+            throw new FileNotFoundException("workgroup.yml");
         }
 
         Dictionary<string, string> dict = new Dictionary<string, string>();
