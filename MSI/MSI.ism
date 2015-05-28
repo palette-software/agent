@@ -1053,7 +1053,7 @@
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseHostnamePort</td><td>1</td><td>1</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>SaveHostnamePort</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ValidateHostnamePort</td><td>HOSTNAME &lt;&gt; ""</td><td>3</td></row>
-		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>1</td><td/></row>
+		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>HostnamePortValid &lt;&gt; 0</td><td>5</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>Reset</td><td>0</td><td>1</td><td>1</td></row>
 		<row><td>InstallChangeFolder</td><td>NewFolder</td><td>DirectoryListNew</td><td>0</td><td>1</td><td>0</td></row>
