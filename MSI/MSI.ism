@@ -1053,7 +1053,7 @@
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseHostnamePort</td><td>1</td><td>1</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>SaveHostnamePort</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
 		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ValidateHostnamePort</td><td>HOSTNAME &lt;&gt; ""</td><td>3</td></row>
-		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>HostnamePortValid &lt;&gt; 0</td><td>5</td></row>
+		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>1</td><td/></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>Reset</td><td>0</td><td>1</td><td>1</td></row>
 		<row><td>InstallChangeFolder</td><td>NewFolder</td><td>DirectoryListNew</td><td>0</td><td>1</td><td>0</td></row>
@@ -1196,7 +1196,7 @@
 		<row><td>CreateAdminUser2</td><td>1025</td><td>CreateAdminUser2.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>CreateApacheEnv1</td><td>51</td><td>CreateApacheEnv2</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>CreateApacheEnv2</td><td>1025</td><td>ISSetup.dll</td><td>f8</td><td>0</td><td/></row>
-		<row><td>Finalize</td><td>1</td><td>ISSetup.dll</td><td>f11</td><td/><td/></row>
+		<row><td>FinalizeCreateUser</td><td>1</td><td>FinalizeCreateUser.clr</td><td>InstallerDLL.FinalizeCreateUser(...)</td><td>0</td><td/></row>
 		<row><td>GeneratePassword</td><td>1</td><td>GeneratePassword.clr</td><td>InstallerDLL.GeneratePassword(...)</td><td>0</td><td/></row>
 		<row><td>GenerateUUID</td><td>1</td><td>GenerateUUID.clr</td><td>InstallerDLL.GenerateUUID(...)</td><td>0</td><td/></row>
 		<row><td>GetHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f4</td><td>0</td><td/></row>
@@ -2361,26 +2361,23 @@
 		<row><td>CheckAdminUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckAdminUser</td><td>Method</td><td>CheckAdminUser</td></row>
 		<row><td>CheckAdminUser</td><td>Param1</td><td>[AdminType]</td></row>
-		<row><td>CheckAdminUser</td><td>Param2</td><td>[ProductType]</td></row>
-		<row><td>CheckAdminUser</td><td>Param3</td><td>[ACCOUNT]</td></row>
-		<row><td>CheckAdminUser</td><td>Param4</td><td>[PASSWORD]</td></row>
+		<row><td>CheckAdminUser</td><td>Param2</td><td>[ACCOUNT]</td></row>
+		<row><td>CheckAdminUser</td><td>Param3</td><td>[PASSWORD]</td></row>
 		<row><td>CheckAdminUser</td><td>Return</td><td>AdminUserValid</td></row>
 		<row><td>CheckAdminUser</td><td>Type</td><td>0</td></row>
 		<row><td>CheckCreateUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CheckCreateUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckCreateUser</td><td>Method</td><td>CheckCreateUser</td></row>
-		<row><td>CheckCreateUser</td><td>Param1</td><td>[ProductType]</td></row>
-		<row><td>CheckCreateUser</td><td>Param2</td><td>[UsernameNew]</td></row>
-		<row><td>CheckCreateUser</td><td>Param3</td><td>[PasswordNew]</td></row>
-		<row><td>CheckCreateUser</td><td>Param4</td><td>[ConfirmPassword]</td></row>
+		<row><td>CheckCreateUser</td><td>Param1</td><td>[UsernameNew]</td></row>
+		<row><td>CheckCreateUser</td><td>Param2</td><td>[PasswordNew]</td></row>
+		<row><td>CheckCreateUser</td><td>Param3</td><td>[ConfirmPassword]</td></row>
 		<row><td>CheckCreateUser</td><td>Return</td><td>CreateUserValid</td></row>
 		<row><td>CheckCreateUser</td><td>Type</td><td>0</td></row>
 		<row><td>CheckExistingUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>CheckExistingUser</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>CheckExistingUser</td><td>Method</td><td>CheckExistingUser</td></row>
-		<row><td>CheckExistingUser</td><td>Param1</td><td>[ProductType]</td></row>
-		<row><td>CheckExistingUser</td><td>Param2</td><td>[ACCOUNT]</td></row>
-		<row><td>CheckExistingUser</td><td>Param3</td><td>[PASSWORD]</td></row>
+		<row><td>CheckExistingUser</td><td>Param1</td><td>[ACCOUNT]</td></row>
+		<row><td>CheckExistingUser</td><td>Param2</td><td>[PASSWORD]</td></row>
 		<row><td>CheckExistingUser</td><td>Return</td><td>ExistingUserValid</td></row>
 		<row><td>CheckExistingUser</td><td>Type</td><td>0</td></row>
 		<row><td>CheckTableau</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
@@ -2393,6 +2390,15 @@
 		<row><td>CreateAdminUser2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll </td></row>
 		<row><td>CreateAdminUser2</td><td>Method</td><td>CreateAdminUser</td></row>
 		<row><td>CreateAdminUser2</td><td>Type</td><td>0</td></row>
+		<row><td>FinalizeCreateUser</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>FinalizeCreateUser</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>FinalizeCreateUser</td><td>Method</td><td>FinalizeCreateUser</td></row>
+		<row><td>FinalizeCreateUser</td><td>Param1</td><td>[UsernameNew]</td></row>
+		<row><td>FinalizeCreateUser</td><td>Param2</td><td>[PasswordNew]</td></row>
+		<row><td>FinalizeCreateUser</td><td>Param3</td><td>[ACCOUNT]</td></row>
+		<row><td>FinalizeCreateUser</td><td>Param4</td><td>[PASSWORD]</td></row>
+		<row><td>FinalizeCreateUser</td><td>Return</td><td>TRY_CREATE_ADMIN_USER</td></row>
+		<row><td>FinalizeCreateUser</td><td>Type</td><td>0</td></row>
 		<row><td>GeneratePassword</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>GeneratePassword</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>GeneratePassword</td><td>Method</td><td>GeneratePassword</td></row>
@@ -2716,7 +2722,6 @@
 		<col def="S255">Target</col>
 		<row><td>f1</td><td>0</td><td>GetLicenseKey</td><td/></row>
 		<row><td>f10</td><td>0</td><td>CleanupServices</td><td/></row>
-		<row><td>f11</td><td>0</td><td>Finalize</td><td/></row>
 		<row><td>f12</td><td>0</td><td>PreStopService</td><td/></row>
 		<row><td>f13</td><td>0</td><td>Setup</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
@@ -4700,7 +4705,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>CostInitialize</td><td/><td>700</td><td>CostInitialize</td><td/></row>
 		<row><td>ExecuteAction</td><td/><td>1300</td><td>ExecuteAction</td><td/></row>
 		<row><td>FileCost</td><td/><td>800</td><td>FileCost</td><td/></row>
-		<row><td>Finalize</td><td/><td>1270</td><td/><td/></row>
+		<row><td>FinalizeCreateUser</td><td>AdminType = 1</td><td>1270</td><td/><td/></row>
 		<row><td>FindRelatedProducts</td><td/><td>420</td><td>FindRelatedProducts</td><td/></row>
 		<row><td>GenerateUUID</td><td>UUID = ""</td><td>127</td><td/><td/></row>
 		<row><td>GetHostnamePort</td><td/><td>7</td><td/><td/></row>
@@ -5079,7 +5084,6 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
 		<row><td>ProductName</td><td>Palette</td><td/></row>
-		<row><td>ProductType</td><td/><td/></row>
 		<row><td>ProductVersion</td><td>1.3.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
@@ -5140,7 +5144,6 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="s255">Key</col>
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
-		<row><td>ProductType</td><td>1</td><td>SYSTEM\CurrentControlSet\Control\ProductOptions</td><td>ProductType</td><td>2</td></row>
 	</table>
 
 	<table name="Registry">

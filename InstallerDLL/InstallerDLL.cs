@@ -102,13 +102,20 @@ public class InstallerDLL
         string account = tokens[0];
         string password = tokens[1];
 
-        if (account.StartsWith(@".\"))
+        // CheckCreateUser is responsible for ensuring that the account is valid.
+        string userName;
+        tokens = account.Split(@"\".ToCharArray(), 2);
+        if (tokens.Length == 2)
         {
-            account = account.Substring(2);
+            userName = tokens[1];
+        }
+        else
+        {
+            userName = account;
         }
 
         DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
-        DirectoryEntry NewUser = AD.Children.Add(account, "user");
+        DirectoryEntry NewUser = AD.Children.Add(userName, "user");
         NewUser.Invoke("SetPassword", new object[] { password });
         NewUser.Invoke("Put", new object[] { "Description", "Palette User for Agent Service" });
 
@@ -150,22 +157,29 @@ public class InstallerDLL
             throw new Exception(msg);
         }
         grp.Invoke("Add", new object[] { NewUser.Path.ToString() });
-        log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}\\{1}' to group '{2}'", Environment.MachineName, account, grp.ToString()));
+        log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}' to group '{1}'", account, grp.ToString()));
 
         string productType = AdminUtil.getProductType();
-        if (productType != PRODUCT_TYPE_LANMANNT)
+
+        try
         {
-            try
+            if (IsDomainController(productType))
             {
-                GrantLogonAsServiceRight(Environment.MachineName + "\\" + account);
-                log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}\\{1}'", Environment.MachineName, account));
+                // have to explicity use the full account on the domain controller...
+                GrantLogonAsServiceRight(account);
             }
-            catch (Exception e)
+            else
             {
-                string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}\\{1}'", Environment.MachineName, account);
-                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw e;
+                // ... but can't use the account on a member of the domain, it fails.
+                GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
             }
+            log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}'", account));
+        }
+        catch (Exception e)
+        {
+            string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}'", account);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
         }
 
         try
@@ -279,11 +293,10 @@ public class InstallerDLL
     /// 
     /// </summary>
     /// <param name="adminType"></param>
-    /// <param name="productType"></param>
     /// <param name="account"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public static int CheckAdminUser(int adminType, string productType, ref string account, ref string password)
+    public static int CheckAdminUser(int adminType, ref string account, ref string password)
     {
         //System.Diagnostics.Debugger.Launch();
         if (adminType == ADMIN_TYPE_CREATE_NEW)
@@ -301,12 +314,11 @@ public class InstallerDLL
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="productType"></param>
     /// <param name="account"></param>
     /// <param name="password"></param>
     /// <param name="confirmPassword"></param>
     /// <returns></returns>
-    public static int CheckCreateUser(string productType, ref string account, string password, string confirmPassword)
+    public static int CheckCreateUser(ref string account, string password, string confirmPassword)
     {
         if (account == null || account.Length == 0)
         {
@@ -314,10 +326,21 @@ public class InstallerDLL
             return 0;
         }
 
-        if (account.Contains('\\') && !account.StartsWith(@".\"))
+        string productType = AdminUtil.getProductType();
+        if (!IsDomainController(productType))
         {
-            TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return 0;
+            if (account.Contains('\\') && !account.StartsWith(@".\") && !account.StartsWith(Environment.MachineName + @"\"))
+            {
+                TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
+        else
+        {
+            if (!account.Contains('\\'))
+            {
+                account = GetDomainName() + @"\" + account;
+            }
         }
 
         if (password == null || password.Length == 0)
@@ -333,7 +356,7 @@ public class InstallerDLL
 
         if (password != confirmPassword)
         {
-            MessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
 
@@ -346,7 +369,7 @@ public class InstallerDLL
         return 1;
     }
 
-    public static int CheckExistingUser(string productType, ref string account, string password)
+    public static int CheckExistingUser(ref string account, string password)
     {
         //System.Diagnostics.Debugger.Launch();
         if (account == null || account.Length == 0)
@@ -363,34 +386,31 @@ public class InstallerDLL
             account = @".\" + account;
         }
 
-        if (productType != PRODUCT_TYPE_LANMANNT)
+        using (LsaWrapper lsa = new LsaWrapper())
         {
-            using (LsaWrapper lsa = new LsaWrapper())
+            string[] rights;
+            try
             {
-                string[] rights;
+                rights = lsa.GetRights(account);
+            }
+            catch (NotFoundException)
+            {
+                string msg = String.Format("The specified account '{0}' does not exist.", account);
+                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            if (rights == null || !rights.Contains(SERVICE_RIGHT))
+            {
                 try
                 {
-                    rights = lsa.GetRights(account);
+                    lsa.AddRight(account, SERVICE_RIGHT);
                 }
-                catch (NotFoundException)
+                catch (Exception e)
                 {
-                    string msg = String.Format("The specified account '{0}' does not exist.", account);
+                    string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
                     TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
-                }
-
-                if (rights == null || !rights.Contains(SERVICE_RIGHT))
-                {
-                    try
-                    {
-                        lsa.AddRight(account, SERVICE_RIGHT);
-                    }
-                    catch (Exception e)
-                    {
-                        string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
-                        TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        throw e;
-                    }
+                    throw e;
                 }
             }
         }
@@ -569,9 +589,9 @@ public class InstallerDLL
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="account"></param>
+    /// <param name="userName"></param>
     /// <returns></returns>
-    public static void HideUser(string account)
+    public static void HideUser(string userName)
     {
         RegistryKey hklm;
 
@@ -584,7 +604,7 @@ public class InstallerDLL
             hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
         }
 
-        //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon  \SpecialAccounts\UserList
+        //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList
         string key = @"Software\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts";
 
         RegistryKey specialAccountsSubKey = Registry.LocalMachine.OpenSubKey(key, true);
@@ -593,16 +613,33 @@ public class InstallerDLL
             specialAccountsSubKey = hklm.CreateSubKey(key);
         }
 
-        RegistryKey userListSubKey = specialAccountsSubKey.OpenSubKey("UserList");
+        RegistryKey userListSubKey = specialAccountsSubKey.OpenSubKey("UserList", true);
         if (userListSubKey == null)
         {
             userListSubKey = specialAccountsSubKey.CreateSubKey("UserList");
-            userListSubKey.SetValue(account, REG_HIDE_USER, RegistryValueKind.DWord);
         }
 
+        userListSubKey.SetValue(userName, REG_HIDE_USER, RegistryValueKind.DWord);
         userListSubKey.Close();
         specialAccountsSubKey.Close();
         hklm.Close();
+    }
+
+    public static int FinalizeCreateUser(string UsernameNew, string PasswordNew, ref string account, ref string password)
+    {
+        string productType = AdminUtil.getProductType();
+
+        account = UsernameNew;
+        if (!UsernameNew.Contains(@"\")) {
+            if (IsDomainController(productType)) {
+                account = GetDomainName() + @"\" + account;
+            } else {
+                account = @".\" + account;
+            }
+        }
+
+        password = (string)PasswordNew.Clone();
+        return 1;
     }
 
     private static void log(Int32 handle, string msg)
@@ -615,6 +652,30 @@ public class InstallerDLL
                 msi.ProcessMessage(Msi.InstallMessage.Info, record);
             }
         }
+    }
+
+    private static bool IsDomainController(string productType)
+    {
+        return (productType == PRODUCT_TYPE_LANMANNT);
+    }
+
+    private static string GetDomainName()
+    {
+        string name = null;
+        try
+        {
+            Domain domain = Domain.GetComputerDomain();
+            if (domain == null) {
+                throw new Exception("No computer domain found.");
+            }
+            name = domain.Name;
+        }
+        catch (Exception exc)
+        {
+            TopMostMessageBox.Show(exc.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw exc;
+        }
+        return name;
     }
 
 }
