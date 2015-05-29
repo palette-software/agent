@@ -342,28 +342,25 @@ public class PaletteHandler : HttpHandler
             throw new HttpBadRequest(e.Message);
         }
 
-        bool result = true;
-
-        switch (info.action)
-        {
-            case "start":
-                result = agent.startMaintServer(info);
-                break;
-            case "stop":
-                agent.stopMaintServer();
-                break;
-        }
-
         Dictionary<string, string> outputBody = new Dictionary<string, string>();
-
-        if (result)
+        try
         {
+            switch (info.action)
+            {
+                case "start":
+                    agent.startMaintServer(info);
+                    break;
+                case "stop":
+                    agent.stopMaintServer();
+                    break;
+            }
             outputBody["status"] = "OK";
         }
-        else
+        catch (Exception exc)
         {
             outputBody["status"] = "FAILED";
-            outputBody["error"] = "The maintenance webserver failed to start.  (see startup.log for details)";
+            outputBody["error"] = "The maintenance webserver failed to " + info.action +".  (see startup.log for details)";
+            outputBody["message"] = exc.Message;
         }
 
         res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
@@ -464,31 +461,29 @@ public class PaletteHandler : HttpHandler
             agent.archivePort = info.listen_port;
         }
 
-        bool result = true;
-    
-        switch (info.action)
-        {
-            case "start":
-                result = agent.startArchiveServer();
-                break;
-            case "stop":
-                agent.stopArchiveServer();
-                break;
-        }
-
         Dictionary<string, object> outputBody = new Dictionary<string, object>();
         outputBody["port"] = agent.archivePort;
 
-        if (result)
+        try
         {
+            switch (info.action)
+            {
+                case "start":
+                    agent.startArchiveServer();
+                    break;
+                case "stop":
+                    agent.stopArchiveServer();
+                    break;
+            }
             outputBody["status"] = "OK";
         }
-        else
+        catch (Exception exc)
         {
             outputBody["status"] = "FAILED";
-            outputBody["error"] = "The maintenance webserver failed to start.  (see startup.log for details)";
+            outputBody["error"] = "The maintenance webserver failed to " + info.action + ".  (see startup.log for details)";
+            outputBody["message"] = exc.Message;
         }
-
+        
         res.Write(fastJSON.JSON.Instance.ToJSON(outputBody));
         return res;
     }

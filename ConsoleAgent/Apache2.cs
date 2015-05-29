@@ -13,6 +13,7 @@ class Apache2
     protected string logDir;
     protected string baseArgs;
     protected string fileName;
+    protected string startupLog;
 
     public Apache2(string name, string conf, string installDir, string logDir)
     {
@@ -23,7 +24,7 @@ class Apache2
 
         this.srvRootDir = StdPath.Combine(installDir, "apache2");
         fileName = StdPath.Combine(srvRootDir, "bin", "httpd.exe");
-        string startupLog = StdPath.Combine(logDir, "startup.log");
+        startupLog = StdPath.Combine(logDir, "startup.log");
         baseArgs = "-f \"" + conf + "\" -n \"" + name + "\" -E \"" + startupLog;
     }
 
@@ -90,19 +91,22 @@ class Apache2
         run(args);
     }
 
-    public bool start()
+    public void start()
     {
+        if (File.Exists(startupLog))
+        {
+            File.Delete(startupLog);
+        }
         DoInstall();
         try
         {
             DoStart();
-            return true;
         }
-        catch (Exception)
+        catch (Exception exc)
         {
             DoUninstall();
+            throw exc;
         }
-        return false;
     }
 
     public void stop()
