@@ -1212,7 +1212,7 @@
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
 		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
-		<row><td>PreStopService</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
+		<row><td>PreStopServices</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
 		<row><td>SaveUUID</td><td>1</td><td>ISSetup.dll</td><td>f7</td><td>0</td><td/></row>
@@ -2721,7 +2721,7 @@
 		<col def="S255">Target</col>
 		<row><td>f1</td><td>0</td><td>GetLicenseKey</td><td/></row>
 		<row><td>f10</td><td>0</td><td>CleanupServices</td><td/></row>
-		<row><td>f12</td><td>0</td><td>PreStopService</td><td/></row>
+		<row><td>f12</td><td>0</td><td>PreStopServices</td><td/></row>
 		<row><td>f13</td><td>0</td><td>Setup</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
 		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
@@ -4603,7 +4603,7 @@
 		<row><td>MsiPublishAssemblies</td><td/><td>6250</td><td>MsiPublishAssemblies</td><td/></row>
 		<row><td>MsiUnpublishAssemblies</td><td/><td>1750</td><td>MsiUnpublishAssemblies</td><td/></row>
 		<row><td>PatchFiles</td><td/><td>4090</td><td>PatchFiles</td><td/></row>
-		<row><td>PreStopService</td><td>REMOVE="ALL"</td><td>1005</td><td/><td/></row>
+		<row><td>PreStopServices</td><td>REMOVE="ALL"</td><td>1005</td><td/><td/></row>
 		<row><td>ProcessComponents</td><td/><td>1600</td><td>ProcessComponents</td><td/></row>
 		<row><td>PublishComponents</td><td/><td>6200</td><td>PublishComponents</td><td/></row>
 		<row><td>PublishFeatures</td><td/><td>6300</td><td>PublishFeatures</td><td/></row>

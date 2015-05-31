@@ -29,7 +29,7 @@ export prototype CleanupInstallDir(HWND);
 export prototype CleanupServices(HWND);
 
 export prototype Setup(HWND);
-export prototype PreStopService(HWND);
+export prototype PreStopServices(HWND);
 
 export prototype BOOL IsDomainController(HWND);
 
@@ -37,6 +37,8 @@ export prototype BOOL IsDomainController(HWND);
 #define PORT 22
 
 #define SERVICE_NAME "PaletteAgent"
+#define SERVICE_NAME_ARCHIVE "PaletteArchiveServer"
+#define SERVICE_NAME_MAINT "PaletteMaintenanceWebserver"
 
 #define ADMIN_TYPE_CREATE_NEW   1
 #define ADMIN_TYPE_USE_EXISTING 2
@@ -488,13 +490,15 @@ end;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function:  PreStopService
+// Function:  PreStopServices
 //
-// Stop the service before InstallValidate to avoid the error dialog:
+// Stop the service(s) before InstallValidate to avoid the error dialog:
 //   "The following appications should be closed before continuing..."
 //
 ///////////////////////////////////////////////////////////////////////////////
-function PreStopService(hMSI)
+function PreStopServices(hMSI)
 begin
 	ServiceStopService(SERVICE_NAME);
+	ServiceStopService(SERVICE_NAME_ARCHIVE);
+	ServiceStopService(SERVICE_NAME_MAINT);
 end;
