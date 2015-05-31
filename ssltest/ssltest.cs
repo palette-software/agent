@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ssltest
 {
-    class Program
+    class ssltest
     {
         private static readonly int TIMEOUT = 3000;
 
@@ -42,8 +42,7 @@ namespace ssltest
                 {
                     IPHostEntry hostEntry = Dns.GetHostEntry(host);
 
-                    if (hostEntry != null && hostEntry.AddressList != null
-                                 && hostEntry.AddressList.Length > 0)
+                    if (hostEntry != null && hostEntry.AddressList != null && hostEntry.AddressList.Length > 0)
                     {
                         if (hostEntry.AddressList.Length == 1)
                         {
@@ -75,6 +74,21 @@ namespace ssltest
                 Console.WriteLine("Key exchange: {0} strength {1}", stream.KeyExchangeAlgorithm, stream.KeyExchangeStrength);
                 Console.WriteLine("Protocol: {0}", stream.SslProtocol);
 
+                if (port == 443)
+                {
+                    ConnectRequest req = new ConnectRequest("localhost", 888);
+                    ConnectResponse res = req.send(stream);
+
+                    if (res.StatusCode != 200) {
+                        Console.Error.WriteLine();
+                        Console.Error.WriteLine(String.Format("[ERROR] {0} {1}", res.StatusCode, res.StatusDescription));
+                        if (res.Body != null) {
+                            Console.Error.WriteLine(res.Body);
+                        }
+                        return -1;
+                    }
+                }
+
                 byte[] buffer = new byte[4];
                 stream.Read(buffer, 0, buffer.Length);
                 string str = Encoding.ASCII.GetString(buffer.ToArray());
@@ -86,6 +100,7 @@ namespace ssltest
             }
             catch (Exception e)
             {
+                Console.Error.WriteLine();
                 Console.Error.WriteLine("[ERROR] Exception");
                 Console.Error.WriteLine(e.ToString());
                 return -1;

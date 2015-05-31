@@ -21,11 +21,8 @@ using Microsoft.Win32;
 public class Agent : Base
 {
     public const string DEFAULT_SECTION = "DEFAULT";
-    public const string DEFAULT_CONTROLLER_HOST = "localhost";
-    public const int DEFAULT_CONTROLLER_PORT = 22;
-    public const int DEFAULT_ARCHIVE_PORT = 8889;
-    public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
+    public const int DEFAULT_ARCHIVE_PORT = 8889;
     public const int DEFAULT_ROLLER_MAXBACKUPS = 5;
 
     public IniFile conf = null;
@@ -36,10 +33,7 @@ public class Agent : Base
 
     string baseEnvPath = Environment.GetEnvironmentVariable("Path");
 
-    public string controllerHost;
-    public int controllerPort;
-    public bool controllerSsl;
-    public int controllerTimeoutMilliseconds;
+    public ServerClient controller = new ServerClient();
 
     public string installDir;
     public string programDataDir;
@@ -201,7 +195,8 @@ public class Agent : Base
         {
             SetupEnvPath();
 
-            HttpProcessor processor = new HttpProcessor(controllerHost, controllerPort, controllerSsl, controllerTimeoutMilliseconds);
+            HttpProcessor processor = new HttpProcessor(controller);
+
             try
             {
                 processor.Connect();
@@ -259,12 +254,10 @@ public class Agent : Base
             hostname = conf.Read("hostname", DEFAULT_SECTION);
         }
 
-        controllerHost = conf.Read("host", "controller", DEFAULT_CONTROLLER_HOST);
-        controllerPort = conf.ReadInt("port", "controller", DEFAULT_CONTROLLER_PORT);
-        controllerSsl = conf.ReadBool("ssl", "controller", true);
-        controllerTimeoutMilliseconds = conf.ReadInt("timeout", "controller", DEFAULT_TIMEOUT);
+        controller.readConf(conf);
 
         archivePort = conf.ReadInt("port", "archive", DEFAULT_ARCHIVE_PORT);
+
     }
 
     /// <summary>

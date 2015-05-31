@@ -14,51 +14,19 @@ using log4net.Config;
 /// </summary>
 public class HttpProcessor
 {
-    protected string host;
-    protected int port;
-    protected bool ssl = false;
-    protected int timeout = 0; // infinite
+    protected ServerClient client;
     protected Stream stream = null;
-    public bool isConnected = false;
+
+    public bool isConnected = false; // FIXME: add a getter.
     
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="host">host name (i.e. "localhost")</param>
-    /// <param name="port">port (i.e. "8080")</param>
-	public HttpProcessor(string host, int port)
+    public HttpProcessor(ServerClient client)
 	{
-        this.host = host;
-        this.port = port;
+        this.client = client;
 	}
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="host">host name (i.e. "localhost")</param>
-    /// <param name="port">port (i.e. "8080")</param>
-    /// <param name="ssl">use ssl</param>
-    public HttpProcessor(string host, int port, bool ssl) : this(host, port)
-    {
-        this.ssl = ssl;
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="host">host name (i.e. "localhost")</param>
-    /// <param name="port">port (i.e. "8080")</param>
-    /// <param name="ssl">use ssl</param>
-    /// <param name="timeout">socket send/recv timeout in milliseconds</param>
-    public HttpProcessor(string host, int port, bool ssl, int timeout)
-        : this(host, port, ssl)
-    {
-        this.timeout = timeout;
-    }
 
     /// <summary>
     /// Connects a socket to a specified host
@@ -69,26 +37,31 @@ public class HttpProcessor
         try
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.ReceiveTimeout = timeout;
-            socket.SendTimeout = timeout;
+            socket.ReceiveTimeout = client.TimeoutMilliseconds;
+            socket.SendTimeout = client.TimeoutMilliseconds;
 
             /* resolve the remote address on each connection in case the IP changes. */
             IPAddress addr;
-            NetUtil.GetResolvedConnectionIPAddress(host, out addr);
+            NetUtil.GetResolvedConnectionIPAddress(client.Host, out addr);
 
-            IPEndPoint remoteEP = new IPEndPoint(addr, port);
+            IPEndPoint remoteEP = new IPEndPoint(addr, client.Port);
             socket.Connect(remoteEP);         
 
             stream = new NetworkStream(socket, true);
 
-            if (ssl)
+            if (client.useSSL)
             {
                 SslStream sslStream = new SslStream(stream, true, CertificateValidationCallback);
-                sslStream.AuthenticateAsClient(host);
+                sslStream.AuthenticateAsClient(client.Host);
                 stream = sslStream;
             }
 
             isConnected = true;
+
+            if (client.Multiplex)
+            {
+                //ConnectRequest req = new ConnectRequest(
+            }
         }
         catch (Exception e)
         {

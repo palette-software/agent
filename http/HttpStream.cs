@@ -10,20 +10,33 @@ public class HttpStream : IDisposable
     public byte LF = 0xA;
 
     protected Stream BaseStream;
+    protected bool CloseBaseStream = true;
 
     public HttpStream(Stream stream)
     {
         BaseStream = stream;
     }
 
+    public HttpStream(Stream stream, bool closeBaseStream)
+        : this(stream)
+    {
+        CloseBaseStream = closeBaseStream;
+    }
+
     public void Close()
     {
-        BaseStream.Close();
+        if (CloseBaseStream)
+        {
+            BaseStream.Close();
+        }
     }
 
     public void Dispose()
     {
-        BaseStream.Dispose();
+        if (CloseBaseStream)
+        {
+            BaseStream.Dispose();
+        }
     }
 }
 
@@ -32,6 +45,7 @@ public class HttpStream : IDisposable
 public class HttpStreamReader : HttpStream
 {
     public HttpStreamReader(Stream stream) : base(stream) {}
+    public HttpStreamReader(Stream stream, bool closeBaseStream) : base(stream, closeBaseStream) { }
     
     // reads lines ending in CRLF //
     public string ReadLine()
@@ -110,6 +124,7 @@ public class HttpStreamReader : HttpStream
 public class HttpStreamWriter : HttpStream
 {
     public HttpStreamWriter(Stream stream) : base(stream) { }
+    public HttpStreamWriter(Stream stream, bool closeBaseStream) : base(stream, closeBaseStream) { }
 
     public void WriteLine()
     {
