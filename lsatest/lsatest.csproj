@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="lsatest.cs" />
     <Compile Include="..\InstallerDLL\LSAWrapper.cs" />
     <Compile Include="..\InstallerDLL\AdminUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

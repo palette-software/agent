@@ -113,6 +113,60 @@ class AdminUtil
     }
 
     /// <summary>
+    /// Tests if the string points to a local account but not if that account exists.
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
+    public static bool IsLocalAccount(string account)
+    {
+        string userName;
+        string domainName;
+
+        ParseAccount(account, out userName, out domainName);
+        return (domainName == null);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="account"></param>
+    /// <param name="userName"></param>
+    /// <param name="domainName"></param>
+    public static void ParseAccount(string account, out string userName, out string domainName)
+    {
+        domainName = null;
+        string[] tokens = account.Split("\\".ToCharArray(), 2);
+
+        if (tokens.Length == 1)
+        {
+            userName = tokens[0];
+        }
+        else
+        {
+            if (tokens[0] != "." && tokens[0] != Environment.MachineName)
+            {
+                domainName = tokens[0];
+            }
+            userName = tokens[1];
+        }
+    }
+
+    /// <summary>
+    /// Test if an account exists using FindByIdentity.
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
+    public static bool UserExists(string account)
+    {
+        string userName;
+        string domainName;
+
+        PrincipalContext ctx = getPrincipalContext(account, out userName, out domainName);
+        UserPrincipal up = UserPrincipal.FindByIdentity(ctx, userName);
+        return (up != null);
+    }
+
+    /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>

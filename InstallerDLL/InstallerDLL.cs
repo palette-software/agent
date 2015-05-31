@@ -19,7 +19,7 @@ using LSA;
 
 public class InstallerDLL
 {
-    public const string ACCOUNT = "Palette";
+    public const string DEFAULT_USERNAME = "Palette";
 
     public const string SERVICE_RIGHT = "SeServiceLogonRight";
 
@@ -104,16 +104,9 @@ public class InstallerDLL
 
         // CheckCreateUser is responsible for ensuring that the account is valid.
         string userName;
-        tokens = account.Split(@"\".ToCharArray(), 2);
-        if (tokens.Length == 2)
-        {
-            userName = tokens[1];
-        }
-        else
-        {
-            userName = account;
-        }
-
+        string domainName;
+        AdminUtil.ParseAccount(account, out userName, out domainName);
+        
         DirectoryEntry AD = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
         DirectoryEntry NewUser = AD.Children.Add(userName, "user");
         NewUser.Invoke("SetPassword", new object[] { password });
@@ -146,7 +139,7 @@ public class InstallerDLL
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}\\{1}", Environment.MachineName, account));
+        log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}", account));
 
         DirectoryEntry grp;
         grp = AD.Children.Find("Administrators", "group");
@@ -211,12 +204,12 @@ public class InstallerDLL
         }
 
         string account = data;
-        if (account.StartsWith(@".\"))
-        {
-            account = account.Substring(2);
-        }
 
-        string homeFolder = HomeFolder(account);
+        string userName;
+        string domainName;
+        AdminUtil.ParseAccount(account, out userName, out domainName);
+
+        string homeFolder = HomeFolder(userName);
         // HideTopLevelFolder
         // First, set hidden flag on the current directory (if needed)
         DirectoryInfo dir = new DirectoryInfo(homeFolder);
@@ -225,67 +218,6 @@ public class InstallerDLL
 
             File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
             log(handle, String.Format("[HideHomeFolder] Home folder was successfully hidden: {0}", dir.FullName));
-        }
-    }
-
-    public static void Rollback(Int32 handle)
-    {
-        string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
-        log(handle, "[RollbackCustomAction] " + data);
-
-        string[] tokens = data.Split(";".ToCharArray(), 2);
-
-        int adminType = Convert.ToInt32(tokens[0]);
-        if (adminType == ADMIN_TYPE_CREATE_NEW)
-        {
-            DeleteAdminUser(handle);
-        }
-
-        string installDir = tokens[1];
-
-    }
-
-    public static void DeleteAdminUser(Int32 handle)
-    {
-        string homeFolder = HomeFolder(ACCOUNT);
-
-        //Now remove Palette User.  First try normal means
-        DirectoryEntry localDirectory = new DirectoryEntry("WinNT://" + Environment.MachineName.ToString());
-        DirectoryEntries users = localDirectory.Children;
-
-        try
-        {
-            DirectoryEntry user = users.Find(ACCOUNT);
-            try
-            {
-                users.Remove(user);
-                log(handle, String.Format("[DeleteAdminUser] successfully deleted {0}", ACCOUNT));
-            }
-            catch (Exception e) {
-                log(handle, String.Format("[DeleteAdminUser] Failed to delete user {0}: {1}", ACCOUNT, e.Message));
-            }
-        }
-        catch (System.Runtime.InteropServices.COMException e)
-        {
-            //User not found.  Try to delete user folder if it exists and quit
-            log(handle, String.Format("[DeleteAdminUser] {0}: {1}", ACCOUNT, e.Message));
-        }
-
-        if (Directory.Exists(homeFolder))
-        {
-            bool result = DeleteFolder(homeFolder);
-            if (result)
-            {
-                log(handle, String.Format("[DeleteAdminUser] successfully deleted home folder: {0}", homeFolder));
-            }
-            else
-            {
-                log(handle, String.Format("[DeleteAdminUser] failed to delete home folder: {0}", homeFolder));
-            }
-        }
-        else
-        {
-            log(handle, String.Format("[DeleteAdminUser] home folder did not exist: {0}", homeFolder));
         }
     }
 
@@ -302,7 +234,7 @@ public class InstallerDLL
         if (adminType == ADMIN_TYPE_CREATE_NEW)
         {
             // set account to pre-populates the CreateAdminUser dialog.
-            account = ACCOUNT;
+            account = DEFAULT_USERNAME;
         }
         else if (adminType != ADMIN_TYPE_USE_EXISTING)
         {
@@ -322,16 +254,21 @@ public class InstallerDLL
     {
         if (account == null || account.Length == 0)
         {
-            TopMostMessageBox.Show("'User Account' is required.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'User Account' is required.", TITLE, MessageBoxIcon.Error);
             return 0;
         }
+
+        string userName;
+        string domainName;
+        AdminUtil.ParseAccount(account, out userName, out domainName);
 
         string productType = AdminUtil.getProductType();
         if (!IsDomainController(productType))
         {
-            if (account.Contains('\\') && !account.StartsWith(@".\") && !account.StartsWith(Environment.MachineName + @"\"))
+            // Same as IsLocalAccount
+            if (domainName != null)
             {
-                TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxIcon.Error);
                 return 0;
             }
         }
@@ -343,26 +280,41 @@ public class InstallerDLL
             }
         }
 
+        using (LsaWrapper lsa = new LsaWrapper())
+        {
+            if (lsa.UserExists(userName)) {
+                TopMostMessageBox.Show(String.Format("Account '{0}' already exists.", account), TITLE, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
+
+        string homeFolder = HomeFolder(userName);
+        if (Directory.Exists(homeFolder)) {
+            string msg = String.Format("The home folder '{0}' already exists.", homeFolder);
+            TopMostMessageBox.Show(msg + "\nYou must remove this folder before continuing.", TITLE, MessageBoxIcon.Error);
+            return 0;
+        }
+
         if (password == null || password.Length == 0)
         {
-            TopMostMessageBox.Show("'Password' is required.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("'Password' is required.", TITLE, MessageBoxIcon.Error);
             return 0;
         }
         if (confirmPassword == null || confirmPassword.Length == 0)
         {
-            TopMostMessageBox.Show("Please confirm the password.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("Please confirm the password.", TITLE, MessageBoxIcon.Error);
             return 0;
         }
 
         if (password != confirmPassword)
         {
-            TopMostMessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxIcon.Error);
             return 0;
         }
 
         if (password.Length < 6)
         {
-            TopMostMessageBox.Show("The password must contain at least eight(6) characters.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            TopMostMessageBox.Show("The password must contain at least six(6) characters.", TITLE, MessageBoxIcon.Error);
             return 0;
         }
 
@@ -534,10 +486,10 @@ public class InstallerDLL
     /// </summary>
     /// <param name="account"></param>
     /// <returns></returns>
-    private static string HomeFolder(string account)
+    private static string HomeFolder(string userName)
     {
         string path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)).FullName;
-        return Path.Combine(path, account);
+        return Path.Combine(path, userName);
     }
 
     /// <summary>

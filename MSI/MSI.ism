@@ -1213,7 +1213,6 @@
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
 		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
 		<row><td>PreStopService</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
-		<row><td>RollbackCustomAction1</td><td>51</td><td>RollbackCustomAction2</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
 		<row><td>SaveUUID</td><td>1</td><td>ISSetup.dll</td><td>f7</td><td>0</td><td/></row>

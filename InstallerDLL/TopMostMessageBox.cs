@@ -24,6 +24,11 @@ static public class TopMostMessageBox
         return Show(message, title, buttons, MessageBoxIcon.None);
     }
 
+    static public DialogResult Show(string message, string title, MessageBoxIcon icon)
+    {
+        return Show(message, title, MessageBoxButtons.OK, icon);
+    }
+
     static public DialogResult Show(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
     {
         // Create a host form that is a TopMost window which will be the 

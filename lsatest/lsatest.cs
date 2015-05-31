@@ -11,7 +11,7 @@ using LSA;
 
 namespace lsatest
 {
-    class Program
+    class lsatest
     {
         static int Main(string[] args)
         {
@@ -37,32 +37,49 @@ namespace lsatest
                 return -1;
             }
 
+            string userName;
+            string domainName;
+            AdminUtil.ParseAccount(account, out userName, out domainName);
+
             Console.WriteLine();
             using (LsaWrapper lsa = new LsaWrapper())
             {
-                string [] rights = lsa.GetRights(account);
-                if (rights == null)
+                if (lsa.UserExists(userName))
                 {
-                    Console.WriteLine("Account '{0}' has no granted rights.", account);
+                    string[] rights = lsa.GetRights(account);
+                    if (rights == null)
+                    {
+                        Console.WriteLine("Account '{0}' exists but has no granted rights.", account);
+                    }
+                    else
+                    {
+
+                        Console.WriteLine(account + ":");
+                        for (int i = 0; i < rights.Length; i++)
+                        {
+                            Console.WriteLine("  " + rights[i]);
+                        }
+                    }
                 }
                 else
                 {
-
-                    Console.WriteLine(account + ":");
-                    for (int i = 0; i < rights.Length; i++)
-                    {
-                        Console.WriteLine("  " + rights[i]);
-                    }
+                    Console.WriteLine("Account '{0}' does not exist.");
+                    return -2;
                 }
             }
-
-            string userName;
-            string domainName;
 
             Console.WriteLine();
             try
             {
-                PrincipalContext ctx = AdminUtil.getPrincipalContext(account, out userName, out domainName);
+                PrincipalContext ctx;
+                if (domainName != null)
+                {
+                    ctx = new PrincipalContext(ContextType.Domain, domainName);
+                }
+                else
+                {
+                    ctx = new PrincipalContext(ContextType.Machine);
+                }
 
                 if (domainName != null)
                 {

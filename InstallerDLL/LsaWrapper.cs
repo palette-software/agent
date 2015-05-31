@@ -257,6 +257,32 @@ namespace LSA
             throw new Win32Exception(Win32Sec.LsaNtStatusToWinError((int)ret));
         }
 
+
+        /// <summary>
+        /// This function only excepts a username (not DOMAIN\User)
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public bool UserExists(string userName)
+        {
+            LSA_UNICODE_STRING[] names = new LSA_UNICODE_STRING[1];
+            LSA_TRANSLATED_SID2 lts;
+            IntPtr tsids = IntPtr.Zero;
+            IntPtr tdom = IntPtr.Zero;
+            names[0] = InitLsaString(userName);
+            lts.Sid = IntPtr.Zero;
+            int ret1 = Win32Sec.LsaLookupNames2(lsaHandle, 0, 1, names, ref tdom, ref tsids);
+            if ((uint)ret1 == STATUS_NONE_MAPPED)
+            {
+                return false;
+            }
+            if (ret1 != 0)
+            {
+                throw new Win32Exception(Win32Sec.LsaNtStatusToWinError(ret1));
+            }
+            return true;
+        }
+
         public string[] GetRights(string account)
         {
             if (account.StartsWith(@".\"))
