@@ -28,7 +28,7 @@ class ps3
             Key = key
         };
 
-        string dest = key;
+        string dest = Path.GetFileName(key);
         using (GetObjectResponse response = client.GetObject(request))
         {
                 response.WriteResponseStreamToFile(dest);
@@ -36,14 +36,14 @@ class ps3
         return 0;
     }
 
-    static int doMultipartPUT(AmazonS3Client client, string bucketName, string path)
+    static int doMultipartPUT(AmazonS3Client client, string bucketName, string path, string key)
     {
         TransferUtility fileTransferUtility = new TransferUtility(client);
-        fileTransferUtility.Upload(path, bucketName);
+        fileTransferUtility.Upload(path, bucketName, key);
         return 0;
     }
 
-    static int doPUT(AmazonS3Client client, string bucketName, string path)
+    static int doPUT(AmazonS3Client client, string bucketPath, string path)
     {
         if (!File.Exists(path))
         {
@@ -51,14 +51,22 @@ class ps3
             throw new FileNotFoundException(path);
         }
 
+        string[] tokens = bucketPath.Split("/".ToCharArray());
+        string bucketName = tokens[0];
+
+        string key = "";
+        for (int i = 1; i < tokens.Length; i++)
+        {
+            key += tokens[i] + "/";
+        }
+        key += Path.GetFileName(path);
+
         FileInfo fi = new FileInfo(path);
         if (fi.Length > 100 * 1024 * 1024)
         {
             /* Use multipart file uploads if the file size exceeds 100MB as per AWS documentation. */
-            return doMultipartPUT(client, bucketName, path);
+            return doMultipartPUT(client, bucketName, path, key);
         }
-
-        string key = Path.GetFileName(path);
 
         PutObjectRequest request = new PutObjectRequest
         {

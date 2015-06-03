@@ -1,0 +1,7 @@
+Tools -> Library Package Manager -> Package Manager Console
+
+PM> Install-Package AWSSDK -Version 2.3.39
+
+for upgrade:
+http://stackoverflow.com/questions/23760019/unable-to-install-package-google-apis-auth-mvc-on-visual-studio-2010-express-or#23760168
+
