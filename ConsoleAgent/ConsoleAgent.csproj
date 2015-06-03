@@ -95,6 +95,7 @@
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="Apache2.cs" />
+    <Compile Include="ServerClient.cs" />
     <Compile Include="Impersonator.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IniFile.cs" />
@@ -120,6 +121,9 @@
     </Compile>
     <Compile Include="..\http\HttpResponse.cs">
       <Link>http\HttpResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\http\ConnectRequest.cs">
+      <Link>http\ConnectRequest.cs</Link>
     </Compile>
     <Compile Include="FirewallUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
