@@ -11,7 +11,7 @@ using System.IO;
 class ConnectRequest
 {
     /*
-     * Apache2 always responds with HTTP/1.0 regardless, so start with that.
+     * Apache2 always responds with HTTP/1.0 for successful connects, so start with that.
      */
     public const string PROTOCOL = "HTTP/1.0";
     public string Hostname;
@@ -50,6 +50,7 @@ class ConnectRequest
 
 internal class ConnectResponse
 {
+    public string Protocol;
     public int StatusCode;
     public string StatusDescription;
     public int ContentLength = 0;
@@ -65,12 +66,6 @@ internal class ConnectResponse
             throw new ConnectException("Malformed status line: " + line);
         }
 
-        string protocol = tokens[0].ToUpper();
-        if (protocol != ConnectRequest.PROTOCOL)
-        {
-            throw new ConnectException("Invalid HTTP protocol version: " + line);
-        }
-
         try
         {
             StatusCode = Convert.ToInt32(tokens[1]);
@@ -78,6 +73,12 @@ internal class ConnectResponse
         catch (Exception)
         {
             throw new ConnectException("Invalid HTTP status code: " + line);
+        }
+
+        Protocol = tokens[0].ToUpper();
+        if (Protocol != "HTTP/1.1" && Protocol != "HTTP/1.0")
+        {
+            throw new ConnectException("Invalid HTTP protocol version: " + line);
         }
 
         StatusDescription = tokens[2].Trim();

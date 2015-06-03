@@ -33,35 +33,10 @@ public class HttpProcessor
     /// </summary>
     public void Connect()
     {
-
         try
         {
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.ReceiveTimeout = client.TimeoutMilliseconds;
-            socket.SendTimeout = client.TimeoutMilliseconds;
-
-            /* resolve the remote address on each connection in case the IP changes. */
-            IPAddress addr;
-            NetUtil.GetResolvedConnectionIPAddress(client.Host, out addr);
-
-            IPEndPoint remoteEP = new IPEndPoint(addr, client.Port);
-            socket.Connect(remoteEP);         
-
-            stream = new NetworkStream(socket, true);
-
-            if (client.useSSL)
-            {
-                SslStream sslStream = new SslStream(stream, true, CertificateValidationCallback);
-                sslStream.AuthenticateAsClient(client.Host);
-                stream = sslStream;
-            }
-
+            stream = client.connect();
             isConnected = true;
-
-            if (client.Multiplex)
-            {
-                //ConnectRequest req = new ConnectRequest(
-            }
         }
         catch (Exception e)
         {

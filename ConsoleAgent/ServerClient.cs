@@ -11,6 +11,8 @@ using System.Net.Security;
 
 public class ServerClient
 {
+    public const int PORT_HTTPS = 443;
+
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
     public const string DEFAULT_HOST = "localhost";
@@ -39,7 +41,17 @@ public class ServerClient
         Port = conf.ReadInt("port", SECTION_NAME, DEFAULT_PORT);
         useSSL = conf.ReadBool("ssl", SECTION_NAME, true);
         TimeoutMilliseconds = conf.ReadInt("timeout", SECTION_NAME, DEFAULT_TIMEOUT);
-        Multiplex = conf.ReadBool("mutiplex", "controller", false);
+        if (conf.KeyExists("multiplex", SECTION_NAME))
+        {
+            Multiplex = conf.ReadBool("mutiplex", SECTION_NAME, false);
+        }
+        else
+        {
+            if (Port == PORT_HTTPS)
+            {
+                Multiplex = true;
+            }
+        }
         ConnectHost = conf.Read("connect-host", SECTION_NAME, DEFAULT_CONNECT_HOST);
         ConnectPort = conf.ReadInt("connect-port", SECTION_NAME, DEFAULT_CONNECT_PORT);
     }
