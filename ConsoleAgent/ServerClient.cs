@@ -16,7 +16,7 @@ public class ServerClient
     public const int DEFAULT_TIMEOUT = 120000; // 2 minutes
 
     public const string DEFAULT_HOST = "localhost";
-    public const int DEFAULT_PORT = 22;
+    public const int DEFAULT_PORT = 443;  // was 22
 
     public const string DEFAULT_CONNECT_HOST = "localhost";
     public const int DEFAULT_CONNECT_PORT = 888;
