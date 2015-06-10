@@ -34,7 +34,7 @@ export prototype PreStopServices(HWND);
 export prototype BOOL IsDomainController(HWND);
 
 #define KEY "Software\\Palette"
-#define PORT 22
+#define PORT 443
 
 #define SERVICE_NAME "PaletteAgent"
 #define SERVICE_NAME_ARCHIVE "PaletteArchiveServer"

@@ -16,7 +16,7 @@ namespace ssltest
 
         static int Main(string[] args)
         {
-            int port = 22;
+            int port = 443;
             if (args.Length == 2)
             {
                 port = Convert.ToInt16(args[1]);
