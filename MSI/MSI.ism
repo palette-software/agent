@@ -348,7 +348,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>AWSSDK.dll</td><td>{ACFAEFB3-AB8C-43A8-90EC-52D6299DA519}</td><td>INSTALLDIR</td><td>8</td><td/><td>awssdk.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>AWSSDK.dll</td><td>{ACFAEFB3-AB8C-43A8-90EC-52D6299DA519}</td><td>INSTALLDIR</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AllOtherFiles</td><td>{38624C5D-9C3B-4709-A32C-3701DD69D735}</td><td>MODULES</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AllOtherFiles8</td><td>{9E950783-6E94-4CDE-8176-EA057473A891}</td><td>MAINT</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ApacheBin</td><td>{F66B562F-E10E-4BF1-B2DE-7330963B29EB}</td><td>BIN</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1174,6 +1174,7 @@
 		<row><td>BIN</td><td>apr_dbd_odbc_1.dll</td></row>
 		<row><td>CGI_BIN</td><td>ApacheCGIBin</td></row>
 		<row><td>FONTS</td><td>MaintWwwFonts</td></row>
+		<row><td>INSTALLDIR</td><td>AWSSDK.dll</td></row>
 		<row><td>LOGS</td><td>Logs</td></row>
 		<row><td>MAINT</td><td>AllOtherFiles8</td></row>
 		<row><td>MAINT1</td><td>MaintLogs</td></row>
@@ -2123,7 +2124,6 @@
 		<row><td>apr_ldap_1.dll</td><td>apr_ldap_1.dll</td><td>APR_LD~1.DLL|apr_ldap-1.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\apr_ldap-1.dll</td><td>1</td><td/></row>
 		<row><td>archive.crt</td><td>Conf</td><td>archive.crt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.crt</td><td>1</td><td/></row>
 		<row><td>archive.key</td><td>Conf</td><td>archive.key</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive.key</td><td>1</td><td/></row>
-		<row><td>awssdk.dll</td><td>AWSSDK.dll</td><td>AWSSDK.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\AWSSDK.dll</td><td>1</td><td/></row>
 		<row><td>consoleagent.primary_output</td><td>ConsoleAgent.Primary_output</td><td>ConsoleAgent.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ConsoleAgent&gt;|Built</td><td>3</td><td/></row>
 		<row><td>dbmmanage.pl</td><td>ApacheBin</td><td>DBMMAN~1.PL|dbmmanage.pl</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\dbmmanage.pl</td><td>1</td><td/></row>
 		<row><td>fastjson.dll</td><td>fastJSON.dll</td><td>fastJSON.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\build\fastJSON.dll</td><td>1</td><td/></row>
