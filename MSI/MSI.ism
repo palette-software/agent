@@ -4506,7 +4506,7 @@
 		<row><td>NEW_STRING3</td><td>1033</td><td>&lt;########-####-####-####-############&gt;</td><td>0</td><td/><td>-1977365624</td></row>
 		<row><td>NEW_STRING30</td><td>1033</td><td>Text</td><td>0</td><td/><td>-761009749</td></row>
 		<row><td>NEW_STRING31</td><td>1033</td><td>Text</td><td>0</td><td/><td>-761069109</td></row>
-		<row><td>NEW_STRING32</td><td>1033</td><td>NOTE: This is the IP address or hostname that this computer would use to connecto to your Palette Server.</td><td>0</td><td/><td>-761044501</td></row>
+		<row><td>NEW_STRING32</td><td>1033</td><td>NOTE: This is the IP address or hostname that this computer would use to connect to your Palette Server.</td><td>0</td><td/><td>-2094817716</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
 		<row><td>NEW_STRING6</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923313421</td></row>
