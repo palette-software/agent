@@ -324,78 +324,82 @@ public class InstallerDLL
     public static int CheckExistingUser(ref string account, string password)
     {
         //System.Diagnostics.Debugger.Launch();
-        if (account == null || account.Length == 0)
-        {
-            return 0;
-        }
-        if (password == null || password.Length == 0)
-        {
-            return 0;
-        }
-
-        if (!account.Contains('\\'))
-        {
-            account = @".\" + account;
-        }
-
-        using (LsaWrapper lsa = new LsaWrapper())
-        {
-            string[] rights;
-            try
-            {
-                rights = lsa.GetRights(account);
-            }
-            catch (NotFoundException)
-            {
-                string msg = String.Format("The specified account '{0}' does not exist.", account);
-                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
-            }
-
-            if (rights == null || !rights.Contains(SERVICE_RIGHT))
-            {
-                try
-                {
-                    lsa.AddRight(account, SERVICE_RIGHT);
-                }
-                catch (Exception e)
-                {
-                    string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
-                    TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw e;
-                }
-            }
-        }
-
-        string userName;
-        string domainName;
-
         try
         {
-            PrincipalContext ctx = AdminUtil.getPrincipalContext(account, out userName, out domainName);
-
-            if (!ctx.ValidateCredentials(userName, password))
+            if (account == null || account.Length == 0)
             {
-                TopMostMessageBox.Show("Invalid username or password", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+            if (password == null || password.Length == 0)
+            {
                 return 0;
             }
 
-            bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
-            if (!isAdmin)
+            if (!account.Contains('\\'))
             {
-                string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group", account);
-                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
+                account = @".\" + account;
             }
+
+            using (LsaWrapper lsa = new LsaWrapper())
+            {
+                string[] rights;
+                try
+                {
+                    rights = lsa.GetRights(account);
+                }
+                catch (NotFoundException)
+                {
+                    string msg = String.Format("The specified account '{0}' does not exist.", account);
+                    TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0;
+                }
+
+                if (rights == null || !rights.Contains(SERVICE_RIGHT))
+                {
+                    try
+                    {
+                        lsa.AddRight(account, SERVICE_RIGHT);
+                    }
+                    catch (Exception e)
+                    {
+                        string msg = String.Format("Failed to grant '{0}' to '{1}'\n{2}", SERVICE_RIGHT, account, e.Message);
+                        TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw e;
+                    }
+                }
+            }
+
+            string userName;
+            string domainName;
+
+            try
+            {
+                PrincipalContext ctx = AdminUtil.getPrincipalContext(account, out userName, out domainName);
+
+                if (!ctx.ValidateCredentials(userName, password))
+                {
+                    TopMostMessageBox.Show("Invalid username or password", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0;
+                }
+
+                bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
+                if (!isAdmin)
+                {
+                    string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group", account);
+                    TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0;
+                }
+            }
+            catch (PrincipalServerDownException e)
+            {
+                TopMostMessageBox.Show("The domain controller is unreachable: " + e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                /* fall through */
+            }
+
         }
-        catch (PrincipalServerDownException e)
+        catch (Exception e)
         {
-            TopMostMessageBox.Show("The domain controller is unreachable: " + e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return 0;
-        }
-        catch (Exception e) {
             TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return 0;
         }
 
         return 1;
