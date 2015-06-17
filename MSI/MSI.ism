@@ -3332,6 +3332,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
+		<row><td>_5EE928E4_842B_499E_BB23_927CB6025F6C_</td><td>Microsoft Visual C++ 2008 SP1 Redistributable Package (x86).prq</td><td/><td/><td/></row>
 		<row><td>_B1155CCA_9017_4ECC_A517_6C663803E52F_</td><td>Microsoft .NET Framework 4.5.1 Full.prq</td><td/><td/><td/></row>
 	</table>
 
