@@ -18,7 +18,7 @@ public class ServerClient
     public const string DEFAULT_HOST = "localhost";
     public const int DEFAULT_PORT = 443;  // was 22
 
-    public const string DEFAULT_CONNECT_HOST = "localhost";
+    //public const string DEFAULT_CONNECT_HOST = "localhost";
     public const int DEFAULT_CONNECT_PORT = 888;
 
     public const string SECTION_NAME = "controller";
@@ -52,7 +52,7 @@ public class ServerClient
                 Multiplex = true;
             }
         }
-        ConnectHost = conf.Read("connect-host", SECTION_NAME, DEFAULT_CONNECT_HOST);
+        ConnectHost = conf.Read("connect-host", SECTION_NAME, Host);
         ConnectPort = conf.ReadInt("connect-port", SECTION_NAME, DEFAULT_CONNECT_PORT);
     }
 
