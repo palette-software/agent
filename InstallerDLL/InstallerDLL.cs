@@ -47,6 +47,13 @@ public class InstallerDLL
             return 1;
         }
 
+        if (tabinfo.Path == null)
+        {
+            string msg = "The registry contains values pertaining to Tableau that Palette cannot understand.  Please contact support.";
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw new Exception(msg);
+        }
+
         Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
         if (tabinfo.Version != null)
         {

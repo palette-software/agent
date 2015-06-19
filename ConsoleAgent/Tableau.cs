@@ -54,7 +54,7 @@ public class Tableau
     private static RegistryKey getRegistryKey(Tableau tabinfo)
     {
         RegistryKey key, baseKey;
-        string version;
+        string version, rkPath;
 
         if (Environment.Is64BitOperatingSystem)
         {
@@ -62,13 +62,22 @@ public class Tableau
             version = findLatestVersion(baseKey);
             if (version != null)
             {
-                tabinfo.VersionString = version;
-                Version.TryParse(version, out tabinfo.Version);
-                tabinfo.Bitness = 64;
-                tabinfo.RegistryKeyPath = buildRegistryKeyPath(version);
-                key = baseKey.OpenSubKey(tabinfo.RegistryKeyPath);
-                baseKey.Close();
-                return key;
+                rkPath = buildRegistryKeyPath(version);
+                key = baseKey.OpenSubKey(rkPath);
+
+                if (key.GetValue("AppVersion") != null)
+                {
+                    tabinfo.VersionString = version;
+                    Version.TryParse(version, out tabinfo.Version);
+                    tabinfo.Bitness = 64;
+                    tabinfo.RegistryKeyPath = rkPath;
+                    baseKey.Close();
+                    return key;
+                }
+                else
+                {
+                    key.Close();
+                }
             }
             baseKey.Close();
         }
@@ -81,12 +90,20 @@ public class Tableau
             return null;
         }
 
+        rkPath = buildRegistryKeyPath(version);
+        key = baseKey.OpenSubKey(rkPath);
+        baseKey.Close();
+
+        if (key.GetValue("AppVersion") == null)
+        {
+            key.Close();
+            return null;
+        }
+
         tabinfo.VersionString = version;
         Version.TryParse(version, out tabinfo.Version);
         tabinfo.Bitness = 32;
-        tabinfo.RegistryKeyPath = buildRegistryKeyPath(version);
-        key = baseKey.OpenSubKey(tabinfo.RegistryKeyPath);
-        baseKey.Close();
+        tabinfo.RegistryKeyPath = rkPath;
 
         return key;
     }
