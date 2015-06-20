@@ -40,48 +40,54 @@ public class InstallerDLL
     public static int CheckTableau()
     {
         //System.Diagnostics.Debugger.Launch();
-        Tableau tabinfo = Tableau.query();
-        if (tabinfo == null)
+        try
         {
-            // non-primary
-            return 1;
-        }
-
-        if (tabinfo.Path == null)
-        {
-            string msg = "The registry contains values pertaining to Tableau that Palette cannot understand.  Please contact support.";
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw new Exception(msg);
-        }
-
-        Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
-        if (tabinfo.Version != null)
-        {
-            if (tabinfo.Version < minVersion)
+            Tableau tabinfo = Tableau.query();
+            if (tabinfo == null)
             {
-                string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
-                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // non-primary
+                return 1;
+            }
+
+            if (tabinfo.Path == null)
+            {
+                string msg = "The registry contains values pertaining to Tableau that Palette cannot understand.  Please contact support.";
                 throw new Exception(msg);
             }
-        } else {
-            string msg = "Could not determine the Tableau Server version.  Please ensure that you have at least version " + Tableau.MINIMUM_SUPPORTED_VERSION;
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
 
-        Dictionary<string, string> settings = tabinfo.getSettings();
-        if (!Tableau.readOnlyEnabled(settings))
-        {
-            string msg = "The readonly user must be enabled\n" + KB_READONLY;
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw new Exception(msg);
-        }
+            Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
+            if (tabinfo.Version != null)
+            {
+                if (tabinfo.Version < minVersion)
+                {
+                    string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
+                    throw new Exception(msg);
+                }
+            }
+            else
+            {
+                string msg = "Could not determine the Tableau Server version.  Please ensure that you have at least version " + Tableau.MINIMUM_SUPPORTED_VERSION;
+                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
-        string [] sysInfoIPs = Tableau.allowedSysInfoIPs(settings);
-        if (!sysInfoIPs.Contains("127.0.0.1"))
+            Dictionary<string, string> settings = tabinfo.getSettings();
+            if (!Tableau.readOnlyEnabled(settings))
+            {
+                string msg = "The readonly user must be enabled\n" + KB_READONLY;
+                throw new Exception(msg);
+            }
+
+            string[] sysInfoIPs = Tableau.allowedSysInfoIPs(settings);
+            if (!sysInfoIPs.Contains("127.0.0.1"))
+            {
+                string msg = "sysinfo must be enabled for 127.0.0.1\n" + KB_SYSINFO;
+                throw new Exception(msg);
+            }
+        }
+        catch (Exception e)
         {
-            string msg = "sysinfo must be enabled for 127.0.0.1\n" + KB_SYSINFO;
-            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            throw new Exception(msg);
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
         }
 
         return 1;
@@ -259,73 +265,81 @@ public class InstallerDLL
     /// <returns></returns>
     public static int CheckCreateUser(ref string account, string password, string confirmPassword)
     {
-        if (account == null || account.Length == 0)
+        try
         {
-            TopMostMessageBox.Show("'User Account' is required.", TITLE, MessageBoxIcon.Error);
-            return 0;
-        }
-
-        string userName;
-        string domainName;
-        AdminUtil.ParseAccount(account, out userName, out domainName);
-
-        string productType = AdminUtil.getProductType();
-        if (!IsDomainController(productType))
-        {
-            // Same as IsLocalAccount
-            if (domainName != null)
+            if (account == null || account.Length == 0)
             {
-                TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxIcon.Error);
+                TopMostMessageBox.Show("'User Account' is required.", TITLE, MessageBoxIcon.Error);
                 return 0;
             }
-        }
-        else
-        {
-            if (!account.Contains('\\'))
-            {
-                account = GetDomainName() + @"\" + account;
-            }
-        }
 
-        using (LsaWrapper lsa = new LsaWrapper())
-        {
-            if (lsa.UserExists(userName)) {
-                TopMostMessageBox.Show(String.Format("Account '{0}' already exists.", account), TITLE, MessageBoxIcon.Error);
+            string userName;
+            string domainName;
+            AdminUtil.ParseAccount(account, out userName, out domainName);
+
+            string productType = AdminUtil.getProductType();
+            if (!IsDomainController(productType))
+            {
+                // Same as IsLocalAccount
+                if (domainName != null)
+                {
+                    TopMostMessageBox.Show("Domain accounts may not be created in this fashion.", TITLE, MessageBoxIcon.Error);
+                    return 0;
+                }
+            }
+            else
+            {
+                if (!account.Contains('\\'))
+                {
+                    account = GetDomainName() + @"\" + account;
+                }
+            }
+
+            using (LsaWrapper lsa = new LsaWrapper())
+            {
+                if (lsa.UserExists(userName))
+                {
+                    TopMostMessageBox.Show(String.Format("Account '{0}' already exists.", account), TITLE, MessageBoxIcon.Error);
+                    return 0;
+                }
+            }
+
+            string homeFolder = HomeFolder(userName);
+            if (Directory.Exists(homeFolder))
+            {
+                string msg = String.Format("The home folder '{0}' already exists.", homeFolder);
+                TopMostMessageBox.Show(msg + "\nYou must remove this folder before continuing.", TITLE, MessageBoxIcon.Error);
                 return 0;
             }
-        }
 
-        string homeFolder = HomeFolder(userName);
-        if (Directory.Exists(homeFolder)) {
-            string msg = String.Format("The home folder '{0}' already exists.", homeFolder);
-            TopMostMessageBox.Show(msg + "\nYou must remove this folder before continuing.", TITLE, MessageBoxIcon.Error);
+            if (password == null || password.Length == 0)
+            {
+                TopMostMessageBox.Show("'Password' is required.", TITLE, MessageBoxIcon.Error);
+                return 0;
+            }
+            if (confirmPassword == null || confirmPassword.Length == 0)
+            {
+                TopMostMessageBox.Show("Please confirm the password.", TITLE, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            if (password != confirmPassword)
+            {
+                TopMostMessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            if (password.Length < 6)
+            {
+                TopMostMessageBox.Show("The password must contain at least six(6) characters.", TITLE, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            return 1;
+        } catch (Exception e) {
+            TopMostMessageBox.Show(e.Message + "\nPlease try an existing adminstrative user.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 0;
         }
-
-        if (password == null || password.Length == 0)
-        {
-            TopMostMessageBox.Show("'Password' is required.", TITLE, MessageBoxIcon.Error);
-            return 0;
-        }
-        if (confirmPassword == null || confirmPassword.Length == 0)
-        {
-            TopMostMessageBox.Show("Please confirm the password.", TITLE, MessageBoxIcon.Error);
-            return 0;
-        }
-
-        if (password != confirmPassword)
-        {
-            TopMostMessageBox.Show("The entered passwords do not match.", TITLE, MessageBoxIcon.Error);
-            return 0;
-        }
-
-        if (password.Length < 6)
-        {
-            TopMostMessageBox.Show("The password must contain at least six(6) characters.", TITLE, MessageBoxIcon.Error);
-            return 0;
-        }
-
-        return 1;
     }
 
     public static int CheckExistingUser(ref string account, string password)
