@@ -1050,10 +1050,9 @@
 		<row><td>FilesInUse</td><td>Retry</td><td>EndDialog</td><td>Retry</td><td>1</td><td>0</td></row>
 		<row><td>Hostname</td><td>Back</td><td>NewDialog</td><td>LicenseKey</td><td>1</td><td>1</td></row>
 		<row><td>Hostname</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
-		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseHostnamePort</td><td>1</td><td>1</td></row>
-		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>SaveHostnamePort</td><td>HostnamePortValid &lt;&gt; 0</td><td>4</td></row>
-		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ValidateHostnamePort</td><td>HOSTNAME &lt;&gt; ""</td><td>3</td></row>
-		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>1</td><td/></row>
+		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>ParseAndValidateHostnamePort</td><td>1</td><td>1</td></row>
+		<row><td>Hostname</td><td>Next</td><td>DoAction</td><td>SaveHostnamePort</td><td>HostnamePortValid &lt;&gt; 0</td><td>2</td></row>
+		<row><td>Hostname</td><td>Next</td><td>NewDialog</td><td>AdminUser</td><td>HostnamePortValid &lt;&gt; 0</td><td>3</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>EndDialog</td><td>Return</td><td>1</td><td>2</td></row>
 		<row><td>InstallChangeFolder</td><td>Cancel</td><td>Reset</td><td>0</td><td>1</td><td>1</td></row>
 		<row><td>InstallChangeFolder</td><td>NewFolder</td><td>DirectoryListNew</td><td>0</td><td>1</td><td>0</td></row>
@@ -1213,7 +1212,7 @@
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
-		<row><td>ParseHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f3</td><td>0</td><td/></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>1</td><td>ParseAndValidateHostnamePort.clr</td><td>InstallerDLL.ParseHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>PreStopServices</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
@@ -2502,6 +2501,14 @@
 		<row><td>HideHomeFolder2</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
 		<row><td>HideHomeFolder2</td><td>Method</td><td>HideHomeFolder</td></row>
 		<row><td>HideHomeFolder2</td><td>Type</td><td>0</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Method</td><td>ParseAndValidateHostnamePort</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Param1</td><td>[HostnamePort]</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Param2</td><td>[HOSTNAME]</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Param3</td><td>[PORT]</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Return</td><td>HostnamePortValid</td></row>
+		<row><td>ParseAndValidateHostnamePort</td><td>Type</td><td>0</td></row>
 		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>ValidateHostnamePort</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>ValidateHostnamePort</td><td>Method</td><td>ValidateHostnamePort</td></row>
@@ -2813,7 +2820,6 @@
 		<row><td>f12</td><td>0</td><td>PreStopServices</td><td/></row>
 		<row><td>f13</td><td>0</td><td>Setup</td><td/></row>
 		<row><td>f2</td><td>0</td><td>SaveLicenseKey</td><td/></row>
-		<row><td>f3</td><td>0</td><td>ParseHostnamePort</td><td/></row>
 		<row><td>f4</td><td>0</td><td>GetHostnamePort</td><td/></row>
 		<row><td>f5</td><td>0</td><td>SaveHostnamePort</td><td/></row>
 		<row><td>f6</td><td>0</td><td>GetUUID</td><td/></row>

@@ -37,6 +37,8 @@ public class InstallerDLL
     public const string KB_READONLY = "http://onlinehelp.tableau.com/current/server/en-us/help.htm#adminview_postgres_access.htm";
     public const string KB_SYSINFO = "http://onlinehelp.tableau.com/current/server/en-us/help.htm#service_remote.htm";
 
+    public const int PORT = 443; /* FIXME: define this in one place */
+
     public static int CheckTableau()
     {
         //System.Diagnostics.Debugger.Launch();
@@ -424,6 +426,44 @@ public class InstallerDLL
         }
 
         return 1;
+    }
+
+    public static int ParseAndValidateHostnamePort(ref string HostnamePort, ref string Hostname, ref int Port)
+    {
+        HostnamePort = HostnamePort.ToLower();
+        if (HostnamePort.StartsWith("http://"))
+        {
+            HostnamePort = HostnamePort.Substring(7);
+        }
+        else if (HostnamePort.StartsWith("https://"))
+        {
+            HostnamePort = HostnamePort.Substring(8);
+        }
+        if (HostnamePort.EndsWith("/"))
+        {
+            HostnamePort = HostnamePort.Substring(0, HostnamePort.Length - 1);
+        }
+
+        if (HostnamePort.Contains('/')) {
+            TopMostMessageBox.Show("The hostname is invalid.  Please enter the correct hostname of your Palette server.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
+
+        string [] tokens = HostnamePort.Split(":".ToCharArray(), 2);
+        if (tokens.Length == 2) {
+            Hostname = tokens[0];
+            try {
+                Port = Convert.ToInt16(tokens[1]);
+            } catch (Exception) {
+                TopMostMessageBox.Show("The specified port valid is invalid.  Please enter the correct hostname:port of your Palette server.", TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        } else {
+            Hostname = tokens[0];
+            Port = PORT;
+        }
+
+        return ValidateHostnamePort(Hostname, Port);
     }
 
     /// <summary>

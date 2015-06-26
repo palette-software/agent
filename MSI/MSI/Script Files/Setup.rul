@@ -20,7 +20,6 @@ export prototype GetLicenseKey(HWND);
 export prototype SaveLicenseKey(HWND);
 export prototype GetHostnamePort(HWND);
 export prototype SaveHostnamePort(HWND);
-export prototype ParseHostnamePort(HWND);
 export prototype GetUUID(HWND);
 export prototype SaveUUID(HWND);
 
@@ -182,51 +181,6 @@ begin
 		MessageBox(svMsg, SEVERE);
 		abort;
 	endif;
-end;
-
-///////////////////////////////////////////////////////////////////////////////
-//                                                                           
-// Function:  ParseHostnamePort
-// 
-// Parse the hostname:port value if present and remove the 'scheme' if the
-// value is (incorrectly) entered as a URL.
-//                                                                           
-///////////////////////////////////////////////////////////////////////////////
-function ParseHostnamePort(hMSI)
-	STRING svHostnamePort, svHostname, svPort;
-	NUMBER nSize, nIndex, nPort;
-begin
-	NumToStr(svPort, PORT);
-
-	MsiGetProperty(hMSI, "HostnamePort", svHostnamePort, nSize);
-	svHostnamePort = StrLower(svHostnamePort);
-	if (StrLengthChars(svHostnamePort) == 0) then
-		MessageBox("Hostname is required.", SEVERE);
-		return ERROR_SUCCESS;
-	endif;
-	
-	if (StrStartsWith(svHostnamePort, "http://") || StrStartsWith(svHostnamePort, "https://")) then
-		MessageBox("The hostname value should not be a URL.", SEVERE);
-		return ERROR_SUCCESS;
-	endif;
-	
-	nIndex = StrFindEx(svHostnamePort, ":", 0);
-	if (nIndex >= 0) then
-		StrSub(svPort, svHostnamePort, nIndex + 1, nSize - (nIndex + 1));
-		StrSub(svHostname, svHostnamePort, 0, nIndex);
-		nSize = nIndex;
-	else
-		svHostname = svHostnamePort;
-	endif;
-	
-	StrToNum(nPort, svPort);
-	if (nPort < 0) then
-		MessageBox("Invalid port specified, using default port.", SEVERE);
-		NumToStr(svPort, PORT);
-	endif;
-	
-	MsiSetProperty(hMSI, "PORT", svPort);
-	MsiSetProperty(hMSI, "HOSTNAME", svHostname);
 end;
 
 ///////////////////////////////////////////////////////////////////////////////
