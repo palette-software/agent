@@ -3507,7 +3507,7 @@
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_COST</td><td>1033</td><td>Costing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>1033</td><td>Installing COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS_COMPLUS_PROGRESSTEXT_UNINSTALL</td><td>1033</td><td>Uninstalling COM+ application: [1]</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>IDS_DIALOG_TEXT2_ADMIN</td><td>1033</td><td>Please select how the Palette agent will run as a Windows Service.</td><td>0</td><td/><td>-752623247</td></row>
+		<row><td>IDS_DIALOG_TEXT2_ADMIN</td><td>1033</td><td>Please select how the Palette Agent will run as a Windows Service.</td><td>0</td><td/><td>-752677550</td></row>
 		<row><td>IDS_DIALOG_TEXT2_CREATE</td><td>1033</td><td>Provide the details for creating a new administrator user 'Run As' user account</td><td>0</td><td/><td>-761030005</td></row>
 		<row><td>IDS_DIALOG_TEXT2_DESCRIPTION</td><td>1033</td><td>Dialog Interior Description</td><td>0</td><td/><td>1520654795</td></row>
 		<row><td>IDS_DIALOG_TEXT2_EXISTING</td><td>1033</td><td>Provide the details for an existing administrator 'Run As' account</td><td>0</td><td/><td>-761019733</td></row>
@@ -4521,7 +4521,7 @@
 		<row><td>NEW_STRING33</td><td>1033</td><td>{&amp;TahomaBold8}{\TahomaBold10}Run Windows Service as ...</td><td>0</td><td/><td>-752650384</td></row>
 		<row><td>NEW_STRING34</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752622000</td></row>
 		<row><td>NEW_STRING35</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752656784</td></row>
-		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Server needs to run under a given user account.  Based on the security requirements of your system you need to pick one of the options below.</td><td>0</td><td/><td>-752660752</td></row>
+		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Server needs to run under a given user account. Based on the security requirements of your system you need to pick one of the options below.</td><td>0</td><td/><td>-752669391</td></row>
 		<row><td>NEW_STRING37</td><td>1033</td><td>Recommended for most scenarios.</td><td>0</td><td/><td>-752621327</td></row>
 		<row><td>NEW_STRING38</td><td>1033</td><td>An existing user account can be selected for advanced scenarios.</td><td>0</td><td/><td>-752629487</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
