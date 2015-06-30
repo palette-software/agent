@@ -4499,7 +4499,7 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1910336943</td></row>
 		<row><td>ID_DIALOG_TEXT_LICENSE_KEY</td><td>1033</td><td>{&amp;TahomaBold10}Enter Your Palette Server License Key</td><td>0</td><td/><td>-1297891481</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.PaletteSoftware.com</td><td>0</td><td/><td>1923318128</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.palette-software.com</td><td>0</td><td/><td>-215796658</td></row>
 		<row><td>ID_STRING10</td><td>1033</td><td>port</td><td>0</td><td/><td>-501015506</td></row>
 		<row><td>ID_STRING11</td><td>1033</td><td>logger</td><td>0</td><td/><td>-500964146</td></row>
 		<row><td>ID_STRING12</td><td>1033</td><td>location</td><td>0</td><td/><td>-501019410</td></row>
