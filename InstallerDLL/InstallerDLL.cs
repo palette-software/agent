@@ -30,6 +30,7 @@ public class InstallerDLL
 
     public const string PRODUCT_TYPE_LANMANNT = "LanmanNT";
 
+    public const string REG_KEYNAME = @"Software\Palette";
     public const int REG_HIDE_USER = 0x10000;
 
     public const string TITLE = "Palette Agent Installer";
@@ -39,52 +40,85 @@ public class InstallerDLL
 
     public const int PORT = 443; /* FIXME: define this in one place */
 
-    public static int CheckTableau()
+    private static RegistryKey openRegistryKey()
     {
-        //System.Diagnostics.Debugger.Launch();
+        RegistryKey hklm = null, key = null;
         try
         {
-            Tableau tabinfo = Tableau.query();
-            if (tabinfo == null)
+            hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            key = hklm.OpenSubKey(REG_KEYNAME);
+            if (key == null)
             {
-                // non-primary
-                return 1;
+                throw new Exception("Failed to open Palette registry key");
             }
-
-            if (tabinfo.Path == null)
+            return key;
+        }
+        finally
+        {
+            if (hklm != null)
             {
-                string msg = "The registry contains values pertaining to Tableau that Palette cannot understand.  Please contact support.";
+                hklm.Close();
+            }
+        }
+    }
+
+    private static int CheckTableau(RegistryKey key, ref int enableSysInfo, ref int enableReadonlyUser, ref int restartTableau)
+    {
+        //System.Diagnostics.Debugger.Launch();
+        Tableau tabinfo = Tableau.query();
+        if (tabinfo == null)
+        {
+            // non-primary
+            return 1;
+        }
+
+        if (tabinfo.Path == null)
+        {
+            string msg = "The registry contains values pertaining to Tableau that Palette cannot understand.  Please contact support.";
+            throw new Exception(msg);
+        }
+
+        Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
+        if (tabinfo.Version != null)
+        {
+            if (tabinfo.Version < minVersion)
+            {
+                string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
                 throw new Exception(msg);
             }
+        }
+        else
+        {
+            string msg = "Could not determine the Tableau Server version.  Please ensure that you have at least version " + Tableau.MINIMUM_SUPPORTED_VERSION;
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
-            Version minVersion = new Version(Tableau.MINIMUM_SUPPORTED_VERSION);
-            if (tabinfo.Version != null)
-            {
-                if (tabinfo.Version < minVersion)
-                {
-                    string msg = "The minimum supported Tableau Server version is " + Tableau.MINIMUM_SUPPORTED_VERSION;
-                    throw new Exception(msg);
-                }
-            }
-            else
-            {
-                string msg = "Could not determine the Tableau Server version.  Please ensure that you have at least version " + Tableau.MINIMUM_SUPPORTED_VERSION;
-                TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+        Dictionary<string, string> settings = tabinfo.getSettings();
+        if (!Tableau.readOnlyEnabled(settings))
+        {
+            enableReadonlyUser = 1;
+            restartTableau = 1;
+        }
 
-            Dictionary<string, string> settings = tabinfo.getSettings();
-            if (!Tableau.readOnlyEnabled(settings))
-            {
-                string msg = "The readonly user must be enabled\n" + KB_READONLY;
-                throw new Exception(msg);
-            }
+        string[] sysInfoIPs = Tableau.allowedSysInfoIPs(settings);
+        if (sysInfoIPs == null || !sysInfoIPs.Contains("127.0.0.1"))
+        {
+            enableSysInfo = 1;
+            restartTableau = 1;
+        }
 
-            string[] sysInfoIPs = Tableau.allowedSysInfoIPs(settings);
-            if (!sysInfoIPs.Contains("127.0.0.1"))
-            {
-                string msg = "sysinfo must be enabled for 127.0.0.1\n" + KB_SYSINFO;
-                throw new Exception(msg);
-            }
+        return 1;
+    }
+
+
+
+    public static int CheckTableau(ref int enableSysInfo, ref int enableReadonlyUser, ref int restartTableau)
+    {
+
+        RegistryKey key = null;
+        try
+        {
+            key = openRegistryKey();
         }
         catch (Exception e)
         {
@@ -92,8 +126,21 @@ public class InstallerDLL
             throw e;
         }
 
-        return 1;
+        try
+        {
+            return CheckTableau(key, ref enableSysInfo, ref enableReadonlyUser, ref restartTableau);
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+        finally
+        {
+            key.Close();
+        }
     }
+
 
     /// <summary>
     /// 
@@ -200,6 +247,81 @@ public class InstallerDLL
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
+
+    private static void EnableSysInfo()
+    {
+        Tableau tabinfo = Tableau.query();
+        Dictionary<string, string> settings = tabinfo.getSettings();
+        string[] ips = Tableau.allowedSysInfoIPs(settings);
+        tabinfo.enableSysInfo(ips);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void EnableSysInfo(Int32 handle)
+    {
+        try
+        {
+            EnableSysInfo();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+    }
+
+    private static void EnableReadonlyUser()
+    {
+        Tableau tabinfo = Tableau.query();
+        Dictionary<string, string> settings = tabinfo.getSettings();
+
+        string password = GeneratePassword();
+        tabinfo.enableReadonlyUser(password);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void EnableReadonlyUser(Int32 handle)
+    {
+        try
+        {
+            EnableReadonlyUser();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+    }
+
+    private static void RestartTableau()
+    {
+        Tableau tabinfo = Tableau.query();
+        tabinfo.restart();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void RestartTableau(Int32 handle)
+    {
+        try
+        {
+            RestartTableau();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+    }
+
 
     /// <summary>
     /// The user home folder is created at first logon.  In this case, that happens when the Service is started.
@@ -344,6 +466,12 @@ public class InstallerDLL
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="account"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
     public static int CheckExistingUser(ref string account, string password)
     {
         //System.Diagnostics.Debugger.Launch();
@@ -408,21 +536,31 @@ public class InstallerDLL
                 bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
                 if (!isAdmin)
                 {
-                    string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group", account);
-                    TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
+                    string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group.\nDo you want to continue?", account);
+                    DialogResult result = TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.No)
+                    {
+                        return 0;
+                    }
                 }
             }
             catch (PrincipalServerDownException e)
             {
-                TopMostMessageBox.Show("The domain controller is unreachable: " + e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                /* fall through */
+                DialogResult result = TopMostMessageBox.Show("The domain controller is unreachable: " + e.Message + "\nDo you want to continue?", TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    return 0;
+                }
             }
 
         }
         catch (Exception e)
         {
-            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DialogResult result = TopMostMessageBox.Show(e.Message + "\nDo you want to continue?", TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.No)
+            {
+                return 0;
+            }
         }
 
         return 1;

@@ -9,6 +9,8 @@ class tabtest
 {
     static int Main(string[] args)
     {
+        bool needRestart = false;
+
         Console.WriteLine();
 
         Tableau tabinfo = Tableau.query();
@@ -25,12 +27,35 @@ class tabtest
 
         // http://onlinehelp.tableau.com/current/server/en-us/help.htm#adminview_postgres_access.htm
         Dictionary<string, string> settings = tabinfo.getSettings();
-        Console.WriteLine("readonly user: {0}", Tableau.readOnlyEnabled(settings));
+
+        if (!Tableau.readOnlyEnabled(settings))
+        {
+            tabinfo.enableReadonlyUser("p@ssword");
+            Console.WriteLine("readonly user successfully enabled.");
+            needRestart = true;
+        } else {
+            Console.WriteLine("readonly user was already enabled.");
+        }
 
         // http://onlinehelp.tableau.com/current/server/en-us/help.htm#service_remote.htm
         string[] ips = Tableau.allowedSysInfoIPs(settings);
-        Console.WriteLine("sysinfo enabled: {0}", ips.Contains("127.0.0.1"));
+        if (ips == null || !ips.Contains("127.0.0.1"))
+        {
+            tabinfo.enableSysInfo(ips);
+            Console.WriteLine("sysinfo enabled for localhost");
+            needRestart = true;
+        }
+        else
+        {
+            Console.WriteLine("sysinfo was already enabled.");
+        }
 
+        if (needRestart)
+        {
+            tabinfo.restart();
+            Console.WriteLine("tableau server successfully restarted.");
+        }
+        
         return 0;
     }
 }
