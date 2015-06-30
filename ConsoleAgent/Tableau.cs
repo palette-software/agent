@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Diagnostics;
 using System.IO;
 using Microsoft.Win32;
 
@@ -23,6 +24,44 @@ public class Tableau
     public string RegistryKeyPath;
     public string VersionString;
     public Version Version;
+
+    /// <summary>
+    /// Get the tabadmin path and throw and exception if it isn't where its supposed to be.
+    /// </summary>
+    /// <returns></returns>
+    protected string tabadminPath()
+    {
+        string path = System.IO.Path.Combine(Path, "bin", "tabadmin.exe");
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException("File not found: " + path, path);
+        }
+        return path;
+    }
+
+    public void tabadminRun(string arguments)
+    {
+        string tabadmin = tabadminPath();
+
+        Process process = new Process();
+
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.FileName = tabadmin;
+        process.StartInfo.Arguments = arguments;
+
+        process.Start();
+
+        /* tabadmin seems to only user stdout */
+        string error = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
+
+        if (process.ExitCode != 0)
+        {
+            throw new Exception("tabadmin failed: ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + error);
+        }
+    }
 
     private static string findLatestVersion(RegistryKey baseKey)
     {
@@ -163,6 +202,30 @@ public class Tableau
         return dict;
     }
 
+    public void enableReadonlyUser(string password)
+    {
+        tabadminRun("dbpass --username readonly " + password);
+    }
+
+    public void enableSysInfo(string[] ips)
+    {
+        string value;
+        if (ips == null)
+        {
+            value = "127.0.0.1";
+        }
+        else if (ips.Contains("127.0.0.1"))
+        {
+            return;
+        }
+        else
+        {
+            value = "127.0.0.1," + String.Join(",", ips);
+        }
+        tabadminRun("set " + YML_SYSINFO_IPS + " " + value);
+    }
+
+
     public static bool readOnlyEnabled(Dictionary<string, string> settings)
     {
         try
@@ -181,11 +244,23 @@ public class Tableau
         {
             return null;
         }
+        string value = settings[Tableau.YML_SYSINFO_IPS].Trim();
+        if (value.ToLower() == "false") {
+            return null;
+        }
         string[] tokens = settings[Tableau.YML_SYSINFO_IPS].Split(",".ToCharArray());
         for (int i = 0; i < tokens.Length; i++)
         {
             tokens[i] = tokens[i].Trim();
         }
         return tokens;
+    }
+
+    /// <summary>
+    /// Restarts Tableau Server using tabadmin.
+    /// </summary>
+    public void restart()
+    {
+        tabadminRun("restart");
     }
 }
