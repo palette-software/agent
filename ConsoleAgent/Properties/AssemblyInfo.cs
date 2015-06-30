@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConsoleAgent")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Palette Console Agent")]
+[assembly: AssemblyDescription("Palette Console Agent")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Palette")]
-[assembly: AssemblyProduct("ConsoleAgent")]
+[assembly: AssemblyProduct("Palette Console Agent")]
 [assembly: AssemblyCopyright("Copyright © Palette 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

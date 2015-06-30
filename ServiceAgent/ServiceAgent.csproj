@@ -8,7 +8,7 @@
     <ProjectGuid>{1F86B649-B376-4711-874E-1DD824E12D6C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceAgent</RootNamespace>
+    <RootNamespace>Palette</RootNamespace>
     <AssemblyName>PaletteServiceAgent</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

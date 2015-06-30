@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ServiceAgent")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Palette Service Agent")]
+[assembly: AssemblyDescription("Palette Service Agent")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Palette")]
-[assembly: AssemblyProduct("ServiceAgent")]
+[assembly: AssemblyProduct("Palette Service Agent")]
 [assembly: AssemblyCopyright("Copyright © Palette 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
