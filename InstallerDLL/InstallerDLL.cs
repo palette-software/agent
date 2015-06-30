@@ -301,7 +301,7 @@ public class InstallerDLL
             {
                 if (lsa.UserExists(userName))
                 {
-                    TopMostMessageBox.Show(String.Format("Account '{0}' already exists.", account), TITLE, MessageBoxIcon.Error);
+                    TopMostMessageBox.Show(String.Format("Account '{0}' already exists. Press Back and use the existing '{0}' credentials.", account), TITLE, MessageBoxIcon.Error);
                     return 0;
                 }
             }
