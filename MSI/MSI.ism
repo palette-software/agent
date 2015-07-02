@@ -473,11 +473,11 @@
 		<row><td>AdminUser</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>AdminUser</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>RadioButtonGroup1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>31</td><td>116</td><td>322</td><td>84</td><td>3</td><td>AdminType</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text1</td><td>Text</td><td>37</td><td>75</td><td>200</td><td>12</td><td>65539</td><td>NewProperty7</td><td>##NEW_STRING33##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text2</td><td>Text</td><td>37</td><td>92</td><td>292</td><td>24</td><td>65539</td><td>NewProperty10</td><td>##NEW_STRING36##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text3</td><td>Text</td><td>51</td><td>142</td><td>250</td><td>12</td><td>65539</td><td>NewProperty11</td><td>##NEW_STRING37##</td><td/><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text4</td><td>Text</td><td>51</td><td>175</td><td>250</td><td>12</td><td>65539</td><td>NewProperty12</td><td>##NEW_STRING38##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>31</td><td>109</td><td>322</td><td>93</td><td>3</td><td>AdminType</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text1</td><td>Text</td><td>37</td><td>68</td><td>200</td><td>12</td><td>65539</td><td>NewProperty7</td><td>##NEW_STRING33##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text2</td><td>Text</td><td>37</td><td>86</td><td>292</td><td>24</td><td>65539</td><td>NewProperty10</td><td>##NEW_STRING36##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text3</td><td>Text</td><td>51</td><td>135</td><td>250</td><td>24</td><td>65539</td><td>NewProperty11</td><td>##NEW_STRING37##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text4</td><td>Text</td><td>51</td><td>180</td><td>250</td><td>24</td><td>65539</td><td>NewProperty12</td><td>##NEW_STRING38##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -4506,8 +4506,8 @@
 		<row><td>NEW_STRING1</td><td>1033</td><td>Palette Server License Key</td><td>0</td><td/><td>-1297903608</td></row>
 		<row><td>NEW_STRING10</td><td>1033</td><td>username:</td><td>0</td><td/><td>1923297037</td></row>
 		<row><td>NEW_STRING11</td><td>1033</td><td>password:</td><td>0</td><td/><td>1923297037</td></row>
-		<row><td>NEW_STRING12</td><td>1033</td><td>{\TahomaBold8} Standard System Account</td><td>0</td><td/><td>-752662191</td></row>
-		<row><td>NEW_STRING13</td><td>1033</td><td>{\TahomaBold8} Custom User</td><td>0</td><td/><td>-752647855</td></row>
+		<row><td>NEW_STRING12</td><td>1033</td><td>{\TahomaBold8} Create a New Admin Account</td><td>0</td><td/><td>329459183</td></row>
+		<row><td>NEW_STRING13</td><td>1033</td><td>{\TahomaBold8} Use an Existing Admin Account</td><td>0</td><td/><td>329498095</td></row>
 		<row><td>NEW_STRING14</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING15</td><td>1033</td><td>Use existing administrator account.</td><td>0</td><td/><td>1923327757</td></row>
 		<row><td>NEW_STRING16</td><td>1033</td><td>User Account</td><td>0</td><td/><td>-1297933976</td></row>
@@ -4532,9 +4532,9 @@
 		<row><td>NEW_STRING33</td><td>1033</td><td>{&amp;TahomaBold8}{\TahomaBold10}Run Windows Service as ...</td><td>0</td><td/><td>-752650384</td></row>
 		<row><td>NEW_STRING34</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752622000</td></row>
 		<row><td>NEW_STRING35</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752656784</td></row>
-		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Server needs to run under a given user account. Based on the security requirements of your system you need to pick one of the options below.</td><td>0</td><td/><td>-752669391</td></row>
-		<row><td>NEW_STRING37</td><td>1033</td><td>Recommended for most scenarios.</td><td>0</td><td/><td>-752621327</td></row>
-		<row><td>NEW_STRING38</td><td>1033</td><td>An existing user account can be selected for advanced scenarios.</td><td>0</td><td/><td>-752629487</td></row>
+		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Agent must run under a given administrator account. Based on the security requirements of your system you need to pick one of the options below.</td><td>0</td><td/><td>329475535</td></row>
+		<row><td>NEW_STRING37</td><td>1033</td><td>Recommended for most scenarios.  This installer will create a new account in the builtin adminstrators group.</td><td>0</td><td/><td>329489935</td></row>
+		<row><td>NEW_STRING38</td><td>1033</td><td>For advanced scenarios. You will input the credentials for an existing administrator account.</td><td>0</td><td/><td>329465455</td></row>
 		<row><td>NEW_STRING39</td><td>1033</td><td>&lt;a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"&gt;complexity requirements&lt;/a&gt;</td><td>0</td><td/><td>-215761972</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING40</td><td>1033</td><td> of this system.</td><td>0</td><td/><td>-215762164</td></row>
@@ -5233,7 +5233,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>TableauValid</td><td>0</td><td/></row>
 		<row><td>UUID</td><td/><td/></row>
 		<row><td>UpgradeCode</td><td>{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}</td><td/></row>
-		<row><td>UsernameNew</td><td>Palette</td><td/></row>
+		<row><td>UsernameNew</td><td>PaletteAgent</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Remove</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -5258,7 +5258,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<col def="L50">Help</col>
 		<col def="I4">ISControlId</col>
 		<row><td>AdminType</td><td>1</td><td>1</td><td>6</td><td>7</td><td>300</td><td>20</td><td>##NEW_STRING12##</td><td/><td>0</td></row>
-		<row><td>AdminType</td><td>2</td><td>2</td><td>6</td><td>41</td><td>300</td><td>20</td><td>##NEW_STRING13##</td><td/><td>0</td></row>
+		<row><td>AdminType</td><td>2</td><td>2</td><td>6</td><td>53</td><td>300</td><td>20</td><td>##NEW_STRING13##</td><td/><td>0</td></row>
 		<row><td>AgreeToLicense</td><td>1</td><td>No</td><td>0</td><td>15</td><td>291</td><td>15</td><td>##IDS__AgreeToLicense_0##</td><td/><td/></row>
 		<row><td>AgreeToLicense</td><td>2</td><td>Yes</td><td>0</td><td>0</td><td>291</td><td>15</td><td>##IDS__AgreeToLicense_1##</td><td/><td/></row>
 		<row><td>ApplicationUsers</td><td>1</td><td>AllUsers</td><td>1</td><td>7</td><td>290</td><td>14</td><td>##IDS__IsRegisterUserDlg_Anyone##</td><td/><td/></row>

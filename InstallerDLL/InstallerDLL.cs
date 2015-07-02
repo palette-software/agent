@@ -24,8 +24,6 @@ using LSA;
 
 public class InstallerDLL
 {
-    public const string DEFAULT_USERNAME = "Palette";
-
     public const string SERVICE_RIGHT = "SeServiceLogonRight";
 
     public const int ADMIN_TYPE_CREATE_NEW = 1;
@@ -403,16 +401,6 @@ public class InstallerDLL
     /// <returns></returns>
     public static int CheckAdminUser(int adminType, ref string account, ref string password)
     {
-        //System.Diagnostics.Debugger.Launch();
-        if (adminType == ADMIN_TYPE_CREATE_NEW)
-        {
-            // set account to pre-populates the CreateAdminUser dialog.
-            account = DEFAULT_USERNAME;
-        }
-        else if (adminType != ADMIN_TYPE_USE_EXISTING)
-        {
-            return 0;
-        }
         return 1;
     }
 
