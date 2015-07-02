@@ -9,11 +9,16 @@ using System.DirectoryServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using InstallShield.Interop;
+
 using Microsoft.Win32;
 
 using System.DirectoryServices.ActiveDirectory;
 using System.DirectoryServices.AccountManagement;
+
+using System.Reflection;
+
+using System.Security.Principal;
+using System.Security.AccessControl;
 
 using LSA;
 
@@ -149,20 +154,18 @@ public class InstallerDLL
     public static void CreateAdminUser(Int32 handle)
     {
         //System.Diagnostics.Debugger.Launch();
-        string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
-
-        if (data.Length == 0)
+        DeferredCustomAction customAction = new DeferredCustomAction(handle, MethodBase.GetCurrentMethod().DeclaringType.Name);
+        
+        if (customAction.Length == 0)
         {
             // HACK - this means we were not supposed to run in the first place
             // i.e. AdminType == 1
-            log(handle, "[CreateAdminUser] nothing to do.");
+            customAction.log("[CreateAdminUser] nothing to do.");
             return;
         }
 
-        string[] tokens = data.Split(";".ToCharArray(), 2);
-
-        string account = tokens[0];
-        string password = tokens[1];
+        string account = customAction[0];
+        string password = customAction[1];
 
         // CheckCreateUser is responsible for ensuring that the account is valid.
         string userName;
@@ -182,6 +185,7 @@ public class InstallerDLL
         {
             string msg = String.Format("Failed to create user '{0}': {1}", account, e.Message);
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            customAction.error(msg);
             throw e;
         }
 
@@ -199,9 +203,10 @@ public class InstallerDLL
         {
             string msg = String.Format("Failed set the 'Don't Expire' flag, continuing.\n{0}", e.Message);
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            customAction.error(msg);
         }
 
-        log(handle, String.Format("[CreateAdminUser] Successfully created user: {0}", account));
+        customAction.log(String.Format("[CreateAdminUser] Successfully created user: {0}", account));
 
         DirectoryEntry grp;
         grp = AD.Children.Find("Administrators", "group");
@@ -212,7 +217,7 @@ public class InstallerDLL
             throw new Exception(msg);
         }
         grp.Invoke("Add", new object[] { NewUser.Path.ToString() });
-        log(handle, String.Format("[CreateAdminUser] Successfully added user '{0}' to group '{1}'", account, grp.ToString()));
+        customAction.log(String.Format("[CreateAdminUser] Successfully added user '{0}' to group '{1}'", account, grp.ToString()));
 
         string productType = AdminUtil.getProductType();
 
@@ -228,12 +233,13 @@ public class InstallerDLL
                 // ... but can't use the account on a member of the domain, it fails.
                 GrantLogonAsServiceRight(Environment.MachineName + "\\" + userName);
             }
-            log(handle, String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}'", account));
+            customAction.log(String.Format("[CreateAdminUser] Successfully granted 'SeServiceLogonRight' to '{0}'", account));
         }
         catch (Exception e)
         {
             string msg = String.Format("Failed to grant 'SeServiceLoginRight' to '{0}'", account);
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            customAction.error(msg);
             throw e;
         }
 
@@ -245,6 +251,36 @@ public class InstallerDLL
         {
             string msg = String.Format("Failed to hide account '{0}', continuing.\n{1}", account, e.Message);
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            customAction.error(msg);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void CheckInstallDir(Int32 handle)
+    {
+        //System.Diagnostics.Debugger.Launch();
+        DeferredCustomAction customAction = new DeferredCustomAction(handle, MethodBase.GetCurrentMethod().DeclaringType.Name);
+
+        string installDir = customAction[0];
+        string account = customAction[1];
+
+        try {
+            if (!HasFullControl(account, installDir))
+            {
+                GrantFullControl(account, installDir);
+                customAction.log(String.Format("Granted Full Control of '{0}' to '{1}'", installDir, account));
+            }
+            else
+            {
+                customAction.log(String.Format("'{0}' has Full Control permission to '{1}'", account, installDir));
+            }
+        } catch (Exception e) {
+            string msg = String.Format("Failed to grant Full Control of '{0}' to '{1}': {2}\nTableau restore may not work correctly.", installDir, account, e.Message);
+            TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            customAction.error(msg);
         }
     }
 
@@ -331,16 +367,16 @@ public class InstallerDLL
     public static void HideHomeFolder(Int32 handle)
     {
         //System.Diagnostics.Debugger.Launch();
-        string data = Msi.CustomActionHandle(handle).GetProperty("CustomActionData");
-        if (data.Length == 0)
+        DeferredCustomAction customAction = new DeferredCustomAction(handle, MethodBase.GetCurrentMethod().DeclaringType.Name);
+        if (customAction.Length == 0)
         {
             // HACK - this means we were not supposed to run in the first place
             // i.e. AdminType == 1
-            log(handle, "[HideHomeFolder] nothing to do.");
+            customAction.log("[HideHomeFolder] nothing to do.");
             return;
         }
 
-        string account = data;
+        string account = customAction[0];
 
         string userName;
         string domainName;
@@ -354,7 +390,7 @@ public class InstallerDLL
         {
 
             File.SetAttributes(dir.FullName, File.GetAttributes(dir.FullName) | System.IO.FileAttributes.Hidden);
-            log(handle, String.Format("[HideHomeFolder] Home folder was successfully hidden: {0}", dir.FullName));
+            customAction.log(String.Format("[HideHomeFolder] Home folder was successfully hidden: {0}", dir.FullName));
         }
     }
 
@@ -491,6 +527,8 @@ public class InstallerDLL
                 account = @".\" + account;
             }
 
+            Tableau tabinfo = Tableau.query();
+
             using (LsaWrapper lsa = new LsaWrapper())
             {
                 string[] rights;
@@ -533,15 +571,29 @@ public class InstallerDLL
                     return 0;
                 }
 
-                bool isAdmin = AdminUtil.IsBuiltInAdmin(ctx, userName);
+                bool isAdmin = AdminUtil.IsAdmin(ctx, userName);
                 if (!isAdmin)
                 {
-                    string msg = String.Format("The account '{0}' does not belong to the BUILTIN administrator group.\nDo you want to continue?", account);
+                    string msg = String.Format("The account '{0}' does not belong to any system administrator group.\nDo you want to continue?", account);
                     DialogResult result = TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.No)
                     {
                         return 0;
                     }
+                }
+
+                if (tabinfo != null)
+                {
+                    if (!HasFullControl(account, tabinfo.DataPath))
+                    {
+                        string msg = String.Format("The account '{0}' does not have full control permission on the Tableau data directory: {1}.\nDo you want to continue?", account, tabinfo.DataPath);
+                        DialogResult result = TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result == DialogResult.No)
+                        {
+                            return 0;
+                        }
+                    }
+
                 }
             }
             catch (PrincipalServerDownException e)
@@ -797,18 +849,6 @@ public class InstallerDLL
         return 1;
     }
 
-    private static void log(Int32 handle, string msg)
-    {
-        using (Msi.Install msi = Msi.CustomActionHandle(handle))
-        {
-            using (Msi.Record record = new Msi.Record(msg.Length + 1))
-            {
-                record.SetString(0, msg);
-                msi.ProcessMessage(Msi.InstallMessage.Info, record);
-            }
-        }
-    }
-
     private static bool IsDomainController(string productType)
     {
         return (productType == PRODUCT_TYPE_LANMANNT);
@@ -833,5 +873,19 @@ public class InstallerDLL
         return name;
     }
 
+    private static bool HasFullControl(string account, string path)
+    {
+        SecurityIdentifier sid = AdminUtil.GetSidForObject(account);
+        EffectiveAccess access = new EffectiveAccess(path, sid);
+        access.Evaluate();
+        return access.FullControl();
+    }
+
+    private static void GrantFullControl(string account, string path)
+    {
+        FileSecurity fileSecurity = File.GetAccessControl(path);
+        fileSecurity.AddAccessRule(new FileSystemAccessRule(account, FileSystemRights.FullControl, AccessControlType.Allow));
+        File.SetAccessControl(path, fileSecurity);
+    }
 }
 

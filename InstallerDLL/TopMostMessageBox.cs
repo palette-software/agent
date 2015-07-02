@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // http://www.codeproject.com/Articles/18612/TopMost-MessageBox
-static public class TopMostMessageBox
+static internal class TopMostMessageBox
 {
     static public DialogResult Show(string message)
     {

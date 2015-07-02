@@ -90,7 +90,7 @@ namespace LSA
     /// This class is used to grant "Log on as a service", "Log on as a batchjob", "Log on localy" etc.
     /// to a user.
     /// </summary>
-    public sealed class LsaWrapper : IDisposable
+    internal sealed class LsaWrapper : IDisposable
     {
         [StructLayout(LayoutKind.Sequential)]
         struct LSA_TRUST_INFORMATION
@@ -143,7 +143,7 @@ namespace LSA
 
         IntPtr lsaHandle;
 
-        public LsaWrapper()
+        internal LsaWrapper()
             : this(null)
         { }
         // // local system if systemName is null
@@ -392,7 +392,7 @@ namespace LSA
         }
     }
 
-    public class LsaWrapperCaller
+    internal class LsaWrapperCaller
     {
         public static void AddPrivileges(string account, string privilege)
         {

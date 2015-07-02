@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 // http://www.siepman.nl/blog/post/2014/05/31/Random-password-generator-with-numbers-and-special-characters.aspx
 
-public class PasswordGenerator
+internal class PasswordGenerator
 {
     public int MinimumLengthPassword { get; private set; }
     public int MaximumLengthPassword { get; private set; }
