@@ -474,8 +474,8 @@
 		<row><td>AdminUser</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_ADMIN##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>AdminUser</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>RadioButtonGroup1</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>RadioButtonGroup1</td><td>RadioButtonGroup</td><td>31</td><td>109</td><td>322</td><td>93</td><td>3</td><td>AdminType</td><td/><td>Back</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text1</td><td>Text</td><td>37</td><td>63</td><td>200</td><td>12</td><td>65539</td><td>NewProperty7</td><td>##NEW_STRING33##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
-		<row><td>AdminUser</td><td>Text2</td><td>Text</td><td>37</td><td>79</td><td>292</td><td>36</td><td>65539</td><td>NewProperty10</td><td>##NEW_STRING36##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text1</td><td>Text</td><td>37</td><td>67</td><td>200</td><td>12</td><td>65539</td><td>NewProperty7</td><td>##NEW_STRING33##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
+		<row><td>AdminUser</td><td>Text2</td><td>Text</td><td>37</td><td>82</td><td>292</td><td>25</td><td>65539</td><td>NewProperty10</td><td>##NEW_STRING36##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>Text3</td><td>Text</td><td>51</td><td>135</td><td>250</td><td>24</td><td>65539</td><td>NewProperty11</td><td>##NEW_STRING37##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>AdminUser</td><td>Text4</td><td>Text</td><td>51</td><td>180</td><td>250</td><td>24</td><td>65539</td><td>NewProperty12</td><td>##NEW_STRING38##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
@@ -4532,7 +4532,7 @@
 		<row><td>NEW_STRING33</td><td>1033</td><td>{&amp;TahomaBold8}{\TahomaBold10}Run Windows Service as ...</td><td>0</td><td/><td>-752650384</td></row>
 		<row><td>NEW_STRING34</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752622000</td></row>
 		<row><td>NEW_STRING35</td><td>1033</td><td>Text</td><td>0</td><td/><td>-752656784</td></row>
-		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Agent must run under a given administrator account. Based on the security requirements of your system you need to choose one of the options below.</td><td>0</td><td/><td>329492784</td></row>
+		<row><td>NEW_STRING36</td><td>1033</td><td>The Palette Agent must run under a given administrator account. Based on the security requirements of your system, please choose one of the options below.</td><td>0</td><td/><td>329462416</td></row>
 		<row><td>NEW_STRING37</td><td>1033</td><td>Recommended for most scenarios.  This installer will create a new account in the builtin adminstrators group.</td><td>0</td><td/><td>329489935</td></row>
 		<row><td>NEW_STRING38</td><td>1033</td><td>For advanced scenarios. You will input the credentials for an existing administrator account.</td><td>0</td><td/><td>329465455</td></row>
 		<row><td>NEW_STRING39</td><td>1033</td><td>&lt;a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"&gt;complexity requirements&lt;/a&gt;</td><td>0</td><td/><td>-215761972</td></row>
