@@ -276,7 +276,7 @@ public class InstallerDLL
                 customAction.log(String.Format("'{0}' has Full Control permission to '{1}'", account, installDir));
             }
         } catch (Exception e) {
-            string msg = String.Format("Failed to grant Full Control of '{0}' to '{1}': {2}\nTableau restore may not work correctly.", installDir, account, e.Message);
+            string msg = String.Format("Failed to grant Full Control of '{0}' to '{1}': {2}", installDir, account, e.Message);
             TopMostMessageBox.Show(msg, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             customAction.error(msg);
         }
@@ -312,7 +312,8 @@ public class InstallerDLL
         Tableau tabinfo = Tableau.query();
         Dictionary<string, string> settings = tabinfo.getSettings();
 
-        string password = GeneratePassword();
+        //string password = GeneratePassword();
+        string password = "p@ssword"; /* FIXME: temporary fix until 1.5 */
         tabinfo.enableReadonlyUser(password);
     }
 
