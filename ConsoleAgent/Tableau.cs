@@ -53,7 +53,7 @@ public class Tableau
 
         process.Start();
 
-        /* tabadmin seems to only user stdout */
+        /* tabadmin seems to only use stdout */
         string error = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
 

@@ -1205,6 +1205,7 @@
 		<row><td>IS_LAUNCH_MY_PROGRAM_PLEASE</td><td>210</td><td>NoFileSpecified</td><td/><td/><td/></row>
 		<row><td>ParseAndValidateHostnamePort</td><td>1</td><td>ParseAndValidateHostnamePort.clr</td><td>InstallerDLL.ParseHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>PreStopServices</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
+		<row><td>RecoveryServiceRestart</td><td>1025</td><td>RecoveryRestartService.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>RestartTableau</td><td>1025</td><td>RestartTableau.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
@@ -2517,6 +2518,11 @@
 		<row><td>ParseAndValidateHostnamePort</td><td>Param3</td><td>[PORT]</td></row>
 		<row><td>ParseAndValidateHostnamePort</td><td>Return</td><td>HostnamePortValid</td></row>
 		<row><td>ParseAndValidateHostnamePort</td><td>Type</td><td>0</td></row>
+		<row><td>RecoveryServiceRestart</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>RecoveryServiceRestart</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>RecoveryServiceRestart</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
+		<row><td>RecoveryServiceRestart</td><td>Method</td><td>RecoveryServiceRestart</td></row>
+		<row><td>RecoveryServiceRestart</td><td>Type</td><td>0</td></row>
 		<row><td>RestartTableau</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>RestartTableau</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>RestartTableau</td><td>Method</td><td>RestartTableau</td></row>
@@ -4733,6 +4739,7 @@
 		<row><td>PublishFeatures</td><td/><td>6300</td><td>PublishFeatures</td><td/></row>
 		<row><td>PublishProduct</td><td/><td>6400</td><td>PublishProduct</td><td/></row>
 		<row><td>RMCCPSearch</td><td>Not CCP_SUCCESS And CCP_TEST</td><td>600</td><td>RMCCPSearch</td><td/></row>
+		<row><td>RecoveryServiceRestart</td><td>Not Installed</td><td>5875</td><td/><td/></row>
 		<row><td>RegisterClassInfo</td><td/><td>4600</td><td>RegisterClassInfo</td><td/></row>
 		<row><td>RegisterComPlus</td><td/><td>5700</td><td>RegisterComPlus</td><td/></row>
 		<row><td>RegisterExtensionInfo</td><td/><td>4700</td><td>RegisterExtensionInfo</td><td/></row>

@@ -24,6 +24,7 @@ using LSA;
 
 public class InstallerDLL
 {
+    public const string SERVICE_NAME = "PaletteAgent";
     public const string SERVICE_RIGHT = "SeServiceLogonRight";
 
     public const int ADMIN_TYPE_CREATE_NEW = 1;
@@ -392,6 +393,52 @@ public class InstallerDLL
             customAction.log(String.Format("[HideHomeFolder] Home folder was successfully hidden: {0}", dir.FullName));
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    private static void RecoveryServiceRestart(string serviceName)
+    {
+        Process process = new Process();
+
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.FileName = "sc.exe";
+        process.StartInfo.Arguments = "failure \"" + serviceName + "\" reset= 0 actions= restart/60000";
+        process.StartInfo.WorkingDirectory = Environment.SystemDirectory;
+
+        process.Start();
+
+        /* sc.exe seems to only use stdout */
+        string error = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
+
+        if (process.ExitCode != 0)
+        {
+            throw new Exception("sc.exe failed: ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + error);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void RecoveryServiceRestart(Int32 handle)
+    {
+        DeferredCustomAction customAction = new DeferredCustomAction(handle, MethodBase.GetCurrentMethod().DeclaringType.Name);
+
+        try
+        {
+            RecoveryServiceRestart(SERVICE_NAME);
+        }
+        catch (Exception e)
+        {
+            customAction.error("[RecoveryServiceRestart] " + e.Message);
+        }
+    }
+
 
     /// <summary>
     /// 
