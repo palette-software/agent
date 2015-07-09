@@ -115,10 +115,12 @@ internal class EffectiveAccess
 
     public bool FullControl()
     {
-        if (results == null) {
+        if (results == null)
+        {
             throw new InvalidOperationException("Evaluate must be called first.");
         }
-        if (!results.ContainsKey(NativeMethods.FileAccess.GenericAll)) {
+        if (!results.ContainsKey(NativeMethods.FileAccess.GenericAll))
+        {
             return false;
         }
 
@@ -298,35 +300,15 @@ internal class EffectiveAccess
 
             SafeAuthzRMHandle authzRM;
 
-            SafeHGlobalHandle pRpcInitInfo = SafeHGlobalHandle.AllocHGlobalStruct(rpcInitInfo);
-            if (!NativeMethods.AuthzInitializeRemoteResourceManager(pRpcInitInfo.ToIntPtr(), out authzRM))
-            {
-                int error = Marshal.GetLastWin32Error();
-
-                if (error != Win32Error.EPT_S_NOT_REGISTERED)
-                {
-                    throw new Win32Exception(error);
-                }
-
-                //
-                // As a fallback we do AuthzInitializeResourceManager. But the results can be inaccurate.
-                //
-                /*
-                Helper.LogWarning("The effective rights can only be computed based on group membership on this" +
-                                  " computer. For more accurate results, calculate effective access rights on " +
-                                 "the target computer.", true);
-                 */
-
-                if (!NativeMethods.AuthzInitializeResourceManager(
+            if (!NativeMethods.AuthzInitializeResourceManager(
                                 NativeMethods.AuthzResourceManagerFlags.NO_AUDIT,
                                 IntPtr.Zero,
                                 IntPtr.Zero,
                                 IntPtr.Zero,
                                 "EffectiveAccessCheck",
                                 out authzRM))
-                {
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
-                }
+            {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
             }
 
             byte[] rawSid = new byte[userSid.BinaryLength];
@@ -616,7 +598,7 @@ internal class EffectiveAccess
     /// </summary>
     SafeFileHandle handle;
     SecurityIdentifier userSid;
-    
+
     /// <summary>
     /// Result of evaluating Effective Access
     /// </summary>
@@ -693,6 +675,7 @@ internal class EffectiveAccess
             public string serverSpn;
         }
 
+        /* >= win8 only */
         [DllImport(Win32.AUTHZ_DLL, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool AuthzInitializeRemoteResourceManager(
