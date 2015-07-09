@@ -249,11 +249,18 @@ public class Tableau
             return null;
         }
         string[] tokens = settings[Tableau.YML_SYSINFO_IPS].Split(",".ToCharArray());
+
+        List<string> list = new List<string>(tokens.Length);
+
         for (int i = 0; i < tokens.Length; i++)
         {
-            tokens[i] = tokens[i].Trim();
+            string token = tokens[i].Trim();
+            if (token.Length > 0)
+            {
+                list.Add(token);
+            }
         }
-        return tokens;
+        return list.ToArray();
     }
 
     /// <summary>
