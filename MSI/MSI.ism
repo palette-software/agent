@@ -634,7 +634,7 @@
 		<row><td>FilesInUse</td><td>Ignore</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Ignore##</td><td>Exit</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>List</td><td>ListBox</td><td>21</td><td>87</td><td>331</td><td>135</td><td>7</td><td>FileInUseProcess</td><td/><td>Retry</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Retry##</td><td>Ignore</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>Hostname</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Text3</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Bitmap1</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
 		<row><td>Hostname</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>{&amp;MSSWhiteSerif8}InstallShield</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -643,10 +643,11 @@
 		<row><td>Hostname</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>302</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_HOSTNAME##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>Hostname</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>Hostname</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT_HOSTNAME##</td><td/><td/><td/><td/><td/><td/></row>
-		<row><td>Hostname</td><td>Edit1</td><td>Edit</td><td>65</td><td>114</td><td>237</td><td>17</td><td>3</td><td>HostnamePort</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>HostnamePort</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
 		<row><td>Hostname</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Text2</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>Hostname</td><td>Text1</td><td>Text</td><td>67</td><td>100</td><td>230</td><td>10</td><td>3</td><td>NewProperty1</td><td>##ID_STRING4##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
-		<row><td>Hostname</td><td>Text2</td><td>Text</td><td>67</td><td>146</td><td>237</td><td>25</td><td>65539</td><td>NewProperty6</td><td>##NEW_STRING32##</td><td>Edit1</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Text1</td><td>Text</td><td>66</td><td>97</td><td>230</td><td>10</td><td>3</td><td>NewProperty1</td><td>##ID_STRING4##</td><td>Edit1</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Text2</td><td>Text</td><td>67</td><td>148</td><td>237</td><td>25</td><td>65539</td><td>NewProperty6</td><td>##NEW_STRING32##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
+		<row><td>Hostname</td><td>Text3</td><td>Text</td><td>66</td><td>111</td><td>230</td><td>10</td><td>3</td><td>NewProperty15</td><td>##NEW_STRING42##</td><td>Cancel</td><td/><td/><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>InstallChangeFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -4519,7 +4520,7 @@
 		<row><td>ID_STRING21</td><td>1033</td><td>Stopping Tableau Server</td><td>0</td><td/><td>1268988939</td></row>
 		<row><td>ID_STRING22</td><td>1033</td><td/><td>0</td><td/><td>1268988939</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Service for the Palette Agent</td><td>0</td><td/><td>-500963634</td></row>
-		<row><td>ID_STRING4</td><td>1033</td><td>Palette Server IP address or hostname</td><td>0</td><td/><td>-1297926008</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>{\TahomaBold8}Palette Server IP Address or Hostname</td><td>0</td><td/><td>1403208779</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>agent.ini</td><td>0</td><td/><td>-635181776</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>DEFAULT</td><td>0</td><td/><td>-635212464</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>uuid</td><td>0</td><td/><td>-500980241</td></row>
@@ -4562,6 +4563,7 @@
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING40</td><td>1033</td><td> of this system.</td><td>0</td><td/><td>-215762164</td></row>
 		<row><td>NEW_STRING41</td><td>1033</td><td>e.g. XXXXXXXX-XXXX-XXXX-XXXXXXXXXXXX</td><td>0</td><td/><td>1403210443</td></row>
+		<row><td>NEW_STRING42</td><td>1033</td><td>e.g. 10.100.100.10 or X123560.domain.com</td><td>0</td><td/><td>1403216939</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
 		<row><td>NEW_STRING6</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923313421</td></row>
 		<row><td>NEW_STRING7</td><td>1033</td><td>&lt;a href="http://kb.palette-software.com/palette-end-user-license-agreement"&gt;Terms of Service&lt;/a&gt;</td><td>0</td><td/><td>-1306291441</td></row>
@@ -5205,6 +5207,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>NewProperty12</td><td>0</td><td/></row>
 		<row><td>NewProperty13</td><td>0</td><td/></row>
 		<row><td>NewProperty14</td><td>0</td><td/></row>
+		<row><td>NewProperty15</td><td>0</td><td/></row>
 		<row><td>NewProperty2</td><td>0</td><td/></row>
 		<row><td>NewProperty3</td><td>0</td><td/></row>
 		<row><td>NewProperty4</td><td>0</td><td/></row>
