@@ -289,6 +289,7 @@ public class InstallerDLL
         Dictionary<string, string> settings = tabinfo.getSettings();
         string[] ips = Tableau.allowedSysInfoIPs(settings);
         tabinfo.enableSysInfo(ips);
+        tabinfo.configure();
     }
 
     /// <summary>
@@ -316,6 +317,7 @@ public class InstallerDLL
         //string password = GeneratePassword();
         string password = "p@ssword"; /* FIXME: temporary fix until 1.5 */
         tabinfo.enableReadonlyUser(password);
+        tabinfo.configure();
     }
 
     /// <summary>
@@ -334,22 +336,71 @@ public class InstallerDLL
             throw e;
         }
     }
-
-    private static void RestartTableau()
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void TableauRestart(Int32 handle)
     {
-        Tableau tabinfo = Tableau.query();
-        tabinfo.restart();
+        try
+        {
+            Tableau tabinfo = Tableau.query();
+            tabinfo.restart();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="handle"></param>
-    public static void RestartTableau(Int32 handle)
+    public static void TableauStop(Int32 handle)
     {
         try
         {
-            RestartTableau();
+            Tableau tabinfo = Tableau.query();
+            tabinfo.stop();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void TableauStart(Int32 handle)
+    {
+        try
+        {
+            Tableau tabinfo = Tableau.query();
+            tabinfo.start();
+        }
+        catch (Exception e)
+        {
+            TopMostMessageBox.Show(e.Message, TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw e;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handle"></param>
+    public static void TableauConfigure(Int32 handle)
+    {
+        try
+        {
+            Tableau tabinfo = Tableau.query();
+            tabinfo.configure();
         }
         catch (Exception e)
         {

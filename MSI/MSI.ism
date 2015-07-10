@@ -124,7 +124,6 @@
 		<row><td>RemoveODBC</td><td>##IDS_ACTIONTEXT_RemovingODBC##</td><td/></row>
 		<row><td>RemoveRegistryValues</td><td>##IDS_ACTIONTEXT_RemovingRegistry##</td><td>##IDS_ACTIONTEXT_KeyName##</td></row>
 		<row><td>RemoveShortcuts</td><td>##IDS_ACTIONTEXT_RemovingShortcuts##</td><td>##IDS_ACTIONTEXT_Shortcut1##</td></row>
-		<row><td>RestartTableau</td><td>##IDS_ACTIONTEXT_restart_tableau##</td><td/></row>
 		<row><td>Rollback</td><td>##IDS_ACTIONTEXT_RollingBack##</td><td>##IDS_ACTIONTEXT_1d##</td></row>
 		<row><td>RollbackCleanup</td><td>##IDS_ACTIONTEXT_RemovingBackup##</td><td>##IDS_ACTIONTEXT_File2##</td></row>
 		<row><td>SelfRegModules</td><td>##IDS_ACTIONTEXT_RegisteringModules##</td><td>##IDS_ACTIONTEXT_FileFolder##</td></row>
@@ -132,6 +131,9 @@
 		<row><td>SetODBCFolders</td><td>##IDS_ACTIONTEXT_InitializeODBCDirs##</td><td/></row>
 		<row><td>StartServices</td><td>##IDS_ACTIONTEXT_StartingServices##</td><td>##IDS_ACTIONTEXT_Service3##</td></row>
 		<row><td>StopServices</td><td>##IDS_ACTIONTEXT_StoppingServices##</td><td>##IDS_ACTIONTEXT_Service4##</td></row>
+		<row><td>TableauRestart</td><td>##IDS_ACTIONTEXT_restart_tableau##</td><td/></row>
+		<row><td>TableauStart</td><td>##ID_STRING19##</td><td>##ID_STRING20##</td></row>
+		<row><td>TableauStop</td><td>##ID_STRING21##</td><td>##ID_STRING22##</td></row>
 		<row><td>UnmoveFiles</td><td>##IDS_ACTIONTEXT_RemovingMoved##</td><td>##IDS_ACTIONTEXT_FileDir3##</td></row>
 		<row><td>UnpublishComponents</td><td>##IDS_ACTIONTEXT_UnpublishQualified##</td><td>##IDS_ACTIONTEXT_ComponentIdQualifier2##</td></row>
 		<row><td>UnpublishFeatures</td><td>##IDS_ACTIONTEXT_UnpublishProductFeatures##</td><td>##IDS_ACTIONTEXT_Feature##</td></row>
@@ -692,10 +694,11 @@
 		<row><td>LicenseKey</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>DlgDesc</td><td>Text</td><td>21</td><td>23</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS_DIALOG_TEXT2_LICENSE_KEY##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##ID_DIALOG_TEXT_LICENSE_KEY##</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>DlgTitle</td><td>Text</td><td>13</td><td>5</td><td>292</td><td>25</td><td>65539</td><td/><td>##ID_DIALOG_TEXT_LICENSE_KEY##</td><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseKey</td><td>Edit1</td><td>Edit</td><td>65</td><td>124</td><td>237</td><td>17</td><td>3</td><td>LICENSEKEY</td><td>##NEW_STRING4##</td><td>Back</td><td/><td/><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Text1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseKey</td><td>Text1</td><td>Text</td><td>66</td><td>110</td><td>109</td><td>10</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Edit1</td><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Text2</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Text1</td><td>Text</td><td>66</td><td>97</td><td>150</td><td>10</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Edit1</td><td/><td/><td/><td/><td/></row>
+		<row><td>LicenseKey</td><td>Text2</td><td>Text</td><td>66</td><td>110</td><td>200</td><td>10</td><td>3</td><td>NewProperty14</td><td>##NEW_STRING41##</td><td>Text1</td><td/><td/><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
 		<row><td>MaintenanceType</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
@@ -1206,7 +1209,6 @@
 		<row><td>ParseAndValidateHostnamePort</td><td>1</td><td>ParseAndValidateHostnamePort.clr</td><td>InstallerDLL.ParseHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>PreStopServices</td><td>1</td><td>ISSetup.dll</td><td>f12</td><td>0</td><td/></row>
 		<row><td>RecoveryServiceRestart</td><td>1025</td><td>RecoveryRestartService.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
-		<row><td>RestartTableau</td><td>1025</td><td>RestartTableau.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>SaveHostnamePort</td><td>1</td><td>ISSetup.dll</td><td>f5</td><td>0</td><td/></row>
 		<row><td>SaveLicenseKey</td><td>1</td><td>ISSetup.dll</td><td>f2</td><td>0</td><td/></row>
 		<row><td>SaveUUID</td><td>1</td><td>ISSetup.dll</td><td>f7</td><td>0</td><td/></row>
@@ -1214,6 +1216,9 @@
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>Setup</td><td>1</td><td>ISSetup.dll</td><td>f13</td><td>0</td><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
+		<row><td>TableauRestart</td><td>1025</td><td>RestartTableau.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
+		<row><td>TableauStart</td><td>1025</td><td>TableauStart.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
+		<row><td>TableauStop</td><td>1025</td><td>TableauStop.clr</td><td>&lt;class&gt;.&lt;method&gt;()</td><td>0</td><td/></row>
 		<row><td>ValidateHostnamePort</td><td>1</td><td>ValidateHostnamePort.clr</td><td>InstallerDLL.InstallerDLL.ValidateHostnamePort(...)</td><td>0</td><td/></row>
 		<row><td>ValidateLicenseKey</td><td>1</td><td>ValidateLicenseKey.clr</td><td>InstallerDLL.InstallerDLL.ValidateLicenseKey(...)</td><td>0</td><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
@@ -2523,10 +2528,18 @@
 		<row><td>RecoveryServiceRestart</td><td>Dependency0</td><td>&lt;ISProductFolder&gt;\system\InstallShield.Interop.Msi.dll</td></row>
 		<row><td>RecoveryServiceRestart</td><td>Method</td><td>RecoveryServiceRestart</td></row>
 		<row><td>RecoveryServiceRestart</td><td>Type</td><td>0</td></row>
-		<row><td>RestartTableau</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
-		<row><td>RestartTableau</td><td>Class</td><td>InstallerDLL</td></row>
-		<row><td>RestartTableau</td><td>Method</td><td>RestartTableau</td></row>
-		<row><td>RestartTableau</td><td>Type</td><td>0</td></row>
+		<row><td>TableauRestart</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>TableauRestart</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>TableauRestart</td><td>Method</td><td>TableauRestart</td></row>
+		<row><td>TableauRestart</td><td>Type</td><td>0</td></row>
+		<row><td>TableauStart</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>TableauStart</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>TableauStart</td><td>Method</td><td>TableauStart</td></row>
+		<row><td>TableauStart</td><td>Type</td><td>0</td></row>
+		<row><td>TableauStop</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
+		<row><td>TableauStop</td><td>Class</td><td>InstallerDLL</td></row>
+		<row><td>TableauStop</td><td>Method</td><td>TableauStop</td></row>
+		<row><td>TableauStop</td><td>Type</td><td>0</td></row>
 		<row><td>ValidateHostnamePort</td><td>Assembly</td><td>&lt;VSSolutionFolder&gt;\build\InstallerDLL.dll</td></row>
 		<row><td>ValidateHostnamePort</td><td>Class</td><td>InstallerDLL</td></row>
 		<row><td>ValidateHostnamePort</td><td>Method</td><td>ValidateHostnamePort</td></row>
@@ -4500,7 +4513,11 @@
 		<row><td>ID_STRING16</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297911384</td></row>
 		<row><td>ID_STRING17</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-1297940024</td></row>
 		<row><td>ID_STRING18</td><td>1033</td><td>Palette Agent</td><td>0</td><td/><td>-626849177</td></row>
+		<row><td>ID_STRING19</td><td>1033</td><td>Starting Tableau Server</td><td>0</td><td/><td>1269031915</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Palette Agent Installer</td><td>0</td><td/><td>-626830777</td></row>
+		<row><td>ID_STRING20</td><td>1033</td><td/><td>0</td><td/><td>1269031915</td></row>
+		<row><td>ID_STRING21</td><td>1033</td><td>Stopping Tableau Server</td><td>0</td><td/><td>1268988939</td></row>
+		<row><td>ID_STRING22</td><td>1033</td><td/><td>0</td><td/><td>1268988939</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Service for the Palette Agent</td><td>0</td><td/><td>-500963634</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Palette Server IP address or hostname</td><td>0</td><td/><td>-1297926008</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>agent.ini</td><td>0</td><td/><td>-635181776</td></row>
@@ -4509,7 +4526,7 @@
 		<row><td>ID_STRING8</td><td>1033</td><td>controller</td><td>0</td><td/><td>-501003250</td></row>
 		<row><td>ID_STRING9</td><td>1033</td><td>host</td><td>0</td><td/><td>-501017554</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1910336943</td></row>
-		<row><td>NEW_STRING1</td><td>1033</td><td>Palette Server License Key</td><td>0</td><td/><td>-1297903608</td></row>
+		<row><td>NEW_STRING1</td><td>1033</td><td>{\TahomaBold8}Palette Server License Key</td><td>0</td><td/><td>1403204203</td></row>
 		<row><td>NEW_STRING10</td><td>1033</td><td>username:</td><td>0</td><td/><td>1923297037</td></row>
 		<row><td>NEW_STRING11</td><td>1033</td><td>password:</td><td>0</td><td/><td>1923297037</td></row>
 		<row><td>NEW_STRING12</td><td>1033</td><td>{\TahomaBold8} Create a New Admin Account</td><td>0</td><td/><td>329459183</td></row>
@@ -4544,6 +4561,7 @@
 		<row><td>NEW_STRING39</td><td>1033</td><td>&lt;a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"&gt;complexity requirements&lt;/a&gt;</td><td>0</td><td/><td>-215761972</td></row>
 		<row><td>NEW_STRING4</td><td>1033</td><td>{\Tahoma8}{50}</td><td>0</td><td/><td>-1977402424</td></row>
 		<row><td>NEW_STRING40</td><td>1033</td><td> of this system.</td><td>0</td><td/><td>-215762164</td></row>
+		<row><td>NEW_STRING41</td><td>1033</td><td>e.g. XXXXXXXX-XXXX-XXXX-XXXXXXXXXXXX</td><td>0</td><td/><td>1403210443</td></row>
 		<row><td>NEW_STRING5</td><td>1033</td><td/><td>0</td><td/><td>-1306320049</td></row>
 		<row><td>NEW_STRING6</td><td>1033</td><td>Create a dedicated adminstrative user.</td><td>0</td><td/><td>1923313421</td></row>
 		<row><td>NEW_STRING7</td><td>1033</td><td>&lt;a href="http://kb.palette-software.com/palette-end-user-license-agreement"&gt;Terms of Service&lt;/a&gt;</td><td>0</td><td/><td>-1306291441</td></row>
@@ -4759,7 +4777,6 @@
 		<row><td>RemoveRegistryValues</td><td/><td>2600</td><td>RemoveRegistryValues</td><td/></row>
 		<row><td>RemoveShortcuts</td><td/><td>3200</td><td>RemoveShortcuts</td><td/></row>
 		<row><td>ResolveSource</td><td>Not Installed</td><td>850</td><td>ResolveSource</td><td/></row>
-		<row><td>RestartTableau</td><td>RESTART_TABLEAU &lt;&gt; 0</td><td>5743</td><td/><td/></row>
 		<row><td>ScheduleReboot</td><td>ISSCHEDULEREBOOT</td><td>6410</td><td>ScheduleReboot</td><td/></row>
 		<row><td>SelfRegModules</td><td/><td>5600</td><td>SelfRegModules</td><td/></row>
 		<row><td>SelfUnregModules</td><td/><td>2200</td><td>SelfUnregModules</td><td/></row>
@@ -4768,6 +4785,8 @@
 		<row><td>SetODBCFolders</td><td/><td>1200</td><td>SetODBCFolders</td><td/></row>
 		<row><td>StartServices</td><td>VersionNT</td><td>5900</td><td>StartServices</td><td/></row>
 		<row><td>StopServices</td><td>VersionNT</td><td>1900</td><td>StopServices</td><td/></row>
+		<row><td>TableauStart</td><td>RESTART_TABLEAU &lt;&gt; 0</td><td>5743</td><td/><td/></row>
+		<row><td>TableauStop</td><td>RESTART_TABLEAU &lt;&gt; 0</td><td>5712</td><td/><td/></row>
 		<row><td>UnpublishComponents</td><td/><td>1700</td><td>UnpublishComponents</td><td/></row>
 		<row><td>UnpublishFeatures</td><td/><td>1800</td><td>UnpublishFeatures</td><td/></row>
 		<row><td>UnregisterClassInfo</td><td/><td>2700</td><td>UnregisterClassInfo</td><td/></row>
@@ -5185,6 +5204,7 @@ RABlAGIAdQBnAAEARABlAGYAYQB1AGwAdAAgAEMAbwBuAGYAaQBnAHUAcgBhAHQAaQBvAG4A
 		<row><td>NewProperty11</td><td>0</td><td/></row>
 		<row><td>NewProperty12</td><td>0</td><td/></row>
 		<row><td>NewProperty13</td><td>0</td><td/></row>
+		<row><td>NewProperty14</td><td>0</td><td/></row>
 		<row><td>NewProperty2</td><td>0</td><td/></row>
 		<row><td>NewProperty3</td><td>0</td><td/></row>
 		<row><td>NewProperty4</td><td>0</td><td/></row>

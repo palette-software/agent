@@ -59,7 +59,7 @@ public class Tableau
 
         if (process.ExitCode != 0)
         {
-            throw new Exception("tabadmin failed: ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + error);
+            throw new Exception("tabadmin failed: " + arguments + ", ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + error);
         }
     }
 
@@ -248,7 +248,7 @@ public class Tableau
         if (value.ToLower() == "false") {
             return null;
         }
-        string[] tokens = settings[Tableau.YML_SYSINFO_IPS].Split(",".ToCharArray());
+        string[] tokens = value.Split(",".ToCharArray());
 
         List<string> list = new List<string>(tokens.Length);
 
@@ -260,6 +260,10 @@ public class Tableau
                 list.Add(token);
             }
         }
+        if (list.Count == 0)
+        {
+            return null;
+        }
         return list.ToArray();
     }
 
@@ -270,4 +274,29 @@ public class Tableau
     {
         tabadminRun("restart");
     }
+
+    /// <summary>
+    /// Stops Tableau Server using tabadmin.
+    /// </summary>
+    public void stop()
+    {
+        tabadminRun("stop");
+    }
+
+    /// <summary>
+    /// Start Tableau Server using tabadmin.
+    /// </summary>
+    public void start()
+    {
+        tabadminRun("start");
+    }
+
+    /// <summary>
+    /// Runs tabadmin configure.
+    /// </summary>
+    public void configure()
+    {
+        tabadminRun("configure");
+    }
+
 }
