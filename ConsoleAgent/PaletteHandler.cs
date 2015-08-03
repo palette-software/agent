@@ -197,7 +197,19 @@ public class PaletteHandler : HttpHandler
         HttpResponse res = req.Response;
         req.ContentType = "application/json";
 
-        Dictionary<string, object> data = Info.Generate(agent.tableau);
+        Dictionary<string, object> data;
+
+        try
+        {
+            data = Info.Generate(agent.tableau);
+        }
+        catch (Exception exc)
+        {
+            data = new Dictionary<string, object>();
+            data["status"] = "FAILED";
+            data["error"] = exc.Message;
+            data["details"] = exc.ToString();
+        }
         string json = fastJSON.JSON.Instance.ToJSON(data);
         logger.Debug(json);
 

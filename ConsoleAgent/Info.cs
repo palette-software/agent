@@ -137,19 +137,27 @@ class Info
     public static long DirSize(DirectoryInfo d)
     {
         long Size = 0;
-        // Add file sizes.
-        FileInfo[] fis = d.GetFiles();
-        foreach (FileInfo fi in fis)
+        try
         {
-            Size += fi.Length;
+            // Add file sizes.
+            FileInfo[] fis = d.GetFiles();
+            foreach (FileInfo fi in fis)
+            {
+                Size += fi.Length;
+            }
+            // Add subdirectory sizes.
+            DirectoryInfo[] dis = d.GetDirectories();
+            foreach (DirectoryInfo di in dis)
+            {
+                Size += DirSize(di);
+            }
         }
-        // Add subdirectory sizes.
-        DirectoryInfo[] dis = d.GetDirectories();
-        foreach (DirectoryInfo di in dis)
+        catch (IOException)
         {
-            Size += DirSize(di);
+            // It's possible there is a bad subdir or something we don't have permission for,
+            // just exclude such values from the total size.
         }
-        return (Size);
+        return Size;
     }
 
     public static long DirSize(string path)
