@@ -9,6 +9,7 @@ using NetFwTypeLib;
 
 class FirewallUtil
 {
+    public const UInt32 HRESULT_SERVICE_NOT_RUNNING = 0x800706D9;
     protected INetFwProfile fwProfile;
 
     /// <summary>

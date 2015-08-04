@@ -548,27 +548,44 @@ public class PaletteHandler : HttpHandler
             }
             logger.Info(msg);
 
-            FirewallUtil fUtil = new FirewallUtil();
             try
             {
-                fUtil.OpenFirewall(portsToEnable);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                resData["error"] = "[OpenFirewall] " + ex.ToString();
-            }
-
-            if (!resData.ContainsKey("error"))
-            {
+                FirewallUtil fUtil = new FirewallUtil();
                 try
                 {
-                    fUtil.CloseFirewall(portsToDisable);
+                    fUtil.OpenFirewall(portsToEnable);
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException exc)
                 {
-                    res.Write("{\"status\": \"FAILED\", \"error\": \"[CloseFirewall] " + ex.ToString() + "\"}");
-                    return res;
+                    resData["error"] = "[OpenFirewall] " + exc.ToString();
                 }
+
+                if (!resData.ContainsKey("error"))
+                {
+                    try
+                    {
+                        fUtil.CloseFirewall(portsToDisable);
+                    }
+                    catch (UnauthorizedAccessException exc)
+                    {
+                        resData["error"] = "[CloseFirewall] " + exc.ToString();
+                    }
+                }
+            }
+            catch (System.Runtime.InteropServices.COMException exc)
+            {
+                if (((UInt32)exc.HResult == FirewallUtil.HRESULT_SERVICE_NOT_RUNNING) && (portsToDisable.Count == 0))
+                {
+                    resData["info"] = "The firewall service is stopped.";
+                    resData["details"] = exc.ToString();
+                }
+                else
+                {
+                    resData["error"] = exc.ToString();
+                }
+            }
+            catch (Exception exc) {
+                resData["error"] = exc.ToString();
             }
         }
         else if (req.Method == "GET")
