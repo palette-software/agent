@@ -65,6 +65,10 @@
 			<Name>ps3</Name>
 			<Project>{2D4487E4-D573-488E-9488-A2201D511AB2}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\ptdsx\ptdsx.csproj">
+			<Name>ptdsx</Name>
+			<Project>{FEF81464-87A6-4E43-83A3-7C509871E759}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\ptwbx\ptwbx.csproj">
 			<Name>ptwbx</Name>
 			<Project>{2DCEC8E0-1C28-4BB5-92AF-D28553965C11}</Project>

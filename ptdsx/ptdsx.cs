@@ -2,14 +2,14 @@
 using System.IO;
 using System.IO.Compression;
 
-/* FIXME: this code is essentially the same at ptdsx */
-class ptwbx
+/* FIXME: this code is essentially the same as ptwbx.cs */
+class ptdsx
 {
-    const string FILE_EXT = ".twb";
+    const string FILE_EXT = ".tds";
 
     static int usage()
     {
-        Console.Error.WriteLine("usage: ptwbx <file>.twbx [output-filename]");
+        Console.Error.WriteLine("usage: ptdsx <file>.tdsx [output-filename]");
         return -1;
     }
 
@@ -21,9 +21,7 @@ class ptwbx
         if (args.Length == 2)
         {
             filePath = args[1];
-        }
-        else if (args.Length != 1)
-        {
+        } else if (args.Length != 1) {
             return usage();
         }
 
@@ -51,7 +49,7 @@ class ptwbx
         }
 
         bool found = false;
-        using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+        using (ZipArchive archive = ZipFile.OpenRead(zipPath)) 
         {
             // Look for the desired file
             foreach (ZipArchiveEntry entry in archive.Entries)

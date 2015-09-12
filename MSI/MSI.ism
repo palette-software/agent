@@ -405,6 +405,7 @@
 		<row><td>pok.Primary_output</td><td>{E1F4F8BE-DE85-4D45-82FC-B48D5874C1A4}</td><td>INSTALLDIR</td><td>8</td><td/><td>pok.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>prun.Primary_output</td><td>{C0A566D3-CBD4-4E88-B1F1-D1FD1833115A}</td><td>INSTALLDIR</td><td>8</td><td/><td>prun.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ps3.Primary_output</td><td>{5CAB389E-7752-47F0-AF0B-649B0168BAE5}</td><td>INSTALLDIR</td><td>8</td><td/><td>ps3.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ptdsx.Primary_output</td><td>{EEAA8F93-8A75-4FC5-BA5C-11A053AA5EB1}</td><td>INSTALLDIR</td><td>8</td><td/><td>ptdsx.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ptwbx.Primary_output</td><td>{E2D131AF-7A87-4503-9CED-0FEA412C7870}</td><td>INSTALLDIR</td><td>8</td><td/><td>ptwbx.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>rotatelogs.exe</td><td>{54C20506-BB88-43EB-83F0-61CB96982BD3}</td><td>BIN</td><td>8</td><td/><td>rotatelogs.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ssleay32.dll</td><td>{44435911-DA18-4AD5-9033-BA9973A7A5CB}</td><td>BIN</td><td>8</td><td/><td>ssleay32.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -2086,6 +2087,7 @@
 		<row><td>Palette_Files</td><td>pok.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>prun.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>ps3.Primary_output</td></row>
+		<row><td>Palette_Files</td><td>ptdsx.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>ptwbx.Primary_output</td></row>
 		<row><td>Palette_Files</td><td>rotatelogs.exe</td></row>
 		<row><td>Palette_Files</td><td>ssleay32.dll</td></row>
@@ -2368,6 +2370,7 @@
 		<row><td>pok.primary_output</td><td>pok.Primary_output</td><td>pok.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;pok&gt;|Built</td><td>3</td><td/></row>
 		<row><td>prun.primary_output</td><td>prun.Primary_output</td><td>prun.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;prun&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ps3.primary_output</td><td>ps3.Primary_output</td><td>ps3.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ps3&gt;|Built</td><td>3</td><td/></row>
+		<row><td>ptdsx.primary_output</td><td>ptdsx.Primary_output</td><td>ptdsx.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ptdsx&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ptwbx.primary_output</td><td>ptwbx.Primary_output</td><td>ptwbx.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ptwbx&gt;|Built</td><td>3</td><td/></row>
 		<row><td>readme</td><td>ArchiveConf</td><td>README</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\conf\archive\README</td><td>1</td><td/></row>
 		<row><td>rotatelogs.exe</td><td>rotatelogs.exe</td><td>ROTATE~1.EXE|rotatelogs.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_MAINT_APACHE2_BIN_FILES&gt;\rotatelogs.exe</td><td>1</td><td/></row>
@@ -2689,6 +2692,7 @@
 		<row><td>pok.Primary_output</td><td/><td/><td>_A159152F_C536_4987_A7A5_BF8D1E62D2BF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>prun.Primary_output</td><td/><td/><td>_9EF72E5E_F44C_4C61_B376_21F64B6BBBC3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ps3.Primary_output</td><td/><td/><td>_124ADA38_9A58_464F_B715_B386CA50230F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ptdsx.Primary_output</td><td/><td/><td>_83629499_9215_403E_85F0_9DCDD895D3C2_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ptwbx.Primary_output</td><td/><td/><td>_A9174A2C_31CA_4627_A029_0542300AF6A5_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>rotatelogs.exe</td><td/><td/><td>_F4E6EB59_B81C_4ECC_9898_03CAB2ABB9B6_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ssleay32.dll</td><td/><td/><td>_A8590B1E_B467_474E_B4C6_B6FC254540FD_FILTER</td><td/><td/><td/><td/></row>
@@ -3057,6 +3061,7 @@
 		<row><td>pok</td><td>pok\pok.csproj</td><td/><td>2</td></row>
 		<row><td>prun</td><td>prun\prun.csproj</td><td/><td>2</td></row>
 		<row><td>ps3</td><td>ps3\ps3.csproj</td><td/><td>2</td></row>
+		<row><td>ptdsx</td><td>ptdsx\ptdsx.csproj</td><td/><td>2</td></row>
 		<row><td>ptwbx</td><td>ptwbx\ptwbx.csproj</td><td/><td>2</td></row>
 	</table>
 
