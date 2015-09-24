@@ -174,7 +174,17 @@ public class PaletteHandler : HttpHandler
         data["processor-count"] = System.Environment.ProcessorCount.ToString();
         data["installed-memory"] = installedMemory;
 
-        string hostname = Dns.GetHostName();
+        string hostname;
+        if (agent.hostname != null)
+        {
+            hostname = agent.hostname;
+            /* Tell the controller to use this hostname regardless of pinfo */
+            data["static-hostname"] = true;
+        }
+        else
+        {
+            hostname = Dns.GetHostName();
+        }
         data["hostname"] = hostname;
         data["fqdn"] = NetUtil.GetFQDN(hostname);
         data["ip-address"] = NetUtil.GetFirstIPAddr(hostname);

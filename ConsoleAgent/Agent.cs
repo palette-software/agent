@@ -29,7 +29,9 @@ public class Agent : Base
     public String inifile;
 
     public string uuid;
-    public string hostname = "localhost";
+
+    /* overrides the network hostname if specified */
+    public string hostname = null;
 
     string baseEnvPath = Environment.GetEnvironmentVariable("Path");
 
@@ -61,9 +63,6 @@ public class Agent : Base
     /// <param name="runAsService">True if run as a Windows Service, False as Console App</param>
     public Agent(string inifile)
     {
-        //Set some Agent defaults (may be overridden by the INI file)
-        hostname = Dns.GetHostName();
-
         this.inifile = inifile;
         conf = new IniFile(inifile);
         ParseIniFile();

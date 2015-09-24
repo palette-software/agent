@@ -81,16 +81,24 @@ class NetUtil
     /// <returns></returns>
     public static string GetFirstIPAddr(string hostname)
     {
-        IPHostEntry host = Dns.GetHostEntry(hostname);
-        foreach (IPAddress ip in host.AddressList)
+        try
         {
-            if (ip.AddressFamily.ToString() == "InterNetwork")
+            IPHostEntry host = Dns.GetHostEntry(hostname);
+            foreach (IPAddress ip in host.AddressList)
             {
-                return ip.ToString();
+                if (ip.AddressFamily.ToString() == "InterNetwork")
+                {
+                    return ip.ToString();
+                }
             }
+        }
+        catch (SocketException)
+        {
+            /* unknown hostname, fall through. */
         }
         return "127.0.0.1";
     }
+
 
     /// <summary>
     /// Return the FQDN of the specified host.
@@ -99,22 +107,19 @@ class NetUtil
     /// <returns></returns>
     public static string GetFQDN(string hostname)
     {
-        string domainname = IPGlobalProperties.GetIPGlobalProperties().DomainName;
-
-        if (!hostname.Contains(domainname))            // if the hostname does not already include the domain name
+        try
         {
-            hostname = hostname + "." + domainname;   // add the domain name part
+            string domainname = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+            if (!hostname.Contains(domainname))            // if the hostname does not already include the domain name
+            {
+                hostname = hostname + "." + domainname;   // add the domain name part
+            }
+            return hostname;                              // return the fully qualified domain name
         }
-
-        return hostname;                              // return the fully qualified domain name
-    }
-
-    /// <summary>
-    /// Gets the FQDN of this host.
-    /// </summary>
-    /// <returns></returns>
-    public static string GetFQDN()
-    {
-        return GetFQDN(Dns.GetHostName());
+        catch (SocketException)
+        {
+            /* unknown hostname */
+            return hostname;
+        }
     }
 }

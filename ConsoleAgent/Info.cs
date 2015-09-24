@@ -120,12 +120,15 @@ class Info
             driveData["name"] = tokens[0];
             driveData["type"] = di.DriveType;
 
-            if (di.IsReady == true)
+            try
             {
                 driveData["label"] = di.VolumeLabel;
-                driveData["drive-format"] = di.DriveFormat;                
+                driveData["drive-format"] = di.DriveFormat;
                 driveData["available-space"] = di.TotalFreeSpace;
                 driveData["size"] = di.TotalSize;
+            }
+            catch (IOException)
+            {
             }
 
             allData.Add(driveData);
