@@ -59,6 +59,7 @@ class ptdsx
                     continue;
                 }
 
+                File.Delete(filePath);
                 entry.ExtractToFile(filePath);
                 found = true;
                 break;
