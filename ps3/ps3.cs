@@ -3,13 +3,14 @@ using System.IO;
 using System.Text;
 
 using Amazon;
+using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 
 //
 // This application uses the following Environment Variables:
-//   ACCESS_KEY, SECRET_KEY, SESSION, REQUEST_ENDPOINT
+//   ACCESS_KEY, SECRET_KEY, SESSION, REQUEST_ENDPOINT, PROXY_PROTOCOL, PROXY_HOST, PROXY_PORT
 //
 class ps3
 {
@@ -85,6 +86,9 @@ class ps3
     {
         //System.Diagnostics.Debugger.Launch();
 
+        AmazonS3Config config = new AmazonS3Config();
+        AWSCredentials credentials;
+        
         if (args.Length != 3)
         {
             return usage();
@@ -105,6 +109,11 @@ class ps3
         }
 
         string sessionToken = Environment.GetEnvironmentVariable("SESSION");
+        if (sessionToken != null) {
+            credentials = new SessionAWSCredentials(accessKey, secretKey, sessionToken);
+        } else {
+            credentials = new BasicAWSCredentials(accessKey, secretKey);
+        }
 
         RegionEndpoint regionEndpoint = RegionEndpoint.USEast1;
         string systemName = Environment.GetEnvironmentVariable("REGION_ENDPOINT");
@@ -112,16 +121,44 @@ class ps3
         {
             regionEndpoint = RegionEndpoint.GetBySystemName(systemName);
         }
+        config.RegionEndpoint = regionEndpoint;
 
-        AmazonS3Client client;
-        if (sessionToken == null)
+        string proxyHost = Environment.GetEnvironmentVariable("PROXY_HOST");
+        if (proxyHost != null)
         {
-            client = new AmazonS3Client(accessKey, secretKey, regionEndpoint);
+            config.ProxyHost = proxyHost;
         }
-        else
+
+        string proxyPort = Environment.GetEnvironmentVariable("PROXY_PORT");
+        if (proxyPort != null)
         {
-            client = new AmazonS3Client(accessKey, secretKey, sessionToken, regionEndpoint);
+            try
+            {
+                config.ProxyPort = Int16.Parse(proxyPort);
+            }
+            catch (FormatException ex)
+            {
+                Console.Error.WriteLine("[ERROR] Invalid PROXY_PORT value : " + ex.Message);
+                return -1;
+            }
         }
+
+        string proxyProtocol = Environment.GetEnvironmentVariable("PROXY_PROTOCOL");
+        if (proxyProtocol != null)
+        {
+            proxyProtocol = proxyProtocol.ToUpper();
+            if (proxyProtocol == "HTTP")
+            {
+                config.UseHttp = true;
+            }
+            else if (proxyProtocol != "HTTPS")
+            {
+                Console.Error.WriteLine("[ERROR] PROXY_PROTOCOL must be HTTP or HTTPS");
+                return -1;
+            }
+        }
+
+        AmazonS3Client client = new AmazonS3Client(credentials, config);
 
         string method = args[0].ToUpper();
         try
