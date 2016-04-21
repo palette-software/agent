@@ -40,8 +40,23 @@ public class PaletteHandler : HttpHandler
     {
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
-        counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
-        counters.Add(new PerformanceCounter("Memory", "Available MBytes"));
+
+        try
+        {
+            counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
+        }
+        catch (Exception e)
+        {
+            logger.Warn(String.Format("Failed to add processor performance counter! Error message: {0}", e.Message));
+        }
+        try
+        {
+            counters.Add(new PerformanceCounter("Memory", "Available MBytes"));
+        }
+        catch (Exception e)
+        {
+            logger.Warn(String.Format("Failed to add memory performance counter! Error message: {0}", e.Message));
+        }
         //counters["Paging File"] = new PerformanceCounter("Paging FIle", "% Usage", "_Total");
         foreach (PerformanceCounter counter in counters)
         {
