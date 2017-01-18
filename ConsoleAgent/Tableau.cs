@@ -109,6 +109,11 @@ public class Tableau
         }
         tableauKey.Close();
 
+        if (latestTableauVersion.Equals(new Version("0.0")))
+        {
+            return null;
+        }
+
         return latestTableauVersion.ToString();
     }
 
