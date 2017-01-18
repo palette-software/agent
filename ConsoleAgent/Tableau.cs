@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
-  /// <summary>
-    /// This class contains all the Tableau-specific functionality.
-    /// All other agent code should remain Tableau-independent.
-    /// </summary>
+/// <summary>
+/// This class contains all the Tableau-specific functionality.
+/// All other agent code should remain Tableau-independent.
+/// </summary>
 public class Tableau
 {
     public const string YML_READONLY_ENABLED = "pgsql.readonly.enabled";
@@ -65,24 +66,50 @@ public class Tableau
 
     private static string findLatestVersion(RegistryKey baseKey)
     {
-        RegistryKey rk = baseKey.OpenSubKey(@"Software\Tableau");
-        if (rk == null) return null;
-
-        List<string> subkeys = new List<string>();
-        foreach (string key in rk.GetSubKeyNames())
+        RegistryKey tableauKey = baseKey.OpenSubKey(@"Software\Tableau");
+        if (tableauKey == null)
         {
-            if (key.StartsWith("Tableau Server"))
+            return null;
+        }
+
+        Version latestTableauVersion = new Version("0.0");
+
+        foreach (string key in tableauKey.GetSubKeyNames())
+        {
+            var pattern = new Regex(@"^Tableau Server ([0-9]+\.[0-9]+)");
+            var groups = pattern.Match(key).Groups;
+            // groups[0] is the entire match, thus we expect 2
+            if (groups.Count < 2)
             {
-                subkeys.Add(key);
+                continue;
+            }
+
+            Version version = new Version(groups[1].Value);
+            if (version > latestTableauVersion)
+            {
+                try
+                {
+                    string directoriesRegPath = System.IO.Path.Combine(key, "Directories");
+                    using (RegistryKey dataFolderKey = tableauKey.OpenSubKey(directoriesRegPath))
+                    {
+                        if (dataFolderKey == null)
+                        {
+                            continue;
+                        }
+
+                        latestTableauVersion = version;
+                    }
+                }
+                catch (Exception)
+                {
+                    // no problem, only means this is not our version
+                    continue;
+                }
             }
         }
-        rk.Close();
+        tableauKey.Close();
 
-        if (subkeys.Count == 0) return null;
-
-        subkeys.Sort();
-        string verInfo = subkeys.Last();
-        return verInfo.Substring(15).Trim();
+        return latestTableauVersion.ToString();
     }
 
     private static string buildRegistryKeyPath(string version)
