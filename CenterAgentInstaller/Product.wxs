@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="{94E7524D-FF2B-49E9-9C65-CA1477C9991B}" Codepage="1252" Language="1033" Manufacturer="Palette Software" Name="Palette" UpgradeCode="{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}" Version="$(var.ProductVersion)">
+  <Product Id="{94E7524D-FF2B-49E9-9C65-CA1477C9991B}" Codepage="1252" Language="1033" Manufacturer="Palette Software" Name="Palette" UpgradeCode="{D564839D-1E2F-40CF-AC27-F12C8D4FFE0C}" Version="1.6.5">
     <Package Comments="Contact:  Your local administrator" Description="Palette" InstallerVersion="200" Keywords="Installer,MSI,Database" Languages="1033" Manufacturer="Palette Software" Platform="x86" />
     <Binary Id="ISSELFREG.DLL" SourceFile="misc\Binary\ISSELFREG.DLL" />
     <Binary Id="NewBinary1" SourceFile="misc\Binary\NewBinary1" />
