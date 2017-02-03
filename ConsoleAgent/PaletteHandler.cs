@@ -17,6 +17,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Net.Security;
 using System.Reflection;
+using System.Threading;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -26,8 +27,9 @@ public class PaletteHandler : HttpHandler
     public const int BUFFER_SIZE = 64 * 1024;
 
     private Agent agent;
+    private readonly object lockPerfCounters = new object();
     private List<PerformanceCounter> counters = new List<PerformanceCounter>();
-    private List<string> monitoredProcesses = new List<string>();
+    private static readonly string monitoredProcessesKey = "monitored-processes";
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -42,10 +44,7 @@ public class PaletteHandler : HttpHandler
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
 
-        // TODO: Fill the list of processes that should be monitored
-        monitoredProcesses.Add("vizqlserver");
-        monitoredProcesses.Add("dataserver");
-
+        Monitor.Enter(lockPerfCounters);
         try
         {
             counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
@@ -53,19 +52,6 @@ public class PaletteHandler : HttpHandler
         catch (Exception e)
         {
             logger.ErrorFormat("Failed to add processor performance counter! Error message: {0}", e.Message);
-        }
-
-        foreach (var process in monitoredProcesses)
-        {
-            try
-            {
-                counters.Add(new PerformanceCounter("Process", "% Processor Time", process));
-            }
-            catch (Exception e)
-            {
-                logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Error message: {1}",
-                    process, e.Message);
-            }
         }
 
         try
@@ -79,9 +65,18 @@ public class PaletteHandler : HttpHandler
         //counters["Paging File"] = new PerformanceCounter("Paging FIle", "% Usage", "_Total");
         foreach (PerformanceCounter counter in counters)
         {
-            /* The first value is always 0, so throw it away. */
-            counter.NextValue();
+            try
+            {
+                /* The first value is always 0, so throw it away. */
+                counter.NextValue();
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to get initial value for '{0}'! Error message: {1}",
+                    counter.InstanceName, e.Message);
+            }
         }
+        Monitor.Exit(lockPerfCounters);
 
         // turn off certificate validation for the SSL /proxy requests.
         ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
@@ -157,17 +152,28 @@ public class PaletteHandler : HttpHandler
     private HttpResponse HandlePing(HttpRequest req)
     {
         logger.Debug("/ping");
-        
+
         List<object> list = new List<object>();
+        Monitor.Enter(lockPerfCounters);
+        ManageMonitoredProcesses(req);
+
         foreach (PerformanceCounter counter in counters)
         {
             Dictionary<string, object> data = new Dictionary<string, object>();
             data["category-name"] = counter.CategoryName;
             data["counter-name"] = counter.CounterName;
             data["instance-name"] = counter.InstanceName;
-            data["value"] = counter.NextValue();
-            list.Add(data);
+            try
+            {
+                data["value"] = counter.NextValue();
+                list.Add(data);
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
+            }
         }
+        Monitor.Exit(lockPerfCounters);
 
         Dictionary<string, object> allData = new Dictionary<string, object>();
         allData["counters"] = list;
@@ -178,6 +184,65 @@ public class PaletteHandler : HttpHandler
 
         res.Write(json);
         return res;
+    }
+
+    /// <summary>
+    /// Manage the list of monitored processes based on the JSON body of the request,
+    /// if it contains any instructions. If there is no instruction on that, the
+    /// list of the monitored processes remains untouched.
+    /// </summary>
+    /// <param name="req"></param>
+    private void ManageMonitoredProcesses(HttpRequest req)
+    {
+        var jsonBody = req.JSON;
+
+        if (jsonBody == null)
+        {
+            // No process is mentioned for being monitored, do nothing.
+            return;
+        }
+
+        if (!jsonBody.ContainsKey(monitoredProcessesKey))
+        {
+            // There is no instuction on monitored processes in the request's body
+            return;
+        }
+
+        // Remove processes that are no longer being monitored
+        List<string> processList = (List<string>)jsonBody[monitoredProcessesKey];
+        counters.RemoveAll(x => x.CategoryName.Equals("Process") && !processList.Contains(x.InstanceName));
+
+        // Add new monitored processes. First strip those that are already being monitored...
+        processList.RemoveAll(x =>
+            {
+                foreach (var counter in counters)
+                {
+                    if (counter.CategoryName.Equals("Process") && counter.InstanceName.Equals(x))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        );
+        // ... then add the remaining ones as new counters.
+        foreach (var process in processList)
+        {
+            try
+            {
+                var counter = new PerformanceCounter("Process", "% Processor Time", process);
+                counters.Add(counter);
+
+                // Make sure that the new performance counter has a real value initially
+                counter.NextValue();
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Error message: {1}",
+                    process, e.Message);
+            }
+        }
     }
 
     /// <summary>
