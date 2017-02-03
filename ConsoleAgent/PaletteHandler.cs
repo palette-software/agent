@@ -27,6 +27,7 @@ public class PaletteHandler : HttpHandler
 
     private Agent agent;
     private List<PerformanceCounter> counters = new List<PerformanceCounter>();
+    private List<string> monitoredProcesses = new List<string>();
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -41,21 +42,39 @@ public class PaletteHandler : HttpHandler
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
 
+        // TODO: Fill the list of processes that should be monitored
+        monitoredProcesses.Add("vizqlserver");
+        monitoredProcesses.Add("dataserver");
+
         try
         {
             counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
         }
         catch (Exception e)
         {
-            logger.Warn(String.Format("Failed to add processor performance counter! Error message: {0}", e.Message));
+            logger.ErrorFormat("Failed to add processor performance counter! Error message: {0}", e.Message);
         }
+
+        foreach (var process in monitoredProcesses)
+        {
+            try
+            {
+                counters.Add(new PerformanceCounter("Process", "% Processor Time", process));
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Error message: {1}",
+                    process, e.Message);
+            }
+        }
+
         try
         {
             counters.Add(new PerformanceCounter("Memory", "Available MBytes"));
         }
         catch (Exception e)
         {
-            logger.Warn(String.Format("Failed to add memory performance counter! Error message: {0}", e.Message));
+            logger.ErrorFormat("Failed to add memory performance counter! Error message: {0}", e.Message);
         }
         //counters["Paging File"] = new PerformanceCounter("Paging FIle", "% Usage", "_Total");
         foreach (PerformanceCounter counter in counters)
