@@ -29,7 +29,7 @@ public class PaletteHandler : HttpHandler
     private Agent agent;
     private readonly object lockPerfCounters = new object();
     private List<PerformanceCounter> counters = new List<PerformanceCounter>();
-    private static readonly string monitoredProcessesKey = "monitored-processes";
+    internal static readonly string MONITORED_PROCESSES_KEY = "monitored-processes";
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -192,8 +192,13 @@ public class PaletteHandler : HttpHandler
     /// list of the monitored processes remains untouched.
     /// </summary>
     /// <param name="req"></param>
-    private void ManageMonitoredProcesses(HttpRequest req)
+    internal void ManageMonitoredProcesses(HttpRequest req)
     {
+        if (req == null)
+        {
+            return;
+        }
+
         var jsonBody = req.JSON;
 
         if (jsonBody == null)
@@ -202,46 +207,61 @@ public class PaletteHandler : HttpHandler
             return;
         }
 
-        if (!jsonBody.ContainsKey(monitoredProcessesKey))
+        if (!jsonBody.ContainsKey(MONITORED_PROCESSES_KEY))
         {
             // There is no instuction on monitored processes in the request's body
             return;
         }
 
-        // Remove processes that are no longer being monitored
-        List<string> processList = (List<string>)jsonBody[monitoredProcessesKey];
-        counters.RemoveAll(x => x.CategoryName.Equals("Process") && !processList.Contains(x.InstanceName));
-
-        // Add new monitored processes. First strip those that are already being monitored...
-        processList.RemoveAll(x =>
-            {
-                foreach (var counter in counters)
-                {
-                    if (counter.CategoryName.Equals("Process") && counter.InstanceName.Equals(x))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        );
-        // ... then add the remaining ones as new counters.
-        foreach (var process in processList)
+        try
         {
-            try
+            // Turn list of objects into list of strings
+            List<object> parsedList = (List<object>)jsonBody[MONITORED_PROCESSES_KEY];
+            List<string> processList = new List<string>();
+            foreach (var process in parsedList)
             {
-                var counter = new PerformanceCounter("Process", "% Processor Time", process);
-                counters.Add(counter);
+                processList.Add(process.ToString());
+            }
 
-                // Make sure that the new performance counter has a real value initially
-                counter.NextValue();
-            }
-            catch (Exception e)
+            // Remove processes that are no longer being monitored
+            counters.RemoveAll(x => x.CategoryName.Equals("Process") && !processList.Contains(x.InstanceName));
+
+            // Add new monitored processes. First strip those that are already being monitored...
+            processList.RemoveAll(x =>
+                {
+                    foreach (var counter in counters)
+                    {
+                        if (counter.CategoryName.Equals("Process") && counter.InstanceName.Equals(x))
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+            );
+            // ... then add the remaining ones as new counters.
+            foreach (var process in processList)
             {
-                logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Error message: {1}",
-                    process, e.Message);
+                try
+                {
+                    var counter = new PerformanceCounter("Process", "% Processor Time", process);
+                    counters.Add(counter);
+
+                    // Make sure that the new performance counter has a real value initially
+                    counter.NextValue();
+                }
+                catch (Exception e)
+                {
+                    logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Exception: {1}",
+                        process, e);
+                }
             }
+        }
+        catch (Exception e)
+        {
+            logger.ErrorFormat("Error during managing monitored processes! Exception: {o}",
+                        e);
         }
     }
 
