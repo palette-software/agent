@@ -95,6 +95,7 @@
     <Compile Include="ConsoleAgent.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="Apache2.cs" />
+    <Compile Include="ProcessMonitoring.cs" />
     <Compile Include="ServerClient.cs" />
     <Compile Include="Impersonator.cs" />
     <Compile Include="Info.cs" />
