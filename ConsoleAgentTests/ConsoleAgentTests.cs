@@ -32,7 +32,7 @@ namespace ConsoleAgentTests
             //_req.JSON.Add(PaletteHandler.MONITORED_PROCESSES_KEY, processList);
 
             ProcessMonitoring pm = new ProcessMonitoring();
-            pm.ManageMonitoredProcesses(_req);
+            pm.ManageCpuMonitors(_req);
         }
     }
 }

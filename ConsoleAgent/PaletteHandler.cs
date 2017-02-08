@@ -142,6 +142,17 @@ public class PaletteHandler : HttpHandler
         }
     }
 
+    public static Dictionary<string, object> MakeCounterResponse(string categoryName, string counterName, string instanceName, float value)
+    {
+        Dictionary<string, object> res = new Dictionary<string, object>();
+        res["category-name"] = categoryName;
+        res["counter-name"] = counterName;
+        res["instance-name"] = instanceName;
+        res["value"] = value;
+
+        return res;
+    }
+
     /// <summary>
     /// Handles a request to /ping
     /// Returns performance counter data in the response body.
@@ -155,22 +166,21 @@ public class PaletteHandler : HttpHandler
         List<object> list = new List<object>();
         foreach (PerformanceCounter counter in counters)
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data["category-name"] = counter.CategoryName;
-            data["counter-name"] = counter.CounterName;
-            data["instance-name"] = counter.InstanceName;
             try
             {
-                data["value"] = counter.NextValue();
+                float value = counter.NextValue();
+                var data = MakeCounterResponse(counter.CategoryName, counter.CounterName, counter.InstanceName, value);
                 list.Add(data);
             }
             catch (Exception e)
             {
                 logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
+                continue;
             }
         }
 
-        processMonitoring.ManageMonitoredProcesses(req);
+        processMonitoring.ManageCpuMonitors(req);
+        processMonitoring.ManageMemoryMonitors(req);
         processMonitoring.FillInMonitoredValues(ref list);
 
         Dictionary<string, object> allData = new Dictionary<string, object>();

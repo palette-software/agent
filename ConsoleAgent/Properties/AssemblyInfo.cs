@@ -33,3 +33,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.6.1.*")]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
+// Setting internals visible to the unit test project
+[assembly: InternalsVisibleTo("ConsoleAgentTests")]
