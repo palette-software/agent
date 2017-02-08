@@ -1,40 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 class ProcessMonitoring
 {
     private readonly object lockPerfCounters = new object();
-    private List<PerformanceCounter> processCounters = new List<PerformanceCounter>();
+    private Dictionary<string, List<PerformanceCounter>> monitoredCounters = new Dictionary<string, List<PerformanceCounter>>();
     internal static readonly string MONITORED_PROCESSES_KEY = "monitored-processes";
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+
     public void FillInMonitoredValues(ref List<object> list)
     {
         Monitor.Enter(lockPerfCounters);
-
-        foreach (PerformanceCounter counter in processCounters)
+        foreach (var sameNamedProcesses in monitoredCounters.Values)
         {
+            if (sameNamedProcesses.Count == 0)
+            {
+                continue;
+            }
+
+            PerformanceCounter firstCounter = sameNamedProcesses.ElementAt(0);
             Dictionary<string, object> data = new Dictionary<string, object>();
-            data["category-name"] = counter.CategoryName;
-            data["counter-name"] = counter.CounterName;
-            data["instance-name"] = counter.InstanceName;
-            try
+            data["category-name"] = firstCounter.CategoryName;
+            data["counter-name"] = firstCounter.CounterName;
+            data["instance-name"] = firstCounter.InstanceName;
+
+            // Aggregate the CPU consumption for processes with the same name
+            float cpuCounterSum = 0;
+            foreach (PerformanceCounter counter in sameNamedProcesses)
             {
-                // The "% Processor Time" performance counter for a given process returns a number based on
-                // one logical CPU core, so in order to get the % for the total CPU we need to divide it
-                // by the amount of logical CPU cores.
-                data["value"] = counter.NextValue() / Environment.ProcessorCount;
-                list.Add(data);
+                try
+                {
+                    // The "% Processor Time" performance counter for a given process returns a number based on
+                    // one logical CPU core, so in order to get the % for the total CPU we need to divide it
+                    // by the amount of logical CPU cores.
+                    cpuCounterSum += counter.NextValue() / Environment.ProcessorCount;
+                }
+                catch (Exception e)
+                {
+                    logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
+                }
             }
-            catch (Exception e)
-            {
-                logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
-            }
+
+            data["value"] = cpuCounterSum;
+            list.Add(data);
         }
         Monitor.Exit(lockPerfCounters);
     }
@@ -66,55 +81,110 @@ class ProcessMonitoring
             return;
         }
 
+        Monitor.Enter(lockPerfCounters);
         try
         {
             // Turn list of objects into list of strings
             List<object> parsedList = (List<object>)jsonBody[MONITORED_PROCESSES_KEY];
-            List<string> processList = new List<string>();
+            List<string> newProcessList = new List<string>();
             foreach (var process in parsedList)
             {
-                processList.Add(process.ToString());
+                newProcessList.Add(process.ToString());
             }
 
             // Remove processes that are no longer being monitored
-            processCounters.RemoveAll(x => x.CategoryName.Equals("Process") && !processList.Contains(x.InstanceName));
+            var countersToRemove = monitoredCounters.Keys.Where(x => !newProcessList.Contains(x));
+            foreach (var processName in countersToRemove)
+            {
+                if (!newProcessList.Contains(processName))
+                {
+                    monitoredCounters.Remove(processName);
+                }
+            }
+
+            // Make sure we monitor all the processes that have the same name as the ones, we are already monitoring
+            foreach (var processMonitor in monitoredCounters)
+            {
+                var sameNamedProcessCount = Process.GetProcessesByName(processMonitor.Key).Length;
+                var processListLength = processMonitor.Value.Count;
+
+                if (processListLength > sameNamedProcessCount)
+                {
+                    // Now there are less processes with same names than there were before.
+                    processMonitor.Value.RemoveRange(sameNamedProcessCount, processListLength - sameNamedProcessCount);
+                    continue;
+                }
+
+                // Getting here means that now there are less processes with same names than there were before.
+                for (int i = processListLength; i < sameNamedProcessCount; i++)
+                {
+                    var processName = MakeCounterName(processMonitor.Key, i);
+                    var counter = CreateProcessCpuCounter(processName);
+                    if (counter != null)
+                    {
+                        processMonitor.Value.Add(counter);
+                    }
+                }
+            }
 
             // Add new monitored processes. First strip those that are already being monitored...
-            processList.RemoveAll(x =>
-                {
-                    foreach (var counter in processCounters)
-                    {
-                        if (counter.CategoryName.Equals("Process") && counter.InstanceName.Equals(x))
-                        {
-                            return true;
-                        }
-                    }
+            newProcessList.RemoveAll(x => monitoredCounters.ContainsKey(x));
 
-                    return false;
-                }
-            );
             // ... then add the remaining ones as new counters.
-            foreach (var process in processList)
+            foreach (var process in newProcessList)
             {
-                try
+                var counterList = new List<PerformanceCounter>();
+                for (int i = 0; i < Process.GetProcessesByName(process).Length; i++)
                 {
-                    // TODO : add processes with same name too!
-                    var counter = new PerformanceCounter("Process", "% Processor Time", process);
-                    processCounters.Add(counter);
-
-                    // Make sure that the new performance counter has a real value initially
-                    counter.NextValue();
+                    var processName = MakeCounterName(process, i);
+                    var counter = CreateProcessCpuCounter(processName);
+                    if (counter != null)
+                    {
+                        counterList.Add(counter);
+                    }
                 }
-                catch (Exception e)
-                {
-                    logger.WarnFormat("Failed to add processor performance counter for process: '{0}'! Exception: {1}",
-                        process, e);
-                }
+                // Insert the counter list even if it is empty now, becasue in later cycles it might
+                // be expanded with processes starting later with this specific name.
+                monitoredCounters.Add(process, counterList);
             }
         }
         catch (Exception e)
         {
             logger.ErrorFormat("Error during managing monitored processes! Exception: {o}", e);
         }
+        Monitor.Exit(lockPerfCounters);
+    }
+
+    private static string MakeCounterName(string process, int counter)
+    {
+        var processName = process;
+        if (counter > 0)
+        {
+            // Create names like process#1, process#2, process#3...
+            processName += "#" + counter;
+        }
+
+        return processName;
+    }
+
+    private static PerformanceCounter CreateProcessCpuCounter(string processName)
+    {
+        PerformanceCounter counter = null;
+        try
+        {
+            counter = new PerformanceCounter("Process", "% Processor Time", processName);
+
+            // Make sure that the new performance counter has a real value initially
+            counter.NextValue();
+        }
+        catch (Exception e)
+        {
+            logger.WarnFormat("Failed to creamte CPU performance counter for process: '{0}'! Exception: {1}",
+                processName, e);
+            return null;
+
+        }
+
+        return counter;
     }
 }
