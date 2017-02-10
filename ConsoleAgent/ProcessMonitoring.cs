@@ -7,12 +7,13 @@ using System.Threading;
 class ProcessMonitoring
 {
     private readonly object lockPerfCounters = new object();
-    private Dictionary<string, List<PerformanceCounter>> cpuMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
-    private Dictionary<string, List<PerformanceCounter>> memoryMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
+    internal Dictionary<string, List<PerformanceCounter>> cpuMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
+    internal Dictionary<string, List<PerformanceCounter>> memoryMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
+
     internal static readonly string CPU_MONITORED_PROCESSES_KEY = "cpu-monitored-processes";
     internal static readonly string MEMORY_MONITORED_PROCESSES_KEY = "memory-monitored-processes";
-    internal static readonly string CPU_COUNTER_NAME = "% Processor Time";
-    internal static readonly string MEMORY_COUNTER_NAME = "Working Set - private";
+    public   static readonly string CPU_COUNTER_NAME = "% Processor Time";
+    public   static readonly string MEMORY_COUNTER_NAME = "Working Set - private";
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
