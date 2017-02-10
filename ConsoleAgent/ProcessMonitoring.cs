@@ -109,13 +109,10 @@ class ProcessMonitoring
             }
 
             // Remove processes that are no longer being monitored
-            var countersToRemove = monitoredProcesses.Keys.Where(x => !newProcessList.Contains(x));
+            var countersToRemove = monitoredProcesses.Keys.ToList().Where(x => !newProcessList.Contains(x));
             foreach (var processName in countersToRemove)
             {
-                if (!newProcessList.Contains(processName))
-                {
-                    monitoredProcesses.Remove(processName);
-                }
+                monitoredProcesses.Remove(processName);
             }
 
             // Make sure we monitor all the processes that have the same name as the ones, we are already monitoring
