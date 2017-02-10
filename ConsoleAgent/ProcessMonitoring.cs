@@ -169,7 +169,7 @@ class ProcessMonitoring
         }
         catch (Exception e)
         {
-            logger.ErrorFormat("Error during managing monitored processes! Exception: {o}", e);
+            logger.ErrorFormat("Error during managing monitored processes! Exception: {0}", e);
         }
         Monitor.Exit(lockPerfCounters);
     }
