@@ -40,7 +40,7 @@ class ProcessMonitoring
                 }
                 catch (Exception e)
                 {
-                    logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
+                    logger.WarnFormat("Failed to query value: '{0}' for performance counter: '{1}'! Exception: {2}", counter.CounterName, counter.InstanceName, e);
                 }
             }
 
@@ -92,7 +92,7 @@ class ProcessMonitoring
             return;
         }
 
-        if (!jsonBody.ContainsKey(CPU_MONITORED_PROCESSES_KEY))
+        if (!jsonBody.ContainsKey(key))
         {
             // There is no instruction on monitored processes in the request's body
             return;
@@ -102,7 +102,7 @@ class ProcessMonitoring
         try
         {
             // Turn list of objects into list of strings
-            List<object> parsedList = (List<object>)jsonBody[CPU_MONITORED_PROCESSES_KEY];
+            List<object> parsedList = (List<object>)jsonBody[key];
             List<string> newProcessList = new List<string>();
             foreach (var process in parsedList)
             {
