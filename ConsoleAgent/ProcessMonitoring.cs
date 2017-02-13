@@ -7,6 +7,7 @@ using System.Threading;
 class ProcessMonitoring
 {
     private readonly object lockPerfCounters = new object();
+    private static readonly int lockPerfCounterTimeout = 1000;
     internal Dictionary<string, List<PerformanceCounter>> cpuMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
     internal Dictionary<string, List<PerformanceCounter>> memoryMonitoredProcesses = new Dictionary<string, List<PerformanceCounter>>();
 
@@ -22,7 +23,12 @@ class ProcessMonitoring
 
     public void FillInMonitoredValues(ref List<object> list)
     {
-        Monitor.Enter(lockPerfCounters);
+        if (!Monitor.TryEnter(lockPerfCounters, lockPerfCounterTimeout))
+        {
+            logger.Warn("Process sampling is falling behind, skipping this round to catch up.");
+            return;
+        }
+
         foreach (var sameNamedProcesses in cpuMonitoredProcesses.Values.Union(memoryMonitoredProcesses.Values))
         {
             if (sameNamedProcesses.Count == 0)
