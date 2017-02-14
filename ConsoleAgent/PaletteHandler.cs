@@ -17,6 +17,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Net.Security;
 using System.Reflection;
+using System.Threading;
 
 /// <summary>
 /// Handles HTTP requests that come into agent.  Inherits from HttpHandler 
@@ -27,6 +28,7 @@ public class PaletteHandler : HttpHandler
 
     private Agent agent;
     private List<PerformanceCounter> counters = new List<PerformanceCounter>();
+    private ProcessMonitoring processMonitoring;
 
     //This has to be put in each class for logging purposes
     private static readonly log4net.ILog logger = log4net.LogManager.GetLogger
@@ -41,27 +43,38 @@ public class PaletteHandler : HttpHandler
         // agent autorization parameters come from the agent instance.
         this.agent = agent;
 
+        this.processMonitoring = new ProcessMonitoring();
+
         try
         {
             counters.Add(new PerformanceCounter("Processor", "% Processor Time", "_Total"));
         }
         catch (Exception e)
         {
-            logger.Warn(String.Format("Failed to add processor performance counter! Error message: {0}", e.Message));
+            logger.ErrorFormat("Failed to add processor performance counter! Error message: {0}", e.Message);
         }
+
         try
         {
             counters.Add(new PerformanceCounter("Memory", "Available MBytes"));
         }
         catch (Exception e)
         {
-            logger.Warn(String.Format("Failed to add memory performance counter! Error message: {0}", e.Message));
+            logger.ErrorFormat("Failed to add memory performance counter! Error message: {0}", e.Message);
         }
         //counters["Paging File"] = new PerformanceCounter("Paging FIle", "% Usage", "_Total");
         foreach (PerformanceCounter counter in counters)
         {
-            /* The first value is always 0, so throw it away. */
-            counter.NextValue();
+            try
+            {
+                /* The first value is always 0, so throw it away. */
+                counter.NextValue();
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to get initial value for '{0}'! Error message: {1}",
+                    counter.InstanceName, e.Message);
+            }
         }
 
         // turn off certificate validation for the SSL /proxy requests.
@@ -129,6 +142,17 @@ public class PaletteHandler : HttpHandler
         }
     }
 
+    public static Dictionary<string, object> MakeCounterResponse(string categoryName, string counterName, string instanceName, float value)
+    {
+        Dictionary<string, object> res = new Dictionary<string, object>();
+        res["category-name"] = categoryName;
+        res["counter-name"] = counterName;
+        res["instance-name"] = instanceName;
+        res["value"] = value;
+
+        return res;
+    }
+
     /// <summary>
     /// Handles a request to /ping
     /// Returns performance counter data in the response body.
@@ -138,17 +162,26 @@ public class PaletteHandler : HttpHandler
     private HttpResponse HandlePing(HttpRequest req)
     {
         logger.Debug("/ping");
-        
+
         List<object> list = new List<object>();
         foreach (PerformanceCounter counter in counters)
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data["category-name"] = counter.CategoryName;
-            data["counter-name"] = counter.CounterName;
-            data["instance-name"] = counter.InstanceName;
-            data["value"] = counter.NextValue();
-            list.Add(data);
+            try
+            {
+                float value = counter.NextValue();
+                var data = MakeCounterResponse(counter.CategoryName, counter.CounterName, counter.InstanceName, value);
+                list.Add(data);
+            }
+            catch (Exception e)
+            {
+                logger.WarnFormat("Failed to query value for performance counter: '{0}'! Exception: {1}", counter.InstanceName, e);
+                continue;
+            }
         }
+
+        processMonitoring.ManageCpuMonitors(req);
+        processMonitoring.ManageMemoryMonitors(req);
+        processMonitoring.FillInMonitoredValues(ref list);
 
         Dictionary<string, object> allData = new Dictionary<string, object>();
         allData["counters"] = list;

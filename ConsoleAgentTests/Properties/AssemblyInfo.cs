@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Palette Console Agent")]
-[assembly: AssemblyDescription("Palette Console Agent")]
+[assembly: AssemblyTitle("ConsoleAgentTests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Palette")]
-[assembly: AssemblyProduct("Palette Console Agent")]
-[assembly: AssemblyCopyright("Copyright © Palette 2014")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ConsoleAgentTests")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,19 +20,17 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("321caff6-a49b-49e1-874a-49fa1ea961d8")]
+[assembly: Guid("f976c5e3-6add-4782-b112-6b47b23ad1cc")]
 
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
-//      Minor Version
+//      Minor Version 
 //      Build Number
 //      Revision
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.6.1.*")]
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-
-// Setting internals visible to the unit test project
-[assembly: InternalsVisibleTo("ConsoleAgentTests")]
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
