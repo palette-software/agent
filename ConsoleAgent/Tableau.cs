@@ -24,6 +24,7 @@ public class Tableau
     public string DataPath;
     public string RegistryKeyPath;
     public string VersionString;
+    public string ReadonlyPassword;
     public Version Version;
 
     /// <summary>
@@ -40,7 +41,7 @@ public class Tableau
         return path;
     }
 
-    public void tabadminRun(string arguments)
+    public string tabadminRun(string arguments)
     {
         string tabadmin = tabadminPath();
 
@@ -55,13 +56,15 @@ public class Tableau
         process.Start();
 
         /* tabadmin seems to only use stdout */
-        string error = process.StandardOutput.ReadToEnd();
+        string stdout = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
 
         if (process.ExitCode != 0)
         {
-            throw new Exception("tabadmin failed: " + arguments + ", ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + error);
+            throw new Exception("tabadmin failed: " + arguments + ", ExitCode=" + Convert.ToString(process.ExitCode) + "\n" + stdout);
         }
+
+        return stdout;
     }
 
     private static string findLatestVersion(RegistryKey baseKey)
@@ -179,7 +182,6 @@ public class Tableau
         return key;
     }
 
-
     public static Tableau query()
     {
         Tableau tabinfo = new Tableau();
@@ -196,6 +198,10 @@ public class Tableau
                 tabinfo.DataPath = path;
             }
         }
+
+        // Encrypted readonly password can be in workgroup.yml. Getting password with tabadmin command.
+        tabinfo.ReadonlyPassword = tabinfo.tabadminRun("get pgsql.readonly_password").TrimEnd('\n');
+
         return tabinfo;
     }
 
