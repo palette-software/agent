@@ -1023,6 +1023,11 @@ public class PaletteHandler : HttpHandler
             if (req.JSON.ContainsKey("connection") && req.JSON.ContainsKey("select-statement"))
             {
                 connectionString = req.JSON["connection"].ToString();
+                // To fix encrypted password handling
+                string uid = "readonly";
+                string pwd = agent.tableau.ReadonlyPassword;
+                connectionString = string.Format("{0} Uid={1}; Pwd={2};", connectionString, uid, pwd);
+
                 selectStatement = req.JSON["select-statement"].ToString();
             }
             else
