@@ -31,3 +31,15 @@ Use the address or hostname via the agent computer can access the server compute
 ### Administrator Account
 
 It is *highly* recommended to create a new service user for the agent. If you decide to use an existing one make sure it is a `Local Administrator` on that machine.
+
+## Troubleshooting
+
+The default `<INSTALL_DIR>` for the Palette Center Agent is `C:\Program Files (x86)\Palette Software\Palette\`
+
+### Configuration
+
+The configuration file is located at: `<INSTALL_DIR>\conf\agent.ini`
+
+### Log file locations
+
+The log files are located at: `<INSTALL_DIR>\logs\agent.log*`
